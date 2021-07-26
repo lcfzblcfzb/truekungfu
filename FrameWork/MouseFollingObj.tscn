@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://texture/borbidencity_brick_tiled.png" type="Texture" id=1]
+[ext_resource path="res://FrameWork/MouseFollingObjSprite.gd" type="Script" id=2]
+[ext_resource path="res://FrameWork/MouseFollowingObj.gd" type="Script" id=3]
+[ext_resource path="res://shader/LCFTEST.shader" type="Shader" id=4]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 4 )
+
+[node name="MovingObj" type="KinematicBody2D"]
+position = Vector2( 24.1329, 33.6739 )
+script = ExtResource( 3 )
+
+[node name="MovingObjSprite" type="Sprite" parent="."]
+material = SubResource( 1 )
+scale = Vector2( 0.707927, 0.781497 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )

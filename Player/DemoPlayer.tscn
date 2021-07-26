@@ -1,0 +1,154 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://texture/cute_sword_nohand_left-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://texture/borbidencity_brick_tiled.png" type="Texture" id=3]
+[ext_resource path="res://texture/sword-Sheet.png" type="Texture" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var InputMng =preload(\"res://FrameWork/InputMng.gd\")
+
+#攻击指示标（鼠标按下和抬起的位置）
+var endPos = Vector2.ZERO
+var attackPos = Vector2.ZERO
+#攻击标识符
+onready var attackMark = $mark
+#武器模型
+onready var sword =$sword
+
+#状态机
+onready var state = State.Idle setget setState
+
+func setState(s):
+	state = s
+	
+enum State{
+	Idle,
+	Attack
+}
+
+#攻击方向。叉乘获得。顺时针为正值
+var attackDirection =0
+
+var beginTime = 0
+func _input(event):
+	if(event is InputEventKey):
+		if event.is_action_pressed(\"ui_up\"):
+			print(\"move up\")
+		elif event.is_action_pressed(\"ui_down\"):
+			print(\"move down\")
+		elif event.is_action_pressed(\"ui_left\"):
+			print(\"move left\")
+		elif event.is_action_pressed(\"ui_right\"):
+			print(\"move right\")
+			
+	if(event is InputEventMouse):
+		
+		if event.is_action_pressed(\"attack\"):
+			attackMark.visible = true
+			attackPos =event.global_position;
+			print(\"attack!\")
+		elif event.is_action_released(\"attack\"):
+			print(\"attack end!\")
+			beginTime=OS.get_system_time_msecs()
+			attackMark.visible = false
+			endPos = event.global_position
+			angleSpeed = MaxAngleSpeed;
+			predict(angleSpeed,AngleAcc)
+			
+			var startVector = attackPos - global_position
+			var moveVector = endPos - global_position
+
+			attackDirection =sign(startVector.cross(moveVector))
+			if attackDirection==0:
+				attackDirection =1;
+			
+			var radion =endPos.angle_to_point(self.global_position)
+			sword.rotation = radion-attackDirection *PI/3
+			state = State.Attack;
+			
+			
+	if(event is InputEventMouseMotion):
+		#relativePos = event.relative;
+		attackMark.global_position = event.global_position
+				
+	#	print(event.relative as String+\" ;\"+ event.tilt as String+\" ;\"+event.speed as String+\";\"+ event.is_action_released(\"attack\") as String)
+	
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+
+export var MaxAngleSpeed = (PI/2)
+export var AngleAcc = 0.01
+var angleSpeed = 0
+
+var t =0.0
+const swingExpT = 0.3
+func _physics_process(delta):
+	
+	if state == State.Idle :
+		pass
+	elif state == State.Attack:
+		#计算加速度
+		angleSpeed = angleSpeed -AngleAcc*delta;
+		
+		if angleSpeed>0:
+			
+			sword.rotation +=  attackDirection* angleSpeed*delta
+			
+			#t = t+1
+			#if attackDirection<=0:	
+			#	sword.position = swordPathLeft.curve.interpolate_baked(t * delta/ swingExpT * swordPathLeft.curve.get_baked_length(), true)
+			#else:
+			#	sword.position = swordPathRight.curve.interpolate_baked(t * delta/ swingExpT * swordPathRight.curve.get_baked_length(), true)
+
+		else:
+			print(OS.get_system_time_msecs()-beginTime);
+			state =State.Idle
+	
+	
+
+# 预测测试
+func predict(v,a):
+	var time = v/a
+	print(\"predict\");
+	print(time)
+"
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 2.32911
+height = 18.7181
+
+[node name="DemoPlayer" type="KinematicBody2D"]
+script = SubResource( 1 )
+MaxAngleSpeed = 10.44
+AngleAcc = 34.8
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 7
+
+[node name="mark" type="Sprite" parent="."]
+visible = false
+position = Vector2( -0.107071, 0.351997 )
+scale = Vector2( 0.197181, -0.202892 )
+texture = ExtResource( 3 )
+
+[node name="sword" type="KinematicBody2D" parent="."]
+position = Vector2( -5.97931, 4.52176 )
+rotation = -1.48325
+
+[node name="sword" type="Sprite" parent="sword"]
+position = Vector2( 4.08659, 0.286021 )
+rotation = 1.5708
+texture = ExtResource( 4 )
+offset = Vector2( -9.05927, -0.286517 )
+hframes = 6
+
+[node name="swordHitbox" type="Area2D" parent="sword"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sword/swordHitbox"]
+position = Vector2( 13.6406, 0.132435 )
+rotation = 1.57608
+shape = SubResource( 2 )
