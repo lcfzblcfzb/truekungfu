@@ -7,9 +7,11 @@ var controableMovingObj :ControlableMovingObj
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree =$AnimationTree
-onready var idleStateMachine =animationTree["parameters/Idle/playback"]
+onready var idleStateMachine:AnimationNodeStateMachinePlayback  =animationTree["parameters/Idle/playback"]
 onready var playerStateMachine = animationTree["parameters/playback"]
+onready var attackStateMachine:AnimationNodeStateMachinePlayback = animationTree["parameters/Attack/playback"]
 onready var mouseMng = PlayerMouseMng.new(self)
+
 
 onready var rightHand =$Sprite/rightHand
 
@@ -50,23 +52,62 @@ func _physics_process(delta):
 func _process(delta):
 	controableMovingObj.onProcess(delta)	
 	
+func printStateMachine():
+	
+	print(idleStateMachine.get_current_node())
+	print(playerStateMachine.get_current_node())
+	print(attackStateMachine.get_current_node())
+
 func _input(event):
 	
 	if(event is InputEventKey):
 		if event.is_action_pressed("prepared"):
 			
-			idleStateMachine.travel("idle_prepared")
+			#idleStateMachine.travel("idle_prepared")
+			
+			animationTree.set("parameters/Idle2/Transition/current",2)
+			animationTree.set("parameters/Idle2/tran_prepared/current",0)
 		
 	if event.is_action_pressed("attack"):
 			
-			idleStateMachine.travel("idle_engaged")
+			#idleStateMachine.travel("idle_engaged")
+			#animationTree.set("parameters/Idle2/engagedShot/active",true)
+			#animationTree.set("parameters/Idle2/seek_engaged/seek_position",0)
+			
+			animationTree.set("parameters/Idle2/Transition/current",1)
+			animationTree.set("parameters/Idle2/tran_engaged/current",0)
+			
 	if event.is_action_released("attack"):
 		
 			playerStateMachine.travel("Attack")
+			attackStateMachine.travel("attack_down")
+	
+	if event.is_action_pressed("ui_cancel"):
+		
+		animationTree.set("parameters/Idle2/Transition/current",2)
 
+		
 #由animationPlayer触发
+#  (bug)：会触发2次 不知道为什么。重启完正常了
 func attackOver():
+	
 	controableMovingObj.attackOver()
+	print("atk over")
+	playerStateMachine.travel("Idle2")
+	animationTree.set("parameters/Idle2/tran_engaged/current",1)
+	#animationTree.set("parameters/Idle2/Transition/current",1)
+	#idleStateMachine.travel("idle_prepared")
+	
+func _on_rightHand_block_end():
+	controableMovingObj.attackOver()
+	playerStateMachine.travel("Idle2")
+	animationTree.set("parameters/Idle2/Transition/current",1)
+	print("righthand blocked ending")
+	print(idleStateMachine.get_current_node() )
+	print("test func call block")
+	#idleStateMachine.travel("idle_engaged")
+func printMe():
+	print("printme")
 	
 enum PlayerState{
 	IDLE,
@@ -111,5 +152,31 @@ class PlayerMouseMng  :
 	
 	func _init(e).(e):
 		pass
+
+
+
+
+func _on_attackBox_area_entered(area):
+	print("player hit enermy")
+	print(area)
+
+
+func _on_hurtBox_area_entered(area):
+	print("player hurt by enermy")
+	
+
+
+func _on_Weapon_area_entered(area):
+	if area is Weapon:
+		print("seek position")
+		var sec = attackStateMachine.get_current_play_position()
+		
+		print(sec)
+		print("lenght")
+		print(attackStateMachine.get_current_length())
+
+		attackStateMachine.travel("attack_down_blocked")
+		var cn =attackStateMachine.get_current_node()
+		#animationTree.set("parameters/Attack/attack_down_blocked/Seek/seek_position",attackStateMachine.get_current_length()-sec)
 
 

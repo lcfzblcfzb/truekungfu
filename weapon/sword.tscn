@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://texture/sword-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://weapon/sword.gd" type="Script" id=2]
+[ext_resource path="res://FrameWork/Weapon.gd" type="Script" id=3]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=1]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -146,24 +147,37 @@ tracks/5/keys = {
 radius = 2.23643
 height = 17.9212
 
-[node name="sword" type="Sprite"]
+[sub_resource type="CircleShape2D" id=4]
+radius = 37.3993
+
+[node name="sword" type="Sprite" groups=[
+"weapon",
+]]
 texture = ExtResource( 1 )
-offset = Vector2( 14.0096, -0.410172 )
-flip_h = true
+offset = Vector2( -11.2505, -0.782555 )
 hframes = 6
-frame = 1
+frame = 5
 script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/swingLeft = SubResource( 4 )
+anims/swingLeft = SubResource( 1 )
 anims/swingRight = SubResource( 2 )
 
 [node name="swordBox" type="Area2D" parent="."]
 collision_mask = 12
+script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="swordBox"]
-position = Vector2( 7.99088, -10.4577 )
-rotation = 0.409048
+position = Vector2( -7.9542, 8.86729 )
+rotation = -2.17021
 shape = SubResource( 3 )
 
+[node name="attackRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackRange"]
+shape = SubResource( 4 )
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="swordBox" to="." method="_on_swordBox_area_entered"]

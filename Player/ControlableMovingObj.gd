@@ -26,7 +26,6 @@ func onProcess(delta=0):
 		else :
 			state = PlayState.Idle
 
-	.onProcess(delta)
 	
 #攻击结束回调。 可以由动画的终结信号调用
 func attackOver(s = PlayState.Idle):

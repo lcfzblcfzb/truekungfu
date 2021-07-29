@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "KinematicMovableObj",
 "language": "GDScript",
 "path": "res://FrameWork/KinematicMovableObj.gd"
+}, {
+"base": "Area2D",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://FrameWork/Weapon.gd"
 } ]
 _global_script_class_icons={
 "AggresiveCharactor": "",
 "ControlableMovingObj": "",
-"KinematicMovableObj": ""
+"KinematicMovableObj": "",
+"Weapon": ""
 }
 
 [application]

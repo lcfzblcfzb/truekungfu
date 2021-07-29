@@ -55,3 +55,7 @@ func monitable(v:bool):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	visible = false
 
+
+
+func _on_swordBox_area_entered(area):
+	print(area)
