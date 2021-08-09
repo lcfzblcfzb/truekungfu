@@ -6,7 +6,7 @@ export var swordDirection =0 setget setSwordDirection
 
 onready var animation = $AnimationPlayer
 onready var collisionShape = $swordBox/CollisionShape2D
-onready var swordBox = $swordBox
+onready var swordBox = $weaponBox
 
 
 func _ready():
@@ -54,8 +54,6 @@ func monitable(v:bool):
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	visible = false
-
-
 
 func _on_swordBox_area_entered(area):
 	print(area)

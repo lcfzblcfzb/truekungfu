@@ -7,7 +7,7 @@ onready var guard = $Guard
 
 func _ready():
 	player.position = spawn.position
-	guard.player = player
+	#guard.player = player
 	
 
 func _on_Area2D_body_entered(body):

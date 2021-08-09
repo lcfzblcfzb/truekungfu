@@ -1,92 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://texture/jinyiwei_attackleft_down_002-Sheet.png" type="Texture" id=1]
-[ext_resource path="res://Player/rightHand.gd" type="Script" id=2]
-[ext_resource path="res://FrameWork/Weapon.gd" type="Script" id=3]
-
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 1.50267
-height = 11.9196
+[ext_resource path="res://weapon/player/Jian.gd" type="Script" id=2]
+[ext_resource path="res://FrameWork/CollisionBox/WeaponBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sound/sword_hit001.wav" type="AudioStream" id=4]
+[ext_resource path="res://weapon/player/swordAnimation.tres" type="Animation" id=5]
 
 [sub_resource type="Animation" id=2]
-resource_name = "swingBlocked"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ ExtResource( 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 6 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:vframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 11, 10, 9, 8, 7, 6 ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath(".:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.5, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, true, false ]
-}
-tracks/5/type = "method"
-tracks/5/path = NodePath(".")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0.6 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "block_end"
-} ]
-}
-
-[sub_resource type="Animation" id=3]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:texture")
@@ -107,49 +27,49 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"times": PoolRealArray( 0, 0.137766, 0.270411, 0.356329, 0.428164, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Weapon/CollisionShape2D:position")
+tracks/2/path = NodePath(".:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -1.45618, 6.64273 ), Vector2( -11.3006, -0.0314674 ), Vector2( -13.9703, -9.20849 ), Vector2( -10.6332, -0.365178 ), Vector2( 2.7152, 7.81071 ), Vector2( 16.5642, 11.9821 ) ]
+"times": PoolRealArray( 0, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Weapon/CollisionShape2D:rotation_degrees")
+tracks/3/path = NodePath("../weaponBox/CollisionShape2D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"times": PoolRealArray( 0, 0.142247, 0.281292, 0.370411, 0.437766, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ -114.573, -88.4107, -40.06, -87.9056, -185.545, -232.913 ]
+"values": [ Vector2( 10.3186, -3.3411 ), Vector2( 19.9132, 3.28191 ), Vector2( 24.5623, 13.8638 ), Vector2( 19.7874, 3.76379 ), Vector2( 5.44718, -3.01742 ), Vector2( -10.5178, -5.74475 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Weapon/CollisionShape2D:disabled")
+tracks/4/path = NodePath("../weaponBox/CollisionShape2D:rotation_degrees")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.5, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, false, true ]
+"times": PoolRealArray( 0, 0.142247, 0.281292, 0.370411, 0.437766, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 421.183, 450.245, 497.652, 448.553, 347.372, 304.194 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath(".:visible")
+tracks/5/path = NodePath("../weaponBox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -157,36 +77,65 @@ tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0, 0.5, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ false, false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath(".:vframes")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true, true, false ]
+"values": [ 2 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../../left:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
 }
 
-[node name="rightHand" type="Sprite" groups=[
-"weapon",
-]]
-position = Vector2( -7.12115, -2.36956 )
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 1.76988
+height = 11.0176
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-offset = Vector2( 6.12115, 2.36956 )
 hframes = 6
 vframes = 2
-frame = 9
-script = ExtResource( 2 )
-__meta__ = {
-"_editor_description_": "e"
-}
+frame = 6
 
-[node name="Weapon" type="Area2D" parent="."]
-position = Vector2( -0.166855, 0.166855 )
-collision_mask = 12
-script = ExtResource( 3 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/swingBlocked = ExtResource( 5 )
+anims/swingRight = SubResource( 2 )
+anims/swordAnimation = ExtResource( 5 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
-position = Vector2( -10.6332, -0.365178 )
-rotation = -1.53424
-shape = SubResource( 1 )
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Sprite"]
+stream = ExtResource( 4 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/swingBlocked = SubResource( 2 )
-anims/swingRight = SubResource( 3 )
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Sprite"]
+remote_path = NodePath("../../weaponBox/CollisionShape2D")
 
-[connection signal="area_entered" from="Weapon" to="." method="_on_Weapon_area_entered"]
+[node name="weaponBox" parent="." instance=ExtResource( 3 )]
+priority = 1.0
+
+[node name="CollisionShape2D" parent="weaponBox" index="0"]
+shape = SubResource( 3 )
+disabled = true
+
+[connection signal="area_entered" from="weaponBox" to="." method="_on_weaponBox_area_entered"]
+
+[editable path="weaponBox"]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://FrameWork/AI/AIDetector.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 70.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 200.0
+
+[node name="AiDetector" type="Node2D"]
+script = ExtResource( 1 )
+attackRangeRadius = 33.0
+secureRangeRadius = 33.0
+searchRangeRadius = 33.0
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource( 1 )
+
+[node name="SecureRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecureRange"]
+shape = SubResource( 2 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]

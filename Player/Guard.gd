@@ -3,7 +3,7 @@ extends KinematicBody2D
 var KinematicObj = preload("res://FrameWork/KinematicMovableObj.gd")
 var kinematicObj :KinematicMovableObj
 
-onready var sword = $sword
+onready var sword = $sword/sword
 
 export var MAX_SPEED = 16
 export var ATTACK_CD = 500
@@ -39,11 +39,11 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	lastActionTime = OS.get_ticks_msec()
 
 
-func _on_swordBox_area_entered(area):
-	print("enermy hit")
-
 func _on_hurtbox_area_entered(area):
-	print("enermy hurted by player")
+	
+	if area is Weapon:
+		var s = area.get_parent() as Weapon
+		print("enermy hurted by player")
 
 
 func _on_attackRange_body_entered(body):
@@ -52,3 +52,8 @@ func _on_attackRange_body_entered(body):
 
 func _on_attackRange_body_exited(body):
 	kinematicObj.isMoving = true
+
+
+func _on_weaponBox_area_entered(area):
+	if area is WeaponBox:
+		print("enermy weapon hit")

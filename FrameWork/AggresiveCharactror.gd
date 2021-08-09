@@ -2,6 +2,8 @@ class_name AggresiveCharactor
 
 extends KinematicMovableObj
 
+signal State_Changed
+
 enum PlayState{
 	Idle,
 	Moving,
@@ -9,7 +11,21 @@ enum PlayState{
 }
 
 #状态
-var state = PlayState.Idle
+var state = PlayState.Idle setget setState
+
+func setState(s):
+	if(s !=state):
+		emit_signal("State_Changed",s)
+		state =s
+	match state:
+		PlayState.Idle:
+			acceleration =  FRICTION
+			velocityToward = 0
+		PlayState.Moving:
+			acceleration  = ACC
+			velocityToward = MAX_SPEED
+	
+
 var isMovableWhenAttack = false
 
 #输入参数

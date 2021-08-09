@@ -25,23 +25,25 @@ func _input(event):
 	if(event is InputEventMouse):
 		
 		if event.is_action_pressed("attack"):
-			attackPos =event.position;
+			attackPos =event.global_position;
 			onAttackPosChange()
 		elif event.is_action_released("attack"):
-			endPos = event.position
+			endPos = event.global_position
+						
+			var screenPos =Tool.getCameraPosition(self)
 			
-			var startVector = attackPos - jisu.position
-			var moveVector = endPos - jisu.position
+			var startVector = attackPos - screenPos
+			var moveVector = endPos - screenPos
 
 			attackDirection =sign(startVector.cross(moveVector))
 			if attackDirection==0:
 				attackDirection =1;
 			#计算 endPos 与 父节点 所成的向量 的 角度值
-			endPosRotation =endPos.angle_to_point(jisu.position)
+			endPosRotation =Tool.normalizeAngle(endPos.angle_to_point(screenPos))
 			onEndPosChange()
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
-		mouseMovingPos = event.position
+		mouseMovingPos = event.global_position
 		onMouseMovingPosChange()
 		
 func onAttackPosChange():

@@ -12,6 +12,10 @@ export var FRICTION = 500
 export var MAX_SPEED = 100
 #攻击时刻的最大移动速度
 export var MAX_SPEED_ATTACK = 50
+
+#速度变化上限 的上限
+var velocityTowardLimit = 0
+
 #当前加速度值（加速度-阻力）
 var acceleration = ACC
 #速度变化上限
@@ -44,11 +48,6 @@ func onPhysicsProcess(delta):
 #移动态
 #	以velocity 速度移动
 func player_move(delta):
-	
-	if(faceDirection!=Vector2.ZERO):
-		acceleration =  ACC
-		velocityToward = MAX_SPEED
-		
 	_movePlayer(delta)
 #Idle 状态
 #	以friction 速度停下	
@@ -57,7 +56,11 @@ func player_idle(delta):
 
 #移动函数
 func _movePlayer(delta):
+	print(velocity)
+	if(velocityToward>velocityTowardLimit):
+		velocityToward = velocityTowardLimit
 	velocity =velocity.move_toward(faceDirection* velocityToward,acceleration*delta);
+	print("velocity toward"+ velocity as String+" LIMIT:" +velocityToward as String)
 	body.move_and_collide(velocity*delta)
 #停下函数
 func _stopPlayer(delta):

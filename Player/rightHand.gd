@@ -6,10 +6,10 @@ onready var animationPlayer = $AnimationPlayer
 onready var shape2d =$Weapon/CollisionShape2D
 var  weaponOffset :float = -40.0/180.0*PI
 
+var blocked = false
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,12 +20,13 @@ func attack(dir:float=0):
 	rotation = dir+weaponOffset	
 	
 func block_end():
-	
+	blocked = false
 	emit_signal("block_end")
 
 func _on_Weapon_area_entered(area):
-		if area is Weapon:
+		if area is WeaponBox:
 			print("weapon hit weapon")
+			blocked = true
 			#shape2d.set_deferred("disabled",true)
 			#var  sec = animationPlayer.current_animation_position
 			#animationPlayer.play("swingBlocked")
