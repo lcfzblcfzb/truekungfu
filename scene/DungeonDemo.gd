@@ -6,7 +6,7 @@ onready var guard = $Guard
 
 
 func _ready():
-	player.position = spawn.position
+	player.set_deferred("position",spawn.position)
 	#guard.player = player
 	
 

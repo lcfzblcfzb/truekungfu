@@ -6,8 +6,9 @@ var controableMovingObj :ControlableMovingObj
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree =$AnimationTree
-onready var playerStateMachine = animationTree["parameters/playback"]
-onready var attackStateMachine:AnimationNodeStateMachinePlayback = animationTree["parameters/Attack/playback"]
+onready var playerStateMachine = animationTree["parameters/StateMachine/playback"]
+onready var attackStateMachine:AnimationNodeStateMachinePlayback = animationTree["parameters/StateMachine/Attack/playback"]
+
 onready var mouseMng = PlayerMouseMng.new(self)
 onready var audioPlayer = $AudioStreamPlayer
 onready var sprite = $Sprite
@@ -62,29 +63,29 @@ func _startEngagedAutoShiftTimer():
 
 func setEngaged(s):
 	if s:
-		var currentIdleState =animationTree.get("parameters/Idle/Transition/current")
-		animationTree.set("parameters/Idle/Transition/current",1)
+		var currentIdleState =animationTree.get("parameters/StateMachine/Idle/Transition/current")
+		animationTree.set("parameters/StateMachine/Idle/Transition/current",1)
 		#如果是idle_free， 则设置一个拔剑动作
 		if(currentIdleState==0):
-			animationTree.set("parameters/Idle/tran_engaged/current",0)
-		animationTree.set("parameters/Move/Transition/current",1)
+			animationTree.set("parameters/StateMachine/Idle/tran_engaged/current",0)
+		animationTree.set("parameters/StateMachine/Move/Transition/current",1)
 	else:
 			
-		animationTree.set("parameters/Idle/Transition/current",0)
-		animationTree.set("parameters/Move/Transition/current",0)
+		animationTree.set("parameters/StateMachine/Idle/Transition/current",0)
+		animationTree.set("parameters/StateMachine/Move/Transition/current",0)
 	
 	engaged = s
 
 func setPrepared(s):
 	if s!=prepared:
-		animationTree.set("parameters/Idle/tran_prepared/current",0)
+		animationTree.set("parameters/StateMachine/Idle/tran_prepared/current",0)
 		#设置prepared的blendspace。1代表拔刀，0代表收刀
 		if s:
-			animationTree.set("parameters/Idle/prepared_bs/blend_position",1)
-			animationTree.set("parameters/Idle/Transition/current",2)
+			animationTree.set("parameters/StateMachine/Idle/prepared_bs/blend_position",1)
+			animationTree.set("parameters/StateMachine/Idle/Transition/current",2)
 		else:
-			animationTree.set("parameters/Idle/prepared_bs/blend_position",-1)
-			animationTree.set("parameters/Idle/Transition/current",0)
+			animationTree.set("parameters/StateMachine/Idle/prepared_bs/blend_position",-1)
+			animationTree.set("parameters/StateMachine/Idle/Transition/current",0)
 	prepared =s
 	
 func _movingObjStateChanged(s):
@@ -138,23 +139,21 @@ func _process(delta):
 		# var screenPos =Tool.getCameraPosition(self) 填self 不会确定位置
 		var screenPos =Tool.getCameraPosition(sprite)
 		var input_vector = (mouseMng.mouseMovingPos- screenPos).normalized()
-		print(mouseMng.mouseMovingPos)
 		
-		print("scrennpos"+screenPos as String)
-		animationTree.set("parameters/Idle/idle_engaged_bs/blend_position",input_vector)
-		animationTree.set("parameters/Idle/idle_free_bs/blend_position",input_vector)
-		animationTree.set("parameters/Move/move_engaged_bs/blend_position",input_vector)
-		animationTree.set("parameters/Move/move_free_bs/blend_position",input_vector)
-		animationTree.set("parameters/Attack/attack_bs/blend_position",input_vector)
-		animationTree.set("parameters/Attack/block_bs/blend_position",input_vector)
+		animationTree.set("parameters/StateMachine/Idle/idle_engaged_bs/blend_position",input_vector)
+		animationTree.set("parameters/StateMachine/Idle/idle_free_bs/blend_position",input_vector)
+		animationTree.set("parameters/StateMachine/Move/move_engaged_bs/blend_position",input_vector)
+		animationTree.set("parameters/StateMachine/Move/move_free_bs/blend_position",input_vector)
+		animationTree.set("parameters/StateMachine/Attack/attack_bs/blend_position",input_vector)
+		animationTree.set("parameters/StateMachine/Attack/block_bs/blend_position",input_vector)
 		
 	else:
-		animationTree.set("parameters/Idle/idle_engaged_bs/blend_position",controableMovingObj.faceDirection)
-		animationTree.set("parameters/Idle/idle_free_bs/blend_position",controableMovingObj.faceDirection)
-		animationTree.set("parameters/Move/move_engaged_bs/blend_position",controableMovingObj.faceDirection)
-		animationTree.set("parameters/Move/move_free_bs/blend_position",controableMovingObj.faceDirection)
-		animationTree.set("parameters/Attack/attack_bs/blend_position",controableMovingObj.faceDirection)
-		animationTree.set("parameters/Attack/block_bs/blend_position",controableMovingObj.faceDirection)
+		animationTree.set("parameters/StateMachine/Idle/idle_engaged_bs/blend_position",controableMovingObj.faceDirection)
+		animationTree.set("parameters/StateMachine/Idle/idle_free_bs/blend_position",controableMovingObj.faceDirection)
+		animationTree.set("parameters/StateMachine/Move/move_engaged_bs/blend_position",controableMovingObj.faceDirection)
+		animationTree.set("parameters/StateMachine/Move/move_free_bs/blend_position",controableMovingObj.faceDirection)
+		animationTree.set("parameters/StateMachine/Attack/attack_bs/blend_position",controableMovingObj.faceDirection)
+		animationTree.set("parameters/StateMachine/Attack/block_bs/blend_position",controableMovingObj.faceDirection)
 		
 
 	
@@ -173,21 +172,24 @@ func _input(event):
 		
 	if event.is_action_pressed("attack"):
 			
-			#idleStateMachine.travel("idle_engaged")
-			#animationTree.set("parameters/Idle2/engagedShot/active",true)
-			#animationTree.set("parameters/Idle2/seek_engaged/seek_position",0)
-			rightHand.visible = true
-			self.engaged = true
+		#idleStateMachine.travel("idle_engaged")
+		#animationTree.set("parameters/StateMachine/Idle2/engagedShot/active",true)
+		#animationTree.set("parameters/StateMachine/Idle2/seek_engaged/seek_position",0)
+		rightHand.visible = true
+		self.engaged = true
+		#Engine.time_scale = 0.1
 			
 	if event.is_action_released("attack"):
-			attackStateMachine.travel("attack_bs")
-			
-			if !isDangerous():
-				_startEngagedAutoShiftTimer()
+		attackStateMachine.travel("attack_bs")
+		
+		if !isDangerous():
+			_startEngagedAutoShiftTimer()
+	
+		#Engine.time_scale = 1
 	
 	if event.is_action_pressed("ui_cancel"):
 		
-		animationTree.set("parameters/Idle/Transition/current",2)
+		animationTree.set("parameters/StateMachine/Idle/Transition/current",2)
 
 		
 #由animationPlayer触发
@@ -195,15 +197,15 @@ func _input(event):
 func attackOver():
 	
 	controableMovingObj.attackOver()
-	animationTree.set("parameters/Idle/tran_engaged/current",1)
-	#animationTree.set("parameters/Idle2/Transition/current",1)
+	animationTree.set("parameters/StateMachine/Idle/tran_engaged/current",1)
+	#animationTree.set("parameters/StateMachine/Idle2/Transition/current",1)
 	#idleStateMachine.travel("idle_prepared")
 	
 func _on_rightHand_block_end():
 	controableMovingObj.attackOver()
 
-	animationTree.set("parameters/Idle/tran_engaged/current",1)
-	#animationTree.set("parameters/Idle/Transition/current",1)
+	animationTree.set("parameters/StateMachine/Idle/tran_engaged/current",1)
+	#animationTree.set("parameters/StateMachine/Idle/Transition/current",1)
 	#idleStateMachine.travel("idle_engaged")
 
 
@@ -261,7 +263,7 @@ func _on_weaponBox_area_entered(area):
 		var sec = attackStateMachine.get_current_play_position()
 		attackStateMachine.travel("blocked_bs")
 		var cn =attackStateMachine.get_current_node()
-		#animationTree.set("parameters/Attack/attack_down_blocked/Seek/seek_position",attackStateMachine.get_current_length()-sec)
+		#animationTree.set("parameters/StateMachine/Attack/attack_down_blocked/Seek/seek_position",attackStateMachine.get_current_length()-sec)
 
 
 func _on_Timer_timeout():

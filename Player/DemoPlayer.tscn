@@ -104,7 +104,6 @@ func _physics_process(delta):
 			#	sword.position = swordPathRight.curve.interpolate_baked(t * delta/ swingExpT * swordPathRight.curve.get_baked_length(), true)
 
 		else:
-			print(OS.get_system_time_msecs()-beginTime);
 			state =State.Idle
 	
 	

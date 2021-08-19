@@ -14,7 +14,7 @@ export var MAX_SPEED = 100
 export var MAX_SPEED_ATTACK = 50
 
 #速度变化上限 的上限
-var velocityTowardLimit = 0
+var velocityTowardLimit = MAX_SPEED
 
 #当前加速度值（加速度-阻力）
 var acceleration = ACC
@@ -23,7 +23,7 @@ var velocityToward =0
 #移动体对象
 var body:KinematicBody2D
 #朝向向量
-var faceDirection:Vector2
+var faceDirection:Vector2 =Vector2.DOWN
 #当前移动速度
 var velocity:Vector2 = Vector2.ZERO
 
@@ -56,11 +56,9 @@ func player_idle(delta):
 
 #移动函数
 func _movePlayer(delta):
-	print(velocity)
 	if(velocityToward>velocityTowardLimit):
 		velocityToward = velocityTowardLimit
 	velocity =velocity.move_toward(faceDirection* velocityToward,acceleration*delta);
-	print("velocity toward"+ velocity as String+" LIMIT:" +velocityToward as String)
 	body.move_and_collide(velocity*delta)
 #停下函数
 func _stopPlayer(delta):

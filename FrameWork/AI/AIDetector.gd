@@ -1,11 +1,13 @@
-tool
 extends Node2D
 
 class_name AIDetector
 
+#所有可攻击对象
+var targetsArray=[];
 
 onready var attackRangeShape = $AttackRange/CollisionShape2D
 onready var secureRangeShape = $SecureRange/CollisionShape2D
+onready var detectEnemyRay:RayCast2D = $RayCast2D
 
 export var attackRangeRadius:float setget setAttackRangeRadius
 
@@ -31,8 +33,14 @@ func _init(attackRange=70,secureRange=200,searchRanges=250):
 
 func _ready():
 	
-	self.attackRangeRadius = 987 
+	pass
 	
 func _process(delta):
-	print(attackRangeShape.shape.radius)
-	print("")
+	pass
+func _physics_process(delta):
+	
+	
+	pass
+	
+func checkRange():
+	pass

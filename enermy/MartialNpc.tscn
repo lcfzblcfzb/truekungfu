@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://enermy/MartialNpc.gd" type="Script" id=1]
 [ext_resource path="res://texture/Martial Hero 2/Sprites/Idle.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://texture/Martial Hero 2/Sprites/Attack2.png" type="Texture" id=4]
 [ext_resource path="res://texture/Martial Hero 2/Sprites/Death.png" type="Texture" id=5]
 [ext_resource path="res://texture/Martial Hero 2/Sprites/Run.png" type="Texture" id=6]
+[ext_resource path="res://enermy/MartialAI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://weapon/MartialWeapon.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "attack001"
@@ -58,6 +60,42 @@ tracks/3/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("MartialWeapon/WeaponBox/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.3, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 44.5675, -13.0339 ), Vector2( 58.0218, -29.8518 ), Vector2( 21.4429, -30.6927 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("MartialWeapon/WeaponBox/CollisionShape2D:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.3, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 87.5317, 87.5317, -27.3972 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("MartialWeapon/WeaponBox/CollisionShape2D:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "attack002"
@@ -109,6 +147,42 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("MartialWeapon/WeaponBox/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.3, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 10.9317, -50.0333 ), Vector2( 71.0557, -33.2154 ), Vector2( 51.2947, -17.6588 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("MartialWeapon/WeaponBox/CollisionShape2D:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.3, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -27.3972, 12.3754, 119.216 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("MartialWeapon/WeaponBox/CollisionShape2D:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -288,13 +362,80 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="AnimationNodeStateMachine" id=6]
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "attack002"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=7]
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "attack001"
 
-[sub_resource type="CapsuleShape2D" id=8]
+[sub_resource type="AnimationNodeTransition" id=8]
+input_count = 2
+input_0/name = "state 0"
+input_0/auto_advance = false
+input_1/name = "state 1"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeBlendTree" id=9]
+graph_offset = Vector2( -449.048, 0 )
+nodes/Animation/node = SubResource( 7 )
+nodes/Animation/position = Vector2( -180, 100 )
+"nodes/Animation 2/node" = SubResource( 6 )
+"nodes/Animation 2/position" = Vector2( -180, 220 )
+nodes/Transition/node = SubResource( 8 )
+nodes/Transition/position = Vector2( 60, 100 )
+nodes/output/position = Vector2( 400, 160 )
+node_connections = [ "output", 0, "Transition", "Transition", 0, "Animation", "Transition", 1, "Animation 2" ]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=10]
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=11]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachine" id=18]
+states/Attack/node = SubResource( 9 )
+states/Attack/position = Vector2( 409, 167 )
+states/Idle/node = SubResource( 10 )
+states/Idle/position = Vector2( 661, 167 )
+states/Move/node = SubResource( 11 )
+states/Move/position = Vector2( 549, 61 )
+transitions = [ "Move", "Idle", SubResource( 12 ), "Idle", "Move", SubResource( 13 ), "Attack", "Move", SubResource( 14 ), "Move", "Attack", SubResource( 15 ), "Attack", "Idle", SubResource( 16 ), "Idle", "Attack", SubResource( 17 ) ]
+
+[sub_resource type="AnimationNodeTimeScale" id=19]
+
+[sub_resource type="AnimationNodeBlendTree" id=20]
+graph_offset = Vector2( -645.551, 0 )
+nodes/StateMachine/node = SubResource( 18 )
+nodes/StateMachine/position = Vector2( -297.551, 125 )
+nodes/TimeScale/node = SubResource( 19 )
+nodes/TimeScale/position = Vector2( 120, 140 )
+node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "StateMachine" ]
+
+[sub_resource type="AnimationNodeStateMachine" id=21]
+states/BlendTree/node = SubResource( 20 )
+states/BlendTree/position = Vector2( 274, 40 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=22]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=23]
+
+[sub_resource type="CapsuleShape2D" id=24]
 radius = 8.5
 height = 6.0
+
+[sub_resource type="CapsuleShape2D" id=25]
+radius = 11.5801
+height = 26.0667
 
 [node name="MartialNpc" type="KinematicBody2D" groups=[
 "Badguys",
@@ -305,10 +446,11 @@ script = ExtResource( 1 )
 camp = 1
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 6 )
+position = Vector2( 0, -26 )
+texture = ExtResource( 3 )
 offset = Vector2( -0.5, -0.5 )
-hframes = 8
-frame = 7
+hframes = 4
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack001 = SubResource( 1 )
@@ -318,11 +460,34 @@ anims/idle = SubResource( 4 )
 anims/move = SubResource( 5 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 6 )
+tree_root = SubResource( 21 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 7 )
+parameters/playback = SubResource( 22 )
+parameters/BlendTree/StateMachine/playback = SubResource( 23 )
+parameters/BlendTree/StateMachine/Attack/Transition/current = 0
+parameters/BlendTree/StateMachine/Idle/blend_position = 0
+parameters/BlendTree/StateMachine/Move/blend_position = 0
+parameters/BlendTree/TimeScale/scale = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1, 24 )
 rotation = 1.60022
-shape = SubResource( 8 )
+shape = SubResource( 24 )
+
+[node name="AI" parent="." instance=ExtResource( 7 )]
+charactorNodePath = NodePath("..")
+
+[node name="MartialWeapon" parent="." instance=ExtResource( 8 )]
+
+[node name="WeaponBox" parent="MartialWeapon" index="0"]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MartialWeapon/WeaponBox" index="0"]
+position = Vector2( 21.4429, -30.6927 )
+rotation = -0.478171
+shape = SubResource( 25 )
+disabled = true
+
+[editable path="AI"]
+[editable path="AI/AiDetector"]
+[editable path="MartialWeapon"]

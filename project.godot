@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "AI",
+"language": "GDScript",
+"path": "res://enermy/MartialAI.gd"
+}, {
+"base": "Node2D",
 "class": "AIDetector",
 "language": "GDScript",
 "path": "res://FrameWork/AI/AIDetector.gd"
@@ -50,6 +55,7 @@ _global_script_classes=[ {
 "path": "res://FrameWork/CollisionBox/WeaponBox.gd"
 } ]
 _global_script_class_icons={
+"AI": "",
 "AIDetector": "",
 "AggresiveCharactor": "",
 "BaseCharactor": "",

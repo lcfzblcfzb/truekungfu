@@ -189,6 +189,13 @@ __meta__ = {
 
 [node name="sword" parent="." instance=ExtResource( 4 )]
 
+[node name="sword" parent="sword" index="0"]
+frame = 5
+
+[node name="CollisionShape2D" parent="sword/sword/weaponBox" index="0"]
+position = Vector2( -11.0124, 9.17703 )
+rotation = -2.24681
+
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 6 )
 offset = Vector2( 2.94275, -7.83764 )

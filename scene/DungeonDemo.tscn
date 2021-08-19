@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://texture/torch_1.png" type="Texture" id=1]
 [ext_resource path="res://tiles/dungeon.tres" type="TileSet" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Sprite.gd" type="Script" id=8]
 [ext_resource path="res://shader/Wind.shader" type="Shader" id=9]
 [ext_resource path="res://scene/DungeonDemo.gd" type="Script" id=10]
+[ext_resource path="res://enermy/MartialNpc.tscn" type="PackedScene" id=11]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 9 )
@@ -113,9 +114,10 @@ shape = SubResource( 5 )
 [node name="spawnPoint" type="Position2D" parent="."]
 position = Vector2( 365.257, 160.822 )
 
+[node name="MartialNpc" parent="." instance=ExtResource( 11 )]
+position = Vector2( 104.652, 133.644 )
+
 [node name="MainPlayer" parent="." instance=ExtResource( 3 )]
-position = Vector2( 358.434, 136.703 )
-collision/safe_margin = 1.7
 
 [node name="Camera2D" type="Camera2D" parent="MainPlayer"]
 current = true

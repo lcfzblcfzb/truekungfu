@@ -12,6 +12,7 @@ func test():
 	print("print test global")
 
 var dPi = 2*PI
+var hPi = PI/2
 #返回一个介于0-》2PI 之间的角度
 func normalizeAngle(angle:float):
 	var absAngle =abs(angle)

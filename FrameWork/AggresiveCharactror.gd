@@ -29,7 +29,12 @@ func setState(s):
 var isMovableWhenAttack = false
 
 #输入参数
-var input_vector:Vector2 = Vector2.ZERO
+var input_vector:Vector2 = Vector2.ZERO setget setInputVector
+
+#默认情况下 input_vector 就是faceDirection
+func setInputVector(v):
+	input_vector = v
+	faceDirection = v
 
 func _init(body).(body):
 	pass
