@@ -7,7 +7,8 @@ onready var guard = $Guard
 
 func _ready():
 	player.set_deferred("position",spawn.position)
-	#guard.player = player
+	if guard:
+		guard.player = player
 	
 
 func _on_Area2D_body_entered(body):

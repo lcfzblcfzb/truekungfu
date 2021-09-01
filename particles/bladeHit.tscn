@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://particles/BladeHit.tres" type="Material" id=1]
+
+[node name="bladeHit" type="Particles2D"]
+position = Vector2( 333.552, 145.726 )
+rotation = 0.0881793
+amount = 6
+lifetime = 3.0
+speed_scale = 1.5
+explosiveness = 0.93
+process_material = ExtResource( 1 )

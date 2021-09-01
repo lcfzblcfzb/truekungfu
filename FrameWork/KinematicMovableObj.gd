@@ -2,6 +2,7 @@ class_name KinematicMovableObj
 	
 extends Node2D
 
+signal FaceDirectionChanged
 #状态
 var isMoving = false
 #加速度
@@ -23,7 +24,14 @@ var velocityToward =0
 #移动体对象
 var body:KinematicBody2D
 #朝向向量
-var faceDirection:Vector2 =Vector2.DOWN
+var faceDirection:Vector2 =Vector2.DOWN  setget _setFaceDirection
+
+#设置faceDirections
+func _setFaceDirection(v):
+	if faceDirection !=v:
+		emit_signal("FaceDirectionChanged",v)
+	faceDirection = v	
+
 #当前移动速度
 var velocity:Vector2 = Vector2.ZERO
 

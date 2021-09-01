@@ -200,6 +200,7 @@ rotation = -2.24681
 texture = ExtResource( 6 )
 offset = Vector2( 2.94275, -7.83764 )
 hframes = 7
+frame = 5
 
 [node name="mark" type="Sprite" parent="."]
 visible = false

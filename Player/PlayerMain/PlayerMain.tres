@@ -1,76 +1,54 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=59 format=2]
+[gd_resource type="AnimationNodeStateMachine" load_steps=53 format=2]
 
-[sub_resource type="AnimationNodeAnimation" id=1]
-animation = "attack_down"
+[ext_resource path="res://Player/PlayerMain/attack_bs.tres" type="AnimationNodeBlendSpace2D" id=1]
+[ext_resource path="res://Player/PlayerMain/block_bs.tres" type="AnimationNodeBlendSpace2D" id=2]
 
-[sub_resource type="AnimationNodeAnimation" id=2]
-animation = "attack_up"
+[sub_resource type="AnimationNodeOneShot" id=1]
 
-[sub_resource type="AnimationNodeAnimation" id=3]
-animation = "attack_right"
+[sub_resource type="AnimationNodeBlendTree" id=2]
+graph_offset = Vector2( -274.98, 131 )
+nodes/attack_bs/node = ExtResource( 1 )
+nodes/attack_bs/position = Vector2( -140, 80 )
+nodes/block_bs/node = ExtResource( 2 )
+nodes/block_bs/position = Vector2( -140, 240 )
+nodes/output/position = Vector2( 300, 120 )
+nodes/shot/node = SubResource( 1 )
+nodes/shot/position = Vector2( 100, 120 )
+node_connections = [ "output", 0, "shot", "shot", 0, "attack_bs", "shot", 1, "block_bs" ]
 
-[sub_resource type="AnimationNodeAnimation" id=4]
-animation = "attack_left"
+[sub_resource type="AnimationNodeStateMachineTransition" id=3]
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=5]
-blend_point_0/node = SubResource( 1 )
-blend_point_0/pos = Vector2( 0, 1 )
-blend_point_1/node = SubResource( 2 )
-blend_point_1/pos = Vector2( 0, -1 )
-blend_point_2/node = SubResource( 3 )
-blend_point_2/pos = Vector2( 1, 0 )
-blend_point_3/node = SubResource( 4 )
-blend_point_3/pos = Vector2( -1, 0 )
-blend_mode = 1
+[sub_resource type="AnimationNodeStateMachineTransition" id=4]
+
+[sub_resource type="AnimationNodeStateMachine" id=5]
+states/attack_bs/node = ExtResource( 1 )
+states/attack_bs/position = Vector2( -12.1042, 104.657 )
+states/blocked_bs/node = ExtResource( 2 )
+states/blocked_bs/position = Vector2( 191.7, 104.657 )
+states/bt/node = SubResource( 2 )
+states/bt/position = Vector2( -12.1042, 177.621 )
+transitions = [ "attack_bs", "blocked_bs", SubResource( 3 ), "blocked_bs", "attack_bs", SubResource( 4 ) ]
+start_node = "bt"
+graph_offset = Vector2( -389.104, 9.6208 )
 
 [sub_resource type="AnimationNodeAnimation" id=6]
-animation = "attack_down"
-
-[sub_resource type="AnimationNodeAnimation" id=7]
-animation = "attack_down_blocked"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=8]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=9]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=10]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=11]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=12]
-
-[sub_resource type="AnimationNodeStateMachine" id=13]
-states/attack_bs/node = SubResource( 5 )
-states/attack_bs/position = Vector2( -22.2997, 104.657 )
-states/attack_down/node = SubResource( 6 )
-states/attack_down/position = Vector2( 405, 180 )
-states/attack_down_blocked/node = SubResource( 7 )
-states/attack_down_blocked/position = Vector2( 655, 173 )
-states/blocked_bs/node = SubResource( 8 )
-states/blocked_bs/position = Vector2( 191.7, 104.657 )
-transitions = [ "attack_down", "attack_down_blocked", SubResource( 9 ), "attack_down_blocked", "attack_down", SubResource( 10 ), "attack_bs", "blocked_bs", SubResource( 11 ), "blocked_bs", "attack_bs", SubResource( 12 ) ]
-start_node = "attack_bs"
-graph_offset = Vector2( -242.3, 9.6208 )
-
-[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "idle_free"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=7]
 animation = "idle_prepared"
 
-[sub_resource type="AnimationNodeAnimation" id=16]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "prepared"
 
-[sub_resource type="AnimationNodeAnimation" id=17]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "engage"
 
-[sub_resource type="AnimationNodeAnimation" id=18]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "idle_engaged"
 
-[sub_resource type="AnimationNodeBlend2" id=19]
+[sub_resource type="AnimationNodeBlend2" id=11]
 
-[sub_resource type="AnimationNodeTransition" id=20]
+[sub_resource type="AnimationNodeTransition" id=12]
 input_count = 3
 input_0/name = "free"
 input_0/auto_advance = false
@@ -79,204 +57,207 @@ input_1/auto_advance = false
 input_2/name = "prepared"
 input_2/auto_advance = false
 
-[sub_resource type="AnimationNodeBlend2" id=21]
+[sub_resource type="AnimationNodeBlend2" id=13]
 
-[sub_resource type="AnimationNodeAnimation" id=22]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "idle_engaged_left"
 
-[sub_resource type="AnimationNodeAnimation" id=23]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "idle_engaged_right"
 
-[sub_resource type="AnimationNodeAnimation" id=24]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "idle_engaged"
 
-[sub_resource type="AnimationNodeAnimation" id=25]
+[sub_resource type="AnimationNodeAnimation" id=17]
 animation = "idle_engaged_up"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=26]
-blend_point_0/node = SubResource( 22 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=18]
+blend_point_0/node = SubResource( 14 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 23 )
+blend_point_1/node = SubResource( 15 )
 blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 24 )
+blend_point_2/node = SubResource( 16 )
 blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 25 )
+blend_point_3/node = SubResource( 17 )
 blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=27]
+[sub_resource type="AnimationNodeAnimation" id=19]
 animation = "idle_free_left"
 
-[sub_resource type="AnimationNodeAnimation" id=28]
+[sub_resource type="AnimationNodeAnimation" id=20]
 animation = "idle_free_right"
 
-[sub_resource type="AnimationNodeAnimation" id=29]
+[sub_resource type="AnimationNodeAnimation" id=21]
 animation = "idle_free_up"
 
-[sub_resource type="AnimationNodeAnimation" id=30]
+[sub_resource type="AnimationNodeAnimation" id=22]
 animation = "idle_free"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=31]
-blend_point_0/node = SubResource( 27 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=23]
+blend_point_0/node = SubResource( 19 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 28 )
+blend_point_1/node = SubResource( 20 )
 blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 29 )
+blend_point_2/node = SubResource( 21 )
 blend_point_2/pos = Vector2( 0, -1 )
-blend_point_3/node = SubResource( 30 )
+blend_point_3/node = SubResource( 22 )
 blend_point_3/pos = Vector2( 0, 1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeOneShot" id=32]
+[sub_resource type="AnimationNodeOneShot" id=24]
 
-[sub_resource type="AnimationNodeAnimation" id=33]
+[sub_resource type="AnimationNodeAnimation" id=25]
 animation = "prepared_reverse"
 
-[sub_resource type="AnimationNodeAnimation" id=34]
+[sub_resource type="AnimationNodeAnimation" id=26]
 animation = "prepared"
 
-[sub_resource type="AnimationNodeBlendSpace1D" id=35]
-blend_point_0/node = SubResource( 33 )
+[sub_resource type="AnimationNodeBlendSpace1D" id=27]
+blend_point_0/node = SubResource( 25 )
 blend_point_0/pos = -1.0
-blend_point_1/node = SubResource( 34 )
+blend_point_1/node = SubResource( 26 )
 blend_point_1/pos = 1.0
 
-[sub_resource type="AnimationNodeTimeScale" id=36]
+[sub_resource type="AnimationNodeTimeScale" id=28]
 
-[sub_resource type="AnimationNodeTimeSeek" id=37]
+[sub_resource type="AnimationNodeTimeSeek" id=29]
 
-[sub_resource type="AnimationNodeTransition" id=38]
+[sub_resource type="AnimationNodeTransition" id=30]
 input_count = 2
 input_0/name = "engaged"
 input_0/auto_advance = false
 input_1/name = "engaged_state"
 input_1/auto_advance = false
 
-[sub_resource type="AnimationNodeTransition" id=39]
+[sub_resource type="AnimationNodeTransition" id=31]
 input_count = 2
 input_0/name = "prepared"
 input_0/auto_advance = true
 input_1/name = "prepared_state"
 input_1/auto_advance = false
 
-[sub_resource type="AnimationNodeBlendTree" id=40]
-graph_offset = Vector2( -261.982, -131 )
-nodes/Animation/node = SubResource( 18 )
+[sub_resource type="AnimationNodeBlendTree" id=32]
+graph_offset = Vector2( -439.309, -31 )
+nodes/Animation/node = SubResource( 10 )
 nodes/Animation/position = Vector2( -420, 300 )
-"nodes/Animation 2/node" = SubResource( 14 )
+"nodes/Animation 2/node" = SubResource( 6 )
 "nodes/Animation 2/position" = Vector2( 680, -80 )
-"nodes/Animation 3/node" = SubResource( 15 )
+"nodes/Animation 3/node" = SubResource( 7 )
 "nodes/Animation 3/position" = Vector2( 40, 360 )
-"nodes/Animation 4/node" = SubResource( 16 )
+"nodes/Animation 4/node" = SubResource( 8 )
 "nodes/Animation 4/position" = Vector2( 40, 240 )
-"nodes/Animation 5/node" = SubResource( 17 )
+"nodes/Animation 5/node" = SubResource( 9 )
 "nodes/Animation 5/position" = Vector2( -80, -200 )
-nodes/Blend2/node = SubResource( 19 )
+nodes/Blend2/node = SubResource( 11 )
 nodes/Blend2/position = Vector2( -200, 300 )
-nodes/Transition/node = SubResource( 20 )
+nodes/Transition/node = SubResource( 12 )
 nodes/Transition/position = Vector2( 500, 80 )
-nodes/blend_engaged/node = SubResource( 21 )
+nodes/blend_engaged/node = SubResource( 13 )
 nodes/blend_engaged/position = Vector2( -400, 100 )
-nodes/idle_engaged_bs/node = SubResource( 26 )
+nodes/idle_engaged_bs/node = SubResource( 18 )
 nodes/idle_engaged_bs/position = Vector2( -100, 60 )
-nodes/idle_free_bs/node = SubResource( 31 )
+nodes/idle_free_bs/node = SubResource( 23 )
 nodes/idle_free_bs/position = Vector2( 160, -140 )
 nodes/output/position = Vector2( 820, 120 )
-nodes/preparedShot/node = SubResource( 32 )
+nodes/preparedShot/node = SubResource( 24 )
 nodes/preparedShot/position = Vector2( 620, 380 )
-nodes/prepared_bs/node = SubResource( 35 )
+nodes/prepared_bs/node = SubResource( 27 )
 nodes/prepared_bs/position = Vector2( 40, 220 )
-nodes/scale/node = SubResource( 36 )
+nodes/scale/node = SubResource( 28 )
 nodes/scale/position = Vector2( 660, 80 )
-nodes/seek_free/node = SubResource( 37 )
+nodes/seek_free/node = SubResource( 29 )
 nodes/seek_free/position = Vector2( 400, -100 )
-nodes/tran_engaged/node = SubResource( 38 )
+nodes/tran_engaged/node = SubResource( 30 )
 nodes/tran_engaged/position = Vector2( 160, 60 )
-nodes/tran_prepared/node = SubResource( 39 )
+nodes/tran_prepared/node = SubResource( 31 )
 nodes/tran_prepared/position = Vector2( 280, 280 )
 node_connections = [ "scale", 0, "Transition", "output", 0, "scale", "seek_free", 0, "idle_free_bs", "Transition", 0, "seek_free", "Transition", 1, "tran_engaged", "Transition", 2, "tran_prepared", "tran_engaged", 0, "Animation 5", "tran_engaged", 1, "idle_engaged_bs", "tran_prepared", 0, "prepared_bs", "tran_prepared", 1, "Animation 3" ]
 
-[sub_resource type="AnimationNodeTransition" id=41]
+[sub_resource type="AnimationNodeTransition" id=33]
 input_count = 2
 input_0/name = "move_free"
 input_0/auto_advance = false
 input_1/name = "move_engaged"
 input_1/auto_advance = false
 
-[sub_resource type="AnimationNodeAnimation" id=42]
+[sub_resource type="AnimationNodeAnimation" id=34]
 animation = "move_left_engaged"
 
-[sub_resource type="AnimationNodeAnimation" id=43]
+[sub_resource type="AnimationNodeAnimation" id=35]
 animation = "move_right_engaged"
 
-[sub_resource type="AnimationNodeAnimation" id=44]
+[sub_resource type="AnimationNodeAnimation" id=36]
 animation = "move_down_engaged"
 
-[sub_resource type="AnimationNodeAnimation" id=45]
+[sub_resource type="AnimationNodeAnimation" id=37]
 animation = "move_up_engaged"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=46]
-blend_point_0/node = SubResource( 42 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=38]
+blend_point_0/node = SubResource( 34 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 43 )
+blend_point_1/node = SubResource( 35 )
 blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 44 )
+blend_point_2/node = SubResource( 36 )
 blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 45 )
+blend_point_3/node = SubResource( 37 )
 blend_point_3/pos = Vector2( 0, -1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=47]
+[sub_resource type="AnimationNodeAnimation" id=39]
 animation = "move_left_free"
 
-[sub_resource type="AnimationNodeAnimation" id=48]
+[sub_resource type="AnimationNodeAnimation" id=40]
 animation = "move_right_free"
 
-[sub_resource type="AnimationNodeAnimation" id=49]
+[sub_resource type="AnimationNodeAnimation" id=41]
 animation = "move_down_free"
 
-[sub_resource type="AnimationNodeAnimation" id=50]
+[sub_resource type="AnimationNodeAnimation" id=42]
 animation = "move_up_free"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=51]
-blend_point_0/node = SubResource( 47 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=43]
+blend_point_0/node = SubResource( 39 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 48 )
+blend_point_1/node = SubResource( 40 )
 blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 49 )
+blend_point_2/node = SubResource( 41 )
 blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 50 )
+blend_point_3/node = SubResource( 42 )
 blend_point_3/pos = Vector2( 0, -1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeBlendTree" id=52]
+[sub_resource type="AnimationNodeBlendTree" id=44]
 graph_offset = Vector2( -716.822, 0 )
-nodes/Transition/node = SubResource( 41 )
+nodes/Transition/node = SubResource( 33 )
 nodes/Transition/position = Vector2( -20, 120 )
-nodes/move_engaged_bs/node = SubResource( 46 )
+nodes/move_engaged_bs/node = SubResource( 38 )
 nodes/move_engaged_bs/position = Vector2( -355, 265 )
-nodes/move_free_bs/node = SubResource( 51 )
+nodes/move_free_bs/node = SubResource( 43 )
 nodes/move_free_bs/position = Vector2( -360, 80 )
 node_connections = [ "output", 0, "Transition", "Transition", 0, "move_free_bs", "Transition", 1, "move_engaged_bs" ]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=53]
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=54]
+[sub_resource type="AnimationNodeStateMachineTransition" id=46]
+switch_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=55]
+[sub_resource type="AnimationNodeStateMachineTransition" id=47]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=56]
+[sub_resource type="AnimationNodeStateMachineTransition" id=48]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=57]
+[sub_resource type="AnimationNodeStateMachineTransition" id=49]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=58]
+[sub_resource type="AnimationNodeStateMachineTransition" id=50]
+switch_mode = 1
 
 [resource]
-states/Attack/node = SubResource( 13 )
+states/Attack/node = SubResource( 5 )
 states/Attack/position = Vector2( 368, 233 )
-states/Idle/node = SubResource( 40 )
-states/Idle/position = Vector2( 60, 233 )
-states/Move/node = SubResource( 52 )
+states/Idle/node = SubResource( 32 )
+states/Idle/position = Vector2( 62, 233 )
+states/Move/node = SubResource( 44 )
 states/Move/position = Vector2( 266.8, 95.6167 )
-transitions = [ "Idle", "Attack", SubResource( 53 ), "Attack", "Idle", SubResource( 54 ), "Idle", "Move", SubResource( 55 ), "Move", "Idle", SubResource( 56 ), "Move", "Attack", SubResource( 57 ), "Attack", "Move", SubResource( 58 ) ]
+transitions = [ "Idle", "Attack", SubResource( 45 ), "Attack", "Idle", SubResource( 46 ), "Idle", "Move", SubResource( 47 ), "Move", "Idle", SubResource( 48 ), "Move", "Attack", SubResource( 49 ), "Attack", "Move", SubResource( 50 ) ]
 start_node = "Idle"
 graph_offset = Vector2( -410.333, 72.8167 )

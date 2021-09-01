@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://texture/jinyiwei_attackleft_down_002-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://weapon/player/Jian.gd" type="Script" id=2]
 [ext_resource path="res://FrameWork/CollisionBox/WeaponBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://sound/sword_hit001.wav" type="AudioStream" id=4]
 [ext_resource path="res://weapon/player/swordAnimation.tres" type="Animation" id=5]
+[ext_resource path="res://particles/BladeHit.tres" type="Material" id=6]
 
 [sub_resource type="Animation" id=1]
 length = 0.6
@@ -112,12 +113,19 @@ height = 11.0176
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="defBox" parent="." instance=ExtResource( 3 )]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="defBox"]
+polygon = PoolVector2Array( -1, 0, 5, 10, 12, 0, 5, -10 )
+
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 2
-frame = 6
+frame = 11
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/swingBlocked = ExtResource( 5 )
@@ -137,6 +145,17 @@ priority = 1.0
 shape = SubResource( 2 )
 disabled = true
 
+[node name="spark" type="Particles2D" parent="."]
+position = Vector2( 1.15926, 11.9282 )
+rotation = 0.973998
+emitting = false
+amount = 6
+one_shot = true
+explosiveness = 0.9
+randomness = 0.42
+process_material = ExtResource( 6 )
+
+[connection signal="area_entered" from="defBox" to="." method="_on_defBox_area_entered"]
 [connection signal="area_entered" from="weaponBox" to="." method="_on_weaponBox_area_entered"]
 
 [editable path="weaponBox"]

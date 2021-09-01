@@ -13,12 +13,17 @@ var isOppoAround =false
 var isLocked = false
 var lockTarget:Node2D;
 
+#计算与目标位置的物理frame数
+var _lastCalcPhysFrame = 0
+#朝向目标的向量
+var _direction2Target = Vector2.ZERO
+
 #观测范围
 export var VISUAL_RANGE :int=500;
 #安全距离
 export var SAFE_RANGE :int=100;
 #攻击距离
-export var ATTACK_RANGE :int=50;
+export var ATTACK_RANGE :int=70;
 
 #范围类型  0:超出观测范围，1：安全范围之外，2：安全范围之内，攻击范围之外，3：攻击范围之内
 var rangeType = 0  
@@ -26,6 +31,7 @@ var rangeType = 0
 #是否和平状态
 var is_free_state = true
 
+var UN_INIT = -1
 var WIGGLE = 0
 var READY =1
 var MOVE_SAFEZONE =2
@@ -46,6 +52,8 @@ func setState(s):
 		movableObj.velocityTowardLimit = movableObj.MAX_SPEED
 	
 	state = s;
+	if !movableObj:
+		return
 	print("state:"+state as String)
 	match state:
 		IDLE:
@@ -74,7 +82,10 @@ func setState(s):
 				
 			movableObj.state = AggresiveCharactor.PlayState.Moving
 			movableObj.input_vector = moveSafeZoneDirection * getDirection2target()
-			
+		UN_INIT:
+			return	
+		ATTACK:
+			charactor.attack()
 	pass
 
 #上次状态切换时间
@@ -120,7 +131,12 @@ func doWiggle(delta):
 		var v2t =getDirection2target()
 		v2t =v2t.rotated(wiggleDirection*(PI/2 -0.01))
 		movableObj.input_vector = v2t
-	
+	var lt =OS.get_ticks_msec() - lastProcessTime
+	if lt <WIGGLE_DURATION:
+		
+		
+		pass
+		
 #switch动作
 func doSwitch(delta):
 	if OS.get_ticks_msec()-lastProcessTime >SWITCH_DURATION:
@@ -133,10 +149,10 @@ func doSwitch(delta):
 		targetDirection = lockTarget.controableMovingObj.faceDirection
 		
 	#转向方向等于：两个目标切线方向加上 目标移动方向
-	moveDirection = getDirection2target().rotated(Tool.hPi)	*0.1+targetDirection*0.9
+	moveDirection = getDirection2target().rotated(Tool.hPi)	*0.2+targetDirection*0.8
 		
-	
 	movableObj.input_vector = moveDirection.normalized()
+	
 
 #写在物理procsess中
 func _processState_Engaged(delta):
@@ -145,9 +161,15 @@ func _processState_Engaged(delta):
 		WIGGLE:
 			
 			if OS.get_ticks_msec() - lastProcessTime >WIGGLE_DURATION:
-				if self.rangeType ==1||self.rangeType ==3:
+				if self.rangeType ==1:
 					
-					stateShift(MOVE_SAFEZONE)
+					#stateShift(MOVE_SAFEZONE)
+					
+					stateShift(ATTACK)
+				elif self.rangeType ==3:	
+					
+					stateShift(ATTACK)
+				
 				else:
 					stateShift(IDLE)
 			if is_free_state:
@@ -187,13 +209,17 @@ func _processState_Engaged(delta):
 					stateShift(READY)
 		SWITCH:
 			if self.rangeType==0||self.rangeType==1:
-				#stateShift(IDLE)
-				doSwitch(delta)
+				stateShift(IDLE)
 			else:
 				doSwitch(delta)
 				pass
 			pass
 		ATTACK:
+			
+			if movableObj.state != AggresiveCharactor.PlayState.Attack:
+				stateShift(IDLE)
+				pass
+				
 			pass
 		DEF:
 			pass
@@ -208,21 +234,32 @@ func _processState_Free(delta):
 func _physics_process(delta):
 	if charactor:
 		checkRangeType()
+		calcDirection2Target()
+		
 		if is_free_state:
 			
-					
 			_processState_Free(delta)
 		else:
 			
-				
 			_processState_Engaged(delta)
 
 #获取 朝向目标向量
 func getDirection2target()->Vector2:
 	if lockTarget && charactor:
-		return (lockTarget.global_position-charactor.global_position).normalized()
-	return Vector2.ZERO
+		if Engine.get_physics_frames()!=_lastCalcPhysFrame:
+			calcDirection2Target()
+		return _direction2Target
+	else:
+		return Vector2.ZERO
 
+#计算朝向目标的方向
+func calcDirection2Target():
+	if lockTarget && charactor:
+		_lastCalcPhysFrame =Engine.get_physics_frames()
+		var d = (lockTarget.global_position-charactor.global_position).normalized()
+		charactor.onFaceDirectionChange(d)
+		_direction2Target = d
+#查找锁定对象
 func findLockTarget():
 	#查找到	
 	var oppoArray =CharactorMng.findOpposeMember(charactor.camp,false)
@@ -238,9 +275,26 @@ func findLockTarget():
 		#TODO 这里检测的对象的判断需要后期优化
 		if detector.detectEnemyRay.is_colliding() &&detector.detectEnemyRay.get_collider() is BaseCharactor:
 			lockTarget = detector.detectEnemyRay.get_collider()
-			#解除和平状态
-			is_free_state = false
+			lock2Target(lockTarget)
 			break
+			
+func lock2Target(target):
+	
+	lockTarget = target
+	target.locked = true
+	#解除和平状态
+	is_free_state = false
+	isLocked = true
+	if movableObj.is_connected("FaceDirectionChanged",charactor,"onFaceDirectionChange"):
+		movableObj.disconnect("FaceDirectionChanged",charactor,"onFaceDirectionChange")
+	
+func unlockTarget():
+	lockTarget = null
+	
+	is_free_state = true
+	isLocked = false
+	
+	movableObj.connect("FaceDirectionChanged",charactor,"onFaceDirectionChange")
 
 #检测距离
 func checkRangeType():

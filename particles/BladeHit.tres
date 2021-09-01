@@ -1,0 +1,45 @@
+[gd_resource type="ParticlesMaterial" load_steps=9 format=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.00529101, 1 )
+colors = PoolColorArray( 0.937255, 0.866667, 0.631373, 1, 1, 0.905882, 0.0823529, 1, 0.780392, 0.780392, 0.780392, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+max_value = 481.89
+_data = [ Vector2( 0, 153.329 ), 0.0, -180.175, 0, 0, Vector2( 0.0822943, 346.085 ), 0.0, 0.0, 0, 0, Vector2( 0.157107, 433.701 ), 0.0, 0.0, 0, 0, Vector2( 0.204489, 254.087 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0.256858, 0.734091 ), 0.0, 0.0, 0, 0, Vector2( 0.351621, 0.0965909 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+width = 4096
+curve = SubResource( 5 )
+
+[sub_resource type="Curve" id=7]
+min_value = -0.1
+max_value = 0.1
+_data = [ Vector2( 0.23192, -0.0590909 ), 0.0, -1.65703, 0, 0, Vector2( 0.351621, 0.1 ), -0.310251, -0.310251, 0, 0, Vector2( 0.466334, -0.1 ), 0.0, 0.0, 0, 0, Vector2( 0.533666, 0.0434091 ), -0.208311, -0.208311, 0, 0, Vector2( 0.633416, -0.0584091 ), 0.355655, 0.355655, 0, 0, Vector2( 0.723192, 0.0270455 ), 0.729091, 0.729091, 0, 0, Vector2( 0.805486, -0.0420454 ), 0.0, 0.0, 0, 0, Vector2( 0.885287, 0.0180682 ), 0.0, 0.0, 0, 0, Vector2( 0.905237, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -0.0138085, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+curve = SubResource( 7 )
+
+[resource]
+lifetime_randomness = 0.5
+flag_disable_z = true
+spread = 30.43
+gravity = Vector3( 0, 150, 0 )
+initial_velocity = 300.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+orbit_velocity_curve = SubResource( 8 )
+linear_accel_curve = SubResource( 6 )
+damping_curve = SubResource( 4 )
+scale = 3.0
+scale_random = 1.0
+color_ramp = SubResource( 2 )

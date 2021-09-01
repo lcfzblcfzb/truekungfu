@@ -17,8 +17,8 @@ func onProcess(delta=0):
 
 	
 	if input_vector!=Vector2.ZERO:
-		faceDirection = input_vector
-	if Input.is_action_just_pressed("attack"):
+		self.faceDirection = input_vector
+	if Input.is_action_just_released("attack"):
 		self.state = PlayState.Attack
 	elif  state!= PlayState.Attack: 
 		if input_vector!=Vector2.ZERO:

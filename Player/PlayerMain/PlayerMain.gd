@@ -41,15 +41,17 @@ var locked =false setget setLocked
 #攻击范围
 export var attackRange =  PI*2/3
 
-#=============================↓↓↓↓↓↓↓↓↓↓↓↓↓函数区↓↓↓↓↓↓↓↓↓↓↓↓
 
 func setLocked(v):
 	locked =v
+	
 	if( locked):
 		controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED_ATTACK
+		Dangerous = true
 	else:
 		controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED
-
+		
+# 还未设置
 func isDangerous():
 	return Dangerous;
 func setDangerous(v):
@@ -59,7 +61,7 @@ func setDangerous(v):
 #由场景触发，而且正常来每一场战斗说<必定>会触发一次，标志战斗结束，让角色做一个入鞘动作
 #也可能在和平状态下，玩家使用攻击指令也会触发计时器，不过当计时器结束检测处于和平状态，则做一个入鞘动作
 func _startEngagedAutoShiftTimer():
-	engagedAutoShiftTimer.start(ENGAGED_AUTO_SHIFT_TIME)		
+	engagedAutoShiftTimer.start(ENGAGED_AUTO_SHIFT_TIME)
 
 func setEngaged(s):
 	if s:
@@ -88,6 +90,9 @@ func setPrepared(s):
 			animationTree.set("parameters/StateMachine/Idle/Transition/current",0)
 	prepared =s
 	
+#=============================↓↓↓↓↓↓↓↓↓↓↓↓↓函数区↓↓↓↓↓↓↓↓↓↓↓↓
+
+#监听移动对象 状态变化事件
 func _movingObjStateChanged(s):
 	
 	match s:
@@ -127,6 +132,7 @@ func _ready():
 	controableMovingObj = ControlableMovingObj.new(self)
 	controableMovingObj.isMovableWhenAttack = true
 	controableMovingObj.connect("State_Changed",self,"_movingObjStateChanged")
+	controableMovingObj.connect("FaceDirectionChanged",rightHand,"defDirection")
 	controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED
 	
 func _physics_process(delta):
@@ -144,24 +150,20 @@ func _process(delta):
 		animationTree.set("parameters/StateMachine/Idle/idle_free_bs/blend_position",input_vector)
 		animationTree.set("parameters/StateMachine/Move/move_engaged_bs/blend_position",input_vector)
 		animationTree.set("parameters/StateMachine/Move/move_free_bs/blend_position",input_vector)
-		animationTree.set("parameters/StateMachine/Attack/attack_bs/blend_position",input_vector)
-		animationTree.set("parameters/StateMachine/Attack/block_bs/blend_position",input_vector)
+		animationTree.set("parameters/StateMachine/Attack/bt/attack_bs/blend_position",input_vector)
+		animationTree.set("parameters/StateMachine/Attack/bt/block_bs/blend_position",input_vector)
 		
 	else:
+		print("locked?"+locked as String)
+		print("facedirection"+controableMovingObj.faceDirection as String)
 		animationTree.set("parameters/StateMachine/Idle/idle_engaged_bs/blend_position",controableMovingObj.faceDirection)
 		animationTree.set("parameters/StateMachine/Idle/idle_free_bs/blend_position",controableMovingObj.faceDirection)
 		animationTree.set("parameters/StateMachine/Move/move_engaged_bs/blend_position",controableMovingObj.faceDirection)
 		animationTree.set("parameters/StateMachine/Move/move_free_bs/blend_position",controableMovingObj.faceDirection)
-		animationTree.set("parameters/StateMachine/Attack/attack_bs/blend_position",controableMovingObj.faceDirection)
-		animationTree.set("parameters/StateMachine/Attack/block_bs/blend_position",controableMovingObj.faceDirection)
+		animationTree.set("parameters/StateMachine/Attack/bt/attack_bs/blend_position",controableMovingObj.faceDirection)
+		animationTree.set("parameters/StateMachine/Attack/bt/block_bs/blend_position",controableMovingObj.faceDirection)
 		
-
-	
-func printStateMachine():
-	
-	print(playerStateMachine.get_current_node())
-	print(attackStateMachine.get_current_node())
-
+# 用户输入事件
 func _input(event):
 	
 	if(event is InputEventKey):
@@ -172,16 +174,11 @@ func _input(event):
 		
 	if event.is_action_pressed("attack"):
 			
-		#idleStateMachine.travel("idle_engaged")
-		#animationTree.set("parameters/StateMachine/Idle2/engagedShot/active",true)
-		#animationTree.set("parameters/StateMachine/Idle2/seek_engaged/seek_position",0)
 		rightHand.visible = true
-		self.engaged = true
-		#Engine.time_scale = 0.1
+		if !self.engaged:
+			self.engaged = true
 			
 	if event.is_action_released("attack"):
-		attackStateMachine.travel("attack_bs")
-		
 		if !isDangerous():
 			_startEngagedAutoShiftTimer()
 	
@@ -203,7 +200,6 @@ func attackOver():
 	
 func _on_rightHand_block_end():
 	controableMovingObj.attackOver()
-
 	animationTree.set("parameters/StateMachine/Idle/tran_engaged/current",1)
 	#animationTree.set("parameters/StateMachine/Idle/Transition/current",1)
 	#idleStateMachine.travel("idle_engaged")
@@ -218,6 +214,38 @@ enum PlayerState{
 	ROLL,
 	ATTACK
 }
+
+func _on_hurtBox_area_entered(area):
+	print("player hurt by enermy")
+	
+
+func _on_weaponBox_area_entered(area):
+	if area is WeaponBox:
+		
+		print("player weapon hit")
+		var sec = attackStateMachine.get_current_play_position()
+		animationTree.set_deferred("parameters/StateMachine/Attack/bt/shot/active",true)
+		var cn =attackStateMachine.get_current_node()
+		#animationTree.set("parameters/StateMachine/Attack/attack_down_blocked/Seek/seek_position",attackStateMachine.get_current_length()-sec)
+
+
+func _on_Timer_timeout():
+	if !isDangerous():
+		self.engaged = false
+
+
+func _on_defBox_area_entered(area):
+	if area is WeaponBox:
+		
+		print("player weapon hit")
+		var sec = attackStateMachine.get_current_play_position()
+		if !self.engaged:
+			self.engaged = true
+		controableMovingObj.state = AggresiveCharactor.PlayState.Attack
+		animationTree.set_deferred("parameters/StateMachine/Attack/bt/shot/active",true)
+		var cn =attackStateMachine.get_current_node()
+		#animationTree.set("parameters/StateMachine/Attack/attack_down_blocked/Seek/seek_position",attackStateMachine.get_current_length()-sec)
+
 
 #主角鼠标移动控制器；
 class PlayerMouseMng  :
@@ -251,21 +279,3 @@ class PlayerMouseMng  :
 	func _init(e).(e):
 		pass
 
-
-func _on_hurtBox_area_entered(area):
-	print("player hurt by enermy")
-	
-
-func _on_weaponBox_area_entered(area):
-	if area is WeaponBox:
-		
-		print("player weapon hit")
-		var sec = attackStateMachine.get_current_play_position()
-		attackStateMachine.travel("blocked_bs")
-		var cn =attackStateMachine.get_current_node()
-		#animationTree.set("parameters/StateMachine/Attack/attack_down_blocked/Seek/seek_position",attackStateMachine.get_current_length()-sec)
-
-
-func _on_Timer_timeout():
-	if !isDangerous():
-		self.engaged = false
