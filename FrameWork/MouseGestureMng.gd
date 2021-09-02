@@ -10,6 +10,8 @@ var attackDirection = 0
 
 #指向endPos向量的弧度
 var endPosRotation = Vector2.ZERO
+#朝向鼠标的向量
+var toMouseVector = Vector2.ZERO
 var jisu
 
 func _init(jizhu):
@@ -44,6 +46,8 @@ func _input(event):
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
 		mouseMovingPos = event.global_position
+		var screenPos =Tool.getCameraPosition(jisu.sprite)
+		toMouseVector = (mouseMovingPos- screenPos).normalized()
 		onMouseMovingPosChange()
 		
 func onAttackPosChange():

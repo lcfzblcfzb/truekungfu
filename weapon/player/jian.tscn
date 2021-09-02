@@ -121,11 +121,10 @@ collision_mask = 4
 polygon = PoolVector2Array( -1, 0, 5, 10, 12, 0, 5, -10 )
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 2
-frame = 11
+frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/swingBlocked = ExtResource( 5 )

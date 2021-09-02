@@ -20,6 +20,6 @@ func normalizeAngle(angle:float):
 		angle = fposmod(angle,dPi)
 	
 	return angle
-
+#详情见godot文档。节点在屏幕上的坐标章节 
 func getCameraPosition(node:Node2D)->Vector2:
 	return node.get_viewport_transform() * (node.get_global_transform() * node.position)

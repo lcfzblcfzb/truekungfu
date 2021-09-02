@@ -13,8 +13,8 @@ onready var sparkEffect = $spark as Particles2D
 onready var blockSound = preload("res://sound/sword_hit001.wav")
 
 var faceDownOffset :float = -40.0/180.0*PI
-var faceLeftOffset:float = -130.0/180.0 *PI
-var faceUpOffset:float = 104/180.0 *PI
+var faceLeftOffset:float = 154/180.0 *PI
+var faceUpOffset:float = 95/180.0 *PI
 var faceRightOffset:float = 11.1/180.0 *PI
 
 var blocked = false

@@ -233,14 +233,14 @@ func _processState_Free(delta):
 
 func _physics_process(delta):
 	if charactor:
-		checkRangeType()
-		calcDirection2Target()
 		
 		if is_free_state:
 			
 			_processState_Free(delta)
 		else:
 			
+			checkRangeType()
+			calcDirection2Target()
 			_processState_Engaged(delta)
 
 #获取 朝向目标向量

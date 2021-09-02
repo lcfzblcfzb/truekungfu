@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=53 format=2]
+[gd_resource type="AnimationNodeStateMachine" load_steps=62 format=2]
 
 [ext_resource path="res://Player/PlayerMain/attack_bs.tres" type="AnimationNodeBlendSpace2D" id=1]
 [ext_resource path="res://Player/PlayerMain/block_bs.tres" type="AnimationNodeBlendSpace2D" id=2]
@@ -30,6 +30,31 @@ states/bt/position = Vector2( -12.1042, 177.621 )
 transitions = [ "attack_bs", "blocked_bs", SubResource( 3 ), "blocked_bs", "attack_bs", SubResource( 4 ) ]
 start_node = "bt"
 graph_offset = Vector2( -389.104, 9.6208 )
+
+[sub_resource type="AnimationNodeAnimation" id=51]
+animation = "def_down"
+
+[sub_resource type="AnimationNodeAnimation" id=52]
+animation = "def_up"
+
+[sub_resource type="AnimationNodeAnimation" id=53]
+animation = "def_right"
+
+[sub_resource type="AnimationNodeAnimation" id=54]
+animation = "def_left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=55]
+blend_point_0/node = SubResource( 51 )
+blend_point_0/pos = Vector2( 0, 1 )
+blend_point_1/node = SubResource( 52 )
+blend_point_1/pos = Vector2( 0, -1 )
+blend_point_2/node = SubResource( 53 )
+blend_point_2/pos = Vector2( 1.1, 0 )
+blend_point_3/node = SubResource( 54 )
+blend_point_3/pos = Vector2( -1.1, 0 )
+min_space = Vector2( -1.1, -1 )
+max_space = Vector2( 1.1, 1 )
+blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id=6]
 animation = "idle_free"
@@ -138,7 +163,7 @@ input_1/name = "prepared_state"
 input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=32]
-graph_offset = Vector2( -439.309, -31 )
+graph_offset = Vector2( -153.028, 73.75 )
 nodes/Animation/node = SubResource( 10 )
 nodes/Animation/position = Vector2( -420, 300 )
 "nodes/Animation 2/node" = SubResource( 6 )
@@ -172,7 +197,7 @@ nodes/tran_engaged/node = SubResource( 30 )
 nodes/tran_engaged/position = Vector2( 160, 60 )
 nodes/tran_prepared/node = SubResource( 31 )
 nodes/tran_prepared/position = Vector2( 280, 280 )
-node_connections = [ "scale", 0, "Transition", "output", 0, "scale", "seek_free", 0, "idle_free_bs", "Transition", 0, "seek_free", "Transition", 1, "tran_engaged", "Transition", 2, "tran_prepared", "tran_engaged", 0, "Animation 5", "tran_engaged", 1, "idle_engaged_bs", "tran_prepared", 0, "prepared_bs", "tran_prepared", 1, "Animation 3" ]
+node_connections = [ "scale", 0, "Transition", "output", 0, "scale", "seek_free", 0, "idle_free_bs", "tran_engaged", 0, "Animation 5", "tran_engaged", 1, "idle_engaged_bs", "tran_prepared", 0, "prepared_bs", "tran_prepared", 1, "Animation 3", "Transition", 0, "seek_free", "Transition", 1, "tran_engaged", "Transition", 2, "tran_prepared" ]
 
 [sub_resource type="AnimationNodeTransition" id=33]
 input_count = 2
@@ -251,13 +276,23 @@ switch_mode = 1
 [sub_resource type="AnimationNodeStateMachineTransition" id=50]
 switch_mode = 1
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=56]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=57]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=58]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=59]
+
 [resource]
 states/Attack/node = SubResource( 5 )
 states/Attack/position = Vector2( 368, 233 )
+states/Def/node = SubResource( 55 )
+states/Def/position = Vector2( 189.667, 341.814 )
 states/Idle/node = SubResource( 32 )
 states/Idle/position = Vector2( 62, 233 )
 states/Move/node = SubResource( 44 )
 states/Move/position = Vector2( 266.8, 95.6167 )
-transitions = [ "Idle", "Attack", SubResource( 45 ), "Attack", "Idle", SubResource( 46 ), "Idle", "Move", SubResource( 47 ), "Move", "Idle", SubResource( 48 ), "Move", "Attack", SubResource( 49 ), "Attack", "Move", SubResource( 50 ) ]
+transitions = [ "Idle", "Attack", SubResource( 45 ), "Attack", "Idle", SubResource( 46 ), "Idle", "Move", SubResource( 47 ), "Move", "Idle", SubResource( 48 ), "Move", "Attack", SubResource( 49 ), "Attack", "Move", SubResource( 50 ), "Idle", "Def", SubResource( 56 ), "Move", "Def", SubResource( 57 ), "Def", "Idle", SubResource( 58 ), "Def", "Move", SubResource( 59 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -410.333, 72.8167 )
+graph_offset = Vector2( -410.333, 83.8142 )

@@ -38,7 +38,7 @@ export var Dangerous = false setget setDangerous,isDangerous;
 #锁定状态---》朝向由鼠标朝向指定
 var locked =false setget setLocked
 
-#攻击范围
+#攻击范围（某一方向上的）
 export var attackRange =  PI*2/3
 
 
@@ -48,8 +48,14 @@ func setLocked(v):
 	if( locked):
 		controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED_ATTACK
 		Dangerous = true
+		
+		if controableMovingObj.is_connected("FaceDirectionChanged",rightHand,"defDirection"):
+			controableMovingObj.disconnect("FaceDirectionChanged",rightHand,"defDirection")
 	else:
 		controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED
+		
+		if !controableMovingObj.is_connected("FaceDirectionChanged",rightHand,"defDirection"):
+			controableMovingObj.connect("FaceDirectionChanged",rightHand,"defDirection")
 		
 # 还未设置
 func isDangerous():
@@ -102,13 +108,32 @@ func _movingObjStateChanged(s):
 			playerStateMachine.travel("Idle")
 		ControlableMovingObj.PlayState.Moving:
 			playerStateMachine.travel("Move")
-
+		ControlableMovingObj.PlayState.Def:
+			playerStateMachine.travel("Def")
+		ControlableMovingObj.PlayState.Roll:
+			pass
+			#playerStateMachine.travel("Move")
 func getFaceDirection()->Vector2:
-	return controableMovingObj.faceDirection
+	if locked:
+		var d =mouseMng.toMouseVector 
+		
+		if abs(d.x)>abs(d.y):
+			if d.x>= 0 :
+				return Vector2.RIGHT
+			else:
+				return Vector2.LEFT
+		else:
+			if d.y >=0:
+				return Vector2.DOWN
+			else:
+				return Vector2.UP
+	else:
+		return controableMovingObj.faceDirection
 
 #朝向向量方向值（弧度）
 func faceDirectionRadian()->float:
-	match controableMovingObj.faceDirection:
+	
+	match getFaceDirection():
 		Vector2.DOWN :
 			return DOWN_RAD
 		Vector2.UP:
@@ -132,8 +157,9 @@ func _ready():
 	controableMovingObj = ControlableMovingObj.new(self)
 	controableMovingObj.isMovableWhenAttack = true
 	controableMovingObj.connect("State_Changed",self,"_movingObjStateChanged")
-	controableMovingObj.connect("FaceDirectionChanged",rightHand,"defDirection")
 	controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED
+	self.locked = false
+	
 	
 func _physics_process(delta):
 	controableMovingObj.onPhysicsProcess(delta)
@@ -152,6 +178,7 @@ func _process(delta):
 		animationTree.set("parameters/StateMachine/Move/move_free_bs/blend_position",input_vector)
 		animationTree.set("parameters/StateMachine/Attack/bt/attack_bs/blend_position",input_vector)
 		animationTree.set("parameters/StateMachine/Attack/bt/block_bs/blend_position",input_vector)
+		animationTree.set("parameters/StateMachine/Def/blend_position",input_vector)
 		
 	else:
 		print("locked?"+locked as String)
@@ -162,7 +189,7 @@ func _process(delta):
 		animationTree.set("parameters/StateMachine/Move/move_free_bs/blend_position",controableMovingObj.faceDirection)
 		animationTree.set("parameters/StateMachine/Attack/bt/attack_bs/blend_position",controableMovingObj.faceDirection)
 		animationTree.set("parameters/StateMachine/Attack/bt/block_bs/blend_position",controableMovingObj.faceDirection)
-		
+		animationTree.set("parameters/StateMachine/Def/blend_position",controableMovingObj.faceDirection)
 # 用户输入事件
 func _input(event):
 	
@@ -181,8 +208,11 @@ func _input(event):
 	if event.is_action_released("attack"):
 		if !isDangerous():
 			_startEngagedAutoShiftTimer()
-	
 		#Engine.time_scale = 1
+	if event.is_action_pressed("def"):
+		
+		rightHand
+		pass
 	
 	if event.is_action_pressed("ui_cancel"):
 		
@@ -197,6 +227,9 @@ func attackOver():
 	animationTree.set("parameters/StateMachine/Idle/tran_engaged/current",1)
 	#animationTree.set("parameters/StateMachine/Idle2/Transition/current",1)
 	#idleStateMachine.travel("idle_prepared")
+	
+func defOver():
+	controableMovingObj.defOver()
 	
 func _on_rightHand_block_end():
 	controableMovingObj.attackOver()
@@ -254,6 +287,8 @@ class PlayerMouseMng  :
 	extends "res://FrameWork/MouseGestureMng.gd"
 		
 	func onMouseMovingPosChange():
+		jisu.rightHand.defDirection(toMouseVector)
+		
 		pass
 	
 	func onAttackPosChange():

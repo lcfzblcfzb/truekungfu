@@ -20,11 +20,18 @@ func onProcess(delta=0):
 		self.faceDirection = input_vector
 	if Input.is_action_just_released("attack"):
 		self.state = PlayState.Attack
-	elif  state!= PlayState.Attack: 
+	
+	elif Input.is_action_just_released("def"):
+		self.state = PlayState.Def
+		pass
+	elif  state== PlayState.Moving || state ==PlayState.Idle: 
 		if input_vector!=Vector2.ZERO:
 			self.state = PlayState.Moving
 		else :
 			self.state = PlayState.Idle
 #攻击结束回调。 可以由动画的终结信号调用
 func attackOver(s = PlayState.Idle):
+	self.state = s
+
+func defOver(s=PlayState.Idle):
 	self.state = s

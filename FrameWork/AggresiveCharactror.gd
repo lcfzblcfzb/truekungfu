@@ -7,7 +7,9 @@ signal State_Changed
 enum PlayState{
 	Idle,
 	Moving,
-	Attack
+	Attack,
+	Def,
+	Roll
 }
 
 #状态
@@ -51,6 +53,11 @@ func onPhysicsProcess(delta):
 			isMoving = true
 		PlayState.Attack:
 			player_attack(delta)
+		PlayState.Def:
+			isMoving =false
+		PlayState.Roll:
+			isMoving = true
+		
 	.onPhysicsProcess(delta)
 #进入攻击态
 #	移动停止	
