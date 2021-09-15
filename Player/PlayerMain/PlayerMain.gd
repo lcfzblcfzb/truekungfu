@@ -46,13 +46,13 @@ func setLocked(v):
 	locked =v
 	
 	if( locked):
-		controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED_ATTACK
+		controableMovingObj.velocityToward = controableMovingObj.MAX_SPEED_ATTACK
 		Dangerous = true
 		
 		if controableMovingObj.is_connected("FaceDirectionChanged",rightHand,"defDirection"):
 			controableMovingObj.disconnect("FaceDirectionChanged",rightHand,"defDirection")
 	else:
-		controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED
+		controableMovingObj.velocityToward = controableMovingObj.MAX_SPEED
 		
 		if !controableMovingObj.is_connected("FaceDirectionChanged",rightHand,"defDirection"):
 			controableMovingObj.connect("FaceDirectionChanged",rightHand,"defDirection")
@@ -157,7 +157,7 @@ func _ready():
 	controableMovingObj = ControlableMovingObj.new(self)
 	controableMovingObj.isMovableWhenAttack = true
 	controableMovingObj.connect("State_Changed",self,"_movingObjStateChanged")
-	controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED
+	controableMovingObj.velocityToward = controableMovingObj.MAX_SPEED
 	self.locked = false
 	
 	
