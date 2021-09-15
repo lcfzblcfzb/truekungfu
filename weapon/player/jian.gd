@@ -47,7 +47,7 @@ func attackDirection(dir:float=0,faceDirection:Vector2=Vector2.DOWN):
 		Vector2.RIGHT:
 			offset = faceRightOffset
 	sprite.rotation = dir+offset	
-	
+	weaponBox.rotation = sprite.rotation
 
 	print("dir:"+dir as String)
 	print("rotation:"+rotation as String)

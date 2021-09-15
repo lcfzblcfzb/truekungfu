@@ -52,10 +52,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.142247, 0.281292, 0.370411, 0.437766, 0.5 ),
+"times": PoolRealArray( 0, 0.142941, 0.272005, 0.36221, 0.428824, 0.503764 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 10.3186, -3.3411 ), Vector2( 19.9132, 3.28191 ), Vector2( 24.5623, 13.8638 ), Vector2( 19.7874, 3.76379 ), Vector2( 5.44718, -3.01742 ), Vector2( -10.5178, -5.74475 ) ]
+"values": [ Vector2( -8.03544, 4.66793 ), Vector2( -16.2113, -2.84054 ), Vector2( -20.3827, -11.517 ), Vector2( -16.545, -2.17312 ), Vector2( -4.36463, 5.5022 ), Vector2( 10.986, 8.17188 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("../weaponBox/CollisionShape2D:rotation_degrees")
@@ -64,10 +64,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.142247, 0.281292, 0.370411, 0.437766, 0.5 ),
+"times": PoolRealArray( 0, 0.142941, 0.272005, 0.36221, 0.428824, 0.503764 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 421.183, 450.245, 497.652, 448.553, 347.372, 304.194 ]
+"values": [ 602.03, 633.419, 676.892, 636.49, 532.182, 488.447 ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("../weaponBox/CollisionShape2D:disabled")
@@ -124,7 +124,7 @@ polygon = PoolVector2Array( -1, 0, 5, 10, 12, 0, 5, -10 )
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 2
-frame = 7
+frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/swingBlocked = ExtResource( 5 )
