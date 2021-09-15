@@ -43,14 +43,13 @@ var PATROL =7
 var ESCAPE=8
 var ATTACK =9
 var IDLE_MOVE = 10
+var MOVE_ATTACKRANGE =11
 
 #当前所属状态
 var state setget setState;
 
 func setState(s):
-	if state ==WIGGLE:
-		movableObj.velocityTowardLimit = movableObj.MAX_SPEED
-	
+		
 	state = s;
 	if !movableObj:
 		return
@@ -65,7 +64,7 @@ func setState(s):
 		WIGGLE:
 			lastWiggleShiftTime = OS.get_ticks_msec()
 			movableObj.state = AggresiveCharactor.PlayState.Moving
-			movableObj.velocityTowardLimit = 40
+			movableObj.velocityToward = 40
 			var v2t =getDirection2target()
 			v2t =v2t.rotated(PI/2)
 			movableObj.input_vector = v2t
@@ -79,13 +78,15 @@ func setState(s):
 				moveSafeZoneDirection = 1
 				#moveIn
 				pass
-				
+			movableObj.velocityToward = movableObj.MAX_SPEED
 			movableObj.state = AggresiveCharactor.PlayState.Moving
 			movableObj.input_vector = moveSafeZoneDirection * getDirection2target()
 		UN_INIT:
 			return	
 		ATTACK:
 			charactor.attack()
+		MOVE_ATTACKRANGE:
+			switchMove2AttackRange()
 	pass
 
 #上次状态切换时间
@@ -114,6 +115,16 @@ func stateShift(s):
 	self.state = s
 	lastProcessTime = OS.get_ticks_msec()
 
+#移动向玩家攻击范围
+func switchMove2AttackRange():
+	
+	if rangeType !=3:
+		movableObj.velocityToward = 200
+		movableObj.state = AggresiveCharactor.PlayState.Moving
+		movableObj.input_vector = getDirection2target()
+	else:
+		charactor.attack()
+	
 #wiggle动作
 func doWiggle(delta):
 	
@@ -166,9 +177,9 @@ func _processState_Engaged(delta):
 					#stateShift(MOVE_SAFEZONE)
 					
 					stateShift(ATTACK)
-				elif self.rangeType ==3:	
+				elif self.rangeType ==3 || self.rangeType==2:	
 					
-					stateShift(ATTACK)
+					stateShift(MOVE_ATTACKRANGE)
 				
 				else:
 					stateShift(IDLE)
@@ -183,8 +194,15 @@ func _processState_Engaged(delta):
 			#doIdle
 			#IDLE for sometime
 			if OS.get_ticks_msec() - lastProcessTime >IDLE_DURATION:
-				stateShift(WIGGLE)
-			pass
+				
+				if rangeType ==1||rangeType==2:
+					stateShift(WIGGLE)
+				elif rangeType==3:
+					stateShift(MOVE_SAFEZONE)
+				#stateShift(MOVE_ATTACKRANGE)
+				
+			if rangeType ==3:
+				stateShift(MOVE_SAFEZONE)
 		ESCAPE:
 			#doEscape
 			
@@ -203,6 +221,7 @@ func _processState_Engaged(delta):
 				#moveOut
 				if moveSafeZoneDirection>0:
 					stateShift(READY)
+					
 			elif self.rangeType==1||self.rangeType==0:
 				#stopMovingout
 				if moveSafeZoneDirection<=0:
@@ -225,6 +244,10 @@ func _processState_Engaged(delta):
 			pass
 		ROLL:
 			pass
+		MOVE_ATTACKRANGE:
+			movableObj.input_vector = getDirection2target()
+			if rangeType ==3:
+				stateShift(ATTACK)
 		
 func _processState_Free(delta):
 	
@@ -277,7 +300,8 @@ func findLockTarget():
 			lockTarget = detector.detectEnemyRay.get_collider()
 			lock2Target(lockTarget)
 			break
-			
+
+#锁定目标
 func lock2Target(target):
 	
 	lockTarget = target
@@ -287,7 +311,8 @@ func lock2Target(target):
 	isLocked = true
 	if movableObj.is_connected("FaceDirectionChanged",charactor,"onFaceDirectionChange"):
 		movableObj.disconnect("FaceDirectionChanged",charactor,"onFaceDirectionChange")
-	
+
+#接触
 func unlockTarget():
 	lockTarget = null
 	

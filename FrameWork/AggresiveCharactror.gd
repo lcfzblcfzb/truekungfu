@@ -20,11 +20,8 @@ func setState(s):
 	match state:
 		PlayState.Idle:
 			acceleration =  FRICTION
-			velocityToward = 0
 		PlayState.Moving:
 			acceleration  = ACC
-			velocityToward = MAX_SPEED
-	
 
 var isMovableWhenAttack = false
 

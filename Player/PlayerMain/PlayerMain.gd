@@ -21,6 +21,7 @@ onready var state =PlayerState.IDLE;
 onready var engagedAutoShiftTimer = $Timer
 export var ENGAGED_AUTO_SHIFT_TIME = 5
 
+	
 #方向角度常量定义
 const DOWN_RAD = PI/2
 const UP_RAD = PI*3/2
@@ -46,11 +47,10 @@ func setLocked(v):
 	locked =v
 	
 	if( locked):
-		controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED_ATTACK
+		controableMovingObj.velocityToward = controableMovingObj.MAX_SPEED_ATTACK
 		Dangerous = true
 	else:
-		controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED
-		
+		controableMovingObj.velocityToward = controableMovingObj.MAX_SPEED
 # 还未设置
 func isDangerous():
 	return Dangerous;
@@ -133,7 +133,6 @@ func _ready():
 	controableMovingObj.isMovableWhenAttack = true
 	controableMovingObj.connect("State_Changed",self,"_movingObjStateChanged")
 	controableMovingObj.connect("FaceDirectionChanged",rightHand,"defDirection")
-	controableMovingObj.velocityTowardLimit = controableMovingObj.MAX_SPEED
 	
 func _physics_process(delta):
 	controableMovingObj.onPhysicsProcess(delta)

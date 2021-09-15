@@ -14,13 +14,30 @@ export var MAX_SPEED = 100
 #攻击时刻的最大移动速度
 export var MAX_SPEED_ATTACK = 50
 
-#速度变化上限 的上限
-var velocityTowardLimit = MAX_SPEED
+#速度变化上限 的上限;
+# 由于目标对象的速度
+#var velocityTowardLimit = MAX_SPEED
 
 #当前加速度值（加速度-阻力）
 var acceleration = ACC
-#速度变化上限
-var velocityToward =0
+
+#速度-》移动对象的一个固有速度。通常由移动对象状态变化设置：如快速移动下的速度；或者被减速后的速度；
+var velocityToward =0 setget setVelocityToward
+
+func setVelocityToward(v):
+	velocityToward =v 
+
+#私有速度变量；用来表示真正用来处理计算的速度。不论是对象加速或者减速，处于IDLE的时候速度都是0
+#这个私有变量就是实际计算时候的速度。
+var velocity_value =0  setget ,getVelocityValue
+
+func getVelocityValue():
+	
+	if isMoving:
+		return velocityToward
+	else:
+		return 0
+
 #移动体对象
 var body:KinematicBody2D
 #朝向向量
@@ -32,7 +49,7 @@ func _setFaceDirection(v):
 		emit_signal("FaceDirectionChanged",v)
 	faceDirection = v	
 
-#当前移动速度
+#当前移动速度向量
 var velocity:Vector2 = Vector2.ZERO
 
 #构造器函数
@@ -64,12 +81,11 @@ func player_idle(delta):
 
 #移动函数
 func _movePlayer(delta):
-	if(velocityToward>velocityTowardLimit):
-		velocityToward = velocityTowardLimit
-	velocity =velocity.move_toward(faceDirection* velocityToward,acceleration*delta);
+#	if(velocityToward>velocityTowardLimit):
+#		velocityToward = velocityTowardLimit
+	velocity =velocity.move_toward(faceDirection* self.velocity_value,acceleration*delta);
 	body.move_and_collide(velocity*delta)
 #停下函数
 func _stopPlayer(delta):
 	velocityToward= 0
 	_movePlayer(delta)
-
