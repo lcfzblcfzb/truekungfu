@@ -41,6 +41,8 @@ var locked =false setget setLocked
 #攻击范围（某一方向上的）
 export var attackRange =  PI*2/3
 
+#changesth
+
 
 func setLocked(v):
 	locked =v
