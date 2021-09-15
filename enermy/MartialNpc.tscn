@@ -1005,7 +1005,7 @@ start_node = "idle"
 graph_offset = Vector2( 561.335, -4.69201 )
 
 [sub_resource type="AnimationNodeBlendTree" id=39]
-graph_offset = Vector2( -676.88, 65.5 )
+graph_offset = Vector2( -393, 27 )
 nodes/TimeScale/node = SubResource( 11 )
 nodes/TimeScale/position = Vector2( 120, 140 )
 nodes/sm/node = SubResource( 38 )

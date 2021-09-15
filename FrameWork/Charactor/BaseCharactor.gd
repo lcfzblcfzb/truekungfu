@@ -6,5 +6,12 @@ export (Tool.CampEnum) var camp:int ;
 #是否挂掉了
 var isDead:bool;
 
+export var INIT_SPEED =100;
+var speed =INIT_SPEED setget , getSpeed;
+
+func getSpeed():
+	return speed
+
+
 func _ready():
 	CharactorMng.campDict[camp].append(self)
