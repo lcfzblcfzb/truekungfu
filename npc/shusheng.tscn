@@ -3,7 +3,7 @@
 [ext_resource path="res://texture/npc/shusheng.png" type="Texture" id=1]
 [ext_resource path="res://npc/shusheng.gd" type="Script" id=2]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "idle"
 loop = true
 tracks/0/type = "value"
@@ -31,7 +31,7 @@ tracks/1/keys = {
 "values": [ 6.14543, 6.14543, 6.14543, 6.14543, 6.14543 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "kick"
 loop = true
 tracks/0/type = "value"
@@ -107,7 +107,7 @@ tracks/5/keys = {
 "values": [ -85.6825, -85.6825, -88.376 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "move"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Skeleton2D/hip:position")
@@ -141,22 +141,23 @@ script = ExtResource( 2 )
 position = Vector2( -0.353554, 46.8458 )
 
 [node name="hip" type="Bone2D" parent="Skeleton2D"]
-position = Vector2( 55.8614, 0.353554 )
 rest = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="back" type="Bone2D" parent="Skeleton2D/hip"]
 position = Vector2( -1.76777, -7.07106 )
 rotation = -1.47844
+scale = Vector2( 1, 1 )
 rest = Transform2D( 0.0922235, -0.995738, 0.995738, 0.0922235, -1.76777, -7.07106 )
 
 [node name="head" type="Bone2D" parent="Skeleton2D/hip/back"]
 position = Vector2( 19.0431, -1.40867 )
 rotation = 0.129106
+scale = Vector2( 1, 1 )
 rest = Transform2D( 0.991677, 0.128748, -0.128748, 0.991677, 19.0431, -1.40867 )
 
 [node name="hand_left" type="Bone2D" parent="Skeleton2D/hip/back"]
 position = Vector2( 19.5811, 4.40009 )
-rotation = 2.34948
+rotation = 2.34949
 scale = Vector2( 1, 1 )
 rest = Transform2D( -0.702347, 0.711835, -0.711835, -0.702347, 19.5811, 4.40009 )
 
@@ -169,11 +170,13 @@ rest = Transform2D( -0.956874, -0.290505, 0.290505, -0.956874, 18.2118, -8.91305
 [node name="foot_left" type="Bone2D" parent="Skeleton2D/hip"]
 position = Vector2( 6.1461, -1.78709 )
 rotation = 1.52096
+scale = Vector2( 1, 1 )
 rest = Transform2D( 0.0498197, 0.998758, -0.998758, 0.0498197, 6.1461, -1.78709 )
 
 [node name="ankle_left" type="Bone2D" parent="Skeleton2D/hip/foot_left"]
 position = Vector2( 15.0536, 0.604187 )
 rotation = -1.43289
+scale = Vector2( 1, 1 )
 rest = Transform2D( 0.137472, -0.990506, 0.990506, 0.137472, 15.0536, 0.604187 )
 
 [node name="foot_right" type="Bone2D" parent="Skeleton2D/hip"]
@@ -184,6 +187,7 @@ rest = Transform2D( 0.00721873, 0.999974, -0.999974, 0.00721873, -7.11215, -1.43
 [node name="ankle_right" type="Bone2D" parent="Skeleton2D/hip/foot_right"]
 position = Vector2( 14.4365, 0.747681 )
 rotation = -1.40852
+scale = Vector2( 1, 1 )
 rest = Transform2D( 0.161564, -0.986862, 0.986862, 0.161564, 14.4365, 0.747681 )
 
 [node name="npc_poly" type="Polygon2D" parent="."]
@@ -198,6 +202,6 @@ bones = [ NodePath("hip"), PoolRealArray( 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5
 internal_vertex_count = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 2 )
-anims/kick = SubResource( 3 )
-anims/move = SubResource( 4 )
+anims/idle = SubResource( 1 )
+anims/kick = SubResource( 2 )
+anims/move = SubResource( 3 )

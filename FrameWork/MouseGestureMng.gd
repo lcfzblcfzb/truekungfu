@@ -5,7 +5,9 @@ const MaxAngleSpeed  = 500
 #攻击指示标（鼠标按下和抬起的位置）
 var endPos = Vector2.ZERO
 var attackPos = Vector2.ZERO
+#即时鼠标移动位置
 var mouseMovingPos = Vector2.ZERO
+#方向
 var attackDirection = 0
 
 #指向endPos向量的弧度
@@ -42,6 +44,7 @@ func _input(event):
 				attackDirection =1;
 			#计算 endPos 与 父节点 所成的向量 的 角度值
 			endPosRotation =Tool.normalizeAngle(endPos.angle_to_point(screenPos))
+			
 			onEndPosChange()
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
