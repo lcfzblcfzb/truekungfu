@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=1]
+[ext_resource path="res://texture/sword-Sheet.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5.55952, 6.5287 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[sub_resource type="Animation" id=3]
+resource_name = "Attack"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=4]
+
+[sub_resource type="PhysicsMaterial" id=6]
+absorbent = true
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 2.12959
+height = 10.4589
+
+[node name="FIghtComponnet_humand" type="Node2D"]
+position = Vector2( 262.36, 166.497 )
+script = ExtResource( 1 )
+
+[node name="DamageBox" type="Area2D" parent="."]
+
+[node name="head" type="CollisionShape2D" parent="DamageBox"]
+position = Vector2( 0.285843, -42.2576 )
+shape = SubResource( 1 )
+
+[node name="body" type="CollisionShape2D" parent="DamageBox"]
+position = Vector2( 0.172707, -24.6113 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 3 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 4 )
+anim_player = NodePath("../AnimationPlayer")
+parameters/blend_position = Vector2( 0.00154555, 0.919075 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 18, -32 )
+
+[node name="sword" type="RigidBody2D" parent="Position2D"]
+physics_material_override = SubResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Position2D/sword"]
+rotation = 1.5708
+shape = SubResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="Position2D/sword/CollisionShape2D"]
+position = Vector2( -2.4986, 9.00613 )
+texture = ExtResource( 2 )
+hframes = 5
