@@ -35,8 +35,8 @@ func setInputVector(v):
 	input_vector = v
 	self.faceDirection = v
 
-func _init(body).(body):
-	pass
+#func _init(body).(body):
+#	pass
 
 func onProcess(delta=0):
 	pass

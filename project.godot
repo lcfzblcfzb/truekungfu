@@ -32,7 +32,12 @@ _global_script_classes=[ {
 "base": "AggresiveCharactor",
 "class": "ControlableMovingObj",
 "language": "GDScript",
-"path": "res://Player/ControlableMovingObj.gd"
+"path": "res://FrameWork/ControlableMovingObj.gd"
+}, {
+"base": "Node2D",
+"class": "FightComponent_human",
+"language": "GDScript",
+"path": "res://FrameWork/Fight/FightCpn_human.gd"
 }, {
 "base": "Node2D",
 "class": "KinematicMovableObj",
@@ -60,6 +65,7 @@ _global_script_class_icons={
 "AggresiveCharactor": "",
 "BaseCharactor": "",
 "ControlableMovingObj": "",
+"FightComponent_human": "",
 "KinematicMovableObj": "",
 "NpcOf2Direction": "",
 "Weapon": "",

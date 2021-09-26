@@ -6,10 +6,10 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 58.3203, 62.5168 )
 
-[sub_resource type="PhysicsMaterial" id=3]
+[sub_resource type="PhysicsMaterial" id=2]
 absorbent = true
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6.6427, 39.368 )
 
 [node name="Node2D" type="Node2D"]
@@ -17,9 +17,6 @@ script = ExtResource( 2 )
 
 [node name="FIghtComponnet_humand" parent="." instance=ExtResource( 1 )]
 position = Vector2( 139.323, 168.618 )
-
-[node name="sword" parent="FIghtComponnet_humand/Position2D" index="0"]
-collision_mask = 17
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 233.345, 166.17 )
@@ -31,18 +28,18 @@ position = Vector2( 367.695, 140.714 )
 shape = SubResource( 1 )
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2( 187.461, 188.999 )
+position = Vector2( 261.406, 169.845 )
 rotation = -1.48702
 collision_layer = 16
 collision_mask = 0
 mass = 5.04
-physics_material_override = SubResource( 3 )
+physics_material_override = SubResource( 2 )
 gravity_scale = 0.0
 angular_velocity = 20.0
 angular_damp = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2( -0.396851, -39.685 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [editable path="FIghtComponnet_humand"]

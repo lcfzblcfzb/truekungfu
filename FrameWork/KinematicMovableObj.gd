@@ -40,6 +40,7 @@ func getVelocityValue():
 
 #移动体对象
 var body:KinematicBody2D
+export(NodePath) var bodyPath : NodePath
 #朝向向量
 var faceDirection:Vector2 =Vector2.DOWN  setget _setFaceDirection
 
@@ -52,9 +53,17 @@ func _setFaceDirection(v):
 #当前移动速度向量
 var velocity:Vector2 = Vector2.ZERO
 
+func _ready():
+	
+	if body==null && bodyPath!=null:
+		body =get_node(bodyPath)
+	
+pass
 #构造器函数
-func _init(kidBody:KinematicBody2D):
-	body = kidBody
+#func _init(kidBody:KinematicBody2D):
+#	if kidBody:
+#		body = kidBody
+	
 	
 func onProcess(delta=0):
 	pass
@@ -70,6 +79,11 @@ func onPhysicsProcess(delta):
 	#PlayState.ATTACK:
 	#	player_attack(delta)
 
+func _physics_process(delta):
+	onPhysicsProcess(delta)
+
+func _process(delta):
+	onProcess(delta)
 #移动态
 #	以velocity 速度移动
 func player_move(delta):

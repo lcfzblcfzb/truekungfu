@@ -3,9 +3,16 @@ class_name  ControlableMovingObj
 extends AggresiveCharactor
 
 #构造器函数
-func _init(body).(body):
+#func _init(body).(body):
+#	assert(body.has_method("getSpeed"))
+#	pass
+
+
+func _ready():
+	#需要传入 speed 参数
 	assert(body.has_method("getSpeed"))
-	pass
+	
+
 
 #process回调函数：在引用对象中_process()中调用
 func onProcess(delta=0):

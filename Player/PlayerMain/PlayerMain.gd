@@ -1,6 +1,6 @@
 extends BaseCharactor
 
-var ControlableMovingObj = preload("res://Player/ControlableMovingObj.gd")
+var ControlableMovingObj = preload("res://FrameWork/ControlableMovingObj.gd")
 var controableMovingObj :ControlableMovingObj
 
 
