@@ -314,3 +314,7 @@ class PlayerMouseMng  :
 	func _init(e).(e):
 		pass
 
+
+
+func _on_AnimationPlayer_animation_started(anim_name):
+	pass # Replace with function body.
