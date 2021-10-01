@@ -46,12 +46,16 @@ func _input(event):
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
 		mouseMovingPos = event.global_position
-		var screenPos =Tool.getCameraPosition(jisu.sprite)
+		var screenPos
+		
+		if jisu.get("sprite") != null:
+			screenPos =Tool.getCameraPosition(jisu.sprite)
+		else:
+			screenPos =Tool.getCameraPosition(jisu)
 		toMouseVector = (mouseMovingPos- screenPos).normalized()
 		onMouseMovingPosChange()
 		
 func onAttackPosChange():
-	
 	pass
 	
 func onEndPosChange():

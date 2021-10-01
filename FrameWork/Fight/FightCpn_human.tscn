@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=177 format=2]
 
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/CollisionBox/WeaponBox.gd" type="Script" id=2]
@@ -174,67 +174,121 @@ tracks/2/keys = {
 radius = 3.27545
 height = 6.8291
 
-[sub_resource type="AnimationNodeTimeScale" id=44]
+[sub_resource type="AnimationNodeTimeScale" id=9]
 
-[sub_resource type="AnimationNodeAnimation" id=32]
-animation = "holding"
+[sub_resource type="AnimationNodeAnimation" id=102]
+animation = "a_b_after"
 
-[sub_resource type="AnimationNodeAnimation" id=33]
-animation = "idle"
+[sub_resource type="AnimationNodeAnimation" id=103]
+animation = "a_b_in"
 
-[sub_resource type="AnimationNodeAnimation" id=58]
+[sub_resource type="AnimationNodeAnimation" id=104]
+animation = "a_b_pre"
+
+[sub_resource type="AnimationNodeAnimation" id=105]
+animation = "a_m_after"
+
+[sub_resource type="AnimationNodeAnimation" id=106]
+animation = "a_m_in"
+
+[sub_resource type="AnimationNodeAnimation" id=107]
+animation = "a_m_pre"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "attack_up_after"
 
-[sub_resource type="AnimationNodeAnimation" id=59]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "attack_up_in"
 
-[sub_resource type="AnimationNodeAnimation" id=60]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "attack_up_pre"
 
-[sub_resource type="AnimationNodeAnimation" id=61]
-animation = "heavyAttack_up2bo_after"
+[sub_resource type="AnimationNodeAnimation" id=108]
+animation = "ha_b2m_after"
 
-[sub_resource type="AnimationNodeAnimation" id=62]
-animation = "heavyAttack_up2bo_in"
+[sub_resource type="AnimationNodeAnimation" id=109]
+animation = "ha_b2m_in"
 
-[sub_resource type="AnimationNodeAnimation" id=63]
-animation = "heavyAttack_up2bo_pre"
+[sub_resource type="AnimationNodeAnimation" id=110]
+animation = "ha_b2m_pre"
 
-[sub_resource type="AnimationNodeAnimation" id=64]
-animation = "heavyAttack_up_after"
+[sub_resource type="AnimationNodeAnimation" id=111]
+animation = "ha_b2u_after"
 
-[sub_resource type="AnimationNodeAnimation" id=65]
-animation = "heavyAttack_up_in"
+[sub_resource type="AnimationNodeAnimation" id=112]
+animation = "ha_b2u_in"
 
-[sub_resource type="AnimationNodeAnimation" id=66]
-animation = "heavyAttack_up_pre"
+[sub_resource type="AnimationNodeAnimation" id=113]
+animation = "ha_b2u_pre"
+
+[sub_resource type="AnimationNodeAnimation" id=114]
+animation = "ha_b_after"
+
+[sub_resource type="AnimationNodeAnimation" id=115]
+animation = "ha_b_in"
+
+[sub_resource type="AnimationNodeAnimation" id=116]
+animation = "ha_b_pre"
+
+[sub_resource type="AnimationNodeAnimation" id=117]
+animation = "ha_m2b_after"
+
+[sub_resource type="AnimationNodeAnimation" id=118]
+animation = "ha_m2b_in"
+
+[sub_resource type="AnimationNodeAnimation" id=119]
+animation = "ha_m2b_pre"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=120]
+animation = "ha_m_after"
+
+[sub_resource type="AnimationNodeAnimation" id=121]
+animation = "ha_m_in"
+
+[sub_resource type="AnimationNodeAnimation" id=122]
+animation = "ha_m_pre"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "ha_u2b_after"
 
 [sub_resource type="AnimationNodeAnimation" id=17]
-animation = "idle"
+animation = "ha_u2b_in"
 
 [sub_resource type="AnimationNodeAnimation" id=18]
-animation = "idle"
+animation = "ha_u2b_pre"
 
 [sub_resource type="AnimationNodeAnimation" id=19]
-animation = "idle"
+animation = "ha_u2m_after"
 
 [sub_resource type="AnimationNodeAnimation" id=20]
-animation = "idle"
+animation = "ha_u2m_in"
 
 [sub_resource type="AnimationNodeAnimation" id=21]
-animation = "idle"
+animation = "ha_u2m_pre"
 
 [sub_resource type="AnimationNodeAnimation" id=22]
-animation = "idle"
+animation = "ha_u_after"
 
 [sub_resource type="AnimationNodeAnimation" id=23]
+animation = "ha_u_in"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "ha_u_pre"
+
+[sub_resource type="AnimationNodeAnimation" id=25]
 animation = "idle"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "holding"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=27]
 
@@ -244,105 +298,443 @@ animation = "idle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=30]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=67]
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=68]
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=69]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=70]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=71]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=72]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=73]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=74]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=75]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=76]
-switch_mode = 1
-
-[sub_resource type="AnimationNodeStateMachine" id=31]
-states/attack_up_after/node = SubResource( 58 )
-states/attack_up_after/position = Vector2( 409.056, -78.1727 )
-states/attack_up_in/node = SubResource( 59 )
-states/attack_up_in/position = Vector2( 214.056, -78.1727 )
-states/attack_up_pre/node = SubResource( 60 )
-states/attack_up_pre/position = Vector2( 22.056, -78.1727 )
-states/heavyAttack_up2bo_after/node = SubResource( 61 )
-states/heavyAttack_up2bo_after/position = Vector2( 462.056, -253.072 )
-states/heavyAttack_up2bo_in/node = SubResource( 62 )
-states/heavyAttack_up2bo_in/position = Vector2( 201.056, -253.072 )
-states/heavyAttack_up2bo_pre/node = SubResource( 63 )
-states/heavyAttack_up2bo_pre/position = Vector2( -41.944, -253.072 )
-states/heavyAttack_up_after/node = SubResource( 64 )
-states/heavyAttack_up_after/position = Vector2( 500.056, -167.072 )
-states/heavyAttack_up_in/node = SubResource( 65 )
-states/heavyAttack_up_in/position = Vector2( 233.056, -167.072 )
-states/heavyAttack_up_pre/node = SubResource( 66 )
-states/heavyAttack_up_pre/position = Vector2( 3.05603, -158.072 )
-states/idle/node = SubResource( 17 )
-states/idle/position = Vector2( -218.944, -78.1727 )
-states/m2up_after/node = SubResource( 18 )
-states/m2up_after/position = Vector2( 457, 78 )
-states/m2up_in/node = SubResource( 19 )
-states/m2up_in/position = Vector2( 274, 78 )
-states/m2up_pre/node = SubResource( 20 )
-states/m2up_pre/position = Vector2( 99, 78 )
-states/up2m_after/node = SubResource( 21 )
-states/up2m_after/position = Vector2( 439.056, 164 )
-states/up2m_in/node = SubResource( 22 )
-states/up2m_in/position = Vector2( 257.056, 164 )
-states/up2m_pre/node = SubResource( 23 )
-states/up2m_pre/position = Vector2( 99, 164 )
-transitions = [ "m2up_pre", "m2up_in", SubResource( 24 ), "m2up_in", "m2up_after", SubResource( 25 ), "up2m_pre", "up2m_in", SubResource( 26 ), "up2m_in", "up2m_after", SubResource( 27 ), "idle", "m2up_pre", SubResource( 28 ), "idle", "up2m_pre", SubResource( 29 ), "m2up_after", "up2m_pre", SubResource( 30 ), "attack_up_pre", "attack_up_in", SubResource( 67 ), "attack_up_in", "attack_up_after", SubResource( 68 ), "idle", "attack_up_pre", SubResource( 69 ), "idle", "heavyAttack_up_pre", SubResource( 70 ), "idle", "heavyAttack_up2bo_pre", SubResource( 71 ), "heavyAttack_up2bo_pre", "heavyAttack_up2bo_in", SubResource( 72 ), "heavyAttack_up_pre", "heavyAttack_up_in", SubResource( 73 ), "heavyAttack_up_in", "heavyAttack_up_after", SubResource( 74 ), "heavyAttack_up2bo_in", "heavyAttack_up2bo_after", SubResource( 75 ), "heavyAttack_up_after", "heavyAttack_up2bo_pre", SubResource( 76 ) ]
-start_node = "idle"
-graph_offset = Vector2( -661.468, -339.684 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=34]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=35]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=37]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=38]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=40]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=41]
+switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id=43]
-states/holding/node = SubResource( 32 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=44]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=123]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=124]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=125]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=126]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=127]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=128]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=129]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=130]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=131]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=132]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=133]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=134]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=135]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=136]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=137]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=138]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=139]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=140]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=141]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=142]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=143]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=144]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=145]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=146]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=147]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=148]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=149]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=150]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=151]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=152]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=153]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=154]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=155]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=156]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=157]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=158]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=159]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=160]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=161]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=162]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=163]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=164]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=165]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=166]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=167]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=168]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=169]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=170]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=171]
+
+[sub_resource type="AnimationNodeStateMachine" id=46]
+states/a_b_after/node = SubResource( 102 )
+states/a_b_after/position = Vector2( 204.056, -357.701 )
+states/a_b_in/node = SubResource( 103 )
+states/a_b_in/position = Vector2( 3.05603, -357.701 )
+states/a_b_pre/node = SubResource( 104 )
+states/a_b_pre/position = Vector2( -184.944, -357.701 )
+states/a_m_after/node = SubResource( 105 )
+states/a_m_after/position = Vector2( 204.056, -429.209 )
+states/a_m_in/node = SubResource( 106 )
+states/a_m_in/position = Vector2( 3.05603, -429.209 )
+states/a_m_pre/node = SubResource( 107 )
+states/a_m_pre/position = Vector2( -184.944, -429.209 )
+states/a_u_after/node = SubResource( 10 )
+states/a_u_after/position = Vector2( 204.056, -508.173 )
+states/a_u_in/node = SubResource( 11 )
+states/a_u_in/position = Vector2( 3.05603, -511.173 )
+states/a_u_pre/node = SubResource( 12 )
+states/a_u_pre/position = Vector2( -189.944, -511.173 )
+states/ha_b2m_after/node = SubResource( 108 )
+states/ha_b2m_after/position = Vector2( 384.056, 341.507 )
+states/ha_b2m_in/node = SubResource( 109 )
+states/ha_b2m_in/position = Vector2( 161, 346.507 )
+states/ha_b2m_pre/node = SubResource( 110 )
+states/ha_b2m_pre/position = Vector2( -41.944, 346.507 )
+states/ha_b2u_after/node = SubResource( 111 )
+states/ha_b2u_after/position = Vector2( 384.056, 272.999 )
+states/ha_b2u_in/node = SubResource( 112 )
+states/ha_b2u_in/position = Vector2( 161, 272.999 )
+states/ha_b2u_pre/node = SubResource( 113 )
+states/ha_b2u_pre/position = Vector2( -46.0003, 272.999 )
+states/ha_b_after/node = SubResource( 114 )
+states/ha_b_after/position = Vector2( 394.056, 209.999 )
+states/ha_b_in/node = SubResource( 115 )
+states/ha_b_in/position = Vector2( 161, 209.999 )
+states/ha_b_pre/node = SubResource( 116 )
+states/ha_b_pre/position = Vector2( -41.944, 209.999 )
+states/ha_m2b_after/node = SubResource( 117 )
+states/ha_m2b_after/position = Vector2( 394.056, 140.873 )
+states/ha_m2b_in/node = SubResource( 118 )
+states/ha_m2b_in/position = Vector2( 175, 140.873 )
+states/ha_m2b_pre/node = SubResource( 119 )
+states/ha_m2b_pre/position = Vector2( -41.944, 140.873 )
+states/ha_m2u_after/node = SubResource( 13 )
+states/ha_m2u_after/position = Vector2( 394.056, 76 )
+states/ha_m2u_in/node = SubResource( 14 )
+states/ha_m2u_in/position = Vector2( 175, 76 )
+states/ha_m2u_pre/node = SubResource( 15 )
+states/ha_m2u_pre/position = Vector2( -41.944, 76 )
+states/ha_m_after/node = SubResource( 120 )
+states/ha_m_after/position = Vector2( 394.056, 3.87286 )
+states/ha_m_in/node = SubResource( 121 )
+states/ha_m_in/position = Vector2( 161, 3.87286 )
+states/ha_m_pre/node = SubResource( 122 )
+states/ha_m_pre/position = Vector2( -41.944, 3.87286 )
+states/ha_u2b_after/node = SubResource( 16 )
+states/ha_u2b_after/position = Vector2( 424, -241.072 )
+states/ha_u2b_in/node = SubResource( 17 )
+states/ha_u2b_in/position = Vector2( 182, -241.072 )
+states/ha_u2b_pre/node = SubResource( 18 )
+states/ha_u2b_pre/position = Vector2( -41.944, -241.072 )
+states/ha_u2m_after/node = SubResource( 19 )
+states/ha_u2m_after/position = Vector2( 384.056, -72 )
+states/ha_u2m_in/node = SubResource( 20 )
+states/ha_u2m_in/position = Vector2( 175, -72 )
+states/ha_u2m_pre/node = SubResource( 21 )
+states/ha_u2m_pre/position = Vector2( -41.944, -72 )
+states/ha_u_after/node = SubResource( 22 )
+states/ha_u_after/position = Vector2( 424, -144.072 )
+states/ha_u_in/node = SubResource( 23 )
+states/ha_u_in/position = Vector2( 175, -149.072 )
+states/ha_u_pre/node = SubResource( 24 )
+states/ha_u_pre/position = Vector2( -41.944, -149.072 )
+states/holding/node = SubResource( 25 )
+states/holding/position = Vector2( -282.468, -87.1727 )
+states/idle/node = SubResource( 26 )
+states/idle/position = Vector2( -375.468, -194.249 )
+transitions = [ "ha_m2u_pre", "ha_m2u_in", SubResource( 27 ), "ha_m2u_in", "ha_m2u_after", SubResource( 28 ), "ha_u2m_pre", "ha_u2m_in", SubResource( 29 ), "ha_u2m_in", "ha_u2m_after", SubResource( 30 ), "holding", "ha_m2u_pre", SubResource( 31 ), "holding", "ha_u2m_pre", SubResource( 32 ), "ha_m2u_after", "ha_u2m_pre", SubResource( 33 ), "a_u_pre", "a_u_in", SubResource( 34 ), "a_u_in", "a_u_after", SubResource( 35 ), "holding", "ha_u_pre", SubResource( 36 ), "holding", "ha_u2b_pre", SubResource( 37 ), "ha_u2b_pre", "ha_u2b_in", SubResource( 38 ), "ha_u_pre", "ha_u_in", SubResource( 39 ), "ha_u_in", "ha_u_after", SubResource( 40 ), "ha_u2b_in", "ha_u2b_after", SubResource( 41 ), "ha_u_after", "ha_u2b_pre", SubResource( 42 ), "holding", "idle", SubResource( 43 ), "idle", "holding", SubResource( 44 ), "idle", "a_u_pre", SubResource( 45 ), "idle", "a_m_pre", SubResource( 123 ), "a_m_pre", "a_m_in", SubResource( 124 ), "a_m_in", "a_m_after", SubResource( 125 ), "idle", "a_b_pre", SubResource( 126 ), "a_b_pre", "a_b_in", SubResource( 127 ), "a_b_in", "a_b_after", SubResource( 128 ), "holding", "ha_m_pre", SubResource( 129 ), "ha_m_pre", "ha_m_in", SubResource( 130 ), "ha_m_in", "ha_m_after", SubResource( 131 ), "holding", "ha_m2b_pre", SubResource( 132 ), "ha_m2b_pre", "ha_m2b_in", SubResource( 133 ), "ha_m2b_in", "ha_m2b_after", SubResource( 134 ), "ha_u_after", "ha_u2m_pre", SubResource( 135 ), "ha_u2m_after", "ha_m2u_pre", SubResource( 136 ), "ha_b_pre", "ha_b_in", SubResource( 137 ), "ha_b2u_pre", "ha_b2u_in", SubResource( 138 ), "ha_b2m_pre", "ha_b2m_in", SubResource( 139 ), "ha_b_in", "ha_b_after", SubResource( 140 ), "ha_b2u_in", "ha_b2u_after", SubResource( 141 ), "ha_b2m_in", "ha_b2m_after", SubResource( 142 ), "holding", "ha_b_pre", SubResource( 143 ), "holding", "ha_b2u_pre", SubResource( 144 ), "holding", "ha_b2m_pre", SubResource( 145 ), "ha_m2b_after", "ha_b2u_pre", SubResource( 146 ), "ha_m2b_after", "ha_b2m_pre", SubResource( 147 ), "ha_b2u_after", "ha_u2m_pre", SubResource( 148 ), "ha_b2u_after", "ha_u2b_pre", SubResource( 149 ), "ha_b2m_after", "ha_m2u_pre", SubResource( 150 ), "ha_b2m_after", "ha_m2b_pre", SubResource( 151 ), "ha_m2u_after", "ha_u2b_pre", SubResource( 152 ), "ha_u2b_after", "ha_b2u_pre", SubResource( 153 ), "ha_u2b_after", "ha_b2m_pre", SubResource( 154 ), "ha_u2m_after", "ha_m2b_pre", SubResource( 155 ), "ha_b_after", "ha_b2u_pre", SubResource( 156 ), "ha_b_after", "ha_b2m_pre", SubResource( 157 ), "ha_m_after", "ha_m2u_pre", SubResource( 158 ), "ha_m_after", "ha_m2b_pre", SubResource( 159 ), "ha_u2b_after", "holding", SubResource( 160 ), "ha_u_after", "holding", SubResource( 161 ), "ha_u2m_after", "holding", SubResource( 162 ), "ha_m_after", "holding", SubResource( 163 ), "ha_m2u_after", "holding", SubResource( 164 ), "ha_m2b_after", "holding", SubResource( 165 ), "ha_b_after", "holding", SubResource( 166 ), "ha_b2u_after", "holding", SubResource( 167 ), "ha_b2m_after", "holding", SubResource( 168 ), "a_b_after", "idle", SubResource( 169 ), "a_m_after", "idle", SubResource( 170 ), "a_u_after", "idle", SubResource( 171 ) ]
+start_node = "holding"
+graph_offset = Vector2( -571, -444.431 )
+
+[sub_resource type="AnimationNodeStateMachine" id=47]
+states/StateMachine/node = SubResource( 46 )
+states/StateMachine/position = Vector2( -754, 90 )
+graph_offset = Vector2( -1199, 0 )
+
+[sub_resource type="AnimationNodeAnimation" id=48]
+animation = "holding"
+
+[sub_resource type="AnimationNodeAnimation" id=49]
+animation = "idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=50]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=51]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=52]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=53]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=54]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=55]
+
+[sub_resource type="AnimationNodeStateMachine" id=56]
+states/StateMachine/node = SubResource( 47 )
+states/StateMachine/position = Vector2( 106.259, 188.043 )
+"states/StateMachine 2/node" = SubResource( 46 )
+"states/StateMachine 2/position" = Vector2( 226.259, 151.043 )
+states/holding/node = SubResource( 48 )
 states/holding/position = Vector2( 592, 152 )
-states/idle/node = SubResource( 33 )
+states/idle/node = SubResource( 49 )
 states/idle/position = Vector2( 402, 152 )
-states/mix/node = SubResource( 31 )
+states/mix/node = SubResource( 46 )
 states/mix/position = Vector2( 493, 240.964 )
-transitions = [ "idle", "holding", SubResource( 34 ), "holding", "idle", SubResource( 35 ), "idle", "mix", SubResource( 37 ), "mix", "idle", SubResource( 38 ), "holding", "mix", SubResource( 40 ), "mix", "holding", SubResource( 41 ) ]
+transitions = [ "idle", "holding", SubResource( 50 ), "holding", "idle", SubResource( 51 ), "idle", "mix", SubResource( 52 ), "mix", "idle", SubResource( 53 ), "holding", "mix", SubResource( 54 ), "mix", "holding", SubResource( 55 ) ]
 start_node = "idle"
-graph_offset = Vector2( -81.7413, 52.9642 )
+graph_offset = Vector2( -81.7413, 88.0427 )
 
-[sub_resource type="AnimationNodeBlendTree" id=45]
-graph_offset = Vector2( -685.718, 79.75 )
-nodes/TimeScale/node = SubResource( 44 )
+[sub_resource type="AnimationNodeBlendTree" id=57]
+graph_offset = Vector2( -756.249, 88.4916 )
+nodes/TimeScale/node = SubResource( 9 )
 nodes/TimeScale/position = Vector2( 100, 140 )
-nodes/sm/node = SubResource( 43 )
-nodes/sm/position = Vector2( -220, 140 )
+nodes/sm/node = SubResource( 46 )
+nodes/sm/position = Vector2( -200, 140 )
+nodes/sm2/node = SubResource( 56 )
+nodes/sm2/position = Vector2( -500, 340 )
 node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "sm" ]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=46]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=58]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=77]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=59]
 
-[sub_resource type="Animation" id=52]
-resource_name = "attack_up_after"
+[sub_resource type="AnimationNodeStateMachinePlayback" id=60]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=61]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=62]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=63]
+
+[sub_resource type="Animation" id=75]
+resource_name = "a_b_after"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "a_b_after", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=76]
+resource_name = "a_b_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "a_b_in", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=77]
+resource_name = "a_b_pre"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "a_b_pre", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=78]
+resource_name = "a_m_after"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "a_m_after", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=79]
+resource_name = "a_m_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "a_m_in", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=80]
+resource_name = "a_m_pre"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "a_m_pre", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=64]
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -368,8 +760,7 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0 ]
 }
 
-[sub_resource type="Animation" id=53]
-resource_name = "attack_up_in"
+[sub_resource type="Animation" id=65]
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -395,8 +786,7 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0 ]
 }
 
-[sub_resource type="Animation" id=49]
-resource_name = "attack_up_pre"
+[sub_resource type="Animation" id=66]
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -422,8 +812,8 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0 ]
 }
 
-[sub_resource type="Animation" id=78]
-resource_name = "heavyAttack_up2bo_after"
+[sub_resource type="Animation" id=81]
+resource_name = "ha_b2m_after"
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -434,7 +824,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "heavyAttack_up2bo_after", "" ]
+"values": [ "ha_b2m_after", "" ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("TextEdit:rect_rotation")
@@ -449,8 +839,8 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0 ]
 }
 
-[sub_resource type="Animation" id=79]
-resource_name = "heavyAttack_up2bo_in"
+[sub_resource type="Animation" id=82]
+resource_name = "ha_b2m_in"
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -461,7 +851,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "heavyAttack_up2bo_in", "" ]
+"values": [ "ha_b2m_in", "" ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("TextEdit:rect_rotation")
@@ -476,8 +866,8 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0 ]
 }
 
-[sub_resource type="Animation" id=57]
-resource_name = "heavyAttack_up2bo_pre"
+[sub_resource type="Animation" id=83]
+resource_name = "ha_b2m_pre"
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -488,8 +878,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "heavyAttack
-_up2bo_pre", "" ]
+"values": [ "ha_b2m_pre", "" ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("TextEdit:rect_rotation")
@@ -504,8 +893,8 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0 ]
 }
 
-[sub_resource type="Animation" id=56]
-resource_name = "heavyAttack_up_after"
+[sub_resource type="Animation" id=84]
+resource_name = "ha_b2u_after"
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -516,8 +905,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "heavyAttack
-_up_after", "" ]
+"values": [ "ha_b2u_after", "" ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("TextEdit:rect_rotation")
@@ -532,8 +920,8 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0 ]
 }
 
-[sub_resource type="Animation" id=55]
-resource_name = "heavyAttack_up_in"
+[sub_resource type="Animation" id=85]
+resource_name = "ha_b2u_in"
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -544,8 +932,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "heavy_attack
-_up_in", "" ]
+"values": [ "ha_b2u_in", "" ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("TextEdit:rect_rotation")
@@ -560,8 +947,8 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0 ]
 }
 
-[sub_resource type="Animation" id=54]
-resource_name = "heavyAttack_up_pre"
+[sub_resource type="Animation" id=86]
+resource_name = "ha_b2u_pre"
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -572,8 +959,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "heavyAttack
-_up_pre", "" ]
+"values": [ "ha_b2u_pre", "" ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("TextEdit:rect_rotation")
@@ -588,8 +974,568 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0 ]
 }
 
-[sub_resource type="Animation" id=50]
-resource_name = "holding"
+[sub_resource type="Animation" id=87]
+resource_name = "ha_b_after"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_b_after", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=88]
+resource_name = "ha_b_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_b_in", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=89]
+resource_name = "ha_b_pre"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_b_pre", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=90]
+resource_name = "ha_m2b_after"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_m2b_after", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=91]
+resource_name = "ha_m2b_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_m2b_in", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=92]
+resource_name = "ha_m2b_pre"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_m2b_pre", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=93]
+resource_name = "ha_m2u_after"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_m2u_after", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=94]
+resource_name = "ha_m2u_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_m2u_in", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=95]
+resource_name = "ha_m2u_pre"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_m2u_pre", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=96]
+resource_name = "ha_m_after"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_m_after", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=97]
+resource_name = "ha_m_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_m_in", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=98]
+resource_name = "ha_m_pre"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_m_pre", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=67]
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_u2b_after", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=68]
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_u2b_in", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=69]
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_u2b_pre", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=99]
+resource_name = "ha_u2m_after"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_u2m_after", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=100]
+resource_name = "ha_u2m_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_u2m_in", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=101]
+resource_name = "ha_u2m_pre"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_u2m_pre", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=70]
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_u_after", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=71]
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_u_in", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=72]
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextEdit:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "ha_u_pre", "" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextEdit:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=73]
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -615,8 +1561,7 @@ tracks/1/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[sub_resource type="Animation" id=51]
-resource_name = "idle"
+[sub_resource type="Animation" id=74]
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextEdit:text")
 tracks/0/interp = 1
@@ -669,6 +1614,7 @@ position = Vector2( 18.4055, -28.3162 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sword/WeaponBox"]
+rotation = 1.5708
 shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="sword"]
@@ -688,32 +1634,62 @@ script = ExtResource( 4 )
 script = ExtResource( 5 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 45 )
+tree_root = SubResource( 57 )
 anim_player = NodePath("../AnimationPlayer")
 parameters/TimeScale/scale = 1.0
-parameters/sm/playback = SubResource( 46 )
-parameters/sm/mix/playback = SubResource( 77 )
+parameters/sm/playback = SubResource( 58 )
+parameters/sm2/playback = SubResource( 59 )
+parameters/sm2/StateMachine/playback = SubResource( 60 )
+parameters/sm2/StateMachine/StateMachine/playback = SubResource( 61 )
+"parameters/sm2/StateMachine 2/playback" = SubResource( 62 )
+parameters/sm2/mix/playback = SubResource( 63 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack_up_after = SubResource( 52 )
-anims/attack_up_in = SubResource( 53 )
-anims/attack_up_pre = SubResource( 49 )
-anims/heavyAttack_up2bo_after = SubResource( 78 )
-anims/heavyAttack_up2bo_in = SubResource( 79 )
-anims/heavyAttack_up2bo_pre = SubResource( 57 )
-anims/heavyAttack_up_after = SubResource( 56 )
-anims/heavyAttack_up_in = SubResource( 55 )
-anims/heavyAttack_up_pre = SubResource( 54 )
-anims/holding = SubResource( 50 )
-anims/idle = SubResource( 51 )
+anims/a_b_after = SubResource( 75 )
+anims/a_b_in = SubResource( 76 )
+anims/a_b_pre = SubResource( 77 )
+anims/a_m_after = SubResource( 78 )
+anims/a_m_in = SubResource( 79 )
+anims/a_m_pre = SubResource( 80 )
+anims/a_u_after = SubResource( 64 )
+anims/a_u_in = SubResource( 65 )
+anims/a_u_pre = SubResource( 66 )
+anims/ha_b2m_after = SubResource( 81 )
+anims/ha_b2m_in = SubResource( 82 )
+anims/ha_b2m_pre = SubResource( 83 )
+anims/ha_b2u_after = SubResource( 84 )
+anims/ha_b2u_in = SubResource( 85 )
+anims/ha_b2u_pre = SubResource( 86 )
+anims/ha_b_after = SubResource( 87 )
+anims/ha_b_in = SubResource( 88 )
+anims/ha_b_pre = SubResource( 89 )
+anims/ha_m2b_after = SubResource( 90 )
+anims/ha_m2b_in = SubResource( 91 )
+anims/ha_m2b_pre = SubResource( 92 )
+anims/ha_m2u_after = SubResource( 93 )
+anims/ha_m2u_in = SubResource( 94 )
+anims/ha_m2u_pre = SubResource( 95 )
+anims/ha_m_after = SubResource( 96 )
+anims/ha_m_in = SubResource( 97 )
+anims/ha_m_pre = SubResource( 98 )
+anims/ha_u2b_after = SubResource( 67 )
+anims/ha_u2b_in = SubResource( 68 )
+anims/ha_u2b_pre = SubResource( 69 )
+anims/ha_u2m_after = SubResource( 99 )
+anims/ha_u2m_in = SubResource( 100 )
+anims/ha_u2m_pre = SubResource( 101 )
+anims/ha_u_after = SubResource( 70 )
+anims/ha_u_in = SubResource( 71 )
+anims/ha_u_pre = SubResource( 72 )
+anims/holding = SubResource( 73 )
+anims/idle = SubResource( 74 )
 
 [node name="TextEdit" type="TextEdit" parent="."]
 margin_left = -33.9874
 margin_top = 7.9127
 margin_right = 126.013
 margin_bottom = 67.9127
-rect_rotation = 360.0
-text = "HOLDING.."
+text = "ha_b2m_pre"
 context_menu_enabled = false
 shortcut_keys_enabled = false
 virtual_keyboard_enabled = false

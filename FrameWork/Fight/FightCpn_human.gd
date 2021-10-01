@@ -2,7 +2,7 @@ extends Node2D
 
 class_name FightComponent_human
 
-
+var  mouseGestureMng ;
 #接口
 #需要传入controlableMovingObj的速度参数
 func getSpeed():
@@ -11,9 +11,42 @@ func getSpeed():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	FighterState.new()
+	mouseGestureMng = FightMouseGestureMng.new(self)
+	add_child(mouseGestureMng)
 	pass # Replace with function body.
 
 
+#鼠标按键控制器
+class FightMouseGestureMng:
+	extends "res://FrameWork/MouseGestureMng.gd"
+	
+	func _init(obj).(obj):
+		
+		pass
+	
+	func onAttackPosChange():
+		
+		pass
+	
+	func onEndPosChange():
+		
+		pass
+		
+	func onMouseMovingPosChange():
+		
+		pass
+	
+	func _input(event):
+		
+		pass
+pass
+
+
+
+
+
+#角色各项数据类
 class FighterState:
 	#攻击——上路
 	var attack_up_pre_time :float;
@@ -68,9 +101,19 @@ class FighterState:
 	var heavyDefend_down_in_time :float;
 	var heavyDefend_down_end_time :float;
 	
-	func _init(jsonDictionary):
-		
-		
+	func _init():
+
+		#从文件中读取JSON数据，并且赋值给对象同名属性上
+		var json =Tool.load_json_file("res://config/Sword_Cfg.tres") as Dictionary
+
+		for p in get_property_list():
+			
+			if json.has(p.name):
+				var v = json.get(p.name)
+				set(p.name,v.value)
+				pass
+			
+			pass
 		pass
 	
 	

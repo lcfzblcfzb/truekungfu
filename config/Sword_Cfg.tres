@@ -1,0 +1,110 @@
+{
+  "attack_up_pre_time": {
+	"value": 1
+  },
+  "attack_up_in_time": {
+	"value": 1
+  },
+  "attack_up_end_time": {
+	"value": 1
+  },
+  "attack_center_pre_time": {
+	"value": 1
+  },
+  "attack_center_in_time": {
+	"value": 1
+  },
+  "attack_center_end_time": {
+	"value": 1
+  },
+  "attack_down_pre_time": {
+	"value": 1
+  },
+  "attack_down_in_time": {
+	"value": 1
+  },
+  "attack_down_end_time": {
+	"value": 1
+  },
+  "heavyAttack_up_pre_time": {
+	"value": 1
+  },
+  "heavyAttack_up_in_time": {
+	"value": 1
+  },
+  "heavyAttack_up_end_time": {
+	"value": 1
+  },
+  "heavyAttack_center_pre_time": {
+	"value": 1
+  },
+  "heavyAttack_center_in_time": {
+	"value": 1
+  },
+  "heavyAttack_center_end_time": {
+	"value": 1
+  },
+  "heavyAttack_down_pre_time": {
+	"value": 1
+  },
+  "heavyAttack_down_in_time": {
+	"value": 1
+  },
+  "heavyAttack_down_end_time": {
+	"value": 1
+  },
+  "defend_up_pre_time": {
+	"value": 1
+  },
+  "defend_up_in_time": {
+	"value": 1
+  },
+  "defend_up_end_time": {
+	"value": 1
+  },
+  "defend_center_pre_time": {
+	"value": 1
+  },
+  "defend_center_in_time": {
+	"value": 1
+  },
+  "defend_center_end_time": {
+	"value": 1
+  },
+  "defend_down_pre_time": {
+	"value": 1
+  },
+  "defend_down_in_time": {
+	"value": 1
+  },
+  "defend_down_end_time": {
+	"value": 1
+  },
+  "heavyDefend_up_pre_time": {
+	"value": 1
+  },
+  "heavyDefend_up_in_time": {
+	"value": 1
+  },
+  "heavyDefend_up_end_time": {
+	"value": 1
+  },
+  "heavyDefend_center_pre_time": {
+	"value": 1
+  },
+  "heavyDefend_center_in_time": {
+	"value": 1
+  },
+  "heavyDefend_center_end_time": {
+	"value": 1
+  },
+  "heavyDefend_down_pre_time": {
+	"value": 1
+  },
+  "heavyDefend_down_in_time": {
+	"value": 1
+  },
+  "heavyDefend_down_end_time": {
+	"value": 1
+  }
+}
