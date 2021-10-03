@@ -13,6 +13,46 @@ func _ready():
 	FighterState.new()
 	pass # Replace with function body.
 
+enum FightMotion{
+	
+	Idle,
+	Holding,
+	
+	Attack_Up,
+	Attack_Mid,
+	Attack_Bot,
+	
+	HeavyAttack_U2M,
+	HeavyAttack_U,
+	HeavyAttack_U2B,
+	
+	HeavyAttack_M2U,
+	HeavyAttack_M,
+	HeavyAttack_M2B,
+	
+	HeavyAttack_B2U,
+	HeavyAttack_B,
+	HeavyAttack_B2M,
+	
+	Def_Up,
+	Def_Mid,
+	Def_Bot,
+	
+	HeavyDef_U,
+	HeavyDef_U2M,
+	HeavyDef_U2B,
+	
+	HeavyDef_M,
+	HeavyDef_M2U,
+	HeavyDef_M2B,
+	
+	HeavyDef_B,
+	HeavyDef_B2M,
+	HeavyDef_B2U
+}
+
+
+
 #角色各项数据类
 class FighterState:
 	#攻击——上路
@@ -86,3 +126,9 @@ class FighterState:
 	
 	pass
 
+
+
+func _on_FightController_NewFightMotion(motion):
+	print(motion)
+	$AnimationTree.act(motion)
+	pass # Replace with function body.

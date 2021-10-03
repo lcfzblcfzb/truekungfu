@@ -1,4 +1,4 @@
-[gd_scene load_steps=178 format=2]
+[gd_scene load_steps=179 format=2]
 
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/CollisionBox/WeaponBox.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://FrameWork/Fight/ActionHandler.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=5]
 [ext_resource path="res://FrameWork/FightGestureController.tscn" type="PackedScene" id=6]
+[ext_resource path="res://FrameWork/Fight/AnimationTree.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.55952, 6.5287 )
@@ -196,13 +197,13 @@ animation = "a_m_in"
 animation = "a_m_pre"
 
 [sub_resource type="AnimationNodeAnimation" id=16]
-animation = "attack_up_after"
+animation = "a_u_after"
 
 [sub_resource type="AnimationNodeAnimation" id=17]
-animation = "attack_up_in"
+animation = "a_u_in"
 
 [sub_resource type="AnimationNodeAnimation" id=18]
-animation = "attack_up_pre"
+animation = "a_u_pre"
 
 [sub_resource type="AnimationNodeAnimation" id=19]
 animation = "ha_b2m_after"
@@ -294,10 +295,13 @@ animation = "holding"
 [sub_resource type="AnimationNodeStateMachineTransition" id=48]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=49]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=50]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=51]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=52]
 
@@ -306,8 +310,10 @@ animation = "holding"
 [sub_resource type="AnimationNodeStateMachineTransition" id=54]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=55]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=56]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=57]
 
@@ -337,42 +343,56 @@ switch_mode = 1
 [sub_resource type="AnimationNodeStateMachineTransition" id=67]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=68]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=69]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=70]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=71]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=72]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=73]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=74]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=75]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=76]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=77]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=78]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=79]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=80]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=81]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=82]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=83]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=84]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=85]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=86]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=87]
 
@@ -409,28 +429,52 @@ switch_mode = 1
 [sub_resource type="AnimationNodeStateMachineTransition" id=103]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=104]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=105]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=106]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=107]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=108]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=109]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=110]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=111]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=112]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=113]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=114]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=115]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachine" id=116]
 states/a_b_after/node = SubResource( 10 )
@@ -448,7 +492,7 @@ states/a_m_pre/position = Vector2( -184.944, -429.209 )
 states/a_u_after/node = SubResource( 16 )
 states/a_u_after/position = Vector2( 204.056, -508.173 )
 states/a_u_in/node = SubResource( 17 )
-states/a_u_in/position = Vector2( 3.05603, -511.173 )
+states/a_u_in/position = Vector2( 3.05603, -508.173 )
 states/a_u_pre/node = SubResource( 18 )
 states/a_u_pre/position = Vector2( -189.944, -511.173 )
 states/ha_b2m_after/node = SubResource( 19 )
@@ -506,12 +550,12 @@ states/ha_u_in/position = Vector2( 175, -149.072 )
 states/ha_u_pre/node = SubResource( 45 )
 states/ha_u_pre/position = Vector2( -41.944, -149.072 )
 states/holding/node = SubResource( 46 )
-states/holding/position = Vector2( -282.468, -87.1727 )
+states/holding/position = Vector2( -315.468, -31.1727 )
 states/idle/node = SubResource( 47 )
 states/idle/position = Vector2( -375.468, -194.249 )
 transitions = [ "ha_m2u_pre", "ha_m2u_in", SubResource( 48 ), "ha_m2u_in", "ha_m2u_after", SubResource( 49 ), "ha_u2m_pre", "ha_u2m_in", SubResource( 50 ), "ha_u2m_in", "ha_u2m_after", SubResource( 51 ), "holding", "ha_m2u_pre", SubResource( 52 ), "holding", "ha_u2m_pre", SubResource( 53 ), "ha_m2u_after", "ha_u2m_pre", SubResource( 54 ), "a_u_pre", "a_u_in", SubResource( 55 ), "a_u_in", "a_u_after", SubResource( 56 ), "holding", "ha_u_pre", SubResource( 57 ), "holding", "ha_u2b_pre", SubResource( 58 ), "ha_u2b_pre", "ha_u2b_in", SubResource( 59 ), "ha_u_pre", "ha_u_in", SubResource( 60 ), "ha_u_in", "ha_u_after", SubResource( 61 ), "ha_u2b_in", "ha_u2b_after", SubResource( 62 ), "ha_u_after", "ha_u2b_pre", SubResource( 63 ), "holding", "idle", SubResource( 64 ), "idle", "holding", SubResource( 65 ), "idle", "a_u_pre", SubResource( 66 ), "idle", "a_m_pre", SubResource( 67 ), "a_m_pre", "a_m_in", SubResource( 68 ), "a_m_in", "a_m_after", SubResource( 69 ), "idle", "a_b_pre", SubResource( 70 ), "a_b_pre", "a_b_in", SubResource( 71 ), "a_b_in", "a_b_after", SubResource( 72 ), "holding", "ha_m_pre", SubResource( 73 ), "ha_m_pre", "ha_m_in", SubResource( 74 ), "ha_m_in", "ha_m_after", SubResource( 75 ), "holding", "ha_m2b_pre", SubResource( 76 ), "ha_m2b_pre", "ha_m2b_in", SubResource( 77 ), "ha_m2b_in", "ha_m2b_after", SubResource( 78 ), "ha_u_after", "ha_u2m_pre", SubResource( 79 ), "ha_u2m_after", "ha_m2u_pre", SubResource( 80 ), "ha_b_pre", "ha_b_in", SubResource( 81 ), "ha_b2u_pre", "ha_b2u_in", SubResource( 82 ), "ha_b2m_pre", "ha_b2m_in", SubResource( 83 ), "ha_b_in", "ha_b_after", SubResource( 84 ), "ha_b2u_in", "ha_b2u_after", SubResource( 85 ), "ha_b2m_in", "ha_b2m_after", SubResource( 86 ), "holding", "ha_b_pre", SubResource( 87 ), "holding", "ha_b2u_pre", SubResource( 88 ), "holding", "ha_b2m_pre", SubResource( 89 ), "ha_m2b_after", "ha_b2u_pre", SubResource( 90 ), "ha_m2b_after", "ha_b2m_pre", SubResource( 91 ), "ha_b2u_after", "ha_u2m_pre", SubResource( 92 ), "ha_b2u_after", "ha_u2b_pre", SubResource( 93 ), "ha_b2m_after", "ha_m2u_pre", SubResource( 94 ), "ha_b2m_after", "ha_m2b_pre", SubResource( 95 ), "ha_m2u_after", "ha_u2b_pre", SubResource( 96 ), "ha_u2b_after", "ha_b2u_pre", SubResource( 97 ), "ha_u2b_after", "ha_b2m_pre", SubResource( 98 ), "ha_u2m_after", "ha_m2b_pre", SubResource( 99 ), "ha_b_after", "ha_b2u_pre", SubResource( 100 ), "ha_b_after", "ha_b2m_pre", SubResource( 101 ), "ha_m_after", "ha_m2u_pre", SubResource( 102 ), "ha_m_after", "ha_m2b_pre", SubResource( 103 ), "ha_u2b_after", "holding", SubResource( 104 ), "ha_u_after", "holding", SubResource( 105 ), "ha_u2m_after", "holding", SubResource( 106 ), "ha_m_after", "holding", SubResource( 107 ), "ha_m2u_after", "holding", SubResource( 108 ), "ha_m2b_after", "holding", SubResource( 109 ), "ha_b_after", "holding", SubResource( 110 ), "ha_b2u_after", "holding", SubResource( 111 ), "ha_b2m_after", "holding", SubResource( 112 ), "a_b_after", "idle", SubResource( 113 ), "a_m_after", "idle", SubResource( 114 ), "a_u_after", "idle", SubResource( 115 ) ]
-start_node = "holding"
-graph_offset = Vector2( -571, -444.431 )
+start_node = "idle"
+graph_offset = Vector2( -528.794, -613.999 )
 
 [sub_resource type="AnimationNodeStateMachine" id=117]
 states/StateMachine/node = SubResource( 116 )
@@ -552,7 +596,7 @@ start_node = "idle"
 graph_offset = Vector2( -81.7413, 88.0427 )
 
 [sub_resource type="AnimationNodeBlendTree" id=127]
-graph_offset = Vector2( -756.249, 88.4916 )
+graph_offset = Vector2( -1791, 51.7004 )
 nodes/TimeScale/node = SubResource( 9 )
 nodes/TimeScale/position = Vector2( 100, 140 )
 nodes/sm/node = SubResource( 116 )
@@ -1617,6 +1661,7 @@ parameters/sm2/StateMachine/playback = SubResource( 130 )
 parameters/sm2/StateMachine/StateMachine/playback = SubResource( 131 )
 "parameters/sm2/StateMachine 2/playback" = SubResource( 132 )
 parameters/sm2/mix/playback = SubResource( 133 )
+script = ExtResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/a_b_after = SubResource( 134 )
@@ -1663,7 +1708,7 @@ margin_left = -33.9874
 margin_top = 7.9127
 margin_right = 126.013
 margin_bottom = 67.9127
-text = "ha_b2m_pre"
+rect_rotation = 180.0
 context_menu_enabled = false
 shortcut_keys_enabled = false
 virtual_keyboard_enabled = false
@@ -1674,3 +1719,5 @@ __meta__ = {
 
 [node name="FightController" parent="." instance=ExtResource( 6 )]
 position = Vector2( 57.211, -28.3406 )
+
+[connection signal="NewFightMotion" from="FightController" to="." method="_on_FightController_NewFightMotion"]
