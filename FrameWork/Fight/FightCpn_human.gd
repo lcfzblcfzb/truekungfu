@@ -2,7 +2,6 @@ extends Node2D
 
 class_name FightComponent_human
 
-
 #接口
 #需要传入controlableMovingObj的速度参数
 func getSpeed():
@@ -11,9 +10,50 @@ func getSpeed():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	FighterState.new()
 	pass # Replace with function body.
 
+enum FightMotion{
+	
+	Idle,
+	Holding,
+	
+	Attack_Up,
+	Attack_Mid,
+	Attack_Bot,
+	
+	HeavyAttack_U2M,
+	HeavyAttack_U,
+	HeavyAttack_U2B,
+	
+	HeavyAttack_M2U,
+	HeavyAttack_M,
+	HeavyAttack_M2B,
+	
+	HeavyAttack_B2U,
+	HeavyAttack_B,
+	HeavyAttack_B2M,
+	
+	Def_Up,
+	Def_Mid,
+	Def_Bot,
+	
+	HeavyDef_U,
+	HeavyDef_U2M,
+	HeavyDef_U2B,
+	
+	HeavyDef_M,
+	HeavyDef_M2U,
+	HeavyDef_M2B,
+	
+	HeavyDef_B,
+	HeavyDef_B2M,
+	HeavyDef_B2U
+}
 
+
+
+#角色各项数据类
 class FighterState:
 	#攻击——上路
 	var attack_up_pre_time :float;
@@ -68,11 +108,27 @@ class FighterState:
 	var heavyDefend_down_in_time :float;
 	var heavyDefend_down_end_time :float;
 	
-	func _init(jsonDictionary):
-		
-		
+	func _init():
+
+		#从文件中读取JSON数据，并且赋值给对象同名属性上
+		var json =Tool.load_json_file("res://config/Sword_Cfg.tres") as Dictionary
+
+		for p in get_property_list():
+			
+			if json.has(p.name):
+				var v = json.get(p.name)
+				set(p.name,v.value)
+				pass
+			
+			pass
 		pass
 	
 	
 	pass
 
+
+
+func _on_FightController_NewFightMotion(motion):
+	print(motion)
+	$AnimationTree.act(motion)
+	pass # Replace with function body.
