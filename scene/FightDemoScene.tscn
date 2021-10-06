@@ -41,6 +41,9 @@ parameters/sm2/mix/playback = SubResource( 6 )
 [node name="TextEdit" parent="FIghtComponnet_humand" index="8"]
 text = "HOLDING.."
 
+[node name="Sprite" parent="FIghtComponnet_humand/Animation" index="0"]
+frame = 1
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 233.345, 166.17 )
 collision_layer = 16

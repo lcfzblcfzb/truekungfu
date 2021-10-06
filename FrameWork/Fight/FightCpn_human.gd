@@ -7,7 +7,13 @@ class_name FightComponent_human
 func getSpeed():
 	return $ActionHandler.getSpeed()
 
-
+var i=true
+func _input(event):
+	
+	i=!i
+	$AnimationTree.set("parameters/sm/BlendTree/OneShot/active",i)
+	
+	pass
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	FighterState.new()
@@ -129,6 +135,7 @@ class FighterState:
 
 
 func _on_FightController_NewFightMotion(motion):
+	
 	print(motion)
 	$AnimationTree.act(motion)
 	pass # Replace with function body.
