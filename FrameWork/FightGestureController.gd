@@ -259,7 +259,7 @@ func _input(event):
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Attack_Bot)
 					pass
 				else:
-					
+					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
 					#defend todo
 					pass
 			else:
@@ -267,6 +267,7 @@ func _input(event):
 				
 				if moving_position_array.size()<=0:
 					#nothing happen
+					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
 					return
 				elif moving_position_array.size()==1:
 					var byte = moving_position_array.pop_back()
@@ -329,6 +330,7 @@ func _input(event):
 						pass
 					else:
 						#无效的指令了
+						emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
 						pass
 				
 				pass
@@ -392,3 +394,4 @@ func onMouseMovingPosChange():
 func _on_Timer_timeout():
 	print("endMs",OS.get_ticks_msec())
 	show_heavy_attack_indicator()
+	emit_signal("NewFightMotion",FightComponent_human.FightMotion.Holding)

@@ -18,6 +18,9 @@ func _map_action2animation(action)->String:
 		FightComponent_human.FightMotion.Run:
 			return "run"
 			pass
+		FightComponent_human.FightMotion.Holding:
+			return "holding"
+			pass	
 		FightComponent_human.FightMotion.Attack_Up:
 			return "a_u_after"
 			pass
@@ -65,7 +68,9 @@ func _map_action2animation(action)->String:
 			pass
 	return ''
 	pass
-	
+
+#由于在使用animationTree 的时候 animationPlayer 的信号都会失效（如文档里所说，此时animationplayer只用来添加动画)
+#所以只能在animationtree中监测
 var expectNode = ""
 var state : GDScriptFunctionState;
 
@@ -84,7 +89,10 @@ func act(action):
 	if animation!=null:
 		travelTo(animation)
 
-
+#封装的travel 方法;状态切换在此实现。使用yield函数。
+#攻击动画分为 前中后 三个部分，在播放的时候添加一个expectNode；
+# 添加后在process中检测；
+# 检测后返回会emitSignal 函数中；
 func travelTo(name):
 	if name!=state_machine_playback.get_current_node():
 		expectNode = name
@@ -92,7 +100,8 @@ func travelTo(name):
 		print(state)
 		pass
 	state_machine_playback.travel(name)
-	
+
+#玩一下yield方法；
 func emitSignal(toNode):
 	
 	yield()
