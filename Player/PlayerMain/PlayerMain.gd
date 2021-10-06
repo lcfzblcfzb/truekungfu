@@ -1,7 +1,6 @@
 extends BaseCharactor
 
-var ControlableMovingObj = preload("res://FrameWork/ControlableMovingObj.gd")
-var controableMovingObj :ControlableMovingObj
+onready var controableMovingObj =$ControlableMovingObj
 
 
 onready var animationPlayer = $AnimationPlayer
@@ -154,7 +153,6 @@ func attackEndPosLimitRadian(dir:bool=true)->float:
 	
 func _ready():
 	add_child(mouseMng)
-	controableMovingObj = ControlableMovingObj.new(self)
 	controableMovingObj.isMovableWhenAttack = true
 	controableMovingObj.connect("State_Changed",self,"_movingObjStateChanged")
 	controableMovingObj.velocityToward = controableMovingObj.MAX_SPEED
@@ -200,7 +198,6 @@ func _input(event):
 			self.locked = !self.locked
 		
 	if event.is_action_pressed("attack"):
-			
 		rightHand.visible = true
 		if !self.engaged:
 			self.engaged = true
@@ -317,4 +314,8 @@ class PlayerMouseMng  :
 
 
 func _on_AnimationPlayer_animation_started(anim_name):
+	pass # Replace with function body.
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
 	pass # Replace with function body.

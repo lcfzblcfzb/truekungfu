@@ -70,3 +70,4 @@ position = Vector2( -0.396851, -39.685 )
 shape = SubResource( 9 )
 
 [editable path="FIghtComponnet_humand"]
+[editable path="FIghtComponnet_humand/Animation"]

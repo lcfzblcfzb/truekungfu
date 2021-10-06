@@ -49,8 +49,8 @@ func defOver(s=PlayState.Idle):
 
 #动画结束事件
 #根据动画名字检测动作
-func _on_AnimationPlayer_animation_finished(anim_name):
-	
+
+func _on_AnimationTree_State_Changed(anim_name):
 	if anim_name ==null||anim_name=="":
 		return 
 	

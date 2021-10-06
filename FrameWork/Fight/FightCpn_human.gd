@@ -146,8 +146,9 @@ func _on_FightController_NewFightMotion(motion):
 func _on_ControlableMovingObj_State_Changed(state):
 	
 	if state == ControlableMovingObj.PlayState.Idle:
-		$AnimationTree.travel("idle")
+		$AnimationTree.travelTo("idle")
 	elif state ==ControlableMovingObj.PlayState.Moving:
-		$AnimationTree.travel("move")
+		$AnimationTree.travelTo("walk")
 	
 	pass # Replace with function body.
+

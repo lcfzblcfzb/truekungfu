@@ -2,14 +2,7 @@ extends AnimationTree
 
 var state_machine_playback = get("parameters/sm/playback")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+signal State_Changed;
 
 func _map_action2animation(action)->String:
 	
@@ -72,14 +65,37 @@ func _map_action2animation(action)->String:
 			pass
 	return ''
 	pass
+	
+var expectNode = ""
+var state : GDScriptFunctionState;
 
+func _process(delta):
+	
+	if state!=null && state.is_valid():
+		
+		if state_machine_playback.get_current_node()==expectNode:
+			state.resume(expectNode)
+			expectNode = ""
+	pass
 #动作动作
 func act(action):
 	var animation = _map_action2animation(action)
 	print("action: ",animation)
 	if animation!=null:
-		state_machine_playback.travel(animation)
+		travelTo(animation)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func travelTo(name):
+	if name!=state_machine_playback.get_current_node():
+		expectNode = name
+		state = emitSignal(expectNode)
+		print(state)
+		pass
+	state_machine_playback.travel(name)
+	
+func emitSignal(toNode):
+	
+	yield()
+	#sinal
+	emit_signal("State_Changed",toNode)
+	pass	
