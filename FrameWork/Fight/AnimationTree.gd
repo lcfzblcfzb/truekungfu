@@ -14,6 +14,17 @@ func _ready():
 func _map_action2animation(action)->String:
 	
 	match action:
+		
+		
+		FightComponent_human.FightMotion.Run:
+			return ""
+		FightComponent_human.FightMotion.Idle:
+			return "idle"
+		FightComponent_human.FightMotion.Walk:
+			return "walk"
+		FightComponent_human.FightMotion.Run:
+			return "run"
+			pass
 		FightComponent_human.FightMotion.Attack_Up:
 			return "a_u_after"
 			pass

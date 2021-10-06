@@ -23,6 +23,8 @@ enum FightMotion{
 	
 	Idle,
 	Holding,
+	Walk,
+	Run,
 	
 	Attack_Up,
 	Attack_Mid,
@@ -133,9 +135,19 @@ class FighterState:
 	pass
 
 
-
+#检测到新动作
 func _on_FightController_NewFightMotion(motion):
 	
 	print(motion)
 	$AnimationTree.act(motion)
+	pass # Replace with function body.
+
+
+func _on_ControlableMovingObj_State_Changed(state):
+	
+	if state == ControlableMovingObj.PlayState.Idle:
+		$AnimationTree.travel("idle")
+	elif state ==ControlableMovingObj.PlayState.Moving:
+		$AnimationTree.travel("move")
+	
 	pass # Replace with function body.

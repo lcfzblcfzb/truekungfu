@@ -39,7 +39,8 @@ parameters/sm2/StateMachine/StateMachine/playback = SubResource( 4 )
 parameters/sm2/mix/playback = SubResource( 6 )
 
 [node name="TextEdit" parent="FIghtComponnet_humand" index="8"]
-text = "HOLDING.."
+rect_rotation = 33.2454
+text = "idle"
 
 [node name="Sprite" parent="FIghtComponnet_humand/Animation" index="0"]
 frame = 1
