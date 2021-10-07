@@ -1,5 +1,6 @@
-tool
+class_name FightActionController
 extends Node2D
+
 const MaxAngleSpeed  = 500
 
 signal NewFightMotion
@@ -204,9 +205,33 @@ func _calc_position_byte_array(R)->int:
 #开关。
 var is_cancel = false
 
+
 #攻击指示器出现在角色的左边or右边
 func is_on_left()->bool:
 	return attackPos.x<jisu.global_position.x
+	
+export var MAX_ACTION_ARRAY_SIZE =101	
+#动作历史记录
+var action_array = []
+#旧数组数据
+var old_array =[]
+#对象池
+var actionPool = ObjPool.new(ActionInfo)
+#保持数组长度不超过 MAX_ACTION_ARRAY_SIZE 的长度
+#缓存上一个数组的数据
+func regist_action(a,param=null):
+	#var action =ActionInfo.new(a,OS.get_ticks_msec(),param)
+	var action =actionPool.instance([a,OS.get_ticks_msec(),param])
+	if action_array.size() >= MAX_ACTION_ARRAY_SIZE:
+		var last  = action_array.pop_back()
+		if old_array.size()>0:
+			for o in old_array:
+				o.dead()
+				
+		old_array = action_array
+		action_array = [last,action]
+	else:		
+		action_array.append(action)
 
 func _input(event):
 	
@@ -223,13 +248,14 @@ func _input(event):
 			attackPos =event.global_position;
 			onAttackPosChange()
 		elif event.is_action_released("attack"):
+			#停下计时器
+			$Timer.stop()
 			
 			if is_cancel:
 				is_cancel = false;
 				return
 			
 			hide_all()
-			$Timer.stop()
 			endPos = event.global_position
 			attack_pressed=false
 			
@@ -248,17 +274,21 @@ func _input(event):
 				var byte = _calc_position_byte_array(R)
 				if _is_attack_up_position(byte):
 					#attack up
+					regist_action(FightComponent_human.FightMotion.Attack_Up)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Attack_Up)
 					pass
 				elif _is_attack_mid_position(byte):
 					#attack mid
+					regist_action(FightComponent_human.FightMotion.Attack_Mid)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Attack_Mid)
 					pass
 				elif _is_attack_bot_position(byte):
 					#attack bot
+					regist_action(FightComponent_human.FightMotion.Attack_Bot)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Attack_Bot)
 					pass
 				else:
+					regist_action(FightComponent_human.FightMotion.Idle)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
 					#defend todo
 					pass
@@ -267,20 +297,24 @@ func _input(event):
 				
 				if moving_position_array.size()<=0:
 					#nothing happen
+					regist_action(FightComponent_human.FightMotion.Idle)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
 					return
 				elif moving_position_array.size()==1:
 					var byte = moving_position_array.pop_back()
 					if _is_attack_up_position(byte):
 						#heavy_attack_up
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_U)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_U)
 						pass
 					elif _is_attack_mid_position(byte):
 						#heavy_attack_mid
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_M)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_M)
 						pass
 					elif _is_attack_bot_position(byte):
 						#heavy_attack_bot
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_B)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_B)
 						pass
 				else:
@@ -293,43 +327,53 @@ func _input(event):
 					if _is_attack_up_position(resultByte):
 						
 						#heavy_attack_up:  h_a_u
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_U)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_U)
 						pass
 					elif _is_attack_u2m(resultByte):
 						#h_a_u2m
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_U2M)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_U2M)
 						pass
 					elif _is_attack_u2b(resultByte):
 						#h_a_u2b
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_U2B)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_U2B)
 						pass
 					elif _is_attack_m2u(resultByte):
 							#h_a_m2u
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_M2U)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_M2U)
 						pass
 					elif _is_attack_mid_position(resultByte):
 							#h_a_m
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_M)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_M)
 						pass
 					elif _is_attack_m2b(resultByte):
 							#h_a_m2b
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_M2B)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_M2B)
 						pass
 							
 					elif _is_attack_b2u(resultByte):
 							#h_a_b2u
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_B2U)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_B2U)
 						pass
 					elif _is_attack_b2m(resultByte):
 							#h_a_b2m
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_B2M)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_B2M)
 						pass
 					elif _is_attack_bot_position(resultByte):
 						#h_a_b
+						regist_action(FightComponent_human.FightMotion.HeavyAttack_B)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.HeavyAttack_B)
 						pass
 					else:
 						#无效的指令了
+						regist_action(FightComponent_human.FightMotion.Idle)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
 						pass
 				
@@ -340,7 +384,26 @@ func _input(event):
 		if event.is_action_pressed("cancel"):
 			hide_all()	
 			is_cancel = true
+	#移动
+	if event.is_action_pressed("ui_right")||event.is_action_pressed("ui_left")||event.is_action_pressed("ui_up")||event.is_action_pressed("ui_down"):
 		
+		var input_vector = Vector2.ZERO;
+		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left");
+		input_vector.y = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up");
+		
+		input_vector =  input_vector.normalized()
+		
+		if input_vector != Vector2.ZERO:
+		
+			var lastMotion =action_array.back()
+			
+			if lastMotion != null && lastMotion.action_type==FightComponent_human.FightMotion.Walk && lastMotion.param == input_vector:
+				regist_action(FightComponent_human.FightMotion.Run,input_vector)
+				emit_signal("NewFightMotion",FightComponent_human.FightMotion.Run)
+			else:		
+				regist_action(FightComponent_human.FightMotion.Walk,input_vector)
+				emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
+	
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
 		mouseMovingPos = event.global_position
@@ -390,8 +453,28 @@ func onEndPosChange():
 func onMouseMovingPosChange():
 	pass
 
-
 func _on_Timer_timeout():
 	print("endMs",OS.get_ticks_msec())
 	show_heavy_attack_indicator()
+	regist_action(FightComponent_human.FightMotion.Holding)
 	emit_signal("NewFightMotion",FightComponent_human.FightMotion.Holding)
+
+#action 信息
+class ActionInfo :
+
+	extends ObjPool.IPoolAble	
+	func _init(pool,params).(pool):
+		action_type=params[0]
+		action_begin = params[1]
+		param =params[2]
+	pass
+	
+	var action_type;
+	var action_begin;
+	var param;#如果是 run/move 指令，保存方向向量
+	
+	func _clean():
+		action_type=null
+		action_begin=null
+		param=null
+		pass

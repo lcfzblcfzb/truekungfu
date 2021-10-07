@@ -7,13 +7,6 @@ class_name FightComponent_human
 func getSpeed():
 	return $ActionHandler.getSpeed()
 
-var i=true
-func _input(event):
-	
-	i=!i
-	$AnimationTree.set("parameters/sm/BlendTree/OneShot/active",i)
-	
-	pass
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	FighterState.new()
@@ -142,13 +135,10 @@ func _on_FightController_NewFightMotion(motion):
 	$AnimationTree.act(motion)
 	pass # Replace with function body.
 
-
+#移动状态改变
 func _on_ControlableMovingObj_State_Changed(state):
 	
 	if state == ControlableMovingObj.PlayState.Idle:
-		$AnimationTree.travelTo("idle")
-	elif state ==ControlableMovingObj.PlayState.Moving:
-		$AnimationTree.travelTo("walk")
-	
+		$AnimationTree.travelTo("idle")	
 	pass # Replace with function body.
 

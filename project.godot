@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://FrameWork/ControlableMovingObj.gd"
 }, {
 "base": "Node2D",
+"class": "FightActionController",
+"language": "GDScript",
+"path": "res://FrameWork/FightGestureController.gd"
+}, {
+"base": "Node2D",
 "class": "FightComponent_human",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/FightCpn_human.gd"
@@ -48,6 +53,11 @@ _global_script_classes=[ {
 "class": "NpcOf2Direction",
 "language": "GDScript",
 "path": "res://FrameWork/Charactor/NpcOf2Direction.gd"
+}, {
+"base": "Object",
+"class": "ObjPool",
+"language": "GDScript",
+"path": "res://FrameWork/Tool/ObjPool.gd"
 }, {
 "base": "Node2D",
 "class": "Weapon",
@@ -65,9 +75,11 @@ _global_script_class_icons={
 "AggresiveCharactor": "",
 "BaseCharactor": "",
 "ControlableMovingObj": "",
+"FightActionController": "",
 "FightComponent_human": "",
 "KinematicMovableObj": "",
 "NpcOf2Direction": "",
+"ObjPool": "",
 "Weapon": "",
 "WeaponBox": ""
 }

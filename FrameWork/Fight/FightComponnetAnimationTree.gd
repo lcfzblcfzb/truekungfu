@@ -8,9 +8,6 @@ func _map_action2animation(action)->String:
 	
 	match action:
 		
-		
-		FightComponent_human.FightMotion.Run:
-			return ""
 		FightComponent_human.FightMotion.Idle:
 			return "idle"
 		FightComponent_human.FightMotion.Walk:

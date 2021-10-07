@@ -23,7 +23,6 @@ func onProcess(delta=0):
 	
 	input_vector =  input_vector.normalized()
 
-	
 	if input_vector!=Vector2.ZERO:
 		self.faceDirection = input_vector
 		
@@ -46,10 +45,8 @@ func attackOver(s = PlayState.Idle):
 func defOver(s=PlayState.Idle):
 	self.state = s
 
-
 #动画结束事件
 #根据动画名字检测动作
-
 func _on_AnimationTree_State_Changed(anim_name):
 	if anim_name ==null||anim_name=="":
 		return 

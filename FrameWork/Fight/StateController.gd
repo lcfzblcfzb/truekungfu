@@ -1,6 +1,8 @@
+tool
 extends Node2D
 
-
+#path to file
+export(String, FILE) var cfg_path
 # Declare member export(float, 0, 5, 0.1)  variables here. Examples:
 # export(float, 0, 5, 0.1)  var a = 2
 # export(float, 0, 5, 0.1)  var b = "text"
@@ -8,6 +10,21 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	#从文件中读取JSON数据，并且赋值给对象同名属性上
+	var json =Tool.load_json_file(cfg_path) as Dictionary
+
+	for p in get_property_list():
+		
+		if json.has(p.name):
+			var v = json.get(p.name)
+			set(p.name,v.value)
+			print(v)
+			pass
+		
+		pass
+	pass
+	
 	pass # Replace with function body.
 #攻击——上路
 export(float, 0, 5, 0.1)  var attack_up_pre_time :float;
