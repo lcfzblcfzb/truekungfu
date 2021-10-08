@@ -71,13 +71,16 @@ func _map_action2animation(action)->String:
 var expectNode = ""
 var state : GDScriptFunctionState;
 
+#前一个结点；
+var prv_node =""
+
 func _process(delta):
 	
-	if state!=null && state.is_valid():
+	var current_node = state_machine_playback.get_current_node()
+	if current_node!=prv_node:
+		emitSignal(current_node)
+		prv_node = current_node
 		
-		if state_machine_playback.get_current_node()==expectNode:
-			state.resume(expectNode)
-			expectNode = ""
 	pass
 #动作动作
 func act(action):
@@ -91,17 +94,14 @@ func act(action):
 # 添加后在process中检测；
 # 检测后返回会emitSignal 函数中；
 func travelTo(name):
-	if name!=state_machine_playback.get_current_node():
-		expectNode = name
-		state = emitSignal(expectNode)
-		print(state)
-		pass
+	print(name)
 	state_machine_playback.travel(name)
+	pass
 
 #玩一下yield方法；
 func emitSignal(toNode):
 	
-	yield()
+	
+	$Label.text +=( "-->" + toNode as String)
 	#sinal
 	emit_signal("State_Changed",toNode)
-	pass	

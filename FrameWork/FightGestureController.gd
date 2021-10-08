@@ -3,6 +3,8 @@ extends Node2D
 
 const MaxAngleSpeed  = 500
 
+export var fight_component :NodePath
+
 signal NewFightMotion
 #攻击指示标（鼠标按下和抬起的位置）
 var endPos = Vector2.ZERO
@@ -14,7 +16,7 @@ var attackDirection = 0
 var endPosRotation = Vector2.ZERO
 #朝向鼠标的向量
 var toMouseVector = Vector2.ZERO
-var jisu
+var jisu :FightComponent_human
 
 #开始的角度
 var attackRadiusBias = PI*3/2
@@ -67,7 +69,7 @@ var to_byte = 0;
 
 func _ready():
 	if(!jisu):
-		jisu = get_parent()
+		jisu = get_node(fight_component)
 	
 func show_attack_indicator():
 	
@@ -238,6 +240,7 @@ func _input(event):
 	if(event is InputEventMouse):
 		
 		if event.is_action_pressed("attack"):
+			
 			global_position = event.global_position;
 			show_attack_indicator()
 			attack_begin_time = OS.get_ticks_msec()
@@ -250,6 +253,8 @@ func _input(event):
 		elif event.is_action_released("attack"):
 			#停下计时器
 			$Timer.stop()
+			
+			jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Attack
 			
 			if is_cancel:
 				is_cancel = false;
@@ -290,6 +295,7 @@ func _input(event):
 				else:
 					regist_action(FightComponent_human.FightMotion.Idle)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
+					jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Moving
 					#defend todo
 					pass
 			else:
@@ -299,6 +305,7 @@ func _input(event):
 					#nothing happen
 					regist_action(FightComponent_human.FightMotion.Idle)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
+					jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Moving
 					return
 				elif moving_position_array.size()==1:
 					var byte = moving_position_array.pop_back()
@@ -375,6 +382,7 @@ func _input(event):
 						#无效的指令了
 						regist_action(FightComponent_human.FightMotion.Idle)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
+						jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Moving
 						pass
 				
 				pass
@@ -382,27 +390,58 @@ func _input(event):
 			onEndPosChange()
 			print("array:",_calc_position_byte_array(R))
 		if event.is_action_pressed("cancel"):
+			
+			jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Idle
 			hide_all()	
 			is_cancel = true
 	#移动
-	if event.is_action_pressed("ui_right")||event.is_action_pressed("ui_left")||event.is_action_pressed("ui_up")||event.is_action_pressed("ui_down"):
-		
-		var input_vector = Vector2.ZERO;
-		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left");
-		input_vector.y = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up");
-		
-		input_vector =  input_vector.normalized()
-		
-		if input_vector != Vector2.ZERO:
-		
-			var lastMotion =action_array.back()
+	#超乱
+	#只有在非 攻击（ATTACK）状态下 才进行移动/ 奔跑切换
+	if event.is_action("ui_right")||event.is_action("ui_left")||event.is_action("ui_up")||event.is_action("ui_down"):
+		if event.is_pressed() :
+			var input_vector = Vector2.ZERO;
+			input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left");
+			input_vector.y = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up");
 			
-			if lastMotion != null && lastMotion.action_type==FightComponent_human.FightMotion.Walk && lastMotion.param == input_vector:
-				regist_action(FightComponent_human.FightMotion.Run,input_vector)
-				emit_signal("NewFightMotion",FightComponent_human.FightMotion.Run)
-			else:		
-				regist_action(FightComponent_human.FightMotion.Walk,input_vector)
-				emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
+			input_vector =  input_vector.normalized()
+			
+			if  !event.is_echo():
+				if input_vector != Vector2.ZERO:
+					
+					if jisu.aggresiveCharactor.state!=AggresiveCharactor.PlayState.Attack:
+						jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Moving
+						run(input_vector)
+					
+					var lastMotion =action_array.back()
+					
+					if lastMotion != null && lastMotion.action_type==FightComponent_human.FightMotion.Walk && lastMotion.param == input_vector:
+						regist_action(FightComponent_human.FightMotion.Run,input_vector)
+						emit_signal("NewFightMotion",FightComponent_human.FightMotion.Run)
+					else:		
+						regist_action(FightComponent_human.FightMotion.Walk,input_vector)
+						emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
+				else:
+					if jisu.aggresiveCharactor.state!=AggresiveCharactor.PlayState.Attack:
+						jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Idle
+						stop()
+			else:
+				
+				#这里是 攻击结束后，以前按下移动中的情况
+				if jisu.aggresiveCharactor.state == AggresiveCharactor.PlayState.Idle:
+					
+					jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Moving
+					run(input_vector)
+					
+					regist_action(FightComponent_human.FightMotion.Walk,input_vector)
+					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
+					pass
+				
+		elif !event.is_pressed():
+			
+			#这里是 移动键 松开
+			#TODO 记录4个方向的按下状态
+			if jisu.aggresiveCharactor.state!=AggresiveCharactor.PlayState.Attack:
+				jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Idle
 	
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
@@ -443,7 +482,15 @@ func _input(event):
 			pass
 		
 		onMouseMovingPosChange()
-		
+
+func run(input_vector):
+	jisu.aggresiveCharactor.input_vector = input_vector
+	jisu.aggresiveCharactor.velocityToward = jisu.getSpeed()
+	pass
+
+func stop():
+	jisu.aggresiveCharactor.velocityToward = 0
+
 func onAttackPosChange():
 	pass
 	
@@ -454,6 +501,7 @@ func onMouseMovingPosChange():
 	pass
 
 func _on_Timer_timeout():
+	jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Idle
 	print("endMs",OS.get_ticks_msec())
 	show_heavy_attack_indicator()
 	regist_action(FightComponent_human.FightMotion.Holding)

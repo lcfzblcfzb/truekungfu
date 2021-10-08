@@ -15,6 +15,15 @@ func _ready():
 #func _process(delta):
 #	pass
 
+func change_face_direction(face):
+	
+	if face>0:
+		$Sprite.flip_h = false
+	else:
+		$Sprite.flip_h = true
+	
+	pass
+
 
 func _on_SwordDemoAnimationPlayer_animation_started(anim_name):
 	pass # Replace with function body.

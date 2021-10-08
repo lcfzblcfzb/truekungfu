@@ -45,14 +45,3 @@ func attackOver(s = PlayState.Idle):
 func defOver(s=PlayState.Idle):
 	self.state = s
 
-#动画结束事件
-#根据动画名字检测动作
-func _on_AnimationTree_State_Changed(anim_name):
-	if anim_name ==null||anim_name=="":
-		return 
-	
-	if anim_name.find("after",0)>0:
-		attackOver()
-		pass
-	
-	pass # Replace with function body.

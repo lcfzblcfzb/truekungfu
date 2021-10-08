@@ -2,6 +2,7 @@ extends Node2D
 
 class_name FightComponent_human
 
+onready var aggresiveCharactor:AggresiveCharactor = $AggresiveCharactor
 #接口
 #需要传入controlableMovingObj的速度参数
 func getSpeed():
@@ -130,15 +131,41 @@ class FighterState:
 
 #检测到新动作
 func _on_FightController_NewFightMotion(motion):
-	
+		
 	print(motion)
 	$AnimationTree.act(motion)
 	pass # Replace with function body.
 
+var prv_face_direction = Vector2.ZERO
+
 #移动状态改变
-func _on_ControlableMovingObj_State_Changed(state):
-	
+func _on_AggresiveCharactor_State_Changed(state):
 	if state == ControlableMovingObj.PlayState.Idle:
 		$AnimationTree.travelTo("idle")	
+	elif state ==ControlableMovingObj.PlayState.Moving:
+		
+		if $AggresiveCharactor.faceDirection.x != prv_face_direction.x:
+			prv_face_direction = $AggresiveCharactor.faceDirection
+			$SpriteAnimation.change_face_direction(prv_face_direction.x)
+		pass
 	pass # Replace with function body.
 
+func _on_AggresiveCharactor_FaceDirectionChanged(direction):
+	if direction.x != prv_face_direction.x:
+		prv_face_direction = direction
+		$SpriteAnimation.change_face_direction(prv_face_direction.x)
+
+var prv_animin =""		
+#动画结束事件
+#根据动画名字检测动作
+func _on_AnimationTree_State_Changed(anim_name):
+	if anim_name ==null||anim_name=="":
+		return 
+	if prv_animin.find("_in",0)>0:
+		$AggresiveCharactor.attackOver()
+	
+	prv_animin = anim_name
+	pass # Replace with function body.
+
+func _on_SwordDemoAnimationPlayer_animation_finished(anim_name):
+	pass # Replace with function body.
