@@ -37,6 +37,7 @@ var heavyAttackThreshold = 300.0
 #重攻击生效范围半径.
 var heavyAttackRadiusLimit = 5
 
+
 #位置命名
 enum PositionName{
 		
@@ -253,9 +254,7 @@ func _input(event):
 		elif event.is_action_released("attack"):
 			#停下计时器
 			$Timer.stop()
-			
-			jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Attack
-			
+						
 			if is_cancel:
 				is_cancel = false;
 				return
@@ -295,7 +294,8 @@ func _input(event):
 				else:
 					regist_action(FightComponent_human.FightMotion.Idle)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
-					jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Moving
+					
+					jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 					#defend todo
 					pass
 			else:
@@ -305,7 +305,8 @@ func _input(event):
 					#nothing happen
 					regist_action(FightComponent_human.FightMotion.Idle)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
-					jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Moving
+					jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
+	
 					return
 				elif moving_position_array.size()==1:
 					var byte = moving_position_array.pop_back()
@@ -382,7 +383,8 @@ func _input(event):
 						#无效的指令了
 						regist_action(FightComponent_human.FightMotion.Idle)
 						emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
-						jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Moving
+						jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
+	
 						pass
 				
 				pass
@@ -391,58 +393,58 @@ func _input(event):
 			print("array:",_calc_position_byte_array(R))
 		if event.is_action_pressed("cancel"):
 			
-			jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Idle
+			jisu.fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Idle
 			hide_all()	
 			is_cancel = true
 	#移动
 	#超乱
 	#只有在非 攻击（ATTACK）状态下 才进行移动/ 奔跑切换
 	if event.is_action("ui_right")||event.is_action("ui_left")||event.is_action("ui_up")||event.is_action("ui_down"):
-		if event.is_pressed() :
-			var input_vector = Vector2.ZERO;
-			input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left");
-			input_vector.y = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up");
-			
-			input_vector =  input_vector.normalized()
-			
-			if  !event.is_echo():
-				if input_vector != Vector2.ZERO:
+	
+		var input_vector = Vector2.ZERO;
+		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left");
+		input_vector.y = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up");
+		
+		input_vector =  input_vector.normalized()
+		
+		if  !event.is_echo():
+			if input_vector != Vector2.ZERO:
+				
+	
+				var lastMotion =action_array.back()
+				
+				if lastMotion != null && lastMotion.action_type==FightComponent_human.FightMotion.Walk && lastMotion.param == input_vector:
+					regist_action(FightComponent_human.FightMotion.Run,input_vector)
+					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Run)
 					
-					if jisu.aggresiveCharactor.state!=AggresiveCharactor.PlayState.Attack:
-						jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Moving
-						run(input_vector)
+					if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
+						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
+				else:
+					regist_action(FightComponent_human.FightMotion.Walk,input_vector)
+					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
+					
+					if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
+						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
+			else:
+				if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
 					
 					var lastMotion =action_array.back()
 					
-					if lastMotion != null && lastMotion.action_type==FightComponent_human.FightMotion.Walk && lastMotion.param == input_vector:
-						regist_action(FightComponent_human.FightMotion.Run,input_vector)
-						emit_signal("NewFightMotion",FightComponent_human.FightMotion.Run)
-					else:		
-						regist_action(FightComponent_human.FightMotion.Walk,input_vector)
-						emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
-				else:
-					if jisu.aggresiveCharactor.state!=AggresiveCharactor.PlayState.Attack:
-						jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Idle
-						stop()
-			else:
-				
-				#这里是 攻击结束后，以前按下移动中的情况
-				if jisu.aggresiveCharactor.state == AggresiveCharactor.PlayState.Idle:
-					
-					jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Moving
-					run(input_vector)
-					
-					regist_action(FightComponent_human.FightMotion.Walk,input_vector)
-					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
-					pass
-				
-		elif !event.is_pressed():
+					if lastMotion.action_type != FightComponent_human.FightMotion.Run:
+						
+						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
+		else:
 			
-			#这里是 移动键 松开
-			#TODO 记录4个方向的按下状态
-			if jisu.aggresiveCharactor.state!=AggresiveCharactor.PlayState.Attack:
-				jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Idle
-	
+			#这里是 攻击结束后，以前按下移动中的情况
+			if jisu.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
+				
+				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
+				
+				regist_action(FightComponent_human.FightMotion.Walk,input_vector)
+				emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
+				pass
+				
+			
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
 		mouseMovingPos = event.global_position
@@ -483,13 +485,6 @@ func _input(event):
 		
 		onMouseMovingPosChange()
 
-func run(input_vector):
-	jisu.aggresiveCharactor.input_vector = input_vector
-	jisu.aggresiveCharactor.velocityToward = jisu.getSpeed()
-	pass
-
-func stop():
-	jisu.aggresiveCharactor.velocityToward = 0
 
 func onAttackPosChange():
 	pass
@@ -501,7 +496,7 @@ func onMouseMovingPosChange():
 	pass
 
 func _on_Timer_timeout():
-	jisu.aggresiveCharactor.state = AggresiveCharactor.PlayState.Idle
+	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 	print("endMs",OS.get_ticks_msec())
 	show_heavy_attack_indicator()
 	regist_action(FightComponent_human.FightMotion.Holding)

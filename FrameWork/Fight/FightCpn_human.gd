@@ -2,15 +2,15 @@ extends Node2D
 
 class_name FightComponent_human
 
-onready var aggresiveCharactor:AggresiveCharactor = $AggresiveCharactor
+onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicMovableObj
 #接口
 #需要传入controlableMovingObj的速度参数
 func getSpeed():
 	return $ActionHandler.getSpeed()
-
+#保存动画时间的字典
+onready var animation_cfg = $StateController
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	FighterState.new()
 	pass # Replace with function body.
 
 enum FightMotion{
@@ -127,33 +127,22 @@ class FighterState:
 	
 	
 	pass
-
+	
+#改变 movableobjstate
+func change_movable_state(input_vector,s):
+	
+	fightKinematicMovableObj.input_vector = input_vector
+	fightKinematicMovableObj.state = s
+	pass
 
 #检测到新动作
 func _on_FightController_NewFightMotion(motion):
 		
-	print(motion)
 	$AnimationTree.act(motion)
 	pass # Replace with function body.
 
 var prv_face_direction = Vector2.ZERO
 
-#移动状态改变
-func _on_AggresiveCharactor_State_Changed(state):
-	if state == ControlableMovingObj.PlayState.Idle:
-		$AnimationTree.travelTo("idle")	
-	elif state ==ControlableMovingObj.PlayState.Moving:
-		
-		if $AggresiveCharactor.faceDirection.x != prv_face_direction.x:
-			prv_face_direction = $AggresiveCharactor.faceDirection
-			$SpriteAnimation.change_face_direction(prv_face_direction.x)
-		pass
-	pass # Replace with function body.
-
-func _on_AggresiveCharactor_FaceDirectionChanged(direction):
-	if direction.x != prv_face_direction.x:
-		prv_face_direction = direction
-		$SpriteAnimation.change_face_direction(prv_face_direction.x)
 
 var prv_animin =""		
 #动画结束事件
@@ -161,11 +150,44 @@ var prv_animin =""
 func _on_AnimationTree_State_Changed(anim_name):
 	if anim_name ==null||anim_name=="":
 		return 
+	print("curr_animin",anim_name)	
+	print("prv_animin ",prv_animin)
 	if prv_animin.find("_in",0)>0:
-		$AggresiveCharactor.attackOver()
+		fightKinematicMovableObj.attackOver()
+	if anim_name.find("_pre")>0:
+		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Attack
+	if anim_name=="run2idle":
+		
+		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Run2Idle
+	elif anim_name =="idle":
+		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Idle
+	
+	var time = animation_cfg.get(anim_name);
+	if time==0:
+		time=1
+	if time !=null:
+		$AnimationTree.set_deferred("parameters/TimeScale/scale",1/time)
+		pass
 	
 	prv_animin = anim_name
 	pass # Replace with function body.
 
-func _on_SwordDemoAnimationPlayer_animation_finished(anim_name):
+#方向改变
+func _on_FightKinematicMovableObj_FaceDirectionChanged(direction):
+	if direction.x != prv_face_direction.x:
+		prv_face_direction = direction
+		$SpriteAnimation.change_face_direction(prv_face_direction.x)
+
+
+#移动状态改变
+func _on_FightKinematicMovableObj_State_Changed(state):
+	
+	if state == FightKinematicMovableObj.ActionState.Idle:
+		$AnimationTree.travelTo("idle")	
+	elif state != FightKinematicMovableObj.ActionState.Attack :
+		
+		if fightKinematicMovableObj.faceDirection.x != prv_face_direction.x:
+			prv_face_direction = fightKinematicMovableObj.faceDirection
+			$SpriteAnimation.change_face_direction(prv_face_direction.x)
+		pass
 	pass # Replace with function body.

@@ -9,7 +9,8 @@ enum PlayState{
 	Moving,
 	Attack,
 	Def,
-	Roll
+	Roll,
+	Stop
 }
 
 #状态
@@ -45,7 +46,7 @@ func onPhysicsProcess(delta):
 	
 	match state:
 		PlayState.Idle:
-			isMoving =false
+			isMoving =true
 		PlayState.Moving:
 			isMoving = true
 		PlayState.Attack:
@@ -54,6 +55,8 @@ func onPhysicsProcess(delta):
 			isMoving =false
 		PlayState.Roll:
 			isMoving = true
+		PlayState.Stop:
+			isMoving = false
 		
 	.onPhysicsProcess(delta)
 #进入攻击态

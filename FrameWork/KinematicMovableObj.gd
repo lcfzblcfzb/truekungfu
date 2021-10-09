@@ -70,16 +70,18 @@ func onProcess(delta=0):
 	
 #_physiceProcess 回调
 func onPhysicsProcess(delta):
+	pass
+	#PlayState.ATTACK:
+	#	player_attack(delta)
+
+func _physics_process(delta):
 	
 	match isMoving:
 		false:
 			player_idle(delta)
 		true:
 			player_move(delta)
-	#PlayState.ATTACK:
-	#	player_attack(delta)
-
-func _physics_process(delta):
+			
 	onPhysicsProcess(delta)
 
 func _process(delta):
@@ -97,8 +99,9 @@ func player_idle(delta):
 func _movePlayer(delta):
 #	if(velocityToward>velocityTowardLimit):
 #		velocityToward = velocityTowardLimit
-	velocity =velocity.move_toward(faceDirection* self.velocity_value,acceleration*delta);
-	body.move_and_collide(velocity*delta)
+	if isMoving:
+		velocity =velocity.move_toward(faceDirection* self.velocity_value,acceleration*delta);
+		body.move_and_collide(velocity*delta)
 #停下函数
 func _stopPlayer(delta):
 	velocityToward= 0

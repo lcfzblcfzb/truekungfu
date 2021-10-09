@@ -19,7 +19,7 @@ func change_face_direction(face):
 	
 	if face>0:
 		$Sprite.flip_h = false
-	else:
+	elif face<0:
 		$Sprite.flip_h = true
 	
 	pass

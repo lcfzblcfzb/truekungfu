@@ -2,13 +2,13 @@
 
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/CollisionBox/WeaponBox.gd" type="Script" id=2]
-[ext_resource path="res://FrameWork/AggresiveCharactor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://FrameWork/Fight/ActionHandler.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=5]
 [ext_resource path="res://FrameWork/FightGestureController.tscn" type="PackedScene" id=6]
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=7]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.gd" type="Script" id=9]
+[ext_resource path="res://FrameWork/Fight/FightKinematicMovableObj.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.55952, 6.5287 )
@@ -1649,7 +1649,6 @@ priority = 0
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=181]
 advance_condition = "is_holding"
-xfade_time = 0.1
 priority = 0
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=182]
@@ -1742,7 +1741,7 @@ states/walk/node = SubResource( 94 )
 states/walk/position = Vector2( -469.732, -332.414 )
 transitions = [ "ha_m2u_pre", "ha_m2u_in", SubResource( 95 ), "ha_m2u_in", "ha_m2u_after", SubResource( 96 ), "ha_u2m_pre", "ha_u2m_in", SubResource( 97 ), "ha_u2m_in", "ha_u2m_after", SubResource( 98 ), "holding", "ha_m2u_pre", SubResource( 99 ), "holding", "ha_u2m_pre", SubResource( 100 ), "ha_m2u_after", "ha_u2m_pre", SubResource( 101 ), "a_u_pre", "a_u_in", SubResource( 102 ), "a_u_in", "a_u_after", SubResource( 103 ), "holding", "ha_u_pre", SubResource( 104 ), "holding", "ha_u2b_pre", SubResource( 105 ), "ha_u2b_pre", "ha_u2b_in", SubResource( 106 ), "ha_u_pre", "ha_u_in", SubResource( 107 ), "ha_u_in", "ha_u_after", SubResource( 108 ), "ha_u2b_in", "ha_u2b_after", SubResource( 109 ), "ha_u_after", "ha_u2b_pre", SubResource( 110 ), "holding", "idle", SubResource( 111 ), "idle", "holding", SubResource( 112 ), "idle", "a_u_pre", SubResource( 113 ), "idle", "a_m_pre", SubResource( 114 ), "a_m_pre", "a_m_in", SubResource( 115 ), "a_m_in", "a_m_after", SubResource( 116 ), "idle", "a_b_pre", SubResource( 117 ), "a_b_pre", "a_b_in", SubResource( 118 ), "a_b_in", "a_b_after", SubResource( 119 ), "holding", "ha_m_pre", SubResource( 120 ), "ha_m_pre", "ha_m_in", SubResource( 121 ), "ha_m_in", "ha_m_after", SubResource( 122 ), "holding", "ha_m2b_pre", SubResource( 123 ), "ha_m2b_pre", "ha_m2b_in", SubResource( 124 ), "ha_m2b_in", "ha_m2b_after", SubResource( 125 ), "ha_u_after", "ha_u2m_pre", SubResource( 126 ), "ha_u2m_after", "ha_m2u_pre", SubResource( 127 ), "ha_b_pre", "ha_b_in", SubResource( 128 ), "ha_b2u_pre", "ha_b2u_in", SubResource( 129 ), "ha_b2m_pre", "ha_b2m_in", SubResource( 130 ), "ha_b_in", "ha_b_after", SubResource( 131 ), "ha_b2u_in", "ha_b2u_after", SubResource( 132 ), "ha_b2m_in", "ha_b2m_after", SubResource( 133 ), "holding", "ha_b_pre", SubResource( 134 ), "holding", "ha_b2u_pre", SubResource( 135 ), "holding", "ha_b2m_pre", SubResource( 136 ), "ha_m2b_after", "ha_b2u_pre", SubResource( 137 ), "ha_m2b_after", "ha_b2m_pre", SubResource( 138 ), "ha_b2u_after", "ha_u2m_pre", SubResource( 139 ), "ha_b2u_after", "ha_u2b_pre", SubResource( 140 ), "ha_b2m_after", "ha_m2u_pre", SubResource( 141 ), "ha_b2m_after", "ha_m2b_pre", SubResource( 142 ), "ha_m2u_after", "ha_u2b_pre", SubResource( 143 ), "ha_u2b_after", "ha_b2u_pre", SubResource( 144 ), "ha_u2b_after", "ha_b2m_pre", SubResource( 145 ), "ha_u2m_after", "ha_m2b_pre", SubResource( 146 ), "ha_b_after", "ha_b2u_pre", SubResource( 147 ), "ha_b_after", "ha_b2m_pre", SubResource( 148 ), "ha_m_after", "ha_m2u_pre", SubResource( 149 ), "ha_m_after", "ha_m2b_pre", SubResource( 150 ), "ha_u2b_after", "holding", SubResource( 151 ), "a_b_after", "idle", SubResource( 152 ), "a_m_after", "idle", SubResource( 153 ), "a_u_after", "idle", SubResource( 154 ), "idle", "idle2run", SubResource( 155 ), "idle2run", "run", SubResource( 156 ), "run", "run2idle", SubResource( 157 ), "run2idle", "idle", SubResource( 158 ), "idle2run", "run2idle", SubResource( 159 ), "run2idle", "idle2run", SubResource( 160 ), "ha_u_after", "holding", SubResource( 161 ), "ha_u2m_after", "holding", SubResource( 162 ), "ha_m_after", "holding", SubResource( 163 ), "ha_m2u_after", "holding", SubResource( 164 ), "ha_m2b_after", "holding", SubResource( 165 ), "ha_u_after", "idle", SubResource( 166 ), "ha_u2m_after", "idle", SubResource( 167 ), "ha_m_after", "idle", SubResource( 168 ), "ha_m2u_after", "idle", SubResource( 169 ), "ha_m2b_after", "idle", SubResource( 170 ), "ha_b_after", "idle", SubResource( 171 ), "idle", "walk", SubResource( 172 ), "walk", "idle", SubResource( 173 ), "ha_b_after", "holding", SubResource( 174 ), "ha_b2u_after", "holding", SubResource( 175 ), "ha_b2m_after", "holding", SubResource( 176 ), "ha_b2m_after", "idle", SubResource( 177 ), "ha_b2u_after", "idle", SubResource( 178 ), "ha_u2b_after", "idle", SubResource( 179 ), "a_u_after", "holding", SubResource( 180 ), "a_m_after", "holding", SubResource( 181 ), "a_b_after", "holding", SubResource( 182 ) ]
 start_node = "idle"
-graph_offset = Vector2( -731.967, -560.057 )
+graph_offset = Vector2( -731.967, -421.374 )
 
 [sub_resource type="AnimationNodeAnimation" id=184]
 animation = "walk"
@@ -2012,7 +2011,7 @@ start_node = "idle"
 graph_offset = Vector2( -81.7413, 88.0427 )
 
 [sub_resource type="AnimationNodeBlendTree" id=253]
-graph_offset = Vector2( -425.014, 131 )
+graph_offset = Vector2( -428.504, 0 )
 nodes/TimeScale/node = SubResource( 51 )
 nodes/TimeScale/position = Vector2( 100, 140 )
 nodes/sm/node = SubResource( 183 )
@@ -2036,6 +2035,9 @@ node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "sm" ]
 [node name="FIghtComponnet_humand" type="KinematicBody2D"]
 position = Vector2( 234.36, 173.497 )
 script = ExtResource( 1 )
+
+[node name="FightKinematicMovableObj" parent="." instance=ExtResource( 10 )]
+bodyPath = NodePath("..")
 
 [node name="DamageBox" type="Area2D" parent="."]
 
@@ -2075,24 +2077,6 @@ script = ExtResource( 4 )
 [node name="StateController" type="Node2D" parent="."]
 script = ExtResource( 5 )
 cfg_path = "res://config/Sword_Cfg.tres"
-attack_up_pre_time = 1.0
-attack_up_in_time = 1.0
-attack_up_end_time = 1.0
-attack_center_pre_time = 1.0
-attack_center_in_time = 1.0
-attack_center_end_time = 1.0
-attack_down_pre_time = 1.0
-attack_down_in_time = 1.0
-attack_down_end_time = 1.0
-heavyAttack_up_pre_time = 1.0
-heavyAttack_up_in_time = 1.0
-heavyAttack_up_end_time = 1.0
-heavyAttack_center_pre_time = 1.0
-heavyAttack_center_in_time = 1.0
-heavyAttack_center_end_time = 1.0
-heavyAttack_down_pre_time = 1.0
-heavyAttack_down_in_time = 1.0
-heavyAttack_down_end_time = 1.0
 defend_up_pre_time = 1.0
 defend_up_in_time = 1.0
 defend_up_end_time = 1.0
@@ -2102,9 +2086,8 @@ defend_center_end_time = 1.0
 defend_down_pre_time = 1.0
 defend_down_in_time = 1.0
 defend_down_end_time = 1.0
-heavyDefend_up_pre_time = 1.0
-heavyDefend_up_in_time = 1.0
-heavyDefend_up_end_time = 1.0
+heavyDefend_tup_in_time = 1.0
+heavyDefend_tup_end_time = 1.0
 heavyDefend_center_pre_time = 1.0
 heavyDefend_center_in_time = 1.0
 heavyDefend_center_end_time = 1.0
@@ -2162,7 +2145,7 @@ margin_left = -33.9874
 margin_top = 7.9127
 margin_right = 126.013
 margin_bottom = 67.9127
-text = "idle"
+text = "a_b_after"
 context_menu_enabled = false
 shortcut_keys_enabled = false
 virtual_keyboard_enabled = false
@@ -2180,7 +2163,7 @@ MAX_ACTION_ARRAY_SIZE = 100
 script = ExtResource( 9 )
 
 [node name="Sprite" parent="SpriteAnimation" index="0"]
-frame = 15
+frame = 0
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 253 )
@@ -2208,13 +2191,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AggresiveCharactor" parent="." instance=ExtResource( 3 )]
-bodyPath = NodePath("..")
-
+[connection signal="FaceDirectionChanged" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_FaceDirectionChanged"]
+[connection signal="State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_State_Changed"]
 [connection signal="NewFightMotion" from="FightController" to="." method="_on_FightController_NewFightMotion"]
-[connection signal="animation_finished" from="SpriteAnimation/SwordDemoAnimationPlayer" to="." method="_on_SwordDemoAnimationPlayer_animation_finished"]
 [connection signal="State_Changed" from="AnimationTree" to="." method="_on_AnimationTree_State_Changed"]
-[connection signal="FaceDirectionChanged" from="AggresiveCharactor" to="." method="_on_AggresiveCharactor_FaceDirectionChanged"]
-[connection signal="State_Changed" from="AggresiveCharactor" to="." method="_on_AggresiveCharactor_State_Changed"]
 
 [editable path="SpriteAnimation"]
