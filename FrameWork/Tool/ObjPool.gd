@@ -18,7 +18,9 @@ pass
 func instance(param:Array)->IPoolAble:
 	
 	if pool_array.size()>0:
-		return pool_array.pop_back()
+		var old_obj = pool_array.pop_back()
+		old_obj._init(self,param)
+		return old_obj
 	else:
 		var inst = class_type.new(self,param)
 		

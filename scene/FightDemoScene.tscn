@@ -30,20 +30,17 @@ script = ExtResource( 2 )
 [node name="FIghtComponnet_humand" parent="." instance=ExtResource( 1 )]
 position = Vector2( 139.323, 168.618 )
 
-[node name="AnimationTree" parent="FIghtComponnet_humand" index="6"]
+[node name="TextEdit" parent="FIghtComponnet_humand" index="7"]
+rect_rotation = 33.2454
+text = "idle"
+
+[node name="AnimationTree" parent="FIghtComponnet_humand" index="10"]
 parameters/sm/playback = SubResource( 1 )
 parameters/sm2/playback = SubResource( 2 )
 parameters/sm2/StateMachine/playback = SubResource( 3 )
 parameters/sm2/StateMachine/StateMachine/playback = SubResource( 4 )
 "parameters/sm2/StateMachine 2/playback" = SubResource( 5 )
 parameters/sm2/mix/playback = SubResource( 6 )
-
-[node name="TextEdit" parent="FIghtComponnet_humand" index="8"]
-rect_rotation = 33.2454
-text = "idle"
-
-[node name="Sprite" parent="FIghtComponnet_humand/Animation" index="0"]
-frame = 1
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 233.345, 166.17 )
@@ -70,4 +67,4 @@ position = Vector2( -0.396851, -39.685 )
 shape = SubResource( 9 )
 
 [editable path="FIghtComponnet_humand"]
-[editable path="FIghtComponnet_humand/Animation"]
+[editable path="FIghtComponnet_humand/SpriteAnimation"]

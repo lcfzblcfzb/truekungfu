@@ -150,18 +150,20 @@ var prv_animin =""
 func _on_AnimationTree_State_Changed(anim_name):
 	if anim_name ==null||anim_name=="":
 		return 
-	print("curr_animin",anim_name)	
+		
 	print("prv_animin ",prv_animin)
+	print("curr_animin",anim_name)	
 	if prv_animin.find("_in",0)>0:
 		fightKinematicMovableObj.attackOver()
 	if anim_name.find("_pre")>0:
 		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Attack
 	if anim_name=="run2idle":
-		
 		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Run2Idle
-	elif anim_name =="idle":
+	elif anim_name=="idle":
 		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Idle
-	
+	elif anim_name =="idle2run":
+		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Idle2Run
+		
 	var time = animation_cfg.get(anim_name);
 	if time==0:
 		time=1
@@ -182,9 +184,7 @@ func _on_FightKinematicMovableObj_FaceDirectionChanged(direction):
 #移动状态改变
 func _on_FightKinematicMovableObj_State_Changed(state):
 	
-	if state == FightKinematicMovableObj.ActionState.Idle:
-		$AnimationTree.travelTo("idle")	
-	elif state != FightKinematicMovableObj.ActionState.Attack :
+	if  state != FightKinematicMovableObj.ActionState.Attack :
 		
 		if fightKinematicMovableObj.faceDirection.x != prv_face_direction.x:
 			prv_face_direction = fightKinematicMovableObj.faceDirection

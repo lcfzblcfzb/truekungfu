@@ -80,7 +80,7 @@ func _process(delta):
 #动作动作
 func act(action):
 	var animation = _map_action2animation(action)
-	print("action: ",animation)
+	print("【action】: ",animation)
 	if animation!=null:
 		travelTo(animation)
 

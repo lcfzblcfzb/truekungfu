@@ -36,7 +36,8 @@ var defUpLimit = defMidLimit+PI/3
 var heavyAttackThreshold = 300.0
 #重攻击生效范围半径.
 var heavyAttackRadiusLimit = 5
-
+#两个walk 转化为run的最小间隔
+var run_action_min_interval =200
 
 #位置命名
 enum PositionName{
@@ -235,6 +236,8 @@ func regist_action(a,param=null):
 		action_array = [last,action]
 	else:		
 		action_array.append(action)
+		
+	print(action_array)
 
 func _input(event):
 	
@@ -272,6 +275,8 @@ func _input(event):
 			rc.cast_to=endPos-attackPos
 			rc.force_raycast_update()
 			
+			jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Attack)
+	
 			if OS.get_ticks_msec()<=attack_begin_time+heavyAttackThreshold:
 				#轻攻击
 				#攻击 调用
@@ -407,43 +412,41 @@ func _input(event):
 		
 		input_vector =  input_vector.normalized()
 		
-		if  !event.is_echo():
-			if input_vector != Vector2.ZERO:
-				
-	
-				var lastMotion =action_array.back()
-				
-				if lastMotion != null && lastMotion.action_type==FightComponent_human.FightMotion.Walk && lastMotion.param == input_vector:
-					regist_action(FightComponent_human.FightMotion.Run,input_vector)
-					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Run)
+		if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
+		
+			if  !event.is_echo():
+				if input_vector != Vector2.ZERO:
 					
-					if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
+					var is_run = is_trigger_run(input_vector)
+					
+					if is_run :
+						regist_action(FightComponent_human.FightMotion.Run,input_vector)
+						emit_signal("NewFightMotion",FightComponent_human.FightMotion.Run)
 						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
+					else:
+						regist_action(FightComponent_human.FightMotion.Walk,input_vector)
+						emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
+						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 				else:
+					if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
+						
+						var lastMotion =action_array.back()
+						
+						if lastMotion.action_type != FightComponent_human.FightMotion.Run:
+							
+							regist_action(FightComponent_human.FightMotion.Idle,input_vector)
+							emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
+							jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
+			else:
+				
+				#这里是 攻击结束后，以前按下移动中的情况
+				if jisu.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
+					
+					jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
+					
 					regist_action(FightComponent_human.FightMotion.Walk,input_vector)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
-					
-					if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
-						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
-			else:
-				if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
-					
-					var lastMotion =action_array.back()
-					
-					if lastMotion.action_type != FightComponent_human.FightMotion.Run:
-						
-						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
-		else:
-			
-			#这里是 攻击结束后，以前按下移动中的情况
-			if jisu.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
-				
-				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
-				
-				regist_action(FightComponent_human.FightMotion.Walk,input_vector)
-				emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
-				pass
-				
+					pass
 			
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
@@ -485,6 +488,27 @@ func _input(event):
 		
 		onMouseMovingPosChange()
 
+#判定是否是run
+#进行一个run 判定
+#两个间隔时间在 run_action_min_interval  的walk 指令触发成run
+func is_trigger_run(input_vector)->bool:
+	
+	var index = action_array.size()
+	
+	while true:
+		index=index-1
+		if index<0:
+			break
+		var tmp = action_array[index] as ActionInfo
+		
+		if tmp.action_begin+run_action_min_interval>= OS.get_ticks_msec():
+			if tmp.action_type ==FightComponent_human.FightMotion.Walk && tmp.param == input_vector:
+				return true
+		else:
+			return false;
+		pass
+	return false
+	pass
 
 func onAttackPosChange():
 	pass

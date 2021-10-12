@@ -11,13 +11,24 @@ enum ActionState{
 	Walk,
 	Run,
 	Run2Idle,
-	Idl2Run,
+	Idle2Run,
 	Attack,
 	Stop,
 	
 }
 
 var state = ActionState.Idle setget changeState
+
+export(int, 0, 1000) var IDLE_ACC = 500
+export(int, 0, 1000) var WALK_ACC = 300
+export(int, 0, 1000) var WALK_VELOCITY = 100
+export(int, 0, 1000) var RUN_ACC = 500
+export(int, 0, 1000) var RUN_VELOCTIY = 200
+export(int, 0, 1000) var RUN_2_IDLE_ACC = 100
+export(int, 0, 1000) var RUN_2_IDLE_VELOCITY = 100
+export(int, 0, 1000) var IDLE_2_RUN_ACC = 100
+export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100
+
 
 func changeState(s):
 	
@@ -28,28 +39,28 @@ func changeState(s):
 		match state:
 			ActionState.Idle:
 				isMoving = true
-				acceleration = 100
+				acceleration = IDLE_ACC
 				velocityToward = 0
 				pass
 			ActionState.Walk:
 				isMoving = true
-				acceleration = 300
-				velocityToward = 100
+				acceleration = WALK_ACC
+				velocityToward = WALK_VELOCITY
 				pass
 			ActionState.Run:
 				isMoving = true
-				acceleration = 500
-				velocityToward = 200
+				acceleration = RUN_ACC
+				velocityToward = RUN_VELOCTIY
 				pass
 			ActionState.Run2Idle:
 				isMoving = true
-				acceleration = 100
-				velocityToward = 70
+				acceleration = RUN_2_IDLE_ACC
+				velocityToward = RUN_2_IDLE_VELOCITY
 				pass
-			ActionState.Idl2Run:
+			ActionState.Idle2Run:
 				isMoving = true
-				acceleration = 100
-				velocityToward = 100
+				acceleration = IDLE_2_RUN_ACC
+				velocityToward = IDLE_2_RUN_VELOCITY
 				pass
 			ActionState.Attack:
 				isMoving = true
