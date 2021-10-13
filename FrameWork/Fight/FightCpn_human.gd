@@ -135,6 +135,10 @@ func change_movable_state(input_vector,s):
 	fightKinematicMovableObj.state = s
 	pass
 
+#当前角色朝向
+func is_face_left():
+	return fightKinematicMovableObj.faceDirection.x<0
+
 #检测到新动作
 func _on_FightController_NewFightMotion(motion):
 		
@@ -142,7 +146,6 @@ func _on_FightController_NewFightMotion(motion):
 	pass # Replace with function body.
 
 var prv_face_direction = Vector2.ZERO
-
 
 var prv_animin =""		
 #动画结束事件

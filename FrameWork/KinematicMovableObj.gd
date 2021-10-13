@@ -46,6 +46,10 @@ var faceDirection:Vector2 =Vector2.DOWN  setget _setFaceDirection
 
 #设置faceDirections
 func _setFaceDirection(v):
+	
+	if v ==Vector2.ZERO:
+		print("change face direction 2 zero")
+	
 	if faceDirection !=v:
 		emit_signal("FaceDirectionChanged",v)
 	faceDirection = v	

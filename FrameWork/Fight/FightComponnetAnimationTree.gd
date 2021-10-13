@@ -91,6 +91,6 @@ func travelTo(name):
 #玩一下yield方法；
 func emitSignal(toNode):
 	
-	$Label.text +=( "-->" + toNode as String)
+	$RichTextLabel.text +=( "-->" + toNode as String)
 	#sinal
 	emit_signal("State_Changed",toNode)

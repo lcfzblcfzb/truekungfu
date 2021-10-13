@@ -76,9 +76,11 @@ func changeState(s):
 var input_vector:Vector2 = Vector2.ZERO setget setInputVector
 
 #默认情况下 input_vector 就是faceDirection
+#如果input_vector 是 空向量，则保持不变
 func setInputVector(v):
 	input_vector = v
-	self.faceDirection = v
+	if input_vector.x!=0 :
+		self.faceDirection = v
 
 #攻击结束回调。 可以由动画的终结信号调用
 func attackOver(s = ActionState.Idle):

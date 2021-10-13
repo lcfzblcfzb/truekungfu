@@ -212,7 +212,9 @@ var is_cancel = false
 
 #攻击指示器出现在角色的左边or右边
 func is_on_left()->bool:
-	return attackPos.x<jisu.global_position.x
+	
+	print("is face left", jisu.is_face_left())
+	return jisu.is_face_left()
 	
 export var MAX_ACTION_ARRAY_SIZE =101	
 #动作历史记录
@@ -237,8 +239,6 @@ func regist_action(a,param=null):
 	else:		
 		action_array.append(action)
 		
-	print(action_array)
-
 func _input(event):
 	
 	if(event is InputEventMouse):
