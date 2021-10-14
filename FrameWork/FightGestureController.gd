@@ -299,7 +299,6 @@ func _input(event):
 				else:
 					regist_action(FightComponent_human.FightMotion.Idle)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Idle)
-					
 					jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 					#defend todo
 					pass
@@ -442,10 +441,10 @@ func _input(event):
 				#这里是 攻击结束后，以前按下移动中的情况
 				if jisu.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
 					
-					jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
-					
 					regist_action(FightComponent_human.FightMotion.Walk,input_vector)
 					emit_signal("NewFightMotion",FightComponent_human.FightMotion.Walk)
+					jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
+					
 					pass
 			
 	if(event is InputEventMouseMotion):
@@ -520,11 +519,11 @@ func onMouseMovingPosChange():
 	pass
 
 func _on_Timer_timeout():
-	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 	print("endMs",OS.get_ticks_msec())
 	show_heavy_attack_indicator()
 	regist_action(FightComponent_human.FightMotion.Holding)
 	emit_signal("NewFightMotion",FightComponent_human.FightMotion.Holding)
+	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 
 #action 信息
 class ActionInfo :

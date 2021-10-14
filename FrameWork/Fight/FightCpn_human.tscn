@@ -1,4 +1,4 @@
-[gd_scene load_steps=269 format=2]
+[gd_scene load_steps=268 format=2]
 
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/CollisionBox/WeaponBox.gd" type="Script" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://FrameWork/FightGestureController.tscn" type="PackedScene" id=6]
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=7]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
-[ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.gd" type="Script" id=9]
 [ext_resource path="res://FrameWork/Fight/FightKinematicMovableObj.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -2011,7 +2010,7 @@ start_node = "idle"
 graph_offset = Vector2( -81.7413, 88.0427 )
 
 [sub_resource type="AnimationNodeBlendTree" id=253]
-graph_offset = Vector2( -444.086, 0 )
+graph_offset = Vector2( -613.002, 131 )
 nodes/TimeScale/node = SubResource( 51 )
 nodes/TimeScale/position = Vector2( 100, 140 )
 nodes/sm/node = SubResource( 183 )
@@ -2035,6 +2034,10 @@ node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "sm" ]
 [node name="FIghtComponnet_humand" type="KinematicBody2D"]
 position = Vector2( 234.36, 173.497 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 205.209, 141.586 ],
+"_edit_vertical_guides_": [ 201.675 ]
+}
 
 [node name="FightKinematicMovableObj" parent="." instance=ExtResource( 10 )]
 bodyPath = NodePath("..")
@@ -2149,7 +2152,7 @@ margin_left = -33.9874
 margin_top = 7.9127
 margin_right = 126.013
 margin_bottom = 67.9127
-text = "a_b_after"
+rect_rotation = 180.0
 context_menu_enabled = false
 shortcut_keys_enabled = false
 virtual_keyboard_enabled = false
@@ -2164,12 +2167,13 @@ fight_component = NodePath("..")
 MAX_ACTION_ARRAY_SIZE = 100
 
 [node name="SpriteAnimation" parent="." instance=ExtResource( 8 )]
-script = ExtResource( 9 )
+
+[node name="Sprite" parent="SpriteAnimation" index="0"]
+frame = 52
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 253 )
 anim_player = NodePath("../SpriteAnimation/SwordDemoAnimationPlayer")
-active = true
 parameters/TimeScale/scale = 1.0
 parameters/sm/playback = SubResource( 254 )
 parameters/sm/conditions/is_holding = false
@@ -2184,10 +2188,14 @@ parameters/sm2/mix/conditions/is_holding = false
 script = ExtResource( 7 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="AnimationTree"]
-anchor_right = 0.342
-margin_right = 40.0
-margin_bottom = 40.0
-text = "ddddd222"
+anchor_left = 0.23
+anchor_top = 0.459
+anchor_right = 0.634
+anchor_bottom = 0.616
+margin_left = 166.8
+margin_top = -141.88
+margin_right = 167.12
+margin_bottom = -152.12
 fit_content_height = true
 __meta__ = {
 "_edit_use_anchors_": false
