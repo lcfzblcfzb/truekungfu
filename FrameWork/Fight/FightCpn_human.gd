@@ -57,7 +57,6 @@ enum FightMotion{
 
 #改变 movableobjstate
 func change_movable_state(input_vector,s):
-	
 	fightKinematicMovableObj.input_vector = input_vector
 	fightKinematicMovableObj.state = s
 	pass
@@ -69,20 +68,18 @@ func is_face_left():
 #检测到新动作
 func _on_FightController_NewFightMotion(motion):
 		
-	$AnimationTree.act(motion)
+	$FightAnimationTree.act(motion)
 	pass # Replace with function body.
 
 var prv_face_direction = Vector2.ZERO
 
-var prv_animin =""		
+var prv_animin =""
 #动画结束事件
 #根据动画名字检测动作
-func _on_AnimationTree_State_Changed(anim_name):
+func _on_FightAnimationTree_State_Changed(anim_name):
 	if anim_name ==null||anim_name=="":
 		return 
-		
-	print("prv_animin ",prv_animin)
-	print("curr_animin",anim_name)	
+	
 	if prv_animin.find("_in",0)>0:
 		fightKinematicMovableObj.attackOver()
 	if anim_name.find("_pre")>0:
@@ -94,11 +91,12 @@ func _on_AnimationTree_State_Changed(anim_name):
 	elif anim_name =="idle2run":
 		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Idle2Run
 		
+	#动画播放时长
 	var time = animation_cfg.get(anim_name);
 	if time==0:
 		time=1
 	if time !=null:
-		$AnimationTree.set_deferred("parameters/TimeScale/scale",1/time)
+		$FightAnimationTree.set_deferred("parameters/TimeScale/scale",1/time)
 		pass
 	
 	prv_animin = anim_name
@@ -106,7 +104,7 @@ func _on_AnimationTree_State_Changed(anim_name):
 
 #方向改变
 func _on_FightKinematicMovableObj_FaceDirectionChanged(direction):
-	if direction.x != prv_face_direction.x:
+	if direction.x!=0 && direction.x != prv_face_direction.x:
 		prv_face_direction = direction
 		$SpriteAnimation.change_face_direction(prv_face_direction.x)
 
@@ -116,8 +114,9 @@ func _on_FightKinematicMovableObj_State_Changed(state):
 	
 	if  state != FightKinematicMovableObj.ActionState.Attack :
 		
-		if fightKinematicMovableObj.faceDirection.x != prv_face_direction.x:
+		if fightKinematicMovableObj.faceDirection.x!=0 && fightKinematicMovableObj.faceDirection.x != prv_face_direction.x:
 			prv_face_direction = fightKinematicMovableObj.faceDirection
 			$SpriteAnimation.change_face_direction(prv_face_direction.x)
 		pass
-	pass # Replace with function body.
+	pass
+

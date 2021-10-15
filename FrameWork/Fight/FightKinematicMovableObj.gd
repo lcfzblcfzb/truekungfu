@@ -28,6 +28,8 @@ export(int, 0, 1000) var RUN_2_IDLE_ACC = 100
 export(int, 0, 1000) var RUN_2_IDLE_VELOCITY = 100
 export(int, 0, 1000) var IDLE_2_RUN_ACC = 100
 export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100
+export(int, 0, 1000) var ATTACK_VELOCITY = 100
+export(int, 0, 1000) var ATTACK_ACC = 10
 
 
 func changeState(s):
@@ -64,8 +66,8 @@ func changeState(s):
 				pass
 			ActionState.Attack:
 				isMoving = true
-				acceleration = 100
-				velocityToward = 0
+				acceleration = ATTACK_ACC
+				velocityToward = ATTACK_VELOCITY
 				pass
 			ActionState.Stop:
 				isMoving = false
@@ -79,10 +81,9 @@ var input_vector:Vector2 = Vector2.ZERO setget setInputVector
 #如果input_vector 是 空向量，则保持不变
 func setInputVector(v):
 	input_vector = v
-	if input_vector.x!=0 :
-		self.faceDirection = v
+	self.faceDirection = v
 
 #攻击结束回调。 可以由动画的终结信号调用
 func attackOver(s = ActionState.Idle):
-	state = s
+	self.state = s
 

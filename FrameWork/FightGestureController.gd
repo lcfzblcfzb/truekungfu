@@ -446,7 +446,9 @@ func _input(event):
 					jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 					
 					pass
-			
+		else:
+			jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Attack)
+			pass	
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
 		mouseMovingPos = event.global_position

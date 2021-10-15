@@ -9,13 +9,13 @@
 	"value": 1
   },
   "attack_m_pre": {
-	"value": 0.1
+	"value": 0.3
   },
   "attack_m_in": {
-	"value": 0.1
+	"value": 0.2
   },
   "attack_m_end": {
-	"value": 1
+	"value": 0.4
   },
   "attack_b_pre": {
 	"value": 1

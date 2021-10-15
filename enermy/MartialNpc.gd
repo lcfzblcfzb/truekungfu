@@ -11,7 +11,7 @@ var actionSM
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	aggresiveMovingContril = AggresiveCharactor.new(self) 
+	aggresiveMovingContril = AggresiveCharactor.new() 
 	ai.movableObj = aggresiveMovingContril
 	aggresiveMovingContril.connect("State_Changed",self,"onStateChanged")
 	actionSM = animationTree.get("parameters/bt/sm/playback")

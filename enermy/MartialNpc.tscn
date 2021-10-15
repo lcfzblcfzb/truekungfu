@@ -1059,7 +1059,6 @@ anims/move_left = SubResource( 10 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 40 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource( 41 )
 parameters/bt/TimeScale/scale = 1.0
 parameters/bt/sm/playback = SubResource( 42 )
