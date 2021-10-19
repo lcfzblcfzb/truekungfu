@@ -179,8 +179,6 @@ func _process(delta):
 		animationTree.set("parameters/StateMachine/Def/blend_position",input_vector)
 		
 	else:
-		print("locked?"+locked as String)
-		print("facedirection"+controableMovingObj.faceDirection as String)
 		animationTree.set("parameters/StateMachine/Idle/idle_engaged_bs/blend_position",controableMovingObj.faceDirection)
 		animationTree.set("parameters/StateMachine/Idle/idle_free_bs/blend_position",controableMovingObj.faceDirection)
 		animationTree.set("parameters/StateMachine/Move/move_engaged_bs/blend_position",controableMovingObj.faceDirection)

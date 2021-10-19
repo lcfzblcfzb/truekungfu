@@ -3718,7 +3718,7 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -0.331818, -19.1091 )
-texture = ExtResource( 6 )
+texture = ExtResource( 12 )
 hframes = 2
 
 [node name="SpriteTrail" type="Node2D" parent="Sprite"]
@@ -3764,10 +3764,6 @@ life_time = 0.2
 
 [node name="weaponBox" parent="Sprite/rightHand" index="2"]
 collision_mask = 12
-
-[node name="CollisionShape2D" parent="Sprite/rightHand/weaponBox" index="0"]
-position = Vector2( -13.9854, 7.99637 )
-rotation = -2.33361
 
 [node name="left" type="Node2D" parent="Sprite"]
 visible = false

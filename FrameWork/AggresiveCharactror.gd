@@ -22,6 +22,7 @@ func setState(s):
 		state =s
 	match state:
 		PlayState.Idle:
+			velocityToward = 0
 			acceleration =  FRICTION
 		PlayState.Moving:
 			acceleration  = ACC

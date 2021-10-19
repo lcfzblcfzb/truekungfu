@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://texture/scene/village-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://shader/Wind.shader" type="Shader" id=2]
 [ext_resource path="res://texture/disk_mask.png" type="Texture" id=3]
 [ext_resource path="res://shader/GausianBlur_And_wind.gdshader" type="Shader" id=4]
+[ext_resource path="res://Player/PlayerMain/PlayerMain.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scene/Camera2D.gd" type="Script" id=6]
+[ext_resource path="res://scene/DynamicScene.gd" type="Script" id=7]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
@@ -102,13 +105,19 @@ shader_param/heightOffset = 0.0
 shader_param/offset = -3.0
 
 [node name="Village" type="Node2D"]
+script = ExtResource( 7 )
 
-[node name="BG" type="Sprite" parent="."]
+[node name="world" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 768, 513 )
+
+[node name="BG" type="Sprite" parent="world"]
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 767, 512 )
 
-[node name="GRASS" type="Sprite" parent="."]
+[node name="GRASS" type="Sprite" parent="world"]
 material = SubResource( 1 )
 position = Vector2( 29, -60 )
 texture = ExtResource( 1 )
@@ -116,72 +125,72 @@ offset = Vector2( -12, -25 )
 region_enabled = true
 region_rect = Rect2( 0, 512, 710, 81 )
 
-[node name="GRASS_2" type="Sprite" parent="."]
+[node name="GRASS_2" type="Sprite" parent="world"]
 material = SubResource( 2 )
 position = Vector2( 21, 44 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 613, 710, 139 )
 
-[node name="YSort" type="YSort" parent="."]
+[node name="YSort" type="YSort" parent="world"]
 
-[node name="HOUSE" type="Sprite" parent="YSort"]
+[node name="HOUSE" type="Sprite" parent="world/YSort"]
 position = Vector2( 125, 20 )
 texture = ExtResource( 1 )
 offset = Vector2( -11, 3 )
 region_enabled = true
 region_rect = Rect2( 1120, 720, 288, 144 )
 
-[node name="STONE_5" type="Sprite" parent="YSort"]
+[node name="STONE_5" type="Sprite" parent="world/YSort"]
 position = Vector2( 169, 93 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -2 )
 region_enabled = true
 region_rect = Rect2( 573, 802, 8, 5 )
 
-[node name="STONE_3" type="Sprite" parent="YSort"]
+[node name="STONE_3" type="Sprite" parent="world/YSort"]
 position = Vector2( 343, 79 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -2 )
 region_enabled = true
 region_rect = Rect2( 573, 802, 8, 5 )
 
-[node name="STONE_2" type="Sprite" parent="YSort"]
+[node name="STONE_2" type="Sprite" parent="world/YSort"]
 position = Vector2( 356, 81 )
 texture = ExtResource( 1 )
 offset = Vector2( 1, -3 )
 region_enabled = true
 region_rect = Rect2( 1424, 222, 19, 7 )
 
-[node name="STONE" type="Sprite" parent="YSort"]
+[node name="STONE" type="Sprite" parent="world/YSort"]
 position = Vector2( -36, 141 )
 texture = ExtResource( 1 )
 offset = Vector2( -1, -8 )
 region_enabled = true
 region_rect = Rect2( 1487, 251, 28, 17 )
 
-[node name="FENCE_2" type="Sprite" parent="YSort"]
+[node name="FENCE_2" type="Sprite" parent="world/YSort"]
 position = Vector2( 305, 96 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -8 )
 region_enabled = true
 region_rect = Rect2( 1404, 229, 116, 21 )
 
-[node name="STONE_4" type="Sprite" parent="YSort"]
+[node name="STONE_4" type="Sprite" parent="world/YSort"]
 position = Vector2( 247, 95 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -4 )
 region_enabled = true
 region_rect = Rect2( 1522, 12, 12, 10 )
 
-[node name="FENCE" type="Sprite" parent="YSort"]
+[node name="FENCE" type="Sprite" parent="world/YSort"]
 position = Vector2( -171, 106 )
 texture = ExtResource( 1 )
 offset = Vector2( -5, -18 )
 region_enabled = true
 region_rect = Rect2( 0, 802, 332, 41 )
 
-[node name="TOOL" type="Sprite" parent="YSort"]
+[node name="TOOL" type="Sprite" parent="world/YSort"]
 material = SubResource( 3 )
 position = Vector2( 132, 89 )
 texture = ExtResource( 1 )
@@ -189,21 +198,24 @@ offset = Vector2( -9, -14 )
 region_enabled = true
 region_rect = Rect2( 1360, 180, 104, 32 )
 
-[node name="TREE001" type="Sprite" parent="YSort"]
+[node name="TREE001" type="Sprite" parent="world/YSort"]
 position = Vector2( -58, 138 )
 texture = ExtResource( 1 )
 offset = Vector2( 3, -27 )
 region_enabled = true
 region_rect = Rect2( 1360, 213, 43, 58 )
 
-[node name="CHARACTOR" type="Sprite" parent="YSort"]
-position = Vector2( -166, 120 )
+[node name="MainPlayer" parent="world/YSort" instance=ExtResource( 5 )]
+position = Vector2( -95.4411, 119.468 )
+
+[node name="CHARACTOR" type="Sprite" parent="world/YSort"]
+position = Vector2( -134, 124 )
 texture = ExtResource( 1 )
 offset = Vector2( 25, -20 )
 region_enabled = true
 region_rect = Rect2( 1465, 180, 68, 48 )
 
-[node name="FENCE2" type="Sprite" parent="YSort"]
+[node name="FENCE2" type="Sprite" parent="world/YSort"]
 position = Vector2( -219, 153 )
 texture = ExtResource( 1 )
 offset = Vector2( -5, -18 )
@@ -211,55 +223,55 @@ flip_h = true
 region_enabled = true
 region_rect = Rect2( 0, 802, 332, 41 )
 
-[node name="CHICKEN" type="Sprite" parent="YSort"]
+[node name="CHICKEN" type="Sprite" parent="world/YSort"]
 position = Vector2( 303, 79 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -4 )
 region_enabled = true
 region_rect = Rect2( 1522, 0, 13, 11 )
 
-[node name="TREE003" type="Sprite" parent="YSort"]
+[node name="TREE003" type="Sprite" parent="world/YSort"]
 position = Vector2( 7, 27 )
 texture = ExtResource( 1 )
 offset = Vector2( 1, -6 )
 region_enabled = true
 region_rect = Rect2( 1404, 213, 19, 15 )
 
-[node name="TREE002" type="Sprite" parent="YSort"]
+[node name="TREE002" type="Sprite" parent="world/YSort"]
 position = Vector2( -61, 81 )
 texture = ExtResource( 1 )
 offset = Vector2( 1, -13 )
 region_enabled = true
 region_rect = Rect2( 1463, 251, 23, 30 )
 
-[node name="TREE004" type="Sprite" parent="YSort"]
+[node name="TREE004" type="Sprite" parent="world/YSort"]
 position = Vector2( -63, 78 )
 texture = ExtResource( 1 )
 offset = Vector2( -7, -53 )
 region_enabled = true
 region_rect = Rect2( 746, 587, 81, 113 )
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="world"]
 environment = SubResource( 4 )
 
-[node name="GRASS_3" type="Sprite" parent="."]
+[node name="GRASS_3" type="Sprite" parent="world"]
 material = SubResource( 5 )
 position = Vector2( 33, 134 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 755, 710, 47 )
 
-[node name="FORE" type="Node2D" parent="."]
+[node name="FORE" type="Node2D" parent="world"]
 position = Vector2( 33, 134 )
 
-[node name="FORE_STONE" type="Sprite" parent="FORE"]
+[node name="FORE_STONE" type="Sprite" parent="world/FORE"]
 position = Vector2( 276, 105 )
 texture = ExtResource( 1 )
 offset = Vector2( -88, -72 )
 region_enabled = true
 region_rect = Rect2( 1196, 0, 325, 179 )
 
-[node name="FORE_GRASS" type="Sprite" parent="FORE"]
+[node name="FORE_GRASS" type="Sprite" parent="world/FORE"]
 material = SubResource( 6 )
 position = Vector2( -21, 91 )
 texture = ExtResource( 1 )
@@ -267,7 +279,7 @@ offset = Vector2( -88, -72 )
 region_enabled = true
 region_rect = Rect2( 1109, 513, 375, 205 )
 
-[node name="FORE_TREE_2" type="Sprite" parent="FORE"]
+[node name="FORE_TREE_2" type="Sprite" parent="world/FORE"]
 material = SubResource( 7 )
 position = Vector2( -156, -209 )
 texture = ExtResource( 1 )
@@ -275,7 +287,7 @@ offset = Vector2( -88, -72 )
 region_enabled = true
 region_rect = Rect2( 769, 0, 345, 218 )
 
-[node name="FORE_TREE_3" type="Sprite" parent="FORE"]
+[node name="FORE_TREE_3" type="Sprite" parent="world/FORE"]
 material = SubResource( 8 )
 position = Vector2( -253, -41 )
 texture = ExtResource( 1 )
@@ -283,15 +295,26 @@ offset = Vector2( -88, -72 )
 region_enabled = true
 region_rect = Rect2( 1196, 180, 162, 323 )
 
-[node name="FORE_TREE" type="Sprite" parent="FORE"]
+[node name="FORE_TREE" type="Sprite" parent="world/FORE"]
 material = SubResource( 9 )
 position = Vector2( -203, -24 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 769, 218, 431, 294 )
 
-[node name="sun" type="Light2D" parent="."]
+[node name="sun" type="Light2D" parent="world"]
 position = Vector2( 78, -724 )
 texture = ExtResource( 3 )
 texture_scale = 3.0
 range_height = -1056.0
+
+[node name="Camera2D" type="Camera2D" parent="world"]
+position = Vector2( 261.413, 307.197 )
+current = true
+limit_left = 0
+limit_top = -200
+limit_right = 500
+limit_bottom = 500
+editor_draw_limits = true
+script = ExtResource( 6 )
+target_path = NodePath("../YSort/MainPlayer")
