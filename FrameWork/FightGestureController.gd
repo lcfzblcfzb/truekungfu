@@ -37,7 +37,7 @@ var heavyAttackThreshold = 300.0
 #重攻击生效范围半径.
 var heavyAttackRadiusLimit = 5
 #两个walk 转化为run的最小间隔
-var run_action_min_interval =200
+var run_action_min_interval =300
 
 #位置命名
 enum PositionName{

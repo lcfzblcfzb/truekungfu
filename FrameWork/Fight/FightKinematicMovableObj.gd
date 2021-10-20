@@ -20,11 +20,11 @@ enum ActionState{
 var state = ActionState.Idle setget changeState
 
 export(int, 0, 1000) var IDLE_ACC = 500
-export(int, 0, 1000) var WALK_ACC = 300
+export(int, 0, 1000) var WALK_ACC = 600
 export(int, 0, 1000) var WALK_VELOCITY = 100
 export(int, 0, 1000) var RUN_ACC = 500
 export(int, 0, 1000) var RUN_VELOCTIY = 200
-export(int, 0, 1000) var RUN_2_IDLE_ACC = 100
+export(int, 0, 1000) var RUN_2_IDLE_ACC = 700
 export(int, 0, 1000) var RUN_2_IDLE_VELOCITY = 100
 export(int, 0, 1000) var IDLE_2_RUN_ACC = 100
 export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100

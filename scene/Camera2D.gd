@@ -15,6 +15,9 @@ var vertical_follow_max_distance =200;
 var h_follow_speed;
 var v_follow_speed;
 
+#相机距离眼睛距离.用来计算远近 场景对象 偏移
+export var camera_distance = 10;
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -29,17 +32,22 @@ func _ready():
 #上一帧的位置	
 var speed =Vector2.ZERO
 
-func _process(delta):
+func _physics_process(delta):
 	
-	if self.global_position.distance_squared_to(target_obj.global_position) >0.1:
+	var camera_position = self.get_camera_screen_center();
+	
+	print(camera_position)
+	if camera_position.distance_squared_to(target_obj.global_position) >1:
 		
-		var prv_position = self.global_position
+		var prv_position = camera_position
 		
-		self.global_position =self.global_position.linear_interpolate(target_obj.global_position,0.3)
+		self.global_position =camera_position.linear_interpolate(target_obj.global_position,0.3)
 		
 		speed = (self.global_position - prv_position) / delta
 				
 		pass
+	else:
+		speed = Vector2.ZERO
 	pass
 
 
@@ -50,6 +58,4 @@ func _input(event):
 	
 	if(event is InputEventMouseMotion):
 		var mouseMovingPos = event.global_position
-		print(mouseMovingPos,event.position)
 		var screenPos =Tool.getCameraPosition(target_obj)
-		print("player",screenPos)

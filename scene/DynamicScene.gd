@@ -4,7 +4,48 @@ extends Node2D
 onready var back_ground = $world ;
 onready var dynamic_camera = $world/Camera2D;
 
+export (Array,NodePath) var dynamic_object_nodepath_list =[]
+
+#动态物体 列表
+var dynamic_object_list:Array = []
+
+#从 nodepath 引用中初始化 动态物体 列表
+func _init_dynamic_object():
+	
+	for p  in dynamic_object_nodepath_list:
+		
+		var node = get_node(p)
+		if node !=null:
+			dynamic_object_list.append(node)
+		pass
+	pass
+	
+#计算 动态物体 相机跟随 移动距离
+
+#公式：    速度  * 相机视距  / （相机视距 *动态物体深度 ）
+func calc_dynamic_object_delta_distance(var object_depth:int,var camera_speed:Vector2) ->Vector2:
+	
+	var result = camera_speed * dynamic_camera.camera_distance / (dynamic_camera.camera_distance * object_depth)
+	
+	return result
+	
+
+func _physics_process(delta):
+	
+	for obj  in dynamic_object_list:
+		
+		obj = obj as Sprite
+		
+		var ds =calc_dynamic_object_delta_distance(obj.distance_to_screen , dynamic_camera.speed)
+		
+		obj.position = (obj.position +ds )
+		pass
+	
+	pass
+
 func _ready():
+	
+	_init_dynamic_object()
 	
 	var bg_size:Vector2  = Vector2.ZERO
 	if back_ground.region_enabled:

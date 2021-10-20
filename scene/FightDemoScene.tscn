@@ -34,10 +34,7 @@ position = Vector2( 139.323, 168.618 )
 rect_rotation = 33.2454
 text = "idle"
 
-[node name="Sprite" parent="FIghtComponnet_humand/SpriteAnimation" index="0"]
-frame = 0
-
-[node name="AnimationTree" parent="FIghtComponnet_humand" index="10"]
+[node name="FightAnimationTree" parent="FIghtComponnet_humand" index="10"]
 parameters/sm/playback = SubResource( 1 )
 parameters/sm2/playback = SubResource( 2 )
 parameters/sm2/StateMachine/playback = SubResource( 3 )
