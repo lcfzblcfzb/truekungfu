@@ -18,6 +18,13 @@ func _map_action2animation(action)->String:
 		FightComponent_human.FightMotion.Holding:
 			return "holding"
 			pass	
+		FightComponent_human.FightMotion.Def_Bot:
+			return 	"d_b_after"
+		FightComponent_human.FightMotion.Def_Mid:
+			return "d_m_after"	
+		FightComponent_human.FightMotion.Def_Up:
+			return "d_u_after"
+			
 		FightComponent_human.FightMotion.Attack_Up:
 			return "a_u_after"
 			pass
