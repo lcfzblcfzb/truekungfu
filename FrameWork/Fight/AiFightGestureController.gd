@@ -1,0 +1,5 @@
+class_name AiFightGestureController
+
+extends BaseFightActionController
+
+

@@ -2,9 +2,9 @@
 
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/CollisionBox/WeaponBox.gd" type="Script" id=2]
+[ext_resource path="res://FrameWork/Fight/AiFightGestureController.gd" type="Script" id=3]
 [ext_resource path="res://FrameWork/Fight/ActionHandler.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=5]
-[ext_resource path="res://FrameWork/Fight/FightGestureController.tscn" type="PackedScene" id=6]
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=7]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
 [ext_resource path="res://FrameWork/Fight/FightKinematicMovableObj.tscn" type="PackedScene" id=10]
@@ -2124,7 +2124,7 @@ node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "sm" ]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=282]
 
-[node name="FIghtComponnet_humand" type="KinematicBody2D"]
+[node name="FIghtComponnet_robot" type="KinematicBody2D"]
 position = Vector2( 234.36, 173.497 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -2228,17 +2228,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FightController" parent="." instance=ExtResource( 6 )]
-position = Vector2( 57.211, -28.3406 )
-MAX_ACTION_ARRAY_SIZE = 100
-fight_component = NodePath("..")
-
 [node name="SpriteAnimation" parent="." instance=ExtResource( 8 )]
 
 [node name="Sprite" parent="SpriteAnimation" index="0"]
 position = Vector2( -1.26608, 18.9449 )
 offset = Vector2( 13.185, -19.7395 )
-frame = 1
+frame = 0
 
 [node name="sword" type="Node2D" parent="SpriteAnimation"]
 position = Vector2( -10.8877, -7.52747 )
@@ -2304,9 +2299,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AiGestureController" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
 [connection signal="FaceDirectionChanged" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_FaceDirectionChanged"]
 [connection signal="State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_State_Changed"]
-[connection signal="NewFightMotion" from="FightController" to="." method="_on_FightController_NewFightMotion"]
 [connection signal="State_Changed" from="FightAnimationTree" to="." method="_on_FightAnimationTree_State_Changed"]
+[connection signal="NewFightMotion" from="AiGestureController" to="." method="_on_Node2D_NewFightMotion"]
 
 [editable path="SpriteAnimation"]

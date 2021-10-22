@@ -1,7 +1,8 @@
-[gd_scene load_steps=267 format=2]
+[gd_scene load_steps=268 format=2]
 
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/CollisionBox/WeaponBox.gd" type="Script" id=2]
+[ext_resource path="res://FrameWork/Fight/AiFightGestureController.gd" type="Script" id=3]
 [ext_resource path="res://FrameWork/Fight/ActionHandler.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=5]
 [ext_resource path="res://FrameWork/Fight/FightGestureController.tscn" type="PackedScene" id=6]
@@ -2030,7 +2031,7 @@ node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "sm" ]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=258]
 
-[node name="FIghtComponnet_humand" type="KinematicBody2D"]
+[node name="FIghtComponnet_Robot" type="KinematicBody2D"]
 position = Vector2( 234.36, 173.497 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -2209,6 +2210,9 @@ fit_content_height = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AiController" type="Node2D" parent="."]
+script = ExtResource( 3 )
 
 [connection signal="FaceDirectionChanged" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_FaceDirectionChanged"]
 [connection signal="State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_State_Changed"]
