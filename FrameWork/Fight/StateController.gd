@@ -79,29 +79,29 @@ export(float, 0, 5, 0.1)  var ha_b_in :float;
 export(float, 0, 5, 0.1)  var ha_b_after :float;
 
 #防御——上路
-export(float, 0, 5, 0.1)  var defend_up_pre_time :float;
-export(float, 0, 5, 0.1)  var defend_up_in_time :float;
-export(float, 0, 5, 0.1)  var defend_up_end_time :float;
+export(float, 0, 5, 0.1)  var d_u_pre :float;
+export(float, 0, 5, 0.1)  var d_u_in :float;
+export(float, 0, 5, 0.1)  var d_u_end :float;
 #防御——中路
-export(float, 0, 5, 0.1)  var defend_center_pre_time :float;
-export(float, 0, 5, 0.1)  var defend_center_in_time :float;
-export(float, 0, 5, 0.1)  var defend_center_end_time :float;
+export(float, 0, 5, 0.1)  var d_m_pre :float;
+export(float, 0, 5, 0.1)  var d_m_in :float;
+export(float, 0, 5, 0.1)  var d_m_end :float;
 #防御——下路
-export(float, 0, 5, 0.1)  var defend_down_pre_time :float;
-export(float, 0, 5, 0.1)  var defend_down_in_time :float;
-export(float, 0, 5, 0.1)  var defend_down_end_time :float;
+export(float, 0, 5, 0.1)  var d_b_pre :float;
+export(float, 0, 5, 0.1)  var d_b_in :float;
+export(float, 0, 5, 0.1)  var d_b_end :float;
 
 #重防御——上路
-export(float, 0, 5, 0.1)  var heavyDefend_tup_pre_time :float;
-export(float, 0, 5, 0.1)  var heavyDefend_tup_in_time :float;
-export(float, 0, 5, 0.1)  var heavyDefend_tup_end_time :float;
+export(float, 0, 5, 0.1)  var hd_u_pre :float;
+export(float, 0, 5, 0.1)  var hd_u_in :float;
+export(float, 0, 5, 0.1)  var hd_u_end :float;
 #重防御——中路
-export(float, 0, 5, 0.1)  var heavyDefend_center_pre_time :float;
-export(float, 0, 5, 0.1)  var heavyDefend_center_in_time :float;
-export(float, 0, 5, 0.1)  var heavyDefend_center_end_time :float;
+export(float, 0, 5, 0.1)  var hd_m_pre :float;
+export(float, 0, 5, 0.1)  var hd_m_in :float;
+export(float, 0, 5, 0.1)  var hd_m_end :float;
 #重防御——下路
-export(float, 0, 5, 0.1)  var heavyDefend_down_pre_time :float;
-export(float, 0, 5, 0.1)  var heavyDefend_down_in_time :float;
-export(float, 0, 5, 0.1)  var heavyDefend_down_end_time :float;
+export(float, 0, 5, 0.1)  var hd_b_pre :float;
+export(float, 0, 5, 0.1)  var hd_b_in :float;
+export(float, 0, 5, 0.1)  var hd_b_end :float;
 
 

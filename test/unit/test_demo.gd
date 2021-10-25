@@ -12,6 +12,7 @@ func after_all():
 	gut.p("ran run teardown", 2)
 
 func test_assert_eq_number_not_equal():
+	
 	assert_eq(1, 2, "Should fail.  1 != 2")
 
 func test_assert_eq_number_equal():
@@ -26,4 +27,20 @@ func test_assert_true_with_false():
 func test_something_else():
 	assert_true(false, "didn't work")
 	
+func test_array_slice():
+	
+	var list = [1,2,3,4,5,6]
+	
+	var list_01 = list.slice(0,0)
+	
+	var list_02 = list.slice(6,6)
+	
+	var list_03 = list.slice(5,6)
+	
+	var list_04 = list.slice(5,7)
+	
+	var list_05 = list.slice(1,3)
+	
+	var list_06 = list.slice(3,1)
+	pass
 

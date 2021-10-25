@@ -3,6 +3,7 @@ extends Node2D
 class_name FightComponent_human
 
 onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicMovableObj
+onready var fightActionController = $FightController
 #接口
 #需要传入controlableMovingObj的速度参数
 func getSpeed():
@@ -75,8 +76,17 @@ func _on_FightAnimationTree_State_Changed(anim_name):
 		return 
 	
 	if prv_animin.find("_in",0)>0:
+		
+		#var prvAction = fightActionController.action_array.back() as FightActionController.ActionInfo
+		#if prvAction!=null && prvAction.action_type>3:
+		#	prvAction.state = FightActionController.ActionInfo.STATE_ENDED
+				
 		fightKinematicMovableObj.attackOver()
 	if anim_name.find("_pre")>0:
+		#var prvAction = fightActionController.action_array.back() as FightActionController.ActionInfo
+		#if prvAction!=null && prvAction.action_type>3:
+		#	prvAction.state = FightActionController.ActionInfo.STATE_ING
+		
 		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Attack
 	if anim_name=="run2idle":
 		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Run2Idle
@@ -105,7 +115,7 @@ func _on_FightKinematicMovableObj_FaceDirectionChanged(direction):
 
 #移动状态改变
 func _on_FightKinematicMovableObj_State_Changed(state):
-	
+	print("state",state)
 	if  state != FightKinematicMovableObj.ActionState.Attack :
 		
 		if fightKinematicMovableObj.faceDirection.x!=0 && fightKinematicMovableObj.faceDirection.x != prv_face_direction.x:
@@ -115,8 +125,6 @@ func _on_FightKinematicMovableObj_State_Changed(state):
 	pass
 
 
-
-func _on_Node2D_NewFightMotion(motion):
-		
+func _on_FightController_NewFightMotion(motion):
 	$FightAnimationTree.act(motion)
 	pass # Replace with function body.

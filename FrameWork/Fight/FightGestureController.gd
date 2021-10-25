@@ -15,7 +15,7 @@ var attackDirection = 0
 var endPosRotation = Vector2.ZERO
 #朝向鼠标的向量
 var toMouseVector = Vector2.ZERO
-var jisu :FightComponent_human
+var jisu:FightComponent_human
 
 #开始的角度
 var attackRadiusBias = PI*3/2
@@ -270,25 +270,28 @@ func _input(event):
 					var is_run = is_trigger_run(input_vector)
 					
 					if is_run :
-						regist_action(FightComponent_human.FightMotion.Run,input_vector)
+						var action = regist_action(FightComponent_human.FightMotion.Run,input_vector)
 						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
 					else:
 						regist_action(FightComponent_human.FightMotion.Walk,input_vector)
 						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 				else:
-					if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
+					#if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
 						
 						var lastMotion =action_array.back()
 						
 						if lastMotion.action_type != FightComponent_human.FightMotion.Run:
-							
+							print("$$2")
 							regist_action(FightComponent_human.FightMotion.Idle,input_vector)
 							jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
 			else:
 				
-				#这里是 攻击结束后，以前按下移动中的情况
-				if jisu.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
-					
+				var lastMotion =action_array.back()
+				
+				#这里是 攻击结束后，已经按下移动中的情况
+				#if jisu.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
+				if lastMotion.action_type ==FightComponent_human.FightMotion.Walk:
+					print("$$")
 					regist_action(FightComponent_human.FightMotion.Walk,input_vector)
 					jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 					
@@ -372,23 +375,3 @@ func _on_Timer_timeout():
 	show_heavy_attack_indicator()
 	regist_action(FightComponent_human.FightMotion.Holding)
 	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
-
-#action 信息
-class ActionInfo :
-
-	extends ObjPool.IPoolAble	
-	func _init(pool,params).(pool):
-		action_type=params[0]
-		action_begin = params[1]
-		param =params[2]
-	pass
-	
-	var action_type;
-	var action_begin;
-	var param;#如果是 run/move 指令，保存方向向量
-	
-	func _clean():
-		action_type=null
-		action_begin=null
-		param=null
-		pass
