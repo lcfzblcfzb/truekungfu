@@ -44,3 +44,14 @@ func test_array_slice():
 	var list_06 = list.slice(3,1)
 	pass
 
+
+func test_array_resize():
+	
+	var list = [1,2,3,4,5,6]
+	
+	list.resize(3)
+	assert_eq(list.size(),3)
+	list.resize(6)
+	
+	assert_eq(list.size(),6)
+	pass

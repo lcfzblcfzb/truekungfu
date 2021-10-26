@@ -2221,7 +2221,7 @@ __meta__ = {
 [node name="Sprite" parent="SpriteAnimation" index="0"]
 position = Vector2( -1.26608, 18.9449 )
 offset = Vector2( 13.185, -19.7395 )
-frame = 1
+frame = 0
 
 [node name="sword" type="Node2D" parent="SpriteAnimation"]
 position = Vector2( -10.8877, -7.52747 )
