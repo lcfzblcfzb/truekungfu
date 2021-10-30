@@ -45,6 +45,12 @@ func test_array_slice():
 	pass
 
 
+func test_base_action_mng():
+	
+	var mng = FightBaseActionMng.new()
+	
+	pass
+
 func test_array_resize():
 	
 	var list = [1,2,3,4,5,6]

@@ -15,7 +15,9 @@ var attackDirection = 0
 var endPosRotation = Vector2.ZERO
 #朝向鼠标的向量
 var toMouseVector = Vector2.ZERO
-var jisu:FightComponent_human
+var jisu:FightKinematicMovableObj
+
+var state_controller:Fight_State_Controller
 
 #开始的角度
 var attackRadiusBias = PI*3/2
@@ -100,14 +102,37 @@ func is_on_left()->bool:
 	
 	print("is face left", jisu.is_face_left())
 	return jisu.is_face_left()
+
+
+
+#注册一系列的动画
+func regist_set_of_action(action):
+	var global_id = next_group_id()
+	match action:
+		
+		Tool.FightMotion.Attack_Up:
+			regist_action(Tool.FightMotion.Attack_Up_Pre,state_controller.get("a_u_pre"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+			regist_action(Tool.FightMotion.Attack_Up_In,state_controller.get("a_u_in"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+			regist_action(Tool.FightMotion.Attack_Up_After,state_controller.get("a_u_after"),global_id,ActionInfo.EXEMOD_GENEROUS)
+		Tool.FightMotion.Attack_Mid:
+			regist_action(Tool.FightMotion.Attack_Mid_Pre,state_controller.get("a_m_pre"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+			regist_action(Tool.FightMotion.Attack_Mid_In,state_controller.get("a_m_in"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+			regist_action(Tool.FightMotion.Attack_Mid_After,state_controller.get("a_m_after"),global_id,ActionInfo.EXEMOD_GENEROUS)
+		Tool.FightMotion.Attack_Bot:
+			regist_action(Tool.FightMotion.Attack_Bot_Pre,state_controller.get("a_b_pre"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+			regist_action(Tool.FightMotion.Attack_Bot_In,state_controller.get("a_b_in"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+			regist_action(Tool.FightMotion.Attack_Bot_After,state_controller.get("a_b_after"),global_id,ActionInfo.EXEMOD_GENEROUS)
 			
+			pass
+		
+	pass
+	
 func _input(event):
 	
 	if(event is InputEventMouse):
 		
 		if event.is_action_pressed("attack"):
 			
-			global_position = event.global_position;
 			show_attack_indicator()
 			attack_begin_time = OS.get_ticks_msec()
 			attack_pressed = true
@@ -138,32 +163,48 @@ func _input(event):
 			rc.force_raycast_update()
 			
 			jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Attack)
-	
+			var global_id = next_group_id()
 			if OS.get_ticks_msec()<=attack_begin_time+heavyAttackThreshold:
 				#轻攻击
 				#攻击 调用
 				var byte = _calc_position_byte_array(R)
 				if _is_attack_up_position(byte):
 					#attack up
-					regist_action(FightComponent_human.FightMotion.Attack_Up)
+					#var name =Tool._map_action2animation(Tool.FightMotion.Attack_Up)
+					#regist_action(Tool.FightMotion.Attack_Up,state_controller.get(Tool._map_action2animation(Tool.FightMotion.Attack_Up)),ActionInfo.EXEMOD_NEWEST)
+					
+					regist_action(Tool.FightMotion.Attack_Up_Pre,state_controller.get("a_u_pre"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
+					regist_action(Tool.FightMotion.Attack_Up_In,state_controller.get("a_u_in"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
+					regist_action(Tool.FightMotion.Attack_Up_After,state_controller.get("a_u_after"),ActionInfo.EXEMOD_GENEROUS,global_id)
+
 					pass
 				elif _is_attack_mid_position(byte):
 					#attack mid
-					regist_action(FightComponent_human.FightMotion.Attack_Mid)
+					
+					regist_action(Tool.FightMotion.Attack_Mid_Pre,state_controller.get("a_m_pre"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
+					regist_action(Tool.FightMotion.Attack_Mid_In,state_controller.get("a_m_in"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
+					regist_action(Tool.FightMotion.Attack_Mid_After,state_controller.get("a_m_after"),ActionInfo.EXEMOD_GENEROUS,global_id)
+
+					#regist_action(Tool.FightMotion.Attack_Mid)
 					pass
 				elif _is_attack_bot_position(byte):
 					#attack bot
-					regist_action(FightComponent_human.FightMotion.Attack_Bot)
+					
+					regist_action(Tool.FightMotion.Attack_Bot_Pre,state_controller.get("a_b_pre"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+					regist_action(Tool.FightMotion.Attack_Bot_In,state_controller.get("a_b_in"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+					regist_action(Tool.FightMotion.Attack_Bot_After,state_controller.get("a_b_after"),global_id,ActionInfo.EXEMOD_GENEROUS)
+			
+					#regist_action(Tool.FightMotion.Attack_Bot)
 					pass
 				
 				elif _is_def_bot(byte):
-					regist_action(FightComponent_human.FightMotion.Def_Bot)
+					regist_action(Tool.FightMotion.Def_Bot)
 				elif _is_def_mid(byte):
-					regist_action(FightComponent_human.FightMotion.Def_Mid)
+					regist_action(Tool.FightMotion.Def_Mid)
 				elif _is_def_up(byte):
-					regist_action(FightComponent_human.FightMotion.Def_Up)
+					regist_action(Tool.FightMotion.Def_Up)
 				else:
-					regist_action(FightComponent_human.FightMotion.Idle)
+					regist_action(Tool.FightMotion.Idle)
 					jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 					#defend todo
 					pass
@@ -172,7 +213,7 @@ func _input(event):
 				
 				if moving_position_array.size()<=0:
 					#nothing happen
-					regist_action(FightComponent_human.FightMotion.Idle)
+					regist_action(Tool.FightMotion.Idle)
 					jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 	
 					return
@@ -180,15 +221,15 @@ func _input(event):
 					var byte = moving_position_array.pop_back()
 					if _is_attack_up_position(byte):
 						#heavy_attack_up
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_U)
+						regist_action(Tool.FightMotion.HeavyAttack_U)
 						pass
 					elif _is_attack_mid_position(byte):
 						#heavy_attack_mid
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_M)
+						regist_action(Tool.FightMotion.HeavyAttack_M)
 						pass
 					elif _is_attack_bot_position(byte):
 						#heavy_attack_bot
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_B)
+						regist_action(Tool.FightMotion.HeavyAttack_B)
 						pass
 				else:
 					var startPos = moving_position_array.pop_front()
@@ -200,44 +241,44 @@ func _input(event):
 					if _is_attack_up_position(resultByte):
 						
 						#heavy_attack_up:  h_a_u
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_U)
+						regist_action(Tool.FightMotion.HeavyAttack_U)
 						pass
 					elif _is_attack_u2m(resultByte):
 						#h_a_u2m
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_U2M)
+						regist_action(Tool.FightMotion.HeavyAttack_U2M)
 						pass
 					elif _is_attack_u2b(resultByte):
 						#h_a_u2b
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_U2B)
+						regist_action(Tool.FightMotion.HeavyAttack_U2B)
 						pass
 					elif _is_attack_m2u(resultByte):
 							#h_a_m2u
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_M2U)
+						regist_action(Tool.FightMotion.HeavyAttack_M2U)
 						pass
 					elif _is_attack_mid_position(resultByte):
 							#h_a_m
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_M)
+						regist_action(Tool.FightMotion.HeavyAttack_M)
 						pass
 					elif _is_attack_m2b(resultByte):
 							#h_a_m2b
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_M2B)
+						regist_action(Tool.FightMotion.HeavyAttack_M2B)
 						pass
 							
 					elif _is_attack_b2u(resultByte):
 							#h_a_b2u
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_B2U)
+						regist_action(Tool.FightMotion.HeavyAttack_B2U)
 						pass
 					elif _is_attack_b2m(resultByte):
 							#h_a_b2m
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_B2M)
+						regist_action(Tool.FightMotion.HeavyAttack_B2M)
 						pass
 					elif _is_attack_bot_position(resultByte):
 						#h_a_b
-						regist_action(FightComponent_human.FightMotion.HeavyAttack_B)
+						regist_action(Tool.FightMotion.HeavyAttack_B)
 						pass
 					else:
 						#无效的指令了
-						regist_action(FightComponent_human.FightMotion.Idle)
+						regist_action(Tool.FightMotion.Idle)
 						jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 	
 						pass
@@ -248,70 +289,71 @@ func _input(event):
 			print("array:",_calc_position_byte_array(R))
 		if event.is_action_pressed("cancel"):
 			
-			jisu.fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Idle
+			jisu.state = FightKinematicMovableObj.ActionState.Idle
 			hide_all()	
 			is_cancel = true
 	#移动
 	#超乱
 	#只有在非 攻击（ATTACK）状态下 才进行移动/ 奔跑切换
 	if event.is_action("ui_right")||event.is_action("ui_left")||event.is_action("ui_up")||event.is_action("ui_down"):
-	
+		
 		var input_vector = Vector2.ZERO;
 		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left");
 		input_vector.y = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up");
 		
 		input_vector =  input_vector.normalized()
 		
-		if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
-		
-			if  !event.is_echo():
-				if input_vector != Vector2.ZERO:
+		if  !event.is_echo():
+			if input_vector != Vector2.ZERO:
+				
+				var is_run = is_trigger_run(input_vector)
+				
+				if is_run :
 					
-					var is_run = is_trigger_run(input_vector)
-					
-					if is_run :
-						var action = regist_action(FightComponent_human.FightMotion.Run,input_vector)
-						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
-					else:
-						regist_action(FightComponent_human.FightMotion.Walk,input_vector)
-						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
+					var action = regist_action(Tool.FightMotion.Run,-1,ActionInfo.EXEMOD_GENEROUS,-1,[input_vector])
+					jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
 				else:
-					#if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
-						
-						var lastMotion =action_array.back()
-						
-						if lastMotion.action_type != FightComponent_human.FightMotion.Run:
-							print("$$2")
-							regist_action(FightComponent_human.FightMotion.Idle,input_vector)
-							jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
-			else:
-				
-				var lastMotion =action_array.back()
-				
-				#这里是 攻击结束后，已经按下移动中的情况
-				#if jisu.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
-				if lastMotion.action_type ==FightComponent_human.FightMotion.Walk:
-					print("$$")
-					regist_action(FightComponent_human.FightMotion.Walk,input_vector)
+					regist_action(Tool.FightMotion.Walk,-1,ActionInfo.EXEMOD_GENEROUS,-1,[input_vector])
+
 					jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
+			else:
+				#if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
 					
-					pass
+					var lastMotion =action_array.back()
+					
+					if lastMotion.base_action != Tool.FightMotion.Run:
+						print("$$2")
+						regist_action(Tool.FightMotion.Idle,-1,ActionInfo.EXEMOD_GENEROUS,-1,[input_vector])
+
+						#regist_action(Tool.FightMotion.Idle,input_vector)
+						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
 		else:
-			jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Attack)
-			pass	
+			
+			var lastMotion =action_array.back()
+			
+			#这里是 攻击结束后，已经按下移动中的情况
+			#if jisu.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
+			if lastMotion.base_action ==Tool.FightMotion.Walk:
+				print("$$")
+				regist_action(Tool.FightMotion.Walk,-1,ActionInfo.EXEMOD_GENEROUS,-1,[input_vector])
+				#regist_action(Tool.FightMotion.Walk,-1,ActionInfo.EXEMOD_NEWEST,[input_vector])
+				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
+				
+				pass
+		
+		#if jisu.state != FightKinematicMovableObj.ActionState.Attack:
+		#	jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Attack)
+		#	pass	
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
 		mouseMovingPos = event.global_position
 		var screenPos
 		
-		if jisu.get("sprite") != null:
-			screenPos =Tool.getCameraPosition(jisu.sprite)
-		else:
-			screenPos =Tool.getCameraPosition(jisu)
+		screenPos =Tool.getCameraPosition(jisu)
 		toMouseVector = (mouseMovingPos- screenPos).normalized()
 		
 		#攻击按下
-		#才开始记录
+		#才开始记录	
 		#记录过程中所有的位置值
 		#与上一个重复的就不记录了
 		#最后只有第一个和最后一个有用。
@@ -338,22 +380,22 @@ func _input(event):
 			pass
 		
 		onMouseMovingPosChange()
-
+		
 #判定是否是run
 #进行一个run 判定
 #两个间隔时间在 run_action_min_interval  的walk 指令触发成run
 func is_trigger_run(input_vector)->bool:
 	
-	var index = action_array.size()
+	var index =action_array.size()
 	
 	while true:
 		index=index-1
 		if index<0:
 			break
 		var tmp = action_array[index] as ActionInfo
-		
-		if tmp.action_begin+run_action_min_interval>= OS.get_ticks_msec():
-			if tmp.action_type ==FightComponent_human.FightMotion.Walk && tmp.param == input_vector:
+		#在极短时间内的几个run或者walk 都视为触发了run
+		if  tmp.action_create_time+run_action_min_interval>= OS.get_ticks_msec():
+			if (tmp.base_action ==Tool.FightMotion.Walk ||tmp.base_action ==Tool.FightMotion.Run) && tmp.param[0] == input_vector:
 				return true
 		else:
 			return false;
@@ -373,5 +415,5 @@ func onMouseMovingPosChange():
 func _on_Timer_timeout():
 	print("endMs",OS.get_ticks_msec())
 	show_heavy_attack_indicator()
-	regist_action(FightComponent_human.FightMotion.Holding)
+	regist_action(Tool.FightMotion.Holding,-1,ActionInfo.EXEMOD_NEWEST)
 	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)

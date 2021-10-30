@@ -1,3 +1,5 @@
+class_name Fight_State_Controller
+
 extends Object
 
 #path to file

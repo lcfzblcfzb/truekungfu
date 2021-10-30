@@ -21,9 +21,14 @@ func change_face_direction(face):
 		$Sprite.flip_h = false
 	elif face<0:
 		$Sprite.flip_h = true
-	
+	print("change face direction",face)
 	pass
 
 
 func _on_SwordDemoAnimationPlayer_animation_started(anim_name):
 	pass # Replace with function body.
+
+
+func _on_FightKinematicMovableObj_Charactor_Face_Direction_Changed(direction):
+	
+	change_face_direction(direction.x)

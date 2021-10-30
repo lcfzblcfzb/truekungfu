@@ -4,6 +4,7 @@ extends KinematicMovableObj
 
 
 signal State_Changed
+signal Charactor_Face_Direction_Changed
 
 enum ActionState{
 	
@@ -28,8 +29,8 @@ export(int, 0, 1000) var RUN_2_IDLE_ACC = 700
 export(int, 0, 1000) var RUN_2_IDLE_VELOCITY = 100
 export(int, 0, 1000) var IDLE_2_RUN_ACC = 100
 export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100
-export(int, 0, 1000) var ATTACK_VELOCITY = 100
-export(int, 0, 1000) var ATTACK_ACC = 10
+export(int, 0, 1000) var ATTACK_VELOCITY = 80
+export(int, 0, 1000) var ATTACK_ACC = 50
 
 
 func changeState(s):
@@ -74,16 +75,36 @@ func changeState(s):
 	pass
 
 
-#输入参数
-var input_vector:Vector2 = Vector2.ZERO setget setInputVector
+#改变 movableobjstate
+func change_movable_state(input_vector,s):
+	self.charactor_face_direction = input_vector
+	self.faceDirection = input_vector
+	self.state = s
+	pass
+#角色 朝向 参数
+var charactor_face_direction:Vector2 = Vector2.RIGHT setget setChactorFaceDirection
 
 #默认情况下 input_vector 就是faceDirection
 #如果input_vector 是 空向量，则保持不变
-func setInputVector(v):
-	input_vector = v
-	self.faceDirection = v
+func setChactorFaceDirection(v):
+	#v.x ==0 的时候不改变面向
+	if v.x==0:
+		return
+	
+	#在attack 的时候无法改变朝向
+	if state != ActionState.Attack:
+		
+		if v!= charactor_face_direction:
+			charactor_face_direction = v
+			emit_signal("Charactor_Face_Direction_Changed",charactor_face_direction)
+		else:
+			charactor_face_direction = v
+			
 
 #攻击结束回调。 可以由动画的终结信号调用
 func attackOver(s = ActionState.Idle):
 	self.state = s
 
+#当前角色朝向
+func is_face_left():
+	return faceDirection.x<0
