@@ -2,6 +2,13 @@ extends AnimationTree
 
 var state_machine_playback = get("parameters/sm/playback")
 
+export (NodePath)var _fight_action_path setget set_fight_action_control
+
+var fight_action_control;
+
+func set_fight_action_control(f):
+	fight_action_control = get_node(f)
+
 signal State_Changed;
 
 func _map_action2animation(action)->String:
@@ -90,8 +97,8 @@ func _process(delta):
 		
 	pass
 #动作动作
-func act(action,timescale):
-	var animation = _map_action2animation(action)
+func act(action:ActionInfo,timescale):
+	var animation = action.get_base_action().get("animation_name")
 	print("【action】: ",animation)
 	if animation!=null:
 		
@@ -108,6 +115,7 @@ func travelTo(name):
 #玩一下yield方法；
 func emitSignal(toNode):
 	print("current time scale",get("parameters/TimeScale/scale"))
+	print("current node",toNode,OS.get_ticks_msec())
 	$RichTextLabel.text +=( "-->" + toNode as String)
 	#sinal
 	emit_signal("State_Changed",toNode)

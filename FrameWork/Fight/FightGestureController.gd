@@ -137,7 +137,6 @@ func _input(event):
 			attack_begin_time = OS.get_ticks_msec()
 			attack_pressed = true
 			moving_position_array.clear()
-			print("startMs",OS.get_ticks_msec(),"suppose:",heavyAttackThreshold/1000)
 			$Timer.start(heavyAttackThreshold/1000)
 			attackPos =event.global_position;
 			onAttackPosChange()
@@ -322,7 +321,6 @@ func _input(event):
 					var lastMotion =action_array.back()
 					
 					if lastMotion.base_action != Tool.FightMotion.Run:
-						print("$$2")
 						regist_action(Tool.FightMotion.Idle,-1,ActionInfo.EXEMOD_GENEROUS,-1,[input_vector])
 
 						#regist_action(Tool.FightMotion.Idle,input_vector)
@@ -334,7 +332,6 @@ func _input(event):
 			#这里是 攻击结束后，已经按下移动中的情况
 			#if jisu.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
 			if lastMotion.base_action ==Tool.FightMotion.Walk:
-				print("$$")
 				regist_action(Tool.FightMotion.Walk,-1,ActionInfo.EXEMOD_GENEROUS,-1,[input_vector])
 				#regist_action(Tool.FightMotion.Walk,-1,ActionInfo.EXEMOD_NEWEST,[input_vector])
 				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
@@ -413,7 +410,6 @@ func onMouseMovingPosChange():
 	pass
 
 func _on_Timer_timeout():
-	print("endMs",OS.get_ticks_msec())
 	show_heavy_attack_indicator()
 	regist_action(Tool.FightMotion.Holding,-1,ActionInfo.EXEMOD_NEWEST)
 	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)

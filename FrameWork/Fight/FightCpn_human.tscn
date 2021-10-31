@@ -2217,6 +2217,7 @@ __meta__ = {
 }
 
 [node name="SpriteAnimation" parent="." instance=ExtResource( 8 )]
+tn = NodePath("../FightAnimationTree")
 
 [node name="Sprite" parent="SpriteAnimation" index="0"]
 position = Vector2( -1.26608, 18.9449 )
@@ -2273,6 +2274,7 @@ parameters/sm2/StateMachine/StateMachine/conditions/is_holding = false
 parameters/sm2/mix/playback = SubResource( 282 )
 parameters/sm2/mix/conditions/is_holding = false
 script = ExtResource( 3 )
+_fight_action_path = NodePath("../FightController")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="FightAnimationTree"]
 anchor_left = 0.23

@@ -1,6 +1,6 @@
 extends Node2D
 
-
+export (NodePath)var tn 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -21,13 +21,9 @@ func change_face_direction(face):
 		$Sprite.flip_h = false
 	elif face<0:
 		$Sprite.flip_h = true
-	print("change face direction",face)
+	print("change face direction",face,$Sprite.frame)
+	print("current time scale",get_node(tn).get("parameters/TimeScale/scale"))
 	pass
-
-
-func _on_SwordDemoAnimationPlayer_animation_started(anim_name):
-	pass # Replace with function body.
-
 
 func _on_FightKinematicMovableObj_Charactor_Face_Direction_Changed(direction):
 	

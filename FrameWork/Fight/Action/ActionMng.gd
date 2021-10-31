@@ -24,7 +24,6 @@ func updateCurrentAction():
 	if current_index < action_array.size():
 		_current_action = action_array[current_index]
 		
-		print("generous_state",_current_action.state)
 	elif current_index== action_array.size():
 		_current_action =null
 	else:
@@ -85,9 +84,13 @@ func regist_action(a,duration=1, exemod=ActionInfo.EXEMOD_NEWEST,groupId =-1,par
 	var n =  10  if  action_array.size()>10 else action_array.size()
 	var s =''
 	for i in n:
-		a = action_array[-(i+1)]
+		a = action_array[-(i+1)] as ActionInfo
 		var baseAction =FightBaseActionMng.dict.get(a.base_action)
-		s = s+"[" +baseAction.animation_name+"]"
+		if a.state ==ActionInfo.STATE_ING:
+			s = s+"[current -> :" +baseAction.animation_name+"]"
+			pass
+		else:
+			s = s+"["+a.state as String +baseAction.animation_name+"]"
 		pass
 		
 	print(s)

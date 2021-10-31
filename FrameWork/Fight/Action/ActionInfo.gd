@@ -50,6 +50,14 @@ var action_duration_ms;
 
 var param;#如果是 run/move 指令，保存方向向量
 
+var _base_action_obj:BaseAction
+
+func get_base_action()->BaseAction:
+	
+	if _base_action_obj==null:
+		_base_action_obj = FightBaseActionMng.get_by_base_id(base_action)
+	return _base_action_obj
+
 #保存动作的释放状态。
 #-1: NULL(未初始化，空的状态)
 #0: 初始化 未开始
@@ -100,4 +108,5 @@ func _clean():
 	execution_mod =EXEMOD_NEWEST
 	group_id = -1
 	not_generous_type = []
+	_base_action_obj = null
 	pass

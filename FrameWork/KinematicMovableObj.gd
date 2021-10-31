@@ -42,7 +42,7 @@ func getVelocityValue():
 var body:KinematicBody2D
 export(NodePath) var bodyPath : NodePath
 #朝向向量
-var faceDirection:Vector2 =Vector2.DOWN  setget _setFaceDirection
+var faceDirection:Vector2 =Vector2.ZERO  setget _setFaceDirection
 
 #设置faceDirections
 func _setFaceDirection(v):

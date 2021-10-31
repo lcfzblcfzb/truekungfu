@@ -32,14 +32,11 @@ export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100
 export(int, 0, 1000) var ATTACK_VELOCITY = 80
 export(int, 0, 1000) var ATTACK_ACC = 50
 
-
 func changeState(s):
 	
-	if(s !=state):
-		emit_signal("State_Changed",s)
-		state =s
+	if(state!=ActionState.Attack && s!=state ):
 		
-		match state:
+		match s:
 			ActionState.Idle:
 				isMoving = true
 				acceleration = IDLE_ACC
@@ -72,9 +69,11 @@ func changeState(s):
 				pass
 			ActionState.Stop:
 				isMoving = false
+				
+		print("  state change",s)
+		state =s	
+		emit_signal("State_Changed",s)
 	pass
-
-
 #改变 movableobjstate
 func change_movable_state(input_vector,s):
 	self.charactor_face_direction = input_vector
@@ -82,11 +81,11 @@ func change_movable_state(input_vector,s):
 	self.state = s
 	pass
 #角色 朝向 参数
-var charactor_face_direction:Vector2 = Vector2.RIGHT setget setChactorFaceDirection
+var charactor_face_direction:Vector2 = Vector2.RIGHT setget setCharactorFaceDirection
 
 #默认情况下 input_vector 就是faceDirection
 #如果input_vector 是 空向量，则保持不变
-func setChactorFaceDirection(v):
+func setCharactorFaceDirection(v):
 	#v.x ==0 的时候不改变面向
 	if v.x==0:
 		return
@@ -100,11 +99,14 @@ func setChactorFaceDirection(v):
 		else:
 			charactor_face_direction = v
 			
-
 #攻击结束回调。 可以由动画的终结信号调用
 func attackOver(s = ActionState.Idle):
-	self.state = s
-
+	var prv_s = state
+	state =s	
+	if prv_s!=s:
+		print("  attack over",s)
+		emit_signal("State_Changed",s)
+	
 #当前角色朝向
 func is_face_left():
 	return faceDirection.x<0
