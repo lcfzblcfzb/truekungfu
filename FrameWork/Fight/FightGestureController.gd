@@ -189,9 +189,9 @@ func _input(event):
 				elif _is_attack_bot_position(byte):
 					#attack bot
 					
-					regist_action(Tool.FightMotion.Attack_Bot_Pre,state_controller.get("a_b_pre"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-					regist_action(Tool.FightMotion.Attack_Bot_In,state_controller.get("a_b_in"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-					regist_action(Tool.FightMotion.Attack_Bot_After,state_controller.get("a_b_after"),global_id,ActionInfo.EXEMOD_GENEROUS)
+					regist_action(Tool.FightMotion.Attack_Bot_Pre,state_controller.get("a_b_pre"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
+					regist_action(Tool.FightMotion.Attack_Bot_In,state_controller.get("a_b_in"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
+					regist_action(Tool.FightMotion.Attack_Bot_After,state_controller.get("a_b_after"),ActionInfo.EXEMOD_GENEROUS,global_id)
 			
 					#regist_action(Tool.FightMotion.Attack_Bot)
 					pass

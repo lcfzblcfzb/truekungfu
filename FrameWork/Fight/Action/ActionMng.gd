@@ -66,7 +66,7 @@ var actionPool = ObjPool.new(ActionInfo)
 
 #保持数组长度不超过 MAX_ACTION_ARRAY_SIZE 的长度
 #缓存上一个数组的数据
-func regist_action(a,duration=1, exemod=ActionInfo.EXEMOD_NEWEST,groupId =-1,param:Array=[] ):
+func regist_action(a, duration=1, exemod=ActionInfo.EXEMOD_NEWEST,groupId =-1,param:Array=[] ):
 	#var action =ActionInfo.new(a,OS.get_ticks_msec(),param)
 	print("regist action",a)
 	var input_array = [a,OS.get_ticks_msec(),param,duration*1000,exemod,groupId]
