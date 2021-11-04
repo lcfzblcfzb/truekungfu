@@ -308,12 +308,16 @@ func _input(event):
 				var is_run = is_trigger_run(input_vector)
 				
 				if is_run :
-					
-					var action = regist_action(Tool.FightMotion.Run,-1,ActionInfo.EXEMOD_GENEROUS,-1,[input_vector])
+					var actionInfoPool = Tool.PoolDict.get(ActionInfo) as ObjPool
+					var action = actionInfoPool.instance([Tool.FightMotion.Run,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+					regist_actioninfo(action)
 					jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
 				else:
-					regist_action(Tool.FightMotion.Walk,-1,ActionInfo.EXEMOD_GENEROUS,-1,[input_vector])
-
+					
+					var actionInfoPool = Tool.PoolDict.get(ActionInfo) as ObjPool
+					var action = actionInfoPool.instance([Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+					regist_actioninfo(action)
+					
 					jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 			else:
 				#if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
@@ -321,8 +325,11 @@ func _input(event):
 					var lastMotion =action_array.back()
 					
 					if lastMotion.base_action != Tool.FightMotion.Run:
-						regist_action(Tool.FightMotion.Idle,-1,ActionInfo.EXEMOD_GENEROUS,-1,[input_vector])
-
+						
+						var actionInfoPool = Tool.PoolDict.get(ActionInfo) as ObjPool
+						var action = actionInfoPool.instance([Tool.FightMotion.Idle,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+						regist_actioninfo(action)
+					
 						#regist_action(Tool.FightMotion.Idle,input_vector)
 						jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
 		else:
@@ -332,7 +339,11 @@ func _input(event):
 			#这里是 攻击结束后，已经按下移动中的情况
 			#if jisu.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
 			if lastMotion.base_action ==Tool.FightMotion.Walk:
-				regist_action(Tool.FightMotion.Walk,-1,ActionInfo.EXEMOD_GENEROUS,-1,[input_vector])
+				
+				var actionInfoPool = Tool.PoolDict.get(ActionInfo) as ObjPool
+				var action = actionInfoPool.instance([Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+				regist_actioninfo(action)
+					
 				#regist_action(Tool.FightMotion.Walk,-1,ActionInfo.EXEMOD_NEWEST,[input_vector])
 				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 				

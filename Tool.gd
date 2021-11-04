@@ -2,6 +2,11 @@ tool
 extends Node
 
 
+var dPi = 2*PI
+var hPi = PI/2
+
+var PoolDict ={ActionInfo:ObjPool.new(ActionInfo)}
+
 enum CampEnum {
 	Good,
 	Bad,
@@ -12,8 +17,6 @@ enum CampEnum {
 func test():
 	print("print test global")
 
-var dPi = 2*PI
-var hPi = PI/2
 #返回一个介于0-》2PI 之间的角度
 func normalizeAngle(angle:float):
 	var absAngle =abs(angle)
@@ -28,6 +31,7 @@ func getCameraPosition(node:Node2D)->Vector2:
 	
 	return node.get_viewport_transform() * (node.get_global_transform() * node.position)
 
+#从text文件中读取json 并保存为json对象
 func load_json_file(path):
 	"""Loads a JSON file from the given res path and return the loaded JSON object."""
 	var file = File.new()
