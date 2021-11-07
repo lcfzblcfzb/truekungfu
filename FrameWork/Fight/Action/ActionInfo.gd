@@ -23,8 +23,7 @@ func _init(pool,params_array:Array).(pool):
 	if action_duration_ms <0:
 		is_loop = true
 	execution_mod = params_array[4]
-	group_id = params_array[5]
-
+	
 pass
 #最普通的action方式，如果前一个action也是newest ，则会被覆盖
 const EXEMOD_NEWEST =0
@@ -46,7 +45,7 @@ var group_exe_mod =null
 
 #业务类型
 var base_action;
-#时间属性
+#时间属性 --ms
 var action_create_time;
 var action_begin_time;
 var action_end_time;
