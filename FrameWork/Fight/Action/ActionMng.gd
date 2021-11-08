@@ -307,40 +307,59 @@ func _check_generous_on_add():
 #ATTENTION! 此时需要检测 连续的generous的情形
 func _check_generous_on_process():
 	
-	if current_index> action_array.size()-1 || !is_generous_type(_current_action):
+	if current_index>=action_array.size()-1 || !is_generous_type(_current_action):
 		return
-	#确定 会执行GENEROUS 行为的判断
-	var is_for_sure =false;
-	var back = action_array.back()
-	if _current_action.group_id<0:
-		is_for_sure = true
-	elif _current_action.group_id !=back.group_id:
-		is_for_sure = true
-	
+
 	var foundIndex = current_index;
 	
+	#在循环中记录 找到的 GENEROUS类型的 group_id和第一个成员所处的Index,
+	var found_group_id = -1
+	var found_group_index = -1
 	#找出执行generous行为的最后一个index
 	for i in range(current_index+1,action_array.size()):
 		
 		var action = action_array[i]
 		#TODO 是否可以写成一行？
-		if action.group_id >0 && action.group_id == _current_action.group_id :
-
-			if action.execution_mod == ActionInfo.EXEMOD_GENEROUS || is_for_sure:
-				foundIndex=foundIndex+1
+		if action.group_id>0 && action.group_exe_mod ==ActionInfo.EXEMOD_GENEROUS:
+			
+			if found_group_id>0:
+				if found_group_id!=action.group_id:
+					found_group_id = action.group_id
+					found_group_index = i
+					foundIndex = i-1
+				else:
+					var _prv_action = action_array[i-1]
+					if _prv_action.execution_mod == ActionInfo.EXEMOD_GENEROUS:
+						foundIndex = i-1
+						pass
 			else:
-				break
-
-		elif is_generous_type(action):
-			foundIndex=foundIndex+1
+				
+				found_group_id = action.group_id
+				found_group_index = i
+				foundIndex = i-1
+			pass
+		elif action.execution_mod ==ActionInfo.EXEMOD_GENEROUS:
+			
+			if found_group_id>0:
+				found_group_id=-1
+				found_group_index=-1
+				foundIndex=i-1
+				pass
+			else:
+				foundIndex=i-1
 			pass
 		else:
+			
+			found_group_id=-1
+			found_group_index=-1
+			foundIndex = i-1
 			break
 			pass
 		pass
 	pass
-	
-	#执行generous操作
+		
+#	if current_index!=foundIndex:
+		#执行generous操作
 	for i in range(current_index,foundIndex+1):
 		
 		_current_action.state =ActionInfo.STATE_PASSED
