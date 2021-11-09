@@ -287,13 +287,51 @@ func test_group_action():
 		action_control._physics_process(1)
 		
 	assert_true(action_control.action_array.size() ==28, "get size "+action_control.action_array.size() as String)
-	assert_true(action_control.current_index ==22, "current index "+action_control.current_index as String)
+	assert_true(action_control.current_index ==25, "current index "+action_control.current_index as String)
 	
 	for i in 1 :
 		action_control._physics_process(1)
 	
 	assert_true(action_control.action_array.size() ==28, "get size "+action_control.action_array.size() as String)
-	assert_true(action_control.current_index ==25, "current index "+action_control.current_index as String)
+	assert_true(action_control.current_index ==26, "current index "+action_control.current_index as String)
+	
+	for i in 10 :
+		action_control._physics_process(1)
+	
+	assert_true(action_control.action_array.size() ==28, "get size "+action_control.action_array.size() as String)
+	assert_true(action_control.current_index ==28, "current index "+action_control.current_index as String)
+	
+	action_control.regist_group_actions(_create_attack(),action_control.next_group_id(),ActionInfo.EXEMOD_NEWEST)	
+	
+	assert_true(action_control.action_array.size() ==31, "get size "+action_control.action_array.size() as String)
+	assert_true(action_control.current_index ==28, "current index "+action_control.current_index as String)
+	
+	action_control.regist_group_actions(_create_attack(),action_control.next_group_id(),ActionInfo.EXEMOD_NEWEST)
+	
+	assert_true(action_control.action_array.size() ==31, "get size "+action_control.action_array.size() as String)
+	assert_true(action_control.current_index ==28, "current index "+action_control.current_index as String)
+	
+	for i in 1 :
+		action_control._physics_process(1)
+		
+	action_control.regist_group_actions(_create_attack(),action_control.next_group_id(),ActionInfo.EXEMOD_NEWEST)
+	assert_true(action_control.action_array.size() ==34, "get size "+action_control.action_array.size() as String)
+	assert_true(action_control.current_index ==28, "current index "+action_control.current_index as String)
+	
+	
+	for i in 4 :
+		action_control._physics_process(1)
+		
+	assert_true(action_control.action_array.size() ==34, "get size "+action_control.action_array.size() as String)
+	assert_true(action_control.current_index ==31, "current index "+action_control.current_index as String)
+
+func test_create_group():
+	
+	var action_control = load("res://FrameWork/Fight/FightGestureController.tscn").instance() as FightActionController
+	add_child(action_control)
+	
+	var action =action_control._create_attack_action([Tool.FightMotion.Attack_Mid_Pre,Tool.FightMotion.Attack_Mid_In,Tool.FightMotion.Attack_Mid_After],[1,2,3])
+	
 	
 	
 func _create_attack():

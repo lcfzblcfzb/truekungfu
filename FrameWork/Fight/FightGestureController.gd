@@ -111,6 +111,9 @@ func regist_set_of_action(action):
 	match action:
 		
 		Tool.FightMotion.Attack_Up:
+			
+#			regist_group_actions(_create_attack(),action_control.next_group_id(),ActionInfo.EXEMOD_NEWEST)
+			
 			regist_action(Tool.FightMotion.Attack_Up_Pre,state_controller.get("a_u_pre"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 			regist_action(Tool.FightMotion.Attack_Up_In,state_controller.get("a_u_in"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 			regist_action(Tool.FightMotion.Attack_Up_After,state_controller.get("a_u_after"),global_id,ActionInfo.EXEMOD_GENEROUS)
@@ -126,7 +129,41 @@ func regist_set_of_action(action):
 			pass
 		
 	pass
+
+#
+func _create_attack_action(action_list,time_array):
+		
+	var param_dict ={}
 	
+	for i in range(action_list.size()):
+		if i <2:
+			param_dict[action_list[i]]={create_time=OS.get_ticks_msec(),
+								duration=time_array[i]*1000,
+								exemod =ActionInfo.EXEMOD_SEQ}
+		else:
+			param_dict[action_list[i]]={create_time=OS.get_ticks_msec(),
+								duration=time_array[i]*1000,
+								exemod =ActionInfo.EXEMOD_GENEROUS}
+	
+	return _create_group_actions(param_dict)
+
+func _create_group_actions(action_dict:Dictionary):
+	
+	if action_dict==null||action_dict.size()<3:
+		return
+	
+	var pool = Tool.PoolDict.get(ActionInfo) as ObjPool
+	
+	var result = []
+	
+	for k in action_dict:
+		var item  = action_dict.get(k)
+		if item:
+			var act = pool.instance([k,item.get('create_time') if item.get('create_time') !=null else OS.get_ticks_msec() ,item.get('param'),item.get('duration'),item.get('exemod')])
+			result.append(act)
+		pass	
+	return result
+
 func _input(event):
 	
 	if(event is InputEventMouse):
@@ -172,27 +209,26 @@ func _input(event):
 					#var name =Tool._map_action2animation(Tool.FightMotion.Attack_Up)
 					#regist_action(Tool.FightMotion.Attack_Up,state_controller.get(Tool._map_action2animation(Tool.FightMotion.Attack_Up)),ActionInfo.EXEMOD_NEWEST)
 					
-					regist_action(Tool.FightMotion.Attack_Up_Pre,state_controller.get("a_u_pre"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
-					regist_action(Tool.FightMotion.Attack_Up_In,state_controller.get("a_u_in"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
-					regist_action(Tool.FightMotion.Attack_Up_After,state_controller.get("a_u_after"),ActionInfo.EXEMOD_GENEROUS,global_id)
+					var a_list =_create_attack_action([Tool.FightMotion.Attack_Up_Pre,Tool.FightMotion.Attack_Up_In,Tool.FightMotion.Attack_Up_After],[state_controller.get("a_u_pre"),state_controller.get("a_u_in"),state_controller.get("a_u_after")])
+					
+					regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 
 					pass
 				elif _is_attack_mid_position(byte):
 					#attack mid
+					var a_list =_create_attack_action([Tool.FightMotion.Attack_Mid_Pre,Tool.FightMotion.Attack_Mid_In,Tool.FightMotion.Attack_Mid_After],[state_controller.get("a_m_pre"),state_controller.get("a_m_in"),state_controller.get("a_m_after")])
 					
-					regist_action(Tool.FightMotion.Attack_Mid_Pre,state_controller.get("a_m_pre"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
-					regist_action(Tool.FightMotion.Attack_Mid_In,state_controller.get("a_m_in"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
-					regist_action(Tool.FightMotion.Attack_Mid_After,state_controller.get("a_m_after"),ActionInfo.EXEMOD_GENEROUS,global_id)
+					regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 
 					#regist_action(Tool.FightMotion.Attack_Mid)
 					pass
 				elif _is_attack_bot_position(byte):
 					#attack bot
 					
-					regist_action(Tool.FightMotion.Attack_Bot_Pre,state_controller.get("a_b_pre"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
-					regist_action(Tool.FightMotion.Attack_Bot_In,state_controller.get("a_b_in"),ActionInfo.EXEMOD_GROUP_NEWEST,global_id)
-					regist_action(Tool.FightMotion.Attack_Bot_After,state_controller.get("a_b_after"),ActionInfo.EXEMOD_GENEROUS,global_id)
-			
+					var a_list =_create_attack_action([Tool.FightMotion.Attack_Bot_Pre,Tool.FightMotion.Attack_Bot_In,Tool.FightMotion.Attack_Bot_After],[state_controller.get("a_b_pre"),state_controller.get("a_b_in"),state_controller.get("a_b_after")])
+					
+					regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+
 					#regist_action(Tool.FightMotion.Attack_Bot)
 					pass
 				
