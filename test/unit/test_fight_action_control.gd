@@ -330,7 +330,7 @@ func test_create_group():
 	var action_control = load("res://FrameWork/Fight/FightGestureController.tscn").instance() as FightActionController
 	add_child(action_control)
 	
-	var action =action_control._create_attack_action([Tool.FightMotion.Attack_Mid_Pre,Tool.FightMotion.Attack_Mid_In,Tool.FightMotion.Attack_Mid_After],[1,2,3])
+	#var action =action_control._create_attack_action([Tool.FightMotion.Attack_Mid_Pre,Tool.FightMotion.Attack_Mid_In,Tool.FightMotion.Attack_Mid_After],[1,2,3])
 	
 	
 	

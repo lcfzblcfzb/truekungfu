@@ -17,8 +17,6 @@ var endPosRotation = Vector2.ZERO
 var toMouseVector = Vector2.ZERO
 var jisu:FightKinematicMovableObj
 
-var state_controller:Fight_State_Controller
-
 #开始的角度
 var attackRadiusBias = PI*3/2
 #逆角度 方便计算
@@ -104,45 +102,22 @@ func is_on_left()->bool:
 	return jisu.is_face_left()
 
 
-
-#注册一系列的动画
-func regist_set_of_action(action):
-	var global_id = next_group_id()
-	match action:
-		
-		Tool.FightMotion.Attack_Up:
-			
-#			regist_group_actions(_create_attack(),action_control.next_group_id(),ActionInfo.EXEMOD_NEWEST)
-			
-			regist_action(Tool.FightMotion.Attack_Up_Pre,state_controller.get("a_u_pre"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-			regist_action(Tool.FightMotion.Attack_Up_In,state_controller.get("a_u_in"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-			regist_action(Tool.FightMotion.Attack_Up_After,state_controller.get("a_u_after"),global_id,ActionInfo.EXEMOD_GENEROUS)
-		Tool.FightMotion.Attack_Mid:
-			regist_action(Tool.FightMotion.Attack_Mid_Pre,state_controller.get("a_m_pre"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-			regist_action(Tool.FightMotion.Attack_Mid_In,state_controller.get("a_m_in"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-			regist_action(Tool.FightMotion.Attack_Mid_After,state_controller.get("a_m_after"),global_id,ActionInfo.EXEMOD_GENEROUS)
-		Tool.FightMotion.Attack_Bot:
-			regist_action(Tool.FightMotion.Attack_Bot_Pre,state_controller.get("a_b_pre"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-			regist_action(Tool.FightMotion.Attack_Bot_In,state_controller.get("a_b_in"),global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-			regist_action(Tool.FightMotion.Attack_Bot_After,state_controller.get("a_b_after"),global_id,ActionInfo.EXEMOD_GENEROUS)
-			
-			pass
-		
-	pass
-
 #
-func _create_attack_action(action_list,time_array):
+func _create_attack_action(action_list):
 		
 	var param_dict ={}
 	
 	for i in range(action_list.size()):
+		var k = action_list[i]
+		var base = FightBaseActionMng.get_by_base_id(k) as BaseAction
 		if i <2:
-			param_dict[action_list[i]]={create_time=OS.get_ticks_msec(),
-								duration=time_array[i]*1000,
+			
+			param_dict[k]={create_time=OS.get_ticks_msec(),
+								duration=base.duration*1000,
 								exemod =ActionInfo.EXEMOD_SEQ}
 		else:
-			param_dict[action_list[i]]={create_time=OS.get_ticks_msec(),
-								duration=time_array[i]*1000,
+			param_dict[k]={create_time=OS.get_ticks_msec(),
+								duration=base.duration*1000,
 								exemod =ActionInfo.EXEMOD_GENEROUS}
 	
 	return _create_group_actions(param_dict)
@@ -207,16 +182,15 @@ func _input(event):
 				if _is_attack_up_position(byte):
 					#attack up
 					#var name =Tool._map_action2animation(Tool.FightMotion.Attack_Up)
-					#regist_action(Tool.FightMotion.Attack_Up,state_controller.get(Tool._map_action2animation(Tool.FightMotion.Attack_Up)),ActionInfo.EXEMOD_NEWEST)
-					
-					var a_list =_create_attack_action([Tool.FightMotion.Attack_Up_Pre,Tool.FightMotion.Attack_Up_In,Tool.FightMotion.Attack_Up_After],[state_controller.get("a_u_pre"),state_controller.get("a_u_in"),state_controller.get("a_u_after")])
+									
+					var a_list =_create_attack_action([Tool.FightMotion.Attack_Up_Pre,Tool.FightMotion.Attack_Up_In,Tool.FightMotion.Attack_Up_After])
 					
 					regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 
 					pass
 				elif _is_attack_mid_position(byte):
 					#attack mid
-					var a_list =_create_attack_action([Tool.FightMotion.Attack_Mid_Pre,Tool.FightMotion.Attack_Mid_In,Tool.FightMotion.Attack_Mid_After],[state_controller.get("a_m_pre"),state_controller.get("a_m_in"),state_controller.get("a_m_after")])
+					var a_list =_create_attack_action([Tool.FightMotion.Attack_Mid_Pre,Tool.FightMotion.Attack_Mid_In,Tool.FightMotion.Attack_Mid_After])
 					
 					regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 
@@ -225,7 +199,7 @@ func _input(event):
 				elif _is_attack_bot_position(byte):
 					#attack bot
 					
-					var a_list =_create_attack_action([Tool.FightMotion.Attack_Bot_Pre,Tool.FightMotion.Attack_Bot_In,Tool.FightMotion.Attack_Bot_After],[state_controller.get("a_b_pre"),state_controller.get("a_b_in"),state_controller.get("a_b_after")])
+					var a_list =_create_attack_action([Tool.FightMotion.Attack_Bot_Pre,Tool.FightMotion.Attack_Bot_In,Tool.FightMotion.Attack_Bot_After])
 					
 					regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 
@@ -233,11 +207,23 @@ func _input(event):
 					pass
 				
 				elif _is_def_bot(byte):
-					regist_action(Tool.FightMotion.Def_Bot)
+					
+					var a_list =_create_attack_action([Tool.FightMotion.Def_Bot_Pre,Tool.FightMotion.Def_Bot_In,Tool.FightMotion.Def_Bot_After])
+					
+					regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+
 				elif _is_def_mid(byte):
-					regist_action(Tool.FightMotion.Def_Mid)
+					
+					var a_list =_create_attack_action([Tool.FightMotion.Def_Mid_Pre,Tool.FightMotion.Def_Mid_In,Tool.FightMotion.Def_Mid_After])
+					
+					regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+
 				elif _is_def_up(byte):
-					regist_action(Tool.FightMotion.Def_Up)
+					
+					var a_list =_create_attack_action([Tool.FightMotion.Def_Up_Pre,Tool.FightMotion.Def_Up_In,Tool.FightMotion.Def_Up_After])
+					
+					regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+
 				else:
 					regist_action(Tool.FightMotion.Idle)
 					jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
@@ -256,16 +242,20 @@ func _input(event):
 					var byte = moving_position_array.pop_back()
 					if _is_attack_up_position(byte):
 						#heavy_attack_up
-						regist_action(Tool.FightMotion.HeavyAttack_U)
-						pass
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U_Pre,Tool.FightMotion.HeavyAttack_U_In,Tool.FightMotion.HeavyAttack_U_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+						
 					elif _is_attack_mid_position(byte):
 						#heavy_attack_mid
-						regist_action(Tool.FightMotion.HeavyAttack_M)
-						pass
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M_Pre,Tool.FightMotion.HeavyAttack_M_In,Tool.FightMotion.HeavyAttack_M_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 					elif _is_attack_bot_position(byte):
 						#heavy_attack_bot
-						regist_action(Tool.FightMotion.HeavyAttack_B)
-						pass
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_B_Pre,Tool.FightMotion.HeavyAttack_B_In,Tool.FightMotion.HeavyAttack_B_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 				else:
 					var startPos = moving_position_array.pop_front()
 					var backPos = moving_position_array.pop_back()
@@ -274,42 +264,73 @@ func _input(event):
 						resultByte += from_byte;
 					
 					if _is_attack_up_position(resultByte):
-						
-						#heavy_attack_up:  h_a_u
-						regist_action(Tool.FightMotion.HeavyAttack_U)
+						#heavy_attack_up
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U_Pre,Tool.FightMotion.HeavyAttack_U_In,Tool.FightMotion.HeavyAttack_U_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 						pass
 					elif _is_attack_u2m(resultByte):
-						#h_a_u2m
-						regist_action(Tool.FightMotion.HeavyAttack_U2M)
+						#heavy_attack_up
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U2M_Pre,Tool.FightMotion.HeavyAttack_U2M_In,Tool.FightMotion.HeavyAttack_U2M_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 						pass
 					elif _is_attack_u2b(resultByte):
 						#h_a_u2b
-						regist_action(Tool.FightMotion.HeavyAttack_U2B)
+						
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U2B_Pre,Tool.FightMotion.HeavyAttack_U2B_In,Tool.FightMotion.HeavyAttack_U2B_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+						
 						pass
 					elif _is_attack_m2u(resultByte):
-							#h_a_m2u
-						regist_action(Tool.FightMotion.HeavyAttack_M2U)
+						#h_a_m2u
+						
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M2U_Pre,Tool.FightMotion.HeavyAttack_M2U_In,Tool.FightMotion.HeavyAttack_M2U_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+						
 						pass
 					elif _is_attack_mid_position(resultByte):
-							#h_a_m
-						regist_action(Tool.FightMotion.HeavyAttack_M)
+						#h_a_m
+						
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M_Pre,Tool.FightMotion.HeavyAttack_M_In,Tool.FightMotion.HeavyAttack_M_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+
 						pass
 					elif _is_attack_m2b(resultByte):
 							#h_a_m2b
-						regist_action(Tool.FightMotion.HeavyAttack_M2B)
+						
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M2B_After,Tool.FightMotion.HeavyAttack_M2B_In,Tool.FightMotion.HeavyAttack_M2B_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+
 						pass
 							
 					elif _is_attack_b2u(resultByte):
 							#h_a_b2u
-						regist_action(Tool.FightMotion.HeavyAttack_B2U)
+												
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_B2U_Pre,Tool.FightMotion.HeavyAttack_B2U_In,Tool.FightMotion.HeavyAttack_B2U_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+							
 						pass
 					elif _is_attack_b2m(resultByte):
 							#h_a_b2m
-						regist_action(Tool.FightMotion.HeavyAttack_B2M)
+							
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_B2M_Pre,Tool.FightMotion.HeavyAttack_B2M_In,Tool.FightMotion.HeavyAttack_B2M_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+						
 						pass
 					elif _is_attack_bot_position(resultByte):
 						#h_a_b
-						regist_action(Tool.FightMotion.HeavyAttack_B)
+						
+						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_B_Pre,Tool.FightMotion.HeavyAttack_B_In,Tool.FightMotion.HeavyAttack_B_After])
+					
+						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
+						
 						pass
 					else:
 						#无效的指令了
@@ -356,7 +377,6 @@ func _input(event):
 					
 					jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 			else:
-				#if jisu.fightKinematicMovableObj.state!=FightKinematicMovableObj.ActionState.Attack:
 					
 					var lastMotion =action_array.back()
 					

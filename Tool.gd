@@ -91,9 +91,9 @@ enum FightMotion{
 	HeavyAttack_M2U_In=128,
 	HeavyAttack_M2U_After=129,
 	
-	HeavyAttack_B2M_In=130,
-	HeavyAttack_B2M_After=131,
-	HeavyAttack_B2M=132,
+	HeavyAttack_B2M_Pre=130,
+	HeavyAttack_B2M_In=131,
+	HeavyAttack_B2M_After=132,
 	HeavyAttack_B2U_Pre=133,
 	HeavyAttack_B2U_In=134,
 	HeavyAttack_B2U_After=135,
@@ -151,47 +151,102 @@ func _map_action2animation(action)->String:
 			return "walk"
 		FightMotion.Run:
 			return "run"
-			pass
 		FightMotion.Holding:
 			return "holding"
-			pass	
-		FightMotion.Def_Bot:
-			return 	"d_b_after"
-		FightMotion.Def_Mid:
-			return "d_m_after"	
-		FightMotion.Def_Up:
-			return "d_u_after"
 			
-		FightMotion.Attack_Up:
+		FightMotion.Attack_Up_Pre:
+			return "a_u_pre"
+			
+		FightMotion.Attack_Up_In:
+			return "a_u_in"
+			
+		FightMotion.Attack_Up_After:
 			return "a_u_after"
 			pass
-		FightMotion.Attack_Bot:
+		FightMotion.Attack_Bot_Pre:
+			return "a_b_prer"
+		
+		FightMotion.Attack_Bot_In:
+			return "a_b_in"
+		
+		FightMotion.Attack_Bot_After:
 			return "a_b_after"
 			pass
-		FightMotion.Attack_Mid:
+		FightMotion.Attack_Mid_Pre:
+			return "a_m_pre"
+			pass	
+			
+		FightMotion.Attack_Mid_In:
+			return "a_m_in"
+			pass	
+			
+		FightMotion.Attack_Mid_After:
 			return "a_m_after"
 			pass	
 		
-		FightMotion.HeavyAttack_B:
+		FightMotion.HeavyAttack_B_Pre:
+			return "ha_b_pre"
+			pass
+			
+		FightMotion.HeavyAttack_B_In:
+			return "ha_b_in"
+			pass
+			
+		FightMotion.HeavyAttack_B_After:
 			return "ha_b_after"
 			pass
 			
-		FightMotion.HeavyAttack_B2M:
+		FightMotion.HeavyAttack_B2M_Pre:
+			return "ha_b2m_pre"
+			pass
+			
+		FightMotion.HeavyAttack_B2M_In:
+			return "ha_b2m_in"
+			pass
+			
+		FightMotion.HeavyAttack_B2M_After:
 			return "ha_b2m_after"
 			pass
 			
-		FightMotion.HeavyAttack_B2U:
+		FightMotion.HeavyAttack_B2U_Pre:
+			return "ha_b2u_pre"	
+			pass
+			
+		FightMotion.HeavyAttack_B2U_In:
+			return "ha_b2u_in"	
+			pass
+			
+		FightMotion.HeavyAttack_B2U_After:
 			return "ha_b2u_after"	
 			pass
 			
-		FightMotion.HeavyAttack_M:
+		FightMotion.HeavyAttack_M_Pre:
+			return "ha_m_pre"
+			pass
+			
+		FightMotion.HeavyAttack_M_In:
+			return "ha_m_in"
+			pass
+		FightMotion.HeavyAttack_M_After:
 			return "ha_m_after"
 			pass
 			
-		FightMotion.HeavyAttack_M2B:
+		FightMotion.HeavyAttack_M2B_Pre:
+			return "ha_m2b_pre"
+			pass
+		FightMotion.HeavyAttack_M2B_In:
+			return "ha_m2b_in"
+			pass
+		FightMotion.HeavyAttack_M2B_After:
 			return "ha_m2b_after"
 			pass
 			
+		FightMotion.HeavyAttack_M2U_Pre:
+			return "ha_m2u_pre"
+			pass
+		FightMotion.HeavyAttack_M2U_In:
+			return "ha_m2u_after"
+			pass
 		FightMotion.HeavyAttack_M2U:
 			return "ha_m2u_after"
 			pass
@@ -207,5 +262,31 @@ func _map_action2animation(action)->String:
 		FightMotion.HeavyAttack_U2M:
 			return "ha_u2m_after"
 			pass
+		FightMotion.Def_Bot_Pre:
+			return "d_b_pre"
+		FightMotion.Def_Bot_In:
+			return "d_b_in"
+		FightMotion.Def_Bot_After:
+			return "d_b_after"
+		
+		FightMotion.Def_Mid_Pre:
+			return "d_m_pre"
+			
+		FightMotion.Def_Mid_In:
+			return "d_m_in"
+			
+		FightMotion.Def_Mid_After:
+			return "d_m_after"	
+			
+		FightMotion.Def_Up_Pre:
+			return "d_u_pre"
+			
+		FightMotion.Def_Up_In:
+			return "d_u_in"
+			
+		FightMotion.Def_Up_After:
+			return "d_u_after"
+			
+		
 	return ''
 	pass

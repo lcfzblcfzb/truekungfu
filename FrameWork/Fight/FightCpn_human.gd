@@ -31,9 +31,9 @@ func _on_FightController_ActionStart(action:ActionInfo):
 		push_error("actioninfo is null.")
 		return
 	
-	var base =FightBaseActionMng.get_by_base_id(action.base_action)
+	var base =FightBaseActionMng.get_by_base_id(action.base_action) as BaseAction
 	#动画播放时长
-	var time = animation_cfg.get(base.animation_name);
+	var time = base.duration
 	if time==0 || time ==null:
 		time=1
 		
