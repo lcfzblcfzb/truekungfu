@@ -7,7 +7,9 @@ const STATE_NULL=-1
 const STATE_INITED=0
 const STATE_ING=10
 const STATE_ENDED=20
+#代表动作 中断
 const STATE_INTERUPTED=30
+#代表动作 让出了
 const STATE_PASSED=40
 #是否循环播放
 var is_loop = false
@@ -21,8 +23,7 @@ func _init(pool,params_array:Array).(pool):
 	if action_duration_ms <0:
 		is_loop = true
 	execution_mod = params_array[4]
-	group_id = params_array[5]
-
+	
 pass
 #最普通的action方式，如果前一个action也是newest ，则会被覆盖
 const EXEMOD_NEWEST =0
@@ -35,14 +36,16 @@ const EXEMOD_GROUP_NEWEST =30
 #添加的时候，不会去掉newest; 在轮到它执行的时刻，有新的结点出现，就让出给新的。可以设置not_generous_type过滤规则
 const EXEMOD_GENEROUS =40
 
+
 var group_id = -1
 var not_generous_type = []
 	
 var execution_mod =EXEMOD_NEWEST
+var group_exe_mod =null
 
 #业务类型
 var base_action;
-#时间属性
+#时间属性 --ms
 var action_create_time;
 var action_begin_time;
 var action_end_time;

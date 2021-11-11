@@ -87,23 +87,23 @@ export(float, 0, 5, 0.1)  var d_u_end :float;
 #防御——中路
 export(float, 0, 5, 0.1)  var d_m_pre :float;
 export(float, 0, 5, 0.1)  var d_m_in :float;
-export(float, 0, 5, 0.1)  var d_m_end :float;
+export(float, 0, 5, 0.1)  var d_m_after :float;
 #防御——下路
 export(float, 0, 5, 0.1)  var d_b_pre :float;
 export(float, 0, 5, 0.1)  var d_b_in :float;
-export(float, 0, 5, 0.1)  var d_b_end :float;
+export(float, 0, 5, 0.1)  var d_b_after :float;
 
 #重防御——上路
 export(float, 0, 5, 0.1)  var hd_u_pre :float;
 export(float, 0, 5, 0.1)  var hd_u_in :float;
-export(float, 0, 5, 0.1)  var hd_u_end :float;
+export(float, 0, 5, 0.1)  var hd_u_after :float;
 #重防御——中路
 export(float, 0, 5, 0.1)  var hd_m_pre :float;
 export(float, 0, 5, 0.1)  var hd_m_in :float;
-export(float, 0, 5, 0.1)  var hd_m_end :float;
+export(float, 0, 5, 0.1)  var hd_m_after :float;
 #重防御——下路
 export(float, 0, 5, 0.1)  var hd_b_pre :float;
 export(float, 0, 5, 0.1)  var hd_b_in :float;
-export(float, 0, 5, 0.1)  var hd_b_end :float;
+export(float, 0, 5, 0.1)  var hd_b_after :float;
 
 
