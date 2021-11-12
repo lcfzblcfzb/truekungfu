@@ -2206,7 +2206,6 @@ margin_left = -33.9874
 margin_top = 7.9127
 margin_right = 126.013
 margin_bottom = 67.9127
-rect_rotation = 108.0
 text = "a_b_after"
 context_menu_enabled = false
 shortcut_keys_enabled = false
@@ -2222,7 +2221,7 @@ tn = NodePath("../FightAnimationTree")
 [node name="Sprite" parent="SpriteAnimation" index="0"]
 position = Vector2( -1.26608, 18.9449 )
 offset = Vector2( 13.185, -19.7395 )
-frame = 1
+frame = 92
 
 [node name="sword" type="Node2D" parent="SpriteAnimation"]
 position = Vector2( -10.8877, -7.52747 )
@@ -2260,7 +2259,6 @@ shape = SubResource( 50 )
 [node name="FightAnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 276 )
 anim_player = NodePath("../SpriteAnimation/SwordDemoAnimationPlayer")
-active = true
 process_mode = 0
 parameters/TimeScale/scale = 1.44
 parameters/sm/playback = SubResource( 277 )
