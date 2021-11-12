@@ -3,7 +3,6 @@ extends Node2D
 class_name FightComponent_human
 
 onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicMovableObj
-onready var fightActionController = $FightController
 #接口
 #需要传入controlableMovingObj的速度参数
 func getSpeed():
@@ -11,8 +10,15 @@ func getSpeed():
 #保存动画时间的字典
 onready var animation_cfg = $StateController
 # Called when the node enters the scene tree for the first time.
+
+onready var sprite = $SpriteAnimation/Sprite
 func _ready():
-	fightActionController.state_controller = animation_cfg
+	
+#	yield(get_tree().create_timer(3),"timeout")
+#	var animationPlayer = preload("res://FightAnimationPlayer.tscn").instance() as AnimationPlayer
+#	add_child(animationPlayer)
+#	animationPlayer.root_node = animationPlayer.get_path_to(sprite)
+#	animationPlayer.play("idle")
 	pass # Replace with function body.
 
 export(float) var impact_strength=0;

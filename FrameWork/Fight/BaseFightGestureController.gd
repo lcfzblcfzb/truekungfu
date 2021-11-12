@@ -1,10 +1,8 @@
 class_name BaseFightActionController
-extends FightActionMng
+extends Node2D
 
 signal NewFightMotion
 
-signal ActionStart
-signal ActionFinish
 
 #位置命名
 enum PositionName{

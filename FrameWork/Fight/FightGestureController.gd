@@ -150,6 +150,8 @@ func _input(event):
 			attack_pressed = true
 			moving_position_array.clear()
 			$Timer.start(heavyAttackThreshold/1000)
+			attackPos =event.global_position;
+			onAttackPosChange()
 		elif event.is_action_released("attack"):
 			#停下计时器
 			$Timer.stop()
@@ -172,7 +174,15 @@ func _input(event):
 			rc.force_raycast_update()
 			
 			jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Attack)
-			var global_id = next_group_id()
+			
+			var lastByte = _calc_position_byte_array(R)
+			
+			var pool = Tool.PoolDict.get(BaseFightEvent) as ObjPool
+			var newActionEvent = pool.instance([lastByte,moving_position_array,attack_begin_time,OS.get_ticks_msec()])
+
+			emit_signal("NewFightMotion",newActionEvent)
+			
+			var global_id 
 			if OS.get_ticks_msec()<=attack_begin_time+heavyAttackThreshold:
 				#轻攻击
 				#攻击 调用
@@ -407,6 +417,12 @@ func _input(event):
 		#	jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Attack)
 		#	pass	
 	if(event is InputEventMouseMotion):
+		#relativePos = event.relative;
+		mouseMovingPos = event.global_position
+		var screenPos
+		
+		screenPos =Tool.getCameraPosition(jisu)
+		toMouseVector = (mouseMovingPos- screenPos).normalized()
 		
 		#攻击按下
 		#才开始记录	
@@ -459,6 +475,14 @@ func is_trigger_run(input_vector)->bool:
 	return false
 	pass
 
+func onAttackPosChange():
+	pass
+	
+func onEndPosChange():
+	pass
+
+func onMouseMovingPosChange():
+	pass
 
 func _on_Timer_timeout():
 	show_heavy_attack_indicator()

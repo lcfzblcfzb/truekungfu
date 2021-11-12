@@ -5,7 +5,18 @@ extends Node
 var dPi = 2*PI
 var hPi = PI/2
 
-var PoolDict ={ActionInfo:ObjPool.new(ActionInfo)}
+var PoolDict ={ActionInfo:ObjPool.new(ActionInfo),BaseFightEvent:ObjPool.new(BaseFightEvent)}
+
+#TODO 动态创建 ObjPool发
+#通过get 方法 检测一遍 如果没找到就NEW 一个
+
+enum EventType{
+	
+	NewAction,
+	Move,
+	AI_Event
+	
+}
 
 enum CampEnum {
 	Good,

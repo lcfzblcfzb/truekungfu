@@ -2,6 +2,9 @@ class_name FightActionMng
 
 extends Node
 
+signal ActionStart
+signal ActionFinish
+
 var global_group_id = 100
 
 func next_group_id():
