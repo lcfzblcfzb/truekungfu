@@ -137,7 +137,7 @@ _global_script_classes=[ {
 "base": "",
 "class": "BaseFightEvent",
 "language": "GDScript",
-"path": "res://FrameWork/Fight/event/BaseEvent.gd"
+"path": "res://FrameWork/Fight/event/BaseFightEvent.gd"
 }, {
 "base": "Object",
 "class": "BaseWeapon",

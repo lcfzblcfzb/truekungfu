@@ -45,11 +45,24 @@ func test_array_slice():
 	pass
 
 
-func test_base_action_mng():
+func test_obj_pool():
+	var obj =Tool.getPollObject(NewActionEvent,[])
+	assert_true(obj is NewActionEvent)
 	
-	var mng = FightBaseActionMng.new()
+	var obj2 =Tool.getPollObject(ActionInfo,[1,2,3,4,5])
+	assert_true(obj2 is ActionInfo)
+	
+	var array=[]
+	for i in 10:
+		array.append(Tool.getPollObject(ActionInfo,[1,2,3,4,5]))
+#	var fight_event=BaseFightEvent.new(ObjPool.new(BaseFightEvent),2,[])
+	
+	for a in array:
+		
+		a.dead()
 	
 	pass
+
 
 func test_array_resize():
 	

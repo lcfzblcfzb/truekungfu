@@ -5,7 +5,19 @@ extends Node
 var dPi = 2*PI
 var hPi = PI/2
 
-var PoolDict ={ActionInfo:ObjPool.new(ActionInfo),BaseFightEvent:ObjPool.new(BaseFightEvent)}
+var PoolDict ={}
+
+#从对象池中返回 指定类型的对象
+func getPollObject(type:GDScript,param=null):
+	
+	if PoolDict.has(type):
+		var pool = PoolDict.get(type) as ObjPool
+		return pool.instance(param)
+	else:
+		var newPool =ObjPool.new(type)
+		PoolDict[type] = newPool
+		return newPool.instance(param)
+		
 
 #TODO 动态创建 ObjPool发
 #通过get 方法 检测一遍 如果没找到就NEW 一个
