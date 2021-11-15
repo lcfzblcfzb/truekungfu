@@ -16,7 +16,7 @@ var id =0
 #测试抢占类型
 func action_control_cpx():
 	#var action_control = BaseFightActionController.new()
-	var action_control = load("res://FrameWork/Fight/BaseFightGestureController.tscn").instance()
+	var action_control = load("res://FrameWork/Fight/Action/FightActionMng.tscn").instance()
 
 	add_child(action_control)
 	
@@ -43,7 +43,7 @@ func action_control_cpx():
 	
 func test_action_generous():
 		#var action_control = BaseFightActionController.new()
-	var action_control = load("res://FrameWork/Fight/BaseFightGestureController.tscn").instance() as BaseFightActionController
+	var action_control = load("res://FrameWork/Fight/Action/FightActionMng.tscn").instance() 
 	
 	for i in 3:
 		action_control.regist_action(Tool.FightMotion.Idle,0,ActionInfo.EXEMOD_SEQ,1,["test"+id as String ,1])
@@ -75,7 +75,7 @@ func test_action_generous():
 func test_action_newest():
 	
 	#var action_control = BaseFightActionController.new()
-	var action_control = load("res://FrameWork/Fight/BaseFightGestureController.tscn").instance()
+	var action_control = load("res://FrameWork/Fight/Action/FightActionMng.tscn").instance()
 	
 	add_child(action_control)
 	var instanceArray =[]
@@ -123,7 +123,7 @@ func test_action_newest():
 #简单的流程测试
 func test_action_control():
 	
-	var action_control = load("res://FrameWork/Fight/BaseFightGestureController.tscn").instance()
+	var action_control = load("res://FrameWork/Fight/Action/FightActionMng.tscn").instance()
 	add_child(action_control)
 	var instanceArray =[]
 	for i in 100:
@@ -164,8 +164,9 @@ func test_action_control():
 
 func test_group_action():
 	
-	var action_control = load("res://FrameWork/Fight/BaseFightGestureController.tscn").instance() as FightActionMng
+	var action_control = load("res://FrameWork/Fight/Action/FightActionMng.tscn").instance()
 	add_child(action_control)
+	Tool.getPollObject(ActionInfo)
 	var pool = Tool.PoolDict.get(ActionInfo) as ObjPool
 	
 	var pre =pool.instance([Tool.FightMotion.Attack_Mid_Pre,OS.get_ticks_msec(),["test"+id as String ,1],0,ActionInfo.EXEMOD_SEQ])

@@ -32,7 +32,7 @@ const EXEMOD_SEQ = 10
 #抢先执行
 const EXEMOD_INTERUPT =20
 #允许同一组 以SEQ 方式进入队列。但是会被最新的action 所取消，和newest 性质一样
-const EXEMOD_GROUP_NEWEST =30
+#const EXEMOD_GROUP_NEWEST =30
 #添加的时候，不会去掉newest; 在轮到它执行的时刻，有新的结点出现，就让出给新的。可以设置not_generous_type过滤规则
 const EXEMOD_GENEROUS =40
 

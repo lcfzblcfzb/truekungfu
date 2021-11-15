@@ -139,10 +139,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/event/BaseFightEvent.gd"
 }, {
-"base": "Object",
-"class": "BaseWeapon",
+"base": "Node2D",
+"class": "BaseWu",
 "language": "GDScript",
-"path": "res://FrameWork/Fight/Wu/weapon/BaseWeapon.gd"
+"path": "res://FrameWork/Fight/Wu/Wu.gd"
+}, {
+"base": "Object",
+"class": "BaseWuXue",
+"language": "GDScript",
+"path": "res://FrameWork/Fight/Wu/weapon/BaseWuXue.gd"
 }, {
 "base": "Node",
 "class": "BehaviorTree",
@@ -167,7 +172,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "FightActionMng",
 "language": "GDScript",
-"path": "res://FrameWork/Fight/Action/ActionMng.gd"
+"path": "res://FrameWork/Fight/Action/FightActionMng.gd"
 }, {
 "base": "Node2D",
 "class": "FightComponent_human",
@@ -184,7 +189,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/StateController.gd"
 }, {
-"base": "BaseWeapon",
+"base": "BaseWuXue",
 "class": "Fist",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Wu/weapon/Fist.gd"
@@ -214,7 +219,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Tool/ObjPool.gd"
 }, {
-"base": "BaseWeapon",
+"base": "BaseWuXue",
 "class": "Sword",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Wu/weapon/Sword.gd"
@@ -256,7 +261,8 @@ _global_script_class_icons={
 "BaseCharactor": "",
 "BaseFightActionController": "",
 "BaseFightEvent": "",
-"BaseWeapon": "",
+"BaseWu": "",
+"BaseWuXue": "",
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
 "ControlableMovingObj": "",

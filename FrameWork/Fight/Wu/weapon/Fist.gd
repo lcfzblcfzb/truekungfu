@@ -1,3 +1,3 @@
 class_name Fist
-extends BaseWeapon
+extends BaseWuXue
 

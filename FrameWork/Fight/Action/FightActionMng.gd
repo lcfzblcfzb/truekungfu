@@ -98,8 +98,6 @@ func regist_actioninfo(action:ActionInfo):
 		pass
 
 	print(s)
-
-	emit_signal("NewFightMotion",action.base_action)
 	return action
 
 #添加一个组的动作

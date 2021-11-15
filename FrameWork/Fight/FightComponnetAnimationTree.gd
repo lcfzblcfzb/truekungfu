@@ -2,20 +2,20 @@ extends AnimationTree
 
 var state_machine_playback = get("parameters/sm/playback")
 
-export (NodePath)var _fight_action_path setget set_fight_action_control
-
-export (NodePath) var textEdit_animator
-export (NodePath) var sword_animator
-
-func _ready():
-	
-	yield(get_tree().create_timer(3),"timeout")
-	anim_player = textEdit_animator
-
-var fight_action_control;
-
-func set_fight_action_control(f):
-	fight_action_control = get_node(f)
+#export (NodePath)var _fight_action_path setget set_fight_action_control
+#
+#export (NodePath) var textEdit_animator
+#export (NodePath) var sword_animator
+#
+#func _ready():
+#
+#	yield(get_tree().create_timer(3),"timeout")
+#	anim_player = textEdit_animator
+#
+#var fight_action_control;
+#
+#func set_fight_action_control(f):
+#	fight_action_control = get_node(f)
 
 signal State_Changed;
 

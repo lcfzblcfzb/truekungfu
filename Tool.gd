@@ -70,6 +70,33 @@ func load_json_file(path):
 	var obj = result_json.result
 	return obj
 
+# 武 动作枚举（抽象动作，每个特定的武术会有自己的实现)
+enum WuMotion{
+	
+	Idle,
+	Walk,
+	Run,
+	Holding,
+	
+	Attack_Up,
+	Attack_Mid,
+	Attack_Bot,
+	
+	Attack_U2M,
+	Attack_U2B,
+	Attack_M2U,
+	Attack_M2B,
+	Attack_B2M,
+	Attack_B2U,
+	
+	Defend_Up,
+	Defend_Mid,
+	Defend_Bot
+	
+}
+
+
+
 #动画ID名称
 enum FightMotion{
 	
