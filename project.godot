@@ -144,7 +144,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Wu/Wu.gd"
 }, {
-"base": "Object",
+"base": "Node2D",
 "class": "BaseWuXue",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Wu/weapon/BaseWuXue.gd"

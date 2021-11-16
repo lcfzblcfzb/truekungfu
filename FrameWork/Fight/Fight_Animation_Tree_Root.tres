@@ -835,7 +835,7 @@ start_node = "idle"
 graph_offset = Vector2( -81.7413, 88.0427 )
 
 [resource]
-graph_offset = Vector2( -578.51, 109.635 )
+graph_offset = Vector2( -444.966, 0 )
 nodes/TimeScale/node = SubResource( 277 )
 nodes/TimeScale/position = Vector2( 100, 140 )
 nodes/sm/node = SubResource( 206 )

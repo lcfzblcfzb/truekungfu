@@ -261,7 +261,7 @@ tn = NodePath("../FightAnimationTree")
 [node name="Sprite" parent="SpriteAnimation" index="0"]
 position = Vector2( -1.26608, 18.9449 )
 offset = Vector2( 13.185, -19.7395 )
-frame = 1
+frame = 0
 
 [node name="TextEdit" type="TextEdit" parent="SpriteAnimation/Sprite" index="0"]
 margin_right = 40.0
@@ -350,5 +350,6 @@ FightComponentPath = NodePath("..")
 [connection signal="NewFightMotion" from="FightController" to="Wu" method="_on_FightController_NewFightMotion"]
 [connection signal="ActionFinish" from="FightActionMng" to="." method="_on_FightActionMng_ActionFinish"]
 [connection signal="ActionStart" from="FightActionMng" to="." method="_on_FightActionMng_ActionStart"]
+[connection signal="ActionStart" from="FightActionMng" to="FightKinematicMovableObj" method="_on_FightActionMng_ActionStart"]
 
 [editable path="SpriteAnimation"]

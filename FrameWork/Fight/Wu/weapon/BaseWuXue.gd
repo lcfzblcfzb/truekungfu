@@ -1,5 +1,5 @@
 class_name BaseWuXue
-extends Object
+extends Node2D
 
 var fight_cpn :FightComponent_human
 

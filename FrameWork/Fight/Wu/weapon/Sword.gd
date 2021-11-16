@@ -123,7 +123,6 @@ func on_move_event(event:MoveEvent):
 			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
 			action_mng.regist_actioninfo(action)
 			pass
-	
 	pass
 	
 func on_ai_event(event:AIEvent):

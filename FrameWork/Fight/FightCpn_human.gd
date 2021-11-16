@@ -21,7 +21,7 @@ func _ready():
 #	add_child(animationPlayer)
 #	animationPlayer.root_node = animationPlayer.get_path_to(sprite)
 #	animationPlayer.play("idle")
-	pass # Replace with function body.
+	pass 
 
 export(float) var impact_strength=0;
 
@@ -42,7 +42,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	var base =FightBaseActionMng.get_by_base_id(action.base_action) as BaseAction
 	#动画播放时长
 	var time = base.duration
-	if time==0 || time ==null:
+	if time<=0 || time ==null:
 		time=1
 		
 	print("action start time",OS.get_ticks_msec())

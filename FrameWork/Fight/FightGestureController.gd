@@ -374,7 +374,6 @@ func _on_Timer_timeout():
 	show_heavy_attack_indicator()
 	var motionEvent =Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Holding,OS.get_ticks_msec(),OS.get_ticks_msec()])
 	emit_signal("NewFightMotion",motionEvent)
-	
 #	regist_action(Tool.FightMotion.Holding,-1,ActionInfo.EXEMOD_NEWEST)
 #	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 
