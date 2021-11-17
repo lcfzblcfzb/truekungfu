@@ -245,8 +245,7 @@ margin_left = -33.9874
 margin_top = 7.9127
 margin_right = 126.013
 margin_bottom = 67.9127
-rect_rotation = 36.0
-text = "idle"
+text = "a_b_after"
 context_menu_enabled = false
 shortcut_keys_enabled = false
 virtual_keyboard_enabled = false
@@ -261,7 +260,7 @@ tn = NodePath("../FightAnimationTree")
 [node name="Sprite" parent="SpriteAnimation" index="0"]
 position = Vector2( -1.26608, 18.9449 )
 offset = Vector2( 13.185, -19.7395 )
-frame = 1
+frame = 0
 
 [node name="TextEdit" type="TextEdit" parent="SpriteAnimation/Sprite" index="0"]
 margin_right = 40.0
