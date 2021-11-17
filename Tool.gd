@@ -95,6 +95,13 @@ enum WuMotion{
 	
 }
 
+#动作类型
+enum FightMotionType{
+	Move=1,
+	Action=2,
+	AttackAction=3,
+	DefendAction=4,
+}
 
 
 #动画ID名称

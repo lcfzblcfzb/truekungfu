@@ -110,3 +110,34 @@ func attackOver(s = ActionState.Idle):
 #当前角色朝向
 func is_face_left():
 	return faceDirection.x<0
+
+
+func _on_FightActionMng_ActionStart(action:ActionInfo):
+	
+	var input_vector = Vector2.ZERO
+	
+	if action.param!=null && action.param.size()>0 && action.param[0] is Vector2:
+		input_vector = action.param[0]
+	print("in movable obj",input_vector)
+	match(action.base_action):
+		Tool.FightMotion.Idle:
+			change_movable_state(input_vector,ActionState.Idle)
+		Tool.FightMotion.Run:
+			change_movable_state(input_vector,ActionState.Run)
+		Tool.FightMotion.Walk:
+			change_movable_state(input_vector,ActionState.Walk)
+		Tool.FightMotion.Run2Idle:
+			change_movable_state(input_vector,ActionState.Run2Idle)
+		Tool.FightMotion.Idle2Run:
+			change_movable_state(input_vector,ActionState.Idle2Run)
+		_:
+			
+			var baseObj = FightBaseActionMng.get_by_base_id(action.base_action) as BaseAction
+			# 是攻击类型的type
+			#TODO 建立一个枚举 表示 action_type 方便理解
+			if 2 in baseObj.type:
+				var name =baseObj.animation_name as String
+				if "_pre" in name: 
+					change_movable_state(input_vector,ActionState.Attack)
+					
+	pass

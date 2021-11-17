@@ -302,6 +302,7 @@ rotation = 1.5708
 shape = SubResource( 44 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SpriteAnimation/sword"]
+root_node = NodePath("../../..")
 anims/attack_center = SubResource( 45 )
 anims/attack_down = SubResource( 46 )
 anims/attack_up = SubResource( 47 )

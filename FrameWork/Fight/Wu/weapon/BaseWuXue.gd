@@ -3,17 +3,14 @@ extends Node2D
 
 var fight_cpn :FightComponent_human
 
+var animation_player:AnimationPlayer
+var animation_tree:AnimationTree
+
 var wu_animation_res;
 #两个walk 动作转为run 的最小间隔/ms
 var run_action_min_interval_ms =500
 #重攻击时间阈值.ms
 var heavyAttackThreshold = 300.0
-
-func _init(fight_component):
-	
-	fight_cpn = fight_component
-	
-	pass
 
 #virtual 
 func on_action_event(event:NewActionEvent):

@@ -1,8 +1,12 @@
 class_name Sword
 extends BaseWuXue
 
-func _init(f).(f):
-	
+func _ready():
+	wu_animation_res = "res://texture/animation/demo_motion_template-Sheet_def.png"
+	animation_player = $sword_animation
+	animation_tree = $AnimationTree
+#	animation_player.root_node = animation_player.get_path_to(fight_cpn.sprite.get_parent())
+#	$AnimationTree.active = true
 	pass
 
 
@@ -123,7 +127,6 @@ func on_move_event(event:MoveEvent):
 			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
 			action_mng.regist_actioninfo(action)
 			pass
-	
 	pass
 	
 func on_ai_event(event:AIEvent):

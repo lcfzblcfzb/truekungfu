@@ -93,7 +93,7 @@ func _set_state(s_to):
 				push_warning("FightControlActionStateShift NoLegal,from: to:")
 			pass
 		STATE_PASSED:
-			if state != STATE_INITED:
+			if state == STATE_NULL:
 				push_warning("FightControlActionStateShift NoLegal,from: to:")
 			pass
 	state = s_to

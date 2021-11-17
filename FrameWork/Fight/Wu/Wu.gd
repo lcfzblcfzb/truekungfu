@@ -1,7 +1,11 @@
 extends Node2D
 class_name BaseWu
 
-export(GDScript) var WuXueClass
+#var default_wuxue = preload("res://FrameWork/Fight/Wu/weapon/WU_Sword.tscn")
+
+var default_wuxue = preload("res://FrameWork/Fight/Wu/weapon/WU_Fist.tscn")
+
+export(NodePath) var WuXuePath
 var wuxue:BaseWuXue
 
 export (NodePath) var FightComponentPath
@@ -11,14 +15,46 @@ var fight_component :FightComponent_human
 func _ready():
 	fight_component = get_node(FightComponentPath)
 	
-	if WuXueClass:
-		wuxue = WuXueClass.new(fight_component)
+	if WuXuePath:
+		wuxue = get_node(WuXuePath)
 	else:
-		wuxue = load("res://FrameWork/Fight/Wu/weapon/Sword.gd").new(fight_component)
-
-func switch_wu(type):
+		wuxue= default_wuxue.instance()
 	
+	wuxue.fight_cpn = fight_component
+	add_child(wuxue)
+
+func get_texture():
+	
+	var texture = load(wuxue.wu_animation_res)
+	return texture
+
+func get_animation_tree():
+	
+	return wuxue.animation_tree
 	pass
+	
+func switch_wu(type=1):
+	match type:
+		1:
+			wuxue.animation_tree.active = false
+			var scene = load("res://FrameWork/Fight/Wu/weapon/WU_Sword.tscn")
+			var newwuxue = scene.instance()
+			newwuxue.fight_cpn = fight_component
+			add_child(newwuxue)
+			wuxue = newwuxue
+			wuxue.animation_player.root_node = wuxue.animation_player.get_path_to(fight_component.sprite.get_parent())
+			wuxue.animation_tree.active = true
+		2:
+			wuxue.animation_tree.active = false
+			var scene = load("res://FrameWork/Fight/Wu/weapon/WU_Fist.tscn")
+			var newwuxue = scene.instance()
+			newwuxue.fight_cpn = fight_component
+			add_child(newwuxue)
+			wuxue = newwuxue
+			wuxue.animation_player.root_node = wuxue.animation_player.get_path_to(fight_component.sprite.get_parent())
+			wuxue.animation_tree.active = true
+
+pass
 
 func on_player_event(new_motion:NewActionEvent):
 	wuxue.on_action_event(new_motion)
