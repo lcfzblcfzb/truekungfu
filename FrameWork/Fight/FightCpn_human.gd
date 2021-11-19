@@ -15,13 +15,29 @@ onready var sprite = $SpriteAnimation/Sprite
 
 onready var actionMng = $FightActionMng
 func _ready():
-	$Wu.switch_wu(1)
-	sprite.texture = $Wu.get_texture()
-	yield(get_tree().create_timer(2),"timeout")
-	$Wu.switch_wu(2)
-	sprite.texture = $Wu.get_texture()
+#	$Wu.switch_wu(WuxueMng.WuxueEnum.Fist)
+#	sprite.texture = $Wu.get_texture()
+#	yield(get_tree().create_timer(2),"timeout")
+#	$Wu.switch_wu(WuxueMng.WuxueEnum.Sword)
+#	sprite.texture = $Wu.get_texture()
+	
+#	test_switch()
 	pass 
 
+#func test_switch():
+#
+#	var gongfu =[WuxueMng.WuxueEnum.Fist,WuxueMng.WuxueEnum.Sword]
+#	var i=0;
+#
+#	while (true):
+#		var choosed = gongfu[i % gongfu.size()]
+#		$Wu.switch_wu(choosed)
+#		sprite.texture = $Wu.get_texture()
+#		i=i+1
+#		if i>1000:
+#			break
+#	pass
+	
 export(float) var impact_strength=0;
 
 #当前角色朝向
@@ -61,5 +77,4 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 		fightKinematicMovableObj.attackOver()
 		print("attack over time",OS.get_ticks_msec())
 		print("attack over",$SpriteAnimation/Sprite.frame)
-		print("attack over current time scale",$FightAnimationTree.get("parameters/TimeScale/scale"))
-
+		

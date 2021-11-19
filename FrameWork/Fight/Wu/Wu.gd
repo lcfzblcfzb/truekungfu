@@ -1,28 +1,37 @@
 extends Node2D
 class_name BaseWu
 
-#var default_wuxue = preload("res://FrameWork/Fight/Wu/weapon/WU_Sword.tscn")
+var default_wuxue = WuxueMng.WuxueEnum.Fist
 
-var default_wuxue = preload("res://FrameWork/Fight/Wu/weapon/WU_Fist.tscn")
+export( WuxueMngClass.WuxueEnum) var chosed_wuxue  = WuxueMng.WuxueEnum.Fist
 
-export(NodePath) var WuXuePath
 var wuxue:BaseWuXue
 
 export (NodePath) var FightComponentPath
 var fight_component :FightComponent_human
 
+#缓存dict
+var wuxue_cache_dict ={}
+
+#通过type在 wuxue_cache_dict 中查找队应的wuxue
+func get_or_create_wuxue(type):
+	
+	if wuxue_cache_dict.has(type):
+		return wuxue_cache_dict.get(type)
+	else:
+		var newWuxue = WuxueMng.get_by_type(type);
+		if wuxue !=null && !newWuxue.resource_path.empty() && newWuxue.resource_path == wuxue.filename:
+			return null;
+		
+		var instance = newWuxue.instance()
+		wuxue_cache_dict[type]=instance
+		return instance
 
 func _ready():
 	fight_component = get_node(FightComponentPath)
 	
-	if WuXuePath:
-		wuxue = get_node(WuXuePath)
-	else:
-		wuxue= default_wuxue.instance()
+	call_deferred("switch_wu",chosed_wuxue)
 	
-	wuxue.fight_cpn = fight_component
-	add_child(wuxue)
-
 func get_texture():
 	
 	var texture = load(wuxue.wu_animation_res)
@@ -33,26 +42,19 @@ func get_animation_tree():
 	return wuxue.animation_tree
 	pass
 	
-func switch_wu(type=1):
-	match type:
-		1:
-			wuxue.animation_tree.active = false
-			var scene = load("res://FrameWork/Fight/Wu/weapon/WU_Sword.tscn")
-			var newwuxue = scene.instance()
-			newwuxue.fight_cpn = fight_component
-			add_child(newwuxue)
-			wuxue = newwuxue
-			wuxue.animation_player.root_node = wuxue.animation_player.get_path_to(fight_component.sprite.get_parent())
-			wuxue.animation_tree.active = true
-		2:
-			wuxue.animation_tree.active = false
-			var scene = load("res://FrameWork/Fight/Wu/weapon/WU_Fist.tscn")
-			var newwuxue = scene.instance()
-			newwuxue.fight_cpn = fight_component
-			add_child(newwuxue)
-			wuxue = newwuxue
-			wuxue.animation_player.root_node = wuxue.animation_player.get_path_to(fight_component.sprite.get_parent())
-			wuxue.animation_tree.active = true
+func switch_wu(type= WuxueMng.WuxueEnum.Fist):
+	if wuxue:
+		wuxue.animation_tree.active = false
+		
+	var newwuxue = get_or_create_wuxue(type)
+	
+	if newwuxue:
+		newwuxue.fight_cpn = fight_component
+		add_child(newwuxue)
+		wuxue = newwuxue
+		wuxue.animation_player.root_node = wuxue.animation_player.get_path_to(fight_component.sprite.get_parent())
+		fight_component.sprite.texture = get_texture()
+		wuxue.animation_tree.active = true
 
 pass
 

@@ -554,7 +554,7 @@ states/ha_u_pre/position = Vector2( -41.944, -149.072 )
 states/holding/node = SubResource( 97 )
 states/holding/position = Vector2( -321.468, -112.975 )
 states/idle/node = SubResource( 98 )
-states/idle/position = Vector2( -321.468, -280.975 )
+states/idle/position = Vector2( -321.468, -281.975 )
 states/idle2run/node = SubResource( 99 )
 states/idle2run/position = Vector2( -532.836, -215.975 )
 states/run/node = SubResource( 100 )
@@ -835,7 +835,7 @@ start_node = "idle"
 graph_offset = Vector2( -81.7413, 88.0427 )
 
 [resource]
-graph_offset = Vector2( -444.966, 0 )
+graph_offset = Vector2( -514.711, 101.5 )
 nodes/TimeScale/node = SubResource( 277 )
 nodes/TimeScale/position = Vector2( 100, 140 )
 nodes/sm/node = SubResource( 206 )

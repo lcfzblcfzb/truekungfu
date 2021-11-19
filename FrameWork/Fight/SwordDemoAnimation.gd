@@ -22,7 +22,6 @@ func change_face_direction(face):
 	elif face<0:
 		$Sprite.flip_h = true
 	print("change face direction",face,$Sprite.frame)
-	print("current time scale",get_node(tn).get("parameters/TimeScale/scale"))
 	pass
 
 func _on_FightKinematicMovableObj_Charactor_Face_Direction_Changed(direction):
