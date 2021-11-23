@@ -1,7 +1,8 @@
+
 class_name BaseWuXue
 extends Node2D
 
-var fight_cpn :FightComponent_human
+var fight_cpn 
 
 var animation_player:AnimationPlayer
 var animation_tree:AnimationTree

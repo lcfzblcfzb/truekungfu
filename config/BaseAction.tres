@@ -33,7 +33,7 @@
 	"id": 103,
 	"name": "a_m_pre",
 	"animation_name": "a_m_pre",
-	"duration": 1,
+	"duration": 0.1,
 	"type": [
 	  2,
 	  3
@@ -43,7 +43,7 @@
 	"id": 104,
 	"name": "a_m_in",
 	"animation_name": "a_m_in",
-	"duration": 1,
+	"duration": 0.1,
 	"type": [
 	  2,
 	  3

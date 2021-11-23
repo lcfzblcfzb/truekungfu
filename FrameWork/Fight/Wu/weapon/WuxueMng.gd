@@ -1,3 +1,4 @@
+tool
 extends Node
 class_name WuxueMngClass
 #字典对象

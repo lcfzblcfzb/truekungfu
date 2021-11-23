@@ -1,8 +1,7 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://FrameWork/CollisionBox/WeaponBox.gd" type="Script" id=2]
 [ext_resource path="res://FrameWork/Fight/AiFightGestureController.gd" type="Script" id=3]
-[ext_resource path="res://FrameWork/Fight/ActionHandler.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=5]
 [ext_resource path="res://FrameWork/Fight/FightAnimationTree.tscn" type="PackedScene" id=6]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
@@ -1298,9 +1297,6 @@ position = Vector2( -0.111359, 15.0897 )
 rotation = 1.57079
 shape = SubResource( 1 )
 
-[node name="ActionHandler" type="Node2D" parent="."]
-script = ExtResource( 4 )
-
 [node name="StateController" type="Node2D" parent="."]
 script = ExtResource( 5 )
 cfg_path = "res://config/Sword_Cfg.tres"
@@ -1370,7 +1366,7 @@ __meta__ = {
 [node name="Sprite" parent="SpriteAnimation" index="0"]
 position = Vector2( -1.26608, 18.9449 )
 offset = Vector2( 13.185, -19.7395 )
-frame = 0
+frame = 1
 
 [node name="sword" type="Node2D" parent="SpriteAnimation"]
 position = Vector2( -10.8877, -7.52747 )
@@ -1421,3 +1417,5 @@ script = ExtResource( 3 )
 [connection signal="NewFightMotion" from="AiGestureController" to="." method="_on_Node2D_NewFightMotion"]
 
 [editable path="SpriteAnimation"]
+[editable path="SpriteAnimation/hurtbox"]
+[editable path="SpriteAnimation/weaponBox"]

@@ -1,19 +1,14 @@
 extends Node2D
 
-export (NodePath)var tn 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export (NodePath)var fight_component_path
 
+var fight_component:FightComponent_human 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	fight_component = get_node(fight_component_path)
+	$hurtbox.fight_cpn = fight_component
+	$weaponBox.fight_cpn = fight_component
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 func change_face_direction(face):
 	

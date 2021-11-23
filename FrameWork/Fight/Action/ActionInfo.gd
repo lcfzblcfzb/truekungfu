@@ -48,7 +48,10 @@ var base_action;
 #时间属性 --ms
 var action_create_time;
 var action_begin_time;
-var action_end_time;
+#记录 动作经历的时间。
+#ATTENTION.有两种处理方法：记录一个结束时间的方法也是可行的。
+#但是考虑到游戏系统的时间是一种资源，如果需要引入 时间加速、减速特性，使用pass_time 的方式更容易处理
+var action_pass_time;
 var action_duration_ms;
 
 var param;#如果是 run/move 指令，保存方向向量
@@ -104,7 +107,7 @@ func _clean():
 	action_create_time=null
 	action_begin_time=null
 	action_duration_ms=null
-	action_end_time=null
+	action_pass_time=null
 	param=null
 	state = STATE_NULL;
 	is_loop= false

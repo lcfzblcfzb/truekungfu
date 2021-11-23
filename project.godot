@@ -174,7 +174,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Action/FightActionMng.gd"
 }, {
-"base": "Node2D",
+"base": "KinematicBody2D",
 "class": "FightComponent_human",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/FightCpn_human.gd"
@@ -320,6 +320,7 @@ charactorMng=false
 CharactorMng=Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 1=false
 export=false
+debug=false
 
 [importer_defaults]
 

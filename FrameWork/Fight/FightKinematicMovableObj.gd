@@ -139,5 +139,6 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 				var name =baseObj.animation_name as String
 				if "_pre" in name: 
 					change_movable_state(input_vector,ActionState.Attack)
+					print("attack action start..stop moving")
 					
 	pass

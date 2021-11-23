@@ -168,7 +168,7 @@ func _input(event):
 			rc.cast_to=endPos-attackPos
 			rc.force_raycast_update()
 			
-			jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Attack)
+#			jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Attack)
 			
 			var lastByte = _calc_position_byte_array(R)
 			

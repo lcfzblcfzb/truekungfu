@@ -1,15 +1,18 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=1]
-[ext_resource path="res://FrameWork/CollisionBox/WeaponBox.gd" type="Script" id=2]
+[ext_resource path="res://texture/animation/demo_motion_fist-Sheet.png" type="Texture" id=2]
+[ext_resource path="res://SwordDemoAnimationPlayer2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/Action/FightActionMng.tscn" type="PackedScene" id=5]
-[ext_resource path="res://FrameWork/Fight/ActionHandler.gd" type="Script" id=6]
+[ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=6]
 [ext_resource path="res://FrameWork/Fight/FightKinematicMovableObj.tscn" type="PackedScene" id=7]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
 [ext_resource path="res://FrameWork/Fight/FightGestureController.tscn" type="PackedScene" id=9]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/Sword.gd" type="Script" id=10]
 [ext_resource path="res://FightAnimationPlayer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://FrameWork/Fight/Wu/Wu.tscn" type="PackedScene" id=12]
+[ext_resource path="res://FrameWork/Fight/Fight_Animation_Tree_Root.tres" type="AnimationNodeBlendTree" id=13]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.27545
@@ -30,167 +33,17 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=44]
-radius = 0.831879
-height = 16.6058
+[sub_resource type="AnimationNodeStateMachinePlayback" id=52]
 
-[sub_resource type="Animation" id=45]
-tracks/0/type = "value"
-tracks/0/path = NodePath("WeaponBox/CollisionShape2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 30, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("WeaponBox/CollisionShape2D:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 90.0, 90.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("WeaponBox/CollisionShape2D:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
-}
+[sub_resource type="AnimationNodeStateMachinePlayback" id=53]
 
-[sub_resource type="Animation" id=46]
-tracks/0/type = "value"
-tracks/0/path = NodePath("WeaponBox/CollisionShape2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 26, 15 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("WeaponBox/CollisionShape2D:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 90.0, 120.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("WeaponBox/CollisionShape2D:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
-}
+[sub_resource type="AnimationNodeStateMachinePlayback" id=54]
 
-[sub_resource type="Animation" id=47]
-tracks/0/type = "value"
-tracks/0/path = NodePath("WeaponBox/CollisionShape2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 26, -15 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("WeaponBox/CollisionShape2D:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 90.0, 60.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("WeaponBox/CollisionShape2D:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
-}
+[sub_resource type="AnimationNodeStateMachinePlayback" id=55]
 
-[sub_resource type="Animation" id=48]
-tracks/0/type = "value"
-tracks/0/path = NodePath("WeaponBox/CollisionShape2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("WeaponBox/CollisionShape2D:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 90.0, 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("WeaponBox/CollisionShape2D:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
-}
+[sub_resource type="AnimationNodeStateMachinePlayback" id=56]
 
-[sub_resource type="RectangleShape2D" id=49]
-extents = Vector2( 3.65984, 4.26006 )
-
-[sub_resource type="RectangleShape2D" id=50]
-extents = Vector2( 3.25211, 7.63586 )
+[sub_resource type="AnimationNodeStateMachinePlayback" id=57]
 
 [node name="FIghtComponnet_Human" type="KinematicBody2D"]
 position = Vector2( 234.36, 173.497 )
@@ -199,6 +52,8 @@ __meta__ = {
 "_edit_horizontal_guides_": [ 205.209, 141.586 ],
 "_edit_vertical_guides_": [ 201.675 ]
 }
+fight_controller_path = NodePath("FightController")
+camp = 0
 
 [node name="FightKinematicMovableObj" parent="." instance=ExtResource( 7 )]
 bodyPath = NodePath("..")
@@ -213,9 +68,6 @@ position = Vector2( -0.111359, 15.0897 )
 rotation = 1.57079
 shape = SubResource( 1 )
 
-[node name="ActionHandler" type="Node2D" parent="."]
-script = ExtResource( 6 )
-
 [node name="StateController" type="Node2D" parent="."]
 script = ExtResource( 1 )
 cfg_path = "res://config/Sword_Cfg.tres"
@@ -227,11 +79,13 @@ position = Vector2( 57.211, -28.3406 )
 fight_component = NodePath("../FightKinematicMovableObj")
 
 [node name="TextEdit" type="TextEdit" parent="."]
+visible = false
 margin_left = -33.9874
 margin_top = 7.9127
 margin_right = 126.013
 margin_bottom = 67.9127
-text = "ha_m2b_in"
+rect_rotation = 162.0
+text = "a_b_after"
 context_menu_enabled = false
 shortcut_keys_enabled = false
 virtual_keyboard_enabled = false
@@ -241,13 +95,14 @@ __meta__ = {
 }
 
 [node name="SpriteAnimation" parent="." instance=ExtResource( 8 )]
+fight_component_path = NodePath("..")
 
 [node name="Sprite" parent="SpriteAnimation" index="0"]
-position = Vector2( -1.26608, 18.9449 )
-offset = Vector2( 13.185, -19.7395 )
-frame = 55
+texture = ExtResource( 2 )
+frame = 1
 
 [node name="TextEdit" type="TextEdit" parent="SpriteAnimation/Sprite" index="0"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 rect_rotation = 18.0
@@ -259,49 +114,57 @@ __meta__ = {
 [node name="SwordDemoAnimationPlayer" parent="SpriteAnimation" index="2"]
 anims/RESET = SubResource( 51 )
 
-[node name="sword" type="Node2D" parent="SpriteAnimation"]
-visible = false
-position = Vector2( -10.8877, -7.52747 )
-rotation = 1.12389
-
-[node name="sword" type="Sprite" parent="SpriteAnimation/sword"]
-
-[node name="WeaponBox" type="Area2D" parent="SpriteAnimation/sword"]
-collision_mask = 8
-script = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteAnimation/sword/WeaponBox"]
-rotation = 1.5708
-shape = SubResource( 44 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SpriteAnimation/sword"]
-anims/attack_center = SubResource( 45 )
-anims/attack_down = SubResource( 46 )
-anims/attack_up = SubResource( 47 )
-anims/block = SubResource( 48 )
-
-[node name="DamageBox" type="Area2D" parent="SpriteAnimation"]
-collision_layer = 2
+[node name="hurtbox" parent="SpriteAnimation" index="3"]
+collision_layer = 0
 collision_mask = 0
 
-[node name="head" type="CollisionShape2D" parent="SpriteAnimation/DamageBox"]
-position = Vector2( -0.0482329, -14.1621 )
-shape = SubResource( 49 )
+[node name="CollisionShape2D" parent="SpriteAnimation/hurtbox" index="0"]
+position = Vector2( -12.02, 0 )
 
-[node name="body" type="CollisionShape2D" parent="SpriteAnimation/DamageBox"]
-position = Vector2( 0.172707, 1.84855 )
-shape = SubResource( 50 )
+[node name="weaponBox" parent="SpriteAnimation" index="4"]
+collision_layer = 0
+collision_mask = 0
 
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 
 [node name="Wu" parent="." instance=ExtResource( 12 )]
+chosed_wuxue = 1
 FightComponentPath = NodePath("..")
 
+[node name="debug_wuxue" type="Node2D" parent="Wu"]
+visible = false
+script = ExtResource( 10 )
+
+[node name="sword_animation" parent="Wu/debug_wuxue" instance=ExtResource( 3 )]
+root_node = NodePath("../../../SpriteAnimation")
+
+[node name="AnimationTree" type="AnimationTree" parent="Wu/debug_wuxue"]
+tree_root = ExtResource( 13 )
+anim_player = NodePath("../sword_animation")
+process_mode = 0
+parameters/TimeScale/scale = 1.0
+parameters/sm/playback = SubResource( 52 )
+parameters/sm/conditions/is_holding = false
+parameters/sm2/playback = SubResource( 53 )
+parameters/sm2/StateMachine/playback = SubResource( 54 )
+parameters/sm2/StateMachine/StateMachine/playback = SubResource( 55 )
+parameters/sm2/StateMachine/StateMachine/conditions/is_holding = false
+"parameters/sm2/StateMachine 2/playback" = SubResource( 56 )
+"parameters/sm2/StateMachine 2/conditions/is_holding" = false
+parameters/sm2/mix/playback = SubResource( 57 )
+parameters/sm2/mix/conditions/is_holding = false
+script = ExtResource( 6 )
+
+[node name="Tween" type="Tween" parent="."]
+
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="SpriteAnimation" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
-[connection signal="NewFightMotion" from="FightController" to="Wu" method="_on_FightController_NewFightMotion"]
+[connection signal="area_entered" from="SpriteAnimation/hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_entered" from="SpriteAnimation/weaponBox" to="." method="_on_weaponBox_area_entered"]
 [connection signal="ActionFinish" from="FightActionMng" to="." method="_on_FightActionMng_ActionFinish"]
 [connection signal="ActionStart" from="FightActionMng" to="." method="_on_FightActionMng_ActionStart"]
 [connection signal="ActionStart" from="FightActionMng" to="FightKinematicMovableObj" method="_on_FightActionMng_ActionStart"]
 
 [editable path="SpriteAnimation"]
+[editable path="SpriteAnimation/hurtbox"]
+[editable path="SpriteAnimation/weaponBox"]
 [editable path="Wu"]

@@ -73,17 +73,8 @@ func regist_action(a, duration=1, exemod=ActionInfo.EXEMOD_NEWEST,groupId =-1,pa
 
 	regist_actioninfo (action)
 
-#注册整个action
-func regist_actioninfo(action:ActionInfo):
-
-	_resize_action_array()
-
-	_add_action(action)
-
-	updateCurrentAction()
-
-	chek_execution_prority()
-
+func debug_print():
+	
 	#打印一些数据
 	var n =  10  if  action_array.size()>10 else action_array.size()
 	var s =''
@@ -96,8 +87,22 @@ func regist_actioninfo(action:ActionInfo):
 		else:
 			s = s+"["+a.state as String +baseAction.animation_name+"]"
 		pass
-
+	s=s+OS.get_ticks_msec() as String
 	print(s)
+
+#注册整个action
+func regist_actioninfo(action:ActionInfo):
+
+	_resize_action_array()
+
+	_add_action(action)
+
+	updateCurrentAction()
+
+	chek_execution_prority()
+	
+	debug_print()
+	
 	return action
 
 #添加一个组的动作
@@ -282,7 +287,6 @@ func _check_generous_on_add():
 				if tmp_action.group_id== current_group_id:
 					#若标记为真且 	
 					tmp_action.state =ActionInfo.STATE_PASSED
-					tmp_action.action_end_time = OS.get_ticks_msec()
 					emit_signal("ActionFinish",_current_action)
 					self.current_index = current_index+1
 					pass
@@ -295,7 +299,6 @@ func _check_generous_on_add():
 			if ! next_action.base_action in _current_action.not_generous_type:
 
 				_current_action.state = ActionInfo.STATE_PASSED
-				_current_action.action_end_time = OS.get_ticks_msec()
 				emit_signal("ActionFinish",_current_action)
 
 				self.current_index = current_index+1
@@ -364,7 +367,6 @@ func _check_generous_on_process():
 	for i in range(current_index,foundIndex+1):
 		
 		_current_action.state =ActionInfo.STATE_PASSED
-		_current_action.action_end_time = OS.get_ticks_msec()
 		emit_signal("ActionFinish",_current_action)
 		self.current_index = current_index+1
 		
@@ -379,12 +381,18 @@ func _physics_process(delta):
 			
 			_current_action.state = ActionInfo.STATE_ING
 			_current_action.action_begin_time = OS.get_ticks_msec()
-			_current_action.action_end_time = _current_action.action_begin_time + _current_action.action_duration_ms
-
+			_current_action.action_pass_time =0
+			print("action start....")
+			debug_print()
 			emit_signal("ActionStart",_current_action)
 		elif _current_action.state ==ActionInfo.STATE_ING :
 
-			if !_current_action.is_loop && _current_action.action_end_time <= OS.get_ticks_msec():
+			_current_action.action_pass_time =_current_action.action_pass_time + delta*1000
+
+			if !_current_action.is_loop && _current_action.action_pass_time >= _current_action.action_duration_ms:
+				
+				print("action  ing")
+				debug_print()
 				_current_action.state = ActionInfo.STATE_ENDED
 				var finished_Action =_current_action
 				self.current_index=current_index+1

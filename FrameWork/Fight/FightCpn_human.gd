@@ -1,4 +1,5 @@
-extends Node2D
+
+extends KinematicBody2D
 
 class_name FightComponent_human
 
@@ -9,12 +10,19 @@ func getSpeed():
 	return $ActionHandler.getSpeed()
 #保存动画时间的字典
 onready var animation_cfg = $StateController
-# Called when the node enters the scene tree for the first time.
-
 onready var sprite = $SpriteAnimation/Sprite
-
 onready var actionMng = $FightActionMng
+
+#动作控制器。是玩家输入或者是 AI 控制器
+export(NodePath) var fight_controller_path
+var fight_controller :BaseFightActionController
+#战斗角色的阵营
+export (Tool.CampEnum)var camp = Tool.CampEnum.Bad
+
 func _ready():
+	
+	fight_controller = get_node(fight_controller_path)
+	fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
 #	$Wu.switch_wu(WuxueMng.WuxueEnum.Fist)
 #	sprite.texture = $Wu.get_texture()
 #	yield(get_tree().create_timer(2),"timeout")
@@ -66,7 +74,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		time=1
 		
 	print("action start time",OS.get_ticks_msec())
-	print("attack start:",$SpriteAnimation/Sprite.frame)
+	print("action frame:",$SpriteAnimation/Sprite.frame)
 #	$FightAnimationTree.act(action,time)	
 	get_animation_tree().act(action,time)
 
@@ -77,4 +85,28 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 		fightKinematicMovableObj.attackOver()
 		print("attack over time",OS.get_ticks_msec())
 		print("attack over",$SpriteAnimation/Sprite.frame)
+
+func test_dead_motion():
+	
+	var tween = $Tween
+	tween.interpolate_property(self,"position",position,position+Vector2(0,50),1,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	tween.start()
+	yield(tween,"tween_completed")
+	queue_free()
+	pass		
+
+
+func _on_weaponBox_area_entered(area):
+	
+	if area is HurtBox:
 		
+		pass
+	pass # Replace with function body.
+
+
+func _on_hurtbox_area_entered(area):
+	
+	if area is WeaponBox:
+		test_dead_motion()
+		pass
+	pass # Replace with function body.

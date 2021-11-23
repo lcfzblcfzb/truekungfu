@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://FrameWork/Fight/FightCpn_Robot.tscn" type="PackedScene" id=1]
+[ext_resource path="res://FrameWork/Fight/FightCpn_human.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scene/FightDemoScene.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -14,9 +14,6 @@ extents = Vector2( 6.6427, 39.368 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
-
-[node name="FIghtComponnet_Robot" parent="." instance=ExtResource( 1 )]
-position = Vector2( 139.323, 168.618 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 233.345, 166.17 )
@@ -41,3 +38,38 @@ angular_damp = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2( -0.396851, -39.685 )
 shape = SubResource( 3 )
+
+[node name="FIghtComponnet_Human" parent="." instance=ExtResource( 1 )]
+position = Vector2( 166.36, 95.497 )
+
+[node name="hurtbox" parent="FIghtComponnet_Human/SpriteAnimation" index="3"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="weaponBox" parent="FIghtComponnet_Human/SpriteAnimation" index="4"]
+collision_mask = 8
+
+[node name="Wu" parent="FIghtComponnet_Human" index="8"]
+chosed_wuxue = 1
+
+[node name="FIghtComponnet_Human2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 187.509, 95.3307 )
+
+[node name="hurtbox" parent="FIghtComponnet_Human2/SpriteAnimation" index="3"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="weaponBox" parent="FIghtComponnet_Human2/SpriteAnimation" index="4"]
+collision_layer = 0
+collision_mask = 4
+
+[editable path="FIghtComponnet_Human"]
+[editable path="FIghtComponnet_Human/SpriteAnimation"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/hurtbox"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/weaponBox"]
+[editable path="FIghtComponnet_Human/Wu"]
+[editable path="FIghtComponnet_Human2"]
+[editable path="FIghtComponnet_Human2/SpriteAnimation"]
+[editable path="FIghtComponnet_Human2/SpriteAnimation/hurtbox"]
+[editable path="FIghtComponnet_Human2/SpriteAnimation/weaponBox"]
+[editable path="FIghtComponnet_Human2/Wu"]

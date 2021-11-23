@@ -166,7 +166,7 @@ func test_group_action():
 	
 	var action_control = load("res://FrameWork/Fight/Action/FightActionMng.tscn").instance()
 	add_child(action_control)
-	Tool.getPollObject(ActionInfo)
+	Tool.getPollObject(ActionInfo,[])
 	var pool = Tool.PoolDict.get(ActionInfo) as ObjPool
 	
 	var pre =pool.instance([Tool.FightMotion.Attack_Mid_Pre,OS.get_ticks_msec(),["test"+id as String ,1],0,ActionInfo.EXEMOD_SEQ])

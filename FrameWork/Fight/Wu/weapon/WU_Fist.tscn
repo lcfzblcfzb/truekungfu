@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/Fist.gd" type="Script" id=1]
-[ext_resource path="res://fist_wu_animation_player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://SwordDemoAnimationPlayer2.tscn" type="PackedScene" id=2]
 [ext_resource path="res://FrameWork/Fight/Fight_Animation_Tree_Root.tres" type="AnimationNodeBlendTree" id=3]
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=4]
 
@@ -20,8 +20,6 @@
 [node name="WU_Fist" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="fist_animation" parent="." instance=ExtResource( 2 )]
-
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../fist_animation")
@@ -38,3 +36,5 @@ parameters/sm2/StateMachine/StateMachine/conditions/is_holding = false
 parameters/sm2/mix/playback = SubResource( 6 )
 parameters/sm2/mix/conditions/is_holding = false
 script = ExtResource( 4 )
+
+[node name="fist_animation" parent="." instance=ExtResource( 2 )]
