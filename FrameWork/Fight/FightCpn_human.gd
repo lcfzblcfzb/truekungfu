@@ -10,7 +10,7 @@ func getSpeed():
 	return $ActionHandler.getSpeed()
 #保存动画时间的字典
 onready var animation_cfg = $StateController
-onready var sprite = $SpriteAnimation/Sprite
+onready var sprite_animation = $SpriteAnimation
 onready var actionMng = $FightActionMng
 
 #动作控制器。是玩家输入或者是 AI 控制器
@@ -19,16 +19,33 @@ var fight_controller :BaseFightActionController
 #战斗角色的阵营
 export (Tool.CampEnum)var camp = Tool.CampEnum.Bad
 
+export (bool) var is_player =false;
+
+var player_controller_scene =preload("res://FrameWork/Fight/FightGestureController.tscn")
+var ai_controller_scene="res://FrameWork/Fight/AiFightGestureController.gd"
+
 func _ready():
 	
-	fight_controller = get_node(fight_controller_path)
-	fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
+	if is_player:
+		fight_controller = player_controller_scene.instance()
+		fight_controller.jisu = self
+		add_child(fight_controller)
+		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
+	else:
+		#TODO AI controller
+		fight_controller = ai_controller_scene.instance()
+		add_child(fight_controller)
+		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
+	
+	#初始化 武学
+	$Wu.wuxue.animation_player.root_node = $Wu.wuxue.animation_player.get_path_to(sprite_animation)
+	sprite_animation.set_sprite_texture($Wu.get_texture())
+	$Wu.wuxue.animation_tree.active = true
 #	$Wu.switch_wu(WuxueMng.WuxueEnum.Fist)
 #	sprite.texture = $Wu.get_texture()
 #	yield(get_tree().create_timer(2),"timeout")
 #	$Wu.switch_wu(WuxueMng.WuxueEnum.Sword)
 #	sprite.texture = $Wu.get_texture()
-	
 #	test_switch()
 	pass 
 

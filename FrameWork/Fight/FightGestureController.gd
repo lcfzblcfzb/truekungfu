@@ -15,7 +15,7 @@ var attackDirection = 0
 var endPosRotation = Vector2.ZERO
 #朝向鼠标的向量
 var toMouseVector = Vector2.ZERO
-var jisu:FightKinematicMovableObj
+var jisu
 
 #开始的角度
 var attackRadiusBias = PI*3/2
@@ -35,7 +35,7 @@ var defUpLimit = defMidLimit+PI/3
 var heavyAttackRadiusLimit = 5
 
 func _ready():
-	if(!jisu):
+	if jisu==null:
 		jisu = get_node(fight_component)
 	
 func show_attack_indicator():
@@ -337,9 +337,6 @@ func _input(event):
 		#relativePos = event.relative;
 		mouseMovingPos = event.global_position
 		var screenPos
-		
-		screenPos =Tool.getCameraPosition(jisu)
-		toMouseVector = (mouseMovingPos- screenPos).normalized()
 		
 		#攻击按下
 		#才开始记录	

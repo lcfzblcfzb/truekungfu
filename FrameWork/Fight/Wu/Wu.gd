@@ -32,8 +32,15 @@ func get_or_create_wuxue(type):
 
 func _ready():
 	fight_component = get_node(FightComponentPath)
-	call_deferred("switch_wu",chosed_wuxue)
+	_init_wu(chosed_wuxue)
+#	call_deferred("switch_wu",chosed_wuxue)
+
+
+func get_fight_controller()->BaseFightActionController:
 	
+	return null
+	pass
+
 func get_texture():
 	
 	var texture = load(wuxue.wu_animation_res)
@@ -44,6 +51,27 @@ func get_animation_tree():
 	return wuxue.animation_tree
 	pass
 	
+# TODO 在ready的时候，设置wuxue 的fight_component
+func _init_wu(type= WuxueMng.WuxueEnum.Fist):
+	
+	if wuxue:
+		wuxue.animation_tree.active = false
+	
+	if debug_wuxue and debug_wuxue.visible == true:
+		
+		wuxue = debug_wuxue
+#		fight_component.sprite.texture = get_texture()
+		debug_wuxue.fight_cpn =fight_component
+		pass
+	else :
+	
+		var newwuxue = get_or_create_wuxue(type) 
+		if newwuxue:
+			
+			newwuxue.fight_cpn = fight_component
+			add_child(newwuxue)
+			wuxue = newwuxue
+
 func switch_wu(type= WuxueMng.WuxueEnum.Fist):
 	if wuxue:
 		wuxue.animation_tree.active = false

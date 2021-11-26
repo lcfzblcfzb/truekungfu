@@ -6,6 +6,7 @@ var fight_cpn
 
 var animation_player:AnimationPlayer
 var animation_tree:AnimationTree
+var behaviourTree:BehaviorTree
 
 var wu_animation_res;
 #两个walk 动作转为run 的最小间隔/ms

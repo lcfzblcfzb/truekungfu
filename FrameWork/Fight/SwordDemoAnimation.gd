@@ -9,6 +9,8 @@ func _ready():
 	$hurtbox.fight_cpn = fight_component
 	$weaponBox.fight_cpn = fight_component
 
+func set_sprite_texture(tex):
+	$Sprite.texture = tex
 
 func change_face_direction(face):
 	
