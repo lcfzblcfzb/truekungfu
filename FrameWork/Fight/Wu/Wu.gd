@@ -46,6 +46,9 @@ func get_texture():
 	var texture = load(wuxue.wu_animation_res)
 	return texture
 
+func get_behavior_tree():
+	return wuxue.behaviourTree
+
 func get_animation_tree():
 	
 	return wuxue.animation_tree

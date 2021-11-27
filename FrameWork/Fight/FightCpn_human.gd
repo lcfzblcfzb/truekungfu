@@ -14,7 +14,6 @@ onready var sprite_animation = $SpriteAnimation
 onready var actionMng = $FightActionMng
 
 #动作控制器。是玩家输入或者是 AI 控制器
-export(NodePath) var fight_controller_path
 var fight_controller :BaseFightActionController
 #战斗角色的阵营
 export (Tool.CampEnum)var camp = Tool.CampEnum.Bad
@@ -33,10 +32,11 @@ func _ready():
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
 	else:
 		#TODO AI controller
-		fight_controller = ai_controller_scene.instance()
+		fight_controller = ai_controller_scene.instance() as AiFightGestureController
 		add_child(fight_controller)
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
-	
+		fight_controller.init_behaviour_tree($Wu.get_behavior_tree())
+		
 	#初始化 武学
 	$Wu.wuxue.animation_player.root_node = $Wu.wuxue.animation_player.get_path_to(sprite_animation)
 	sprite_animation.set_sprite_texture($Wu.get_texture())
