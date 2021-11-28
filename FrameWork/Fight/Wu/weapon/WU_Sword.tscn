@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/Sword.gd" type="Script" id=1]
 [ext_resource path="res://SwordDemoAnimationPlayer2.tscn" type="PackedScene" id=2]
 [ext_resource path="res://FrameWork/Fight/Fight_Animation_Tree_Root.tres" type="AnimationNodeBlendTree" id=3]
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=4]
+[ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=5]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/SwordTree.tscn" type="PackedScene" id=6]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -38,3 +40,9 @@ parameters/sm2/StateMachine/StateMachine/conditions/is_holding = false
 parameters/sm2/mix/playback = SubResource( 6 )
 parameters/sm2/mix/conditions/is_holding = false
 script = ExtResource( 4 )
+
+[node name="SwordBehaviorTree" parent="." instance=ExtResource( 6 )]
+_blackboard = NodePath("../Blackboard")
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource( 5 )

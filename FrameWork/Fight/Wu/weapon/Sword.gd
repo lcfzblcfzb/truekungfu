@@ -1,4 +1,3 @@
-
 class_name Sword
 extends BaseWuXue
 
@@ -6,17 +5,15 @@ func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_template-Sheet_def.png"
 	animation_player = $sword_animation
 	animation_tree = $AnimationTree
+	behaviourTree =  $SwordBehaviorTree
 #	animation_player.root_node = animation_player.get_path_to(fight_cpn.sprite.get_parent())
 #	$AnimationTree.active = true
 	pass
 
-
-func on_action_event(event:NewActionEvent):
-	
-	#是否是重攻击；若不是 ，则以最后的位置作为轻攻击的方向(攻击);
-	var is_heavy = false if event.action_end_time-event.action_begin_time< heavyAttackThreshold else true
+func _do_wu_motion(wu_motion,is_heavy):
 	var global_id = fight_cpn.actionMng.next_group_id()
-	match( event.wu_motion):
+	
+	match( wu_motion):
 		
 		Tool.WuMotion.Attack_Up:
 			if is_heavy:
@@ -91,6 +88,14 @@ func on_action_event(event:NewActionEvent):
 				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M_Pre,Tool.FightMotion.HeavyAttack_M_In,Tool.FightMotion.HeavyAttack_M_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 	
+
+
+func on_action_event(event:NewActionEvent):
+	
+	#是否是重攻击；若不是 ，则以最后的位置作为轻攻击的方向(攻击);
+	var is_heavy = false if event.action_end_time-event.action_begin_time< heavyAttackThreshold else true
+	
+	_do_wu_motion(event.wu_motion,is_heavy)
 	
 func on_move_event(event:MoveEvent):
 	
@@ -131,5 +136,10 @@ func on_move_event(event:MoveEvent):
 	pass
 	
 func on_ai_event(event:AIEvent):
-	push_warning("on_ai_event is virtual .need to be implemented")
-	pass
+	_do_wu_motion(event.action_id,false)
+
+	
+	
+	
+	
+	

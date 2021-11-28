@@ -1,5 +1,4 @@
-
-extends KinematicBody2D
+extends BaseCharactor
 
 class_name FightComponent_human
 
@@ -15,13 +14,11 @@ onready var actionMng = $FightActionMng
 
 #动作控制器。是玩家输入或者是 AI 控制器
 var fight_controller :BaseFightActionController
-#战斗角色的阵营
-export (Tool.CampEnum)var camp = Tool.CampEnum.Bad
 
 export (bool) var is_player =false;
 
 var player_controller_scene =preload("res://FrameWork/Fight/FightGestureController.tscn")
-var ai_controller_scene="res://FrameWork/Fight/AiFightGestureController.gd"
+var ai_controller_scene=preload("res://FrameWork/Fight/AiFightGestureController.gd")
 
 func _ready():
 	
@@ -32,10 +29,11 @@ func _ready():
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
 	else:
 		#TODO AI controller
-		fight_controller = ai_controller_scene.instance() as AiFightGestureController
+		fight_controller = ai_controller_scene.new() 
 		add_child(fight_controller)
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
-		fight_controller.init_behaviour_tree($Wu.get_behavior_tree())
+		fight_controller.init_behaviour_tree(self,$Wu.get_behavior_tree())
+		fight_controller.call_deferred('active_tree')
 		
 	#初始化 武学
 	$Wu.wuxue.animation_player.root_node = $Wu.wuxue.animation_player.get_path_to(sprite_animation)
@@ -62,6 +60,17 @@ func _ready():
 #		if i>1000:
 #			break
 #	pass
+
+#是否进战斗了
+var is_engaged=false
+
+#检测是否进战斗了	
+func check_engaged():
+	var oppose_array = CharactorMng.findOpposeMember(camp)
+	if oppose_array.size()>0:
+		is_engaged = true
+	else:
+		is_engaged = false
 	
 export(float) var impact_strength=0;
 

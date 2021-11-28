@@ -1,0 +1,47 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=1]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/Is_multi_target.gd" type="Script" id=2]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/Is_Endangered.gd" type="Script" id=3]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/Is_Attackable_Range.gd" type="Script" id=4]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_parallel.gd" type="Script" id=5]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/decorators/bt_repeat_until.gd" type="Script" id=6]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/Do_Attack.gd" type="Script" id=7]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/LockTarget.gd" type="Script" id=8]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/Is_Face_Target.gd" type="Script" id=9]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/Do_Face_Target.gd" type="Script" id=10]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_sequence.gd" type="Script" id=11]
+
+[node name="SwordBehaviorTree" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Is_Endangered" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Attack_Parallel" type="Node" parent="Is_Endangered"]
+script = ExtResource( 5 )
+
+[node name="Is_multi_target" type="Node" parent="Is_Endangered/Attack_Parallel"]
+script = ExtResource( 2 )
+
+[node name="LockTarget" type="Node" parent="Is_Endangered/Attack_Parallel/Is_multi_target"]
+script = ExtResource( 8 )
+
+[node name="Attack_Seq" type="Node" parent="Is_Endangered/Attack_Parallel"]
+script = ExtResource( 11 )
+
+[node name="Is_Face_Target" type="Node" parent="Is_Endangered/Attack_Parallel/Attack_Seq"]
+script = ExtResource( 9 )
+reverse = true
+
+[node name="Do_Face_Target" type="Node" parent="Is_Endangered/Attack_Parallel/Attack_Seq/Is_Face_Target"]
+script = ExtResource( 10 )
+
+[node name="BTRepeatUntil" type="Node" parent="Is_Endangered/Attack_Parallel/Attack_Seq"]
+script = ExtResource( 6 )
+
+[node name="Is_Attackable_Range" type="Node" parent="Is_Endangered/Attack_Parallel/Attack_Seq/BTRepeatUntil"]
+script = ExtResource( 4 )
+
+[node name="Do_Attack" type="Node" parent="Is_Endangered/Attack_Parallel/Attack_Seq/BTRepeatUntil/Is_Attackable_Range"]
+script = ExtResource( 7 )

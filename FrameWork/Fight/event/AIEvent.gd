@@ -9,6 +9,5 @@ func _init(pool,params:Array).(pool,Tool.EventType.AI_Event,params):
 	pass
 #TODO 
 func _clean():
-	
 	action_id=null
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scene/FightDemoScene.gd" type="Script" id=2]
@@ -11,6 +11,30 @@ absorbent = true
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6.6427, 39.368 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=4]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=5]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=7]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=8]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=9]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=10]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=11]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=12]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=13]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=14]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=15]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -44,24 +68,36 @@ position = Vector2( 166.36, 95.497 )
 
 [node name="hurtbox" parent="FIghtComponnet_Human/SpriteAnimation" index="3"]
 collision_layer = 2
-collision_mask = 0
 
 [node name="weaponBox" parent="FIghtComponnet_Human/SpriteAnimation" index="4"]
 collision_mask = 8
 
-[node name="Wu" parent="FIghtComponnet_Human" index="8"]
-chosed_wuxue = 1
+[node name="AnimationTree" parent="FIghtComponnet_Human/Wu/debug_wuxue" index="1"]
+parameters/sm/playback = SubResource( 4 )
+parameters/sm2/playback = SubResource( 5 )
+parameters/sm2/StateMachine/playback = SubResource( 6 )
+parameters/sm2/StateMachine/StateMachine/playback = SubResource( 7 )
+"parameters/sm2/StateMachine 2/playback" = SubResource( 8 )
+parameters/sm2/mix/playback = SubResource( 9 )
 
 [node name="FIghtComponnet_Human2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 187.509, 95.3307 )
+camp = 1
+is_player = false
 
 [node name="hurtbox" parent="FIghtComponnet_Human2/SpriteAnimation" index="3"]
 collision_layer = 8
-collision_mask = 0
 
 [node name="weaponBox" parent="FIghtComponnet_Human2/SpriteAnimation" index="4"]
-collision_layer = 0
 collision_mask = 4
+
+[node name="AnimationTree" parent="FIghtComponnet_Human2/Wu/debug_wuxue" index="1"]
+parameters/sm/playback = SubResource( 10 )
+parameters/sm2/playback = SubResource( 11 )
+parameters/sm2/StateMachine/playback = SubResource( 12 )
+parameters/sm2/StateMachine/StateMachine/playback = SubResource( 13 )
+"parameters/sm2/StateMachine 2/playback" = SubResource( 14 )
+parameters/sm2/mix/playback = SubResource( 15 )
 
 [editable path="FIghtComponnet_Human"]
 [editable path="FIghtComponnet_Human/SpriteAnimation"]
