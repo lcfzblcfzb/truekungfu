@@ -7,8 +7,6 @@ var action_end_time;
 
 func _init(pool,params:Array).(pool,Tool.EventType.NewAction,params):
 	wu_motion = params[0]
-	action_begin_time=params[1]
-	action_end_time = params[2]
 	pass
 
 #TODO 

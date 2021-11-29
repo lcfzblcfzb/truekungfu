@@ -81,7 +81,7 @@ parameters/sm2/StateMachine/StateMachine/playback = SubResource( 7 )
 parameters/sm2/mix/playback = SubResource( 9 )
 
 [node name="FIghtComponnet_Human2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 187.509, 95.3307 )
+position = Vector2( 230.718, 95.7762 )
 camp = 1
 is_player = false
 
@@ -89,7 +89,8 @@ is_player = false
 collision_layer = 8
 
 [node name="weaponBox" parent="FIghtComponnet_Human2/SpriteAnimation" index="4"]
-collision_mask = 4
+collision_layer = 4
+collision_mask = 2
 
 [node name="AnimationTree" parent="FIghtComponnet_Human2/Wu/debug_wuxue" index="1"]
 parameters/sm/playback = SubResource( 10 )
