@@ -10,7 +10,7 @@ func getSpeed():
 #保存动画时间的字典
 onready var animation_cfg = $StateController
 onready var sprite_animation = $SpriteAnimation
-onready var actionMng = $FightActionMng
+onready var actionMng:FightActionMng = $FightActionMng
 
 #动作控制器。是玩家输入或者是 AI 控制器
 var fight_controller :BaseFightActionController

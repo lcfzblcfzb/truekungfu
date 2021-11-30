@@ -10,9 +10,11 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	
 	var fight_componnent = agent as FightComponent_human
 	
-	if fight_componnent.fightKinematicMovableObj.state in [FightKinematicMovableObj.ActionState.Idle,FightKinematicMovableObj.ActionState.Stop,FightKinematicMovableObj.ActionState.Run2Idle]:
-#	if fight_componnent.actionMng._current_action and Tool.FightMotionType.Move in fight_componnent.actionMng._current_action.get_base_action().type:
-		
+	var target  = blackboard.get_data("locked_target") as FightComponent_human
+	
+	var distance = abs(fight_componnent.global_position.x - target.global_position.x)
+	
+	if distance>64:
 		verified = false
 	else:
 		verified = true

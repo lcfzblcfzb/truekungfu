@@ -30,7 +30,7 @@ export(int, 0, 1000) var RUN_2_IDLE_VELOCITY = 100
 export(int, 0, 1000) var IDLE_2_RUN_ACC = 100
 export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100
 export(int, 0, 1000) var ATTACK_VELOCITY = 0
-export(int, 0, 1000) var ATTACK_ACC = 50
+export(int, 0, 1000) var ATTACK_ACC = 500
 
 func changeState(s):
 	
