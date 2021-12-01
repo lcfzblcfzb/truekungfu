@@ -311,6 +311,7 @@ Tool="*res://Tool.gd"
 CharactorMng="*res://FrameWork/Scene/CharactorMng.gd"
 FightBaseActionMng="*res://FrameWork/Fight/FightBaseActionMng.gd"
 WuxueMng="*res://FrameWork/Fight/Wu/weapon/WuxueMng.gd"
+BaseWuXueActionMng="*res://FrameWork/Fight/Action/BaseWuXueActionMng.gd"
 
 [display]
 

@@ -16,6 +16,13 @@ onready var debug_wuxue=$debug_wuxue
 #缓存dict
 var wuxue_cache_dict ={}
 
+#获得当前正在运行中的动画名称
+func get_current_animation_name():
+	
+	var current_node = get_animation_tree().get("parameters/sm/playback") as AnimationNodeStateMachinePlayback
+	
+	return current_node.get_current_node()
+
 #通过type在 wuxue_cache_dict 中查找队应的wuxue
 func get_or_create_wuxue(type):
 	
@@ -49,7 +56,7 @@ func get_texture():
 func get_behavior_tree():
 	return wuxue.behaviourTree
 
-func get_animation_tree():
+func get_animation_tree()->AnimationTree:
 	
 	return wuxue.animation_tree
 	pass
@@ -110,7 +117,6 @@ func on_ai_event(new_motion:AIEvent):
 	pass
 
 func _on_FightController_NewFightMotion(new_motion:BaseFightEvent):
-	
 	if new_motion is MoveEvent:
 		on_move_event(new_motion)
 	elif new_motion is NewActionEvent:

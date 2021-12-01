@@ -15,6 +15,7 @@ func getSpeed():
 onready var animation_cfg = $StateController
 onready var sprite_animation = $SpriteAnimation
 onready var actionMng:FightActionMng = $FightActionMng
+onready var wu = $Wu
 
 #动作控制器。是玩家输入或者是 AI 控制器
 var fight_controller :BaseFightActionController

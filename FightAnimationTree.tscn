@@ -861,7 +861,6 @@ node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "sm" ]
 [node name="FightAnimationTree" type="AnimationTree"]
 tree_root = SubResource( 276 )
 anim_player = NodePath("../SpriteAnimation/SwordDemoAnimationPlayer")
-active = true
 process_mode = 0
 parameters/TimeScale/scale = 1.44
 parameters/sm/playback = SubResource( 277 )
