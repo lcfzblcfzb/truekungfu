@@ -197,7 +197,7 @@ nodes/tran_engaged/node = SubResource( 35 )
 nodes/tran_engaged/position = Vector2( 160, 60 )
 nodes/tran_prepared/node = SubResource( 36 )
 nodes/tran_prepared/position = Vector2( 280, 280 )
-node_connections = [ "scale", 0, "Transition", "output", 0, "scale", "tran_prepared", 0, "prepared_bs", "tran_prepared", 1, "Animation 3", "seek_free", 0, "idle_free_bs", "Transition", 0, "seek_free", "Transition", 1, "tran_engaged", "Transition", 2, "tran_prepared", "tran_engaged", 0, "Animation 5", "tran_engaged", 1, "idle_engaged_bs" ]
+node_connections = [ "scale", 0, "Transition", "output", 0, "scale", "Transition", 0, "seek_free", "Transition", 1, "tran_engaged", "Transition", 2, "tran_prepared", "seek_free", 0, "idle_free_bs", "tran_engaged", 0, "Animation 5", "tran_engaged", 1, "idle_engaged_bs", "tran_prepared", 0, "prepared_bs", "tran_prepared", 1, "Animation 3" ]
 
 [sub_resource type="AnimationNodeTransition" id=38]
 input_count = 2
