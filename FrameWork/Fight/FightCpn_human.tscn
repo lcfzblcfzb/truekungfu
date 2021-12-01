@@ -78,8 +78,7 @@ margin_left = -33.9874
 margin_top = 7.9127
 margin_right = 126.013
 margin_bottom = 67.9127
-rect_rotation = 162.0
-text = "a_b_after"
+rect_rotation = 180.0
 context_menu_enabled = false
 shortcut_keys_enabled = false
 virtual_keyboard_enabled = false
@@ -93,7 +92,6 @@ fight_component_path = NodePath("..")
 
 [node name="Sprite" parent="SpriteAnimation" index="0"]
 texture = ExtResource( 2 )
-frame = 1
 
 [node name="TextEdit" type="TextEdit" parent="SpriteAnimation/Sprite" index="0"]
 visible = false
@@ -122,7 +120,6 @@ collision_mask = 0
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 
 [node name="Wu" parent="." instance=ExtResource( 12 )]
-chosed_wuxue = 1
 FightComponentPath = NodePath("..")
 
 [node name="debug_wuxue" type="Node2D" parent="Wu"]

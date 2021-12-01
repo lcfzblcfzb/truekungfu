@@ -15,6 +15,11 @@ func _do_wu_motion(wu_motion,is_heavy):
 	
 	match( wu_motion):
 		
+		Tool.WuMotion.Stunned:
+			var base = FightBaseActionMng.get_by_base_id(Tool.FightMotion.Stunned) as BaseAction
+			fight_cpn.actionMng.regist_action(Tool.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			pass
+		
 		Tool.WuMotion.Attack_Up:
 			if is_heavy:
 				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U_Pre,Tool.FightMotion.HeavyAttack_U_In,Tool.FightMotion.HeavyAttack_U_After])

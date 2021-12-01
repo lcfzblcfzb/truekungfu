@@ -1,8 +1,7 @@
-
 class_name BaseWuXue
 extends Node2D
 
-var fight_cpn 
+var fight_cpn:FightComponent_human
 
 var animation_player:AnimationPlayer
 var animation_tree:AnimationTree
@@ -13,6 +12,15 @@ var wu_animation_res;
 var run_action_min_interval_ms =500
 #重攻击时间阈值.ms
 var heavyAttackThreshold = 300.0
+
+#武器动作类型
+enum ActionForceType{
+	CI, 	#刺
+	GE, 	#格
+	SAO, 	#扫
+	LIAO,	#撩
+}
+
 
 #virtual 
 func on_action_event(event:NewActionEvent):

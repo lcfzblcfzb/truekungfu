@@ -10,6 +10,7 @@ var wuxue:BaseWuXue
 export (NodePath) var FightComponentPath
 var fight_component 
 
+#测试时候使用
 onready var debug_wuxue=$debug_wuxue
 
 #缓存dict

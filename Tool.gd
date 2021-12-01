@@ -77,6 +77,7 @@ enum WuMotion{
 	Walk,
 	Run,
 	Holding,
+	Stunned,
 	
 	Attack_Up,
 	Attack_Mid,
@@ -113,6 +114,7 @@ enum FightMotion{
 	Holding=157,
 	Idle2Run=158,
 	Run2Idle=159,
+	Stunned =160
 	
 	Attack_Up_Pre=100,
 	Attack_Up_In=101,

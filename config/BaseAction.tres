@@ -592,5 +592,14 @@
 	"type": [
 	  1
 	]
+  },
+  {
+	"id": 160,
+	"name": "stunned",
+	"animation_name": "stunned",
+	"duration": 1,
+	"type": [
+	  2
+	]
   }
 ]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=54 format=2]
 
 [sub_resource type="Animation" id=54]
 length = 0.001
@@ -1101,6 +1101,21 @@ tracks/0/keys = {
 "values": [ 30, 31, 32, 33, 34, 35 ]
 }
 
+[sub_resource type="Animation" id=55]
+resource_name = "stunned"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19, 20 ]
+}
+
 [sub_resource type="Animation" id=16]
 loop = true
 tracks/0/type = "value"
@@ -1168,4 +1183,5 @@ anims/idle = SubResource( 12 )
 anims/idle2run = SubResource( 13 )
 anims/run = SubResource( 14 )
 anims/run2idle = SubResource( 15 )
+anims/stunned = SubResource( 55 )
 anims/walk = SubResource( 16 )

@@ -149,6 +149,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Wu/weapon/BaseWuXue.gd"
 }, {
+"base": "Object",
+"class": "BaseWuxueAction",
+"language": "GDScript",
+"path": "res://FrameWork/Fight/Action/BaseWuXueAction.gd"
+}, {
 "base": "Node",
 "class": "BehaviorTree",
 "language": "GDScript",
@@ -273,6 +278,7 @@ _global_script_class_icons={
 "BaseFightEvent": "",
 "BaseWu": "",
 "BaseWuXue": "",
+"BaseWuxueAction": "",
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
 "ControlableMovingObj": "",

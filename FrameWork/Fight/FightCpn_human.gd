@@ -2,6 +2,10 @@ extends BaseCharactor
 
 class_name FightComponent_human
 
+
+var hp;
+
+
 onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicMovableObj
 #接口
 #需要传入controlableMovingObj的速度参数
@@ -125,6 +129,9 @@ func test_dead_motion():
 func _on_weaponBox_area_entered(area):
 	
 	if area is HurtBox:
+		
+		pass
+	elif area is WeaponBox:
 		
 		pass
 	pass # Replace with function body.
