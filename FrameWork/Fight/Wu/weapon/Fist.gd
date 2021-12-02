@@ -1,6 +1,9 @@
 class_name Fist
 extends BaseWuXue
 
+static func get_wuxue_type():
+	return WuxueMng.WuxueEnum.Fist
+
 func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_fist-Sheet.png"
 	

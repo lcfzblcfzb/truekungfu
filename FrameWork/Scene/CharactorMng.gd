@@ -24,3 +24,15 @@ func findOpposeMember(camp,duplicate=false)->Array:
 	elif camp ==Tool.CampEnum.Bad:
 		return campDict[Tool.CampEnum.Good]
 	return []
+
+#移除出数组
+func remove_from_list(charactor:BaseCharactor):
+	var campList = campDict.get(charactor.camp) as Array
+	
+	var index = campList.find(charactor)
+	
+	if index >=0:
+		campList.remove(index)
+	
+	pass
+	

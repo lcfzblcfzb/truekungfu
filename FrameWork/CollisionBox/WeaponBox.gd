@@ -1,7 +1,5 @@
-extends Area2D
-
 class_name WeaponBox
 
-var weapon:Weapon
+extends Area2D
 
 var fight_cpn 

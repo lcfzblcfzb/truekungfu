@@ -7,16 +7,16 @@ var dict ={
 	WuxueEnum.Sword:preload("res://FrameWork/Fight/Wu/weapon/WU_Sword.tscn")
 }
 
+#枚举类型
+enum WuxueEnum{
+	
+	Fist,Sword
+	
+}
 
 #通过WuxueEnum 获得队应类
 func get_by_type(type)->PackedScene:
 	return dict.get(type)
 	
 
-#枚举类型
-enum WuxueEnum{
-	
-	Fist,Sword
-	
-	
-}
+

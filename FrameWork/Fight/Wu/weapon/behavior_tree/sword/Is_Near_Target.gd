@@ -9,7 +9,7 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	assert(agent is FightComponent_human)
 	
 	var fight_componnent = agent as FightComponent_human
-	
+
 	var target  = blackboard.get_data("locked_target") as FightComponent_human
 	
 	var distance = abs(fight_componnent.global_position.x - target.global_position.x)

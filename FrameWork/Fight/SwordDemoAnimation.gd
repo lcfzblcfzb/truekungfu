@@ -16,8 +16,10 @@ func change_face_direction(face):
 	
 	if face>0:
 		$Sprite.flip_h = false
+		$hurtbox.position = Vector2.ZERO
 	elif face<0:
 		$Sprite.flip_h = true
+		$hurtbox.position = Vector2(25,0)
 	print("change face direction",face,$Sprite.frame)
 	pass
 

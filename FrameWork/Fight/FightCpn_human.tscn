@@ -92,6 +92,7 @@ fight_component_path = NodePath("..")
 
 [node name="Sprite" parent="SpriteAnimation" index="0"]
 texture = ExtResource( 2 )
+frame = 12
 
 [node name="TextEdit" type="TextEdit" parent="SpriteAnimation/Sprite" index="0"]
 visible = false
@@ -109,9 +110,6 @@ anims/RESET = SubResource( 51 )
 [node name="hurtbox" parent="SpriteAnimation" index="3"]
 collision_layer = 0
 collision_mask = 0
-
-[node name="CollisionShape2D" parent="SpriteAnimation/hurtbox" index="0"]
-position = Vector2( -12.02, 0 )
 
 [node name="weaponBox" parent="SpriteAnimation" index="4"]
 collision_layer = 0

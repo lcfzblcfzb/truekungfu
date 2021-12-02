@@ -1,6 +1,9 @@
 class_name Sword
 extends BaseWuXue
 
+static func get_wuxue_type():
+	return WuxueMng.WuxueEnum.Fist
+
 func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_template-Sheet_def.png"
 	animation_player = $sword_animation
@@ -143,8 +146,40 @@ func on_move_event(event:MoveEvent):
 func on_ai_event(event:AIEvent):
 	_do_wu_motion(event.action_id,false)
 
+
+#与另一个wuxue 发生战斗
+func against_wuxue(otherWuxue:BaseWuXue):
 	
+	var fighter0 = fight_cpn
+	var fighter1 = otherWuxue.fight_cpn
 	
+	var anim0 = fighter0.wu.get_current_animation_name()
+	var anim1 = fighter1.wu.get_current_animation_name()
 	
+	var base_id_0 = FightBaseActionMng.get_by_anim_name(anim0)
+	var base_id_1 = FightBaseActionMng.get_by_anim_name(anim1)
 	
+	var baseWuxueAction0 = BaseWuXueActionMng.get_by_wuxue_and_action(fighter0.wu.chosed_wuxue,  base_id_0.id) as BaseWuxueAction
+	var baseWuxueAction1 = BaseWuXueActionMng.get_by_wuxue_and_action(fighter1.wu.chosed_wuxue,  base_id_1.id) as BaseWuxueAction
+	if otherWuxue.is_class(get_class()):
+		SwordCourt.sword_sword(fighter0,fighter1,baseWuxueAction0.action_force_type,baseWuxueAction1.action_force_type)
+	elif otherWuxue is Fist:
+		SwordCourt.sword_fist(fighter0,fighter1,baseWuxueAction0.action_force_type,baseWuxueAction1.action_force_type)
+	pass
+
+#战斗裁决--剑
+class SwordCourt:
+	extends FightCourt
 	
+	static func sword_sword(fighter0:FightComponent_human,fighter1:FightComponent_human,action_force_type0,action_force_type1):
+		
+		normal_judge(fighter0,fighter1,action_force_type0,action_force_type1)
+		
+		pass
+		
+	static func sword_fist(fighter0:FightComponent_human,fighter1:FightComponent_human,action_force_type0,action_force_type1):
+		
+		normal_judge(fighter0,fighter1,action_force_type0,action_force_type1)
+		pass
+	
+		

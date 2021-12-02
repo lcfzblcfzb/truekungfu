@@ -134,6 +134,8 @@ func _on_weaponBox_area_entered(area):
 		pass
 	elif area is WeaponBox:
 		
+		var otherfighter =area.fight_cpn as FightComponent_human
+		wu.wuxue.against_wuxue(otherfighter.wu.wuxue)
 		pass
 	pass # Replace with function body.
 
@@ -141,6 +143,7 @@ func _on_weaponBox_area_entered(area):
 func _on_hurtbox_area_entered(area):
 	
 	if area is WeaponBox:
+		isDead  = true
 		test_dead_motion()
 		pass
 	pass # Replace with function body.

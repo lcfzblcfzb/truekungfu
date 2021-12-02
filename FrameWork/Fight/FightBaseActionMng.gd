@@ -23,14 +23,10 @@ func get_by_base_id(base_id):
 
 func get_by_anim_name(anim)->String:
 	
-	for item in dict:
-		
+	for i in dict:
+		var item = dict.get(i)
 		if item.animation_name ==anim:
 			return item
-		
-		pass
-		
-	
 	
 	return ""
 
