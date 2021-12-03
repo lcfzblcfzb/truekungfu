@@ -38,9 +38,12 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 1 )
+position = Vector2( -10.4594, 20.0767 )
 texture = ExtResource( 1 )
+offset = Vector2( 11.7193, -17.5568 )
+flip_h = true
 hframes = 137
-frame = 20
+frame = 52
 
 [node name="weapon" type="Sprite" parent="."]
 
@@ -48,12 +51,14 @@ frame = 20
 anims/stunned = SubResource( 109 )
 
 [node name="hurtbox" parent="." instance=ExtResource( 5 )]
+position = Vector2( 13.5134, 7.88988 )
+scale = Vector2( -1, 1 )
 
 [node name="CollisionShape2D" parent="hurtbox" index="0"]
-position = Vector2( -12, 0 )
 shape = SubResource( 108 )
 
 [node name="weaponBox" parent="." instance=ExtResource( 4 )]
+position = Vector2( 2.51985, 2.83482 )
 
 [node name="CollisionShape2D" parent="weaponBox" index="0"]
 position = Vector2( -4.75684, -2.22976 )

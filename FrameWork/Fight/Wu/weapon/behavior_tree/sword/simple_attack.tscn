@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/Do_Attack.gd" type="Script" id=1]
+[ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=2]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/decorators/bt_repeat_until.gd" type="Script" id=3]
+
+[node name="Do_Attack" type="Node"]
+script = ExtResource( 2 )
+
+[node name="BTRepeatUntil" type="Node" parent="."]
+script = ExtResource( 3 )
+until_what = 1
+frequency = 0.5
+
+[node name="Do_Attack" type="Node" parent="BTRepeatUntil"]
+script = ExtResource( 1 )

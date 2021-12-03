@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=1]
 [ext_resource path="res://texture/animation/demo_motion_fist-Sheet.png" type="Texture" id=2]
@@ -8,10 +8,12 @@
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=6]
 [ext_resource path="res://FrameWork/Fight/FightKinematicMovableObj.tscn" type="PackedScene" id=7]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
+[ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=9]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/Sword.gd" type="Script" id=10]
 [ext_resource path="res://FightAnimationPlayer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://FrameWork/Fight/Wu/Wu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FrameWork/Fight/Fight_Animation_Tree_Root.tres" type="AnimationNodeBlendTree" id=13]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/SwordTree.tscn" type="PackedScene" id=14]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.27545
@@ -125,7 +127,6 @@ visible = false
 script = ExtResource( 10 )
 
 [node name="sword_animation" parent="Wu/debug_wuxue" instance=ExtResource( 3 )]
-root_node = NodePath("../../../SpriteAnimation")
 
 [node name="AnimationTree" type="AnimationTree" parent="Wu/debug_wuxue"]
 tree_root = ExtResource( 13 )
@@ -143,6 +144,12 @@ parameters/sm2/StateMachine/StateMachine/conditions/is_holding = false
 parameters/sm2/mix/playback = SubResource( 57 )
 parameters/sm2/mix/conditions/is_holding = false
 script = ExtResource( 6 )
+
+[node name="SwordBehaviorTree" parent="Wu/debug_wuxue" instance=ExtResource( 14 )]
+_blackboard = NodePath("../Blackboard")
+
+[node name="Blackboard" type="Node" parent="Wu/debug_wuxue"]
+script = ExtResource( 9 )
 
 [node name="Tween" type="Tween" parent="."]
 
