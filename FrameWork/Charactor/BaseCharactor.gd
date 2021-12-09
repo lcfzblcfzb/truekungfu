@@ -19,3 +19,8 @@ func _physics_process(delta):
 
 func _ready():
 	CharactorMng.campDict[camp].append(self)
+	connect("tree_exiting",self,"_on_dead")
+
+#角色移除出场景的时候触发
+func _on_dead():
+	CharactorMng.remove_from_list(self)

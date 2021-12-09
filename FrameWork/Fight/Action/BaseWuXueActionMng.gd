@@ -1,4 +1,4 @@
-extends Object
+extends Node
 
 var dict={}
 
@@ -24,7 +24,14 @@ func get_by_base_id(base_id):
 	return dict.get(base_id)
 
 #TODO 
-func find_by_wuxue_and_forcetype(wuxue,forceType):
+func get_by_wuxue_and_action(wuxue,actionId)->BaseWuxueAction:
 	
+	var baseWuxueAction = BaseWuxueAction.new()
 	
+	baseWuxueAction.id=0;
+	baseWuxueAction.base_duration=0.3
+	baseWuxueAction.action_force_type =Tool.RandomTool.get_random([BaseWuXue.ActionForceType.CI,BaseWuXue.ActionForceType.GE,BaseWuXue.ActionForceType.LIAO,BaseWuXue.ActionForceType.SAO])
+	baseWuxueAction.base_action_id = actionId
+	baseWuxueAction.wuxue_id = wuxue
+	return baseWuxueAction
 	pass

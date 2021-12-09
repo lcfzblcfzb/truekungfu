@@ -1,7 +1,7 @@
 class_name BaseWuXue
 extends Node2D
 
-var fight_cpn:FightComponent_human
+var fight_cpn
 
 var animation_player:AnimationPlayer
 var animation_tree:AnimationTree
@@ -21,6 +21,12 @@ enum ActionForceType{
 	LIAO,	#撩
 }
 
+#virtual method
+# 用来获得对应的wuxue_type
+static func get_wuxue_type()->int:
+	push_warning("get_wuxue_type is virtual .need to be implemented")
+	return -1
+	pass
 
 #virtual 
 func on_action_event(event:NewActionEvent):
@@ -97,3 +103,9 @@ func _create_group_actions(action_dict:Dictionary):
 			result.append(act)
 		pass	
 	return result
+
+#virtual method
+#在两者武器发生碰撞的时刻调用
+#判定命中后的情况并且施加对应的惩罚或者奖励
+func against_wuxue(otherWuxue:BaseWuXue):
+	push_warning("against_wuxue is virtual. need to be implemented")

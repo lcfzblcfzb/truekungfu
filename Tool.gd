@@ -349,3 +349,12 @@ func _map_action2animation(action)->String:
 		
 	return ''
 	pass
+
+
+class RandomTool:
+	
+	static func get_random(list:Array):
+		var rand_num = floor(rand_range(0,list.size()))
+		return list[rand_num]		
+	
+	

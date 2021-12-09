@@ -115,7 +115,7 @@ shape = SubResource( 5 )
 position = Vector2( 365.257, 160.822 )
 
 [node name="MartialNpc" parent="." instance=ExtResource( 11 )]
-position = Vector2( 104.652, 133.644 )
+position = Vector2( 152.735, 161.928 )
 
 [node name="MainPlayer" parent="." instance=ExtResource( 3 )]
 
