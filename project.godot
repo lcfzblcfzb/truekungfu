@@ -184,7 +184,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/FightCpn_human.gd"
 }, {
-"base": "KinematicMovableObj",
+"base": "KinematicPlatformMovableObj",
 "class": "FightKinematicMovableObj",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/FightKinematicMovableObj.gd"
@@ -208,6 +208,11 @@ _global_script_classes=[ {
 "class": "KinematicMovableObj",
 "language": "GDScript",
 "path": "res://FrameWork/KinematicMovableObj.gd"
+}, {
+"base": "Node2D",
+"class": "KinematicPlatformMovableObj",
+"language": "GDScript",
+"path": "res://FrameWork/KnidematicPlatformMovableObj.gd"
 }, {
 "base": "BaseFightEvent",
 "class": "MoveEvent",
@@ -290,6 +295,7 @@ _global_script_class_icons={
 "Fist": "",
 "HurtBox": "",
 "KinematicMovableObj": "",
+"KinematicPlatformMovableObj": "",
 "MoveEvent": "",
 "NewActionEvent": "",
 "NpcOf2Direction": "",

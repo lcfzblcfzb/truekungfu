@@ -51,6 +51,7 @@ __meta__ = {
 "_edit_horizontal_guides_": [ 205.209, 141.586 ],
 "_edit_vertical_guides_": [ 201.675 ]
 }
+speed = null
 is_player = true
 
 [node name="FightKinematicMovableObj" parent="." instance=ExtResource( 7 )]

@@ -73,6 +73,9 @@ collision_layer = 2
 collision_mask = 8
 monitoring = false
 
+[node name="Wu" parent="FIghtComponnet_Human" index="7"]
+chosed_wuxue = 1
+
 [node name="AnimationTree" parent="FIghtComponnet_Human/Wu/debug_wuxue" index="1"]
 parameters/sm/playback = SubResource( 4 )
 parameters/sm2/playback = SubResource( 5 )
@@ -92,6 +95,9 @@ collision_layer = 8
 [node name="weaponBox" parent="FIghtComponnet_Human2/SpriteAnimation" index="4"]
 collision_layer = 4
 collision_mask = 2
+
+[node name="Wu" parent="FIghtComponnet_Human2" index="7"]
+chosed_wuxue = 1
 
 [node name="AnimationTree" parent="FIghtComponnet_Human2/Wu/debug_wuxue" index="1"]
 parameters/sm/playback = SubResource( 10 )

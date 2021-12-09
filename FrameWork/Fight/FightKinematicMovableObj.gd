@@ -1,6 +1,6 @@
 class_name FightKinematicMovableObj
 
-extends KinematicMovableObj
+extends KinematicPlatformMovableObj
 
 
 signal State_Changed
