@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://FrameWork/Tool/StandarCharactorTextureReplaceTool.gd" type="Script" id=1]
 [ext_resource path="res://resource/standar_charactor/daoshi/right_foot.tres" type="Texture" id=2]
@@ -17,6 +17,12 @@
 [ext_resource path="res://resource/standar_charactor/daoshi/right_fore_arm.tres" type="Texture" id=15]
 [ext_resource path="res://resource/standar_charactor/daoshi/right_shank.tres" type="Texture" id=16]
 
+[sub_resource type="Animation" id=1]
+resource_name = "idle"
+
+[sub_resource type="Animation" id=2]
+resource_name = "walk"
+
 [node name="hip" type="Sprite"]
 show_behind_parent = true
 position = Vector2( 2, 3 )
@@ -29,7 +35,7 @@ __meta__ = {
 "_edit_ik_": true,
 "_editor_description_": ""
 }
-texture_folder = "D:/GodotProj/resource/standar_charactor/daoshi"
+texture_folder = "D:/GodotProj/kungfu/resource/standar_charactor/daoshi"
 
 [node name="left_thigh" type="Sprite" parent="."]
 position = Vector2( 1, -2 )
@@ -175,3 +181,7 @@ offset = Vector2( -5, -13 )
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/idle = SubResource( 1 )
+anims/walk = SubResource( 2 )

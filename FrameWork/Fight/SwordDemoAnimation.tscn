@@ -38,8 +38,10 @@ height = 13.3218
 script = ExtResource( 2 )
 
 [node name="hip" parent="." instance=ExtResource( 7 )]
+position = Vector2( 3, 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 material = SubResource( 1 )
 position = Vector2( -10.4594, 20.0767 )
 texture = ExtResource( 1 )
@@ -68,5 +70,6 @@ position = Vector2( -4.75684, -2.22976 )
 rotation = 1.28988
 shape = SubResource( 107 )
 
+[editable path="hip"]
 [editable path="hurtbox"]
 [editable path="weaponBox"]

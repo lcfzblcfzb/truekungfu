@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=1]
 [ext_resource path="res://resource/texture/animation/demo_motion_fist-Sheet.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://FrameWork/Fight/Wu/Wu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FrameWork/Fight/Fight_Animation_Tree_Root.tres" type="AnimationNodeBlendTree" id=13]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/SwordTree.tscn" type="PackedScene" id=14]
+[ext_resource path="res://resource/standar_charactor/daoshi/hip.tres" type="Texture" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.27545
@@ -94,6 +95,7 @@ fight_component_path = NodePath("..")
 
 [node name="hip" parent="SpriteAnimation" index="0"]
 position = Vector2( -4.90446, 7.78859 )
+texture = ExtResource( 15 )
 
 [node name="Sprite" parent="SpriteAnimation" index="1"]
 texture = ExtResource( 2 )
