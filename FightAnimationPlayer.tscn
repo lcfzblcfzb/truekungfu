@@ -1,6 +1,5 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=43 format=2]
 
-[ext_resource path="res://Fight.tres" type="Animation" id=1]
 [ext_resource path="res://FightAnimationPlayer.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=3]
@@ -1071,7 +1070,6 @@ tracks/1/keys = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer"]
-anims/a_b_after = ExtResource( 1 )
 anims/a_b_in = SubResource( 3 )
 anims/a_b_pre = SubResource( 4 )
 anims/a_m_after = SubResource( 5 )

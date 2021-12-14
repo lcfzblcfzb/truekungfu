@@ -10,11 +10,6 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
-"class": "AI",
-"language": "GDScript",
-"path": "res://enermy/MartialAI.gd"
-}, {
-"base": "Node2D",
 "class": "AIDetector",
 "language": "GDScript",
 "path": "res://FrameWork/AI/AIDetector.gd"
@@ -28,11 +23,6 @@ _global_script_classes=[ {
 "class": "ActionInfo",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Action/ActionInfo.gd"
-}, {
-"base": "KinematicMovableObj",
-"class": "AggresiveCharactor",
-"language": "GDScript",
-"path": "res://FrameWork/AggresiveCharactror.gd"
 }, {
 "base": "BaseFightActionController",
 "class": "AiFightGestureController",
@@ -164,10 +154,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/behavior_tree/src/blackboard.gd"
 }, {
-"base": "AggresiveCharactor",
+"base": "Reference",
 "class": "ControlableMovingObj",
 "language": "GDScript",
-"path": "res://FrameWork/ControlableMovingObj.gd"
+"path": "res://FrameWork/moving_obj/ControlableMovingObj.gd"
 }, {
 "base": "BaseFightActionController",
 "class": "FightActionController",
@@ -212,12 +202,12 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "KinematicMovableObj",
 "language": "GDScript",
-"path": "res://FrameWork/KinematicMovableObj.gd"
+"path": "res://FrameWork/moving_obj/KinematicMovableObj.gd"
 }, {
 "base": "Node2D",
 "class": "KinematicPlatformMovableObj",
 "language": "GDScript",
-"path": "res://FrameWork/KnidematicPlatformMovableObj.gd"
+"path": "res://FrameWork/moving_obj/KnidematicPlatformMovableObj.gd"
 }, {
 "base": "BaseFightEvent",
 "class": "MoveEvent",
@@ -260,11 +250,9 @@ _global_script_classes=[ {
 "path": "res://FrameWork/Fight/Wu/weapon/WuxueMng.gd"
 } ]
 _global_script_class_icons={
-"AI": "",
 "AIDetector": "",
 "AIEvent": "",
 "ActionInfo": "",
-"AggresiveCharactor": "",
 "AiFightGestureController": "",
 "BTAlways": "res://addons/behavior_tree/icons/btalways.svg",
 "BTComposite": "res://addons/behavior_tree/icons/btcomposite.svg",
@@ -315,7 +303,7 @@ _global_script_class_icons={
 [application]
 
 config/name="锦衣卫"
-run/main_scene="res://scene/DungeonDemo.tscn"
+run/main_scene="res://resource/scene/DungeonDemo.tscn"
 
 [autoload]
 
@@ -330,7 +318,7 @@ window/stretch/mode="2d"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/Trail/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/sprite_trail/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/AtlasTextureCreator/plugin.cfg", "res://addons/Trail/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/sprite_trail/plugin.cfg" )
 
 [global]
 
