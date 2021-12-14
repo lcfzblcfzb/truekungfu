@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=1]
-[ext_resource path="res://texture/animation/demo_motion_fist-Sheet.png" type="Texture" id=2]
+[ext_resource path="res://resource/texture/animation/demo_motion_fist-Sheet.png" type="Texture" id=2]
 [ext_resource path="res://SwordDemoAnimationPlayer2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/Action/FightActionMng.tscn" type="PackedScene" id=5]
@@ -53,7 +53,6 @@ __meta__ = {
 "_edit_horizontal_guides_": [ 205.209, 141.586 ],
 "_edit_vertical_guides_": [ 201.675 ]
 }
-speed = null
 is_player = true
 
 [node name="FightKinematicMovableObj" parent="." instance=ExtResource( 7 )]
@@ -93,7 +92,10 @@ __meta__ = {
 [node name="SpriteAnimation" parent="." instance=ExtResource( 8 )]
 fight_component_path = NodePath("..")
 
-[node name="Sprite" parent="SpriteAnimation" index="0"]
+[node name="hip" parent="SpriteAnimation" index="0"]
+position = Vector2( -4.90446, 7.78859 )
+
+[node name="Sprite" parent="SpriteAnimation" index="1"]
 texture = ExtResource( 2 )
 frame = 12
 
@@ -107,14 +109,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SwordDemoAnimationPlayer" parent="SpriteAnimation" index="2"]
+[node name="SwordDemoAnimationPlayer" parent="SpriteAnimation" index="3"]
 anims/RESET = SubResource( 51 )
 
-[node name="hurtbox" parent="SpriteAnimation" index="3"]
+[node name="hurtbox" parent="SpriteAnimation" index="4"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="weaponBox" parent="SpriteAnimation" index="4"]
+[node name="weaponBox" parent="SpriteAnimation" index="5"]
 collision_layer = 0
 collision_mask = 0
 
