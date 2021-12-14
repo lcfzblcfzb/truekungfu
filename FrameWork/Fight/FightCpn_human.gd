@@ -2,9 +2,7 @@ extends BaseCharactor
 
 class_name FightComponent_human
 
-
 var hp;
-
 
 onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicMovableObj
 #接口

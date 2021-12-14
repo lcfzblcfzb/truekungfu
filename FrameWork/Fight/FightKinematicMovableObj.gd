@@ -39,32 +39,32 @@ func changeState(s):
 		match s:
 			ActionState.Idle:
 				isMoving = true
-				acceleration = IDLE_ACC
+				h_acceleration = IDLE_ACC
 				velocityToward = 0
 				pass
 			ActionState.Walk:
 				isMoving = true
-				acceleration = WALK_ACC
+				h_acceleration = WALK_ACC
 				velocityToward = WALK_VELOCITY
 				pass
 			ActionState.Run:
 				isMoving = true
-				acceleration = RUN_ACC
+				h_acceleration = RUN_ACC
 				velocityToward = RUN_VELOCTIY
 				pass
 			ActionState.Run2Idle:
 				isMoving = true
-				acceleration = RUN_2_IDLE_ACC
+				h_acceleration = RUN_2_IDLE_ACC
 				velocityToward = RUN_2_IDLE_VELOCITY
 				pass
 			ActionState.Idle2Run:
 				isMoving = true
-				acceleration = IDLE_2_RUN_ACC
+				h_acceleration = IDLE_2_RUN_ACC
 				velocityToward = IDLE_2_RUN_VELOCITY
 				pass
 			ActionState.Attack:
 				isMoving = true
-				acceleration = ATTACK_ACC
+				h_acceleration = ATTACK_ACC
 				velocityToward = ATTACK_VELOCITY
 				pass
 			ActionState.Stop:

@@ -12,9 +12,14 @@ func _ready():
 func casacade_set_texture(node:Sprite):
 	var fn = texture_folder+"/"+node.name+".tres"
 	node.texture = load(fn)
-		
+	
 	for child in node.get_children():
-		casacade_set_texture(child)
+		if child is Sprite:
+			var cc = child
+			print(cc)
+			casacade_set_texture(child)
+		else:
+			continue
 	pass
 
 func cascade_set_null(node:Sprite):

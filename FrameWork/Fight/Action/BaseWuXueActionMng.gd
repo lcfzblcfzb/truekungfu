@@ -1,3 +1,4 @@
+class_name BaseWuXueActionMng
 extends Node
 
 var dict={}
@@ -24,7 +25,7 @@ func get_by_base_id(base_id):
 	return dict.get(base_id)
 
 #TODO 
-func get_by_wuxue_and_action(wuxue,actionId)->BaseWuxueAction:
+static func get_by_wuxue_and_action(wuxue,actionId)->BaseWuxueAction:
 	
 	var baseWuxueAction = BaseWuxueAction.new()
 	

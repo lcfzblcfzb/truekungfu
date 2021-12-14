@@ -1,6 +1,5 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=1]
 [ext_resource path="res://resource/texture/animation/demo_motion_fist-Sheet.png" type="Texture" id=2]
 [ext_resource path="res://SwordDemoAnimationPlayer2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=4]
@@ -14,7 +13,6 @@
 [ext_resource path="res://FrameWork/Fight/Wu/Wu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FrameWork/Fight/Fight_Animation_Tree_Root.tres" type="AnimationNodeBlendTree" id=13]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/SwordTree.tscn" type="PackedScene" id=14]
-[ext_resource path="res://resource/standar_charactor/daoshi/hip.tres" type="Texture" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.27545
@@ -69,10 +67,6 @@ position = Vector2( -0.111359, 15.0897 )
 rotation = 1.57079
 shape = SubResource( 1 )
 
-[node name="StateController" type="Node2D" parent="."]
-script = ExtResource( 1 )
-cfg_path = "res://config/Sword_Cfg.tres"
-
 [node name="AnimationPlayer" parent="." instance=ExtResource( 11 )]
 
 [node name="TextEdit" type="TextEdit" parent="."]
@@ -81,7 +75,7 @@ margin_left = -33.9874
 margin_top = 7.9127
 margin_right = 126.013
 margin_bottom = 67.9127
-rect_rotation = 180.0
+text = "a_b_in"
 context_menu_enabled = false
 shortcut_keys_enabled = false
 virtual_keyboard_enabled = false
@@ -95,7 +89,49 @@ fight_component_path = NodePath("..")
 
 [node name="hip" parent="SpriteAnimation" index="0"]
 position = Vector2( -4.90446, 7.78859 )
-texture = ExtResource( 15 )
+texture = null
+
+[node name="left_thigh" parent="SpriteAnimation/hip" index="0"]
+texture = null
+
+[node name="left_shank" parent="SpriteAnimation/hip/left_thigh" index="0"]
+texture = null
+
+[node name="left_foot" parent="SpriteAnimation/hip/left_thigh/left_shank" index="0"]
+texture = null
+
+[node name="right_thigh" parent="SpriteAnimation/hip" index="1"]
+texture = null
+
+[node name="right_shank" parent="SpriteAnimation/hip/right_thigh" index="0"]
+texture = null
+
+[node name="right_foot" parent="SpriteAnimation/hip/right_thigh/right_shank" index="0"]
+texture = null
+
+[node name="body" parent="SpriteAnimation/hip" index="2"]
+texture = null
+
+[node name="left_upper_arm" parent="SpriteAnimation/hip/body" index="0"]
+texture = null
+
+[node name="left_fore_arm" parent="SpriteAnimation/hip/body/left_upper_arm" index="0"]
+texture = null
+
+[node name="left_hand" parent="SpriteAnimation/hip/body/left_upper_arm/left_fore_arm" index="0"]
+texture = null
+
+[node name="right_upper_arm" parent="SpriteAnimation/hip/body" index="1"]
+texture = null
+
+[node name="right_fore_arm" parent="SpriteAnimation/hip/body/right_upper_arm" index="0"]
+texture = null
+
+[node name="right_hand" parent="SpriteAnimation/hip/body/right_upper_arm/right_fore_arm" index="0"]
+texture = null
+
+[node name="head" parent="SpriteAnimation/hip/body" index="2"]
+texture = null
 
 [node name="Sprite" parent="SpriteAnimation" index="1"]
 texture = ExtResource( 2 )
@@ -166,6 +202,7 @@ script = ExtResource( 9 )
 [connection signal="ActionStart" from="FightActionMng" to="FightKinematicMovableObj" method="_on_FightActionMng_ActionStart"]
 
 [editable path="SpriteAnimation"]
+[editable path="SpriteAnimation/hip"]
 [editable path="SpriteAnimation/hurtbox"]
 [editable path="SpriteAnimation/weaponBox"]
 [editable path="Wu"]

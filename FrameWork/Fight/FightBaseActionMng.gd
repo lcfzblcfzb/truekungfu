@@ -5,7 +5,7 @@ func _ready():
 	load_from_file()
 
 func load_from_file():
-	var base_action_array = Tool.load_json_file("res://config/BaseAction.tres")
+	var base_action_array = Tool.load_json_file("res://resource/config/BaseAction.tres")
 	
 	if base_action_array!=null:
 		for action in base_action_array:

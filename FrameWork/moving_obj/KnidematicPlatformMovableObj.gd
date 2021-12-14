@@ -6,7 +6,7 @@ signal FaceDirectionChanged
 #状态
 var isMoving = false
 #加速度
-export var ACC = 800
+export var H_ACC = 800
 #摩擦力
 export var FRICTION = 500
 #最大速度
@@ -18,13 +18,14 @@ export var MAX_SPEED_ATTACK = 50
 onready var gravity = ProjectSettings.get("physics/2d/default_gravity")
 
 const FLOOR_NORMAL = Vector2.UP
-
+# 像素与 m 的比例：25像素=1米
+const PIX_METER_RATE = 25
 #速度变化上限 的上限;
 # 由于目标对象的速度
 #var velocityTowardLimit = MAX_SPEED
 
 #当前加速度值（加速度-阻力）
-var acceleration = ACC
+var h_acceleration = H_ACC
 
 #速度-》移动对象的一个固有速度。通常由移动对象状态变化设置：如快速移动下的速度；或者被减速后的速度；
 var velocityToward =0 setget setVelocityToward
@@ -36,12 +37,20 @@ func setVelocityToward(v):
 #这个私有变量就是实际计算时候的速度。
 var velocity_value =0  setget ,getVelocityValue
 
+#最终用于计算的加速度
+var _final_acc :Vector2
+
 func getVelocityValue():
 	
 	if isMoving:
 		return velocityToward
 	else:
 		return 0
+
+#运动对象的质量/ kg
+func get_mass():
+	return 60
+	pass
 
 #移动体对象
 var body:KinematicBody2D
@@ -108,11 +117,15 @@ func player_idle(delta):
 func _movePlayer(delta):
 #	if(velocityToward>velocityTowardLimit):
 #		velocityToward = velocityTowardLimit
-	velocity =velocity.move_toward(faceDirection* self.velocity_value, acceleration *delta) ;
-	if not body.is_on_floor():
-		velocity.y += gravity 
+	
+	if  body.is_on_floor():
+		_final_acc.x = h_acceleration
+		_final_acc.y = 0
 	else:
-		velocity.y = 0
+		_final_acc.y += (gravity  ) 
+	
+	velocity = faceDirection * self.velocity_value + _final_acc *delta
+	
 	body.move_and_slide(velocity,Vector2.UP)
 
 

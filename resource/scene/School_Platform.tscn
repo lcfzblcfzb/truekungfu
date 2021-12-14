@@ -1,7 +1,22 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://resource/texture/scene/four_color_resource-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resource/standar_charactor/daoshi/hip.tres" type="Texture" id=3]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_hand.tres" type="Texture" id=4]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_thigh.tres" type="Texture" id=5]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_upper_arm.tres" type="Texture" id=6]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_fore_arm.tres" type="Texture" id=7]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_fore_arm.tres" type="Texture" id=8]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_upper_arm.tres" type="Texture" id=9]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_foot.tres" type="Texture" id=10]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_hand.tres" type="Texture" id=11]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_shank.tres" type="Texture" id=12]
+[ext_resource path="res://resource/standar_charactor/daoshi/body.tres" type="Texture" id=13]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_thigh.tres" type="Texture" id=14]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_shank.tres" type="Texture" id=15]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_foot.tres" type="Texture" id=16]
+[ext_resource path="res://resource/standar_charactor/daoshi/head.tres" type="Texture" id=17]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -55,6 +70,52 @@ position = Vector2( 390.264, 497.455 )
 collision_layer = 32
 collision_mask = 16
 
+[node name="hip" parent="FIghtComponnet_Human/SpriteAnimation" index="0"]
+texture = ExtResource( 3 )
+texture_folder = "D:/GodotProj/resource/standar_charactor/daoshi"
+
+[node name="left_thigh" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="0"]
+texture = ExtResource( 5 )
+
+[node name="left_shank" parent="FIghtComponnet_Human/SpriteAnimation/hip/left_thigh" index="0"]
+texture = ExtResource( 15 )
+
+[node name="left_foot" parent="FIghtComponnet_Human/SpriteAnimation/hip/left_thigh/left_shank" index="0"]
+texture = ExtResource( 16 )
+
+[node name="right_thigh" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="1"]
+texture = ExtResource( 14 )
+
+[node name="right_shank" parent="FIghtComponnet_Human/SpriteAnimation/hip/right_thigh" index="0"]
+texture = ExtResource( 12 )
+
+[node name="right_foot" parent="FIghtComponnet_Human/SpriteAnimation/hip/right_thigh/right_shank" index="0"]
+texture = ExtResource( 10 )
+
+[node name="body" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="2"]
+texture = ExtResource( 13 )
+
+[node name="left_upper_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="0"]
+texture = ExtResource( 6 )
+
+[node name="left_fore_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/left_upper_arm" index="0"]
+texture = ExtResource( 7 )
+
+[node name="left_hand" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/left_upper_arm/left_fore_arm" index="0"]
+texture = ExtResource( 4 )
+
+[node name="right_upper_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="1"]
+texture = ExtResource( 9 )
+
+[node name="right_fore_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/right_upper_arm" index="0"]
+texture = ExtResource( 8 )
+
+[node name="right_hand" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/right_upper_arm/right_fore_arm" index="0"]
+texture = ExtResource( 11 )
+
+[node name="head" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="2"]
+texture = ExtResource( 17 )
+
 [node name="AnimationTree" parent="FIghtComponnet_Human/Wu/debug_wuxue" index="1"]
 parameters/sm/playback = SubResource( 1 )
 parameters/sm2/playback = SubResource( 2 )
@@ -68,6 +129,7 @@ current = true
 
 [editable path="FIghtComponnet_Human"]
 [editable path="FIghtComponnet_Human/SpriteAnimation"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/hip"]
 [editable path="FIghtComponnet_Human/SpriteAnimation/hurtbox"]
 [editable path="FIghtComponnet_Human/SpriteAnimation/weaponBox"]
 [editable path="FIghtComponnet_Human/Wu"]
