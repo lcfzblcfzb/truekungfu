@@ -62,8 +62,7 @@ RUN_2_IDLE_ACC = 30
 IDLE_2_RUN_ACC = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( -0.111359, 15.0897 )
+position = Vector2( -7.88965, 22.2373 )
 rotation = 1.57079
 shape = SubResource( 1 )
 

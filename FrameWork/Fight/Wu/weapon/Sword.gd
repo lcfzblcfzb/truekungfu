@@ -19,7 +19,7 @@ func _do_wu_motion(wu_motion,is_heavy):
 	match( wu_motion):
 		
 		Tool.WuMotion.Stunned:
-			var base = FightBaseActionMng.get_by_base_id(Tool.FightMotion.Stunned) as BaseAction
+			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Stunned) as BaseAction
 			fight_cpn.actionMng.regist_action(Tool.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
 		
@@ -112,18 +112,24 @@ func on_move_event(event:MoveEvent):
 	var wu_motion = Tool.WuMotion.Idle
 	if  !event.is_echo:
 		if input_vector != Vector2.ZERO:
-
-			var is_run = is_trigger_run(input_vector)
-
-			if is_run :
-				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Run,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+			
+			if input_vector.y !=0:
+				#do jump
+				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.JumpUp,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
 				action_mng.regist_actioninfo(action)
-#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
 			else:
+			
+				var is_run = is_trigger_run(input_vector)
 
-				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
-				action_mng.regist_actioninfo(action)
-#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
+				if is_run :
+					var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Run,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+					action_mng.regist_actioninfo(action)
+	#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
+				else:
+
+					var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+					action_mng.regist_actioninfo(action)
+	#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 		else:
 
 			var lastMotion =action_mng.action_array.back()
@@ -156,8 +162,8 @@ func against_wuxue(otherWuxue:BaseWuXue):
 	var anim0 = fighter0.wu.get_current_animation_name()
 	var anim1 = fighter1.wu.get_current_animation_name()
 	
-	var base_id_0 = FightBaseActionMng.get_by_anim_name(anim0)
-	var base_id_1 = FightBaseActionMng.get_by_anim_name(anim1)
+	var base_id_0 = FightBaseActionDataSource.get_by_anim_name(anim0)
+	var base_id_1 = FightBaseActionDataSource.get_by_anim_name(anim1)
 	
 	var baseWuxueAction0 = BaseWuXueActionMng.get_by_wuxue_and_action(fighter0.wu.chosed_wuxue,  base_id_0.id) as BaseWuxueAction
 	var baseWuxueAction1 = BaseWuXueActionMng.get_by_wuxue_and_action(fighter1.wu.chosed_wuxue,  base_id_1.id) as BaseWuxueAction

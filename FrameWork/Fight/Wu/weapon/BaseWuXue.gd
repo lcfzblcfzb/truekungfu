@@ -74,7 +74,7 @@ func _create_attack_action(action_list):
 	
 	for i in range(action_list.size()):
 		var k = action_list[i]
-		var base = FightBaseActionMng.get_by_base_id(k) as BaseAction
+		var base = FightBaseActionDataSource.get_by_base_id(k) as BaseAction
 		if i <2:
 			
 			param_dict[k]={create_time=OS.get_ticks_msec(),

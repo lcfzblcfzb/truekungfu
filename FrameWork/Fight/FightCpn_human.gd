@@ -20,8 +20,8 @@ var fight_controller :BaseFightActionController
 
 export (bool) var is_player =false;
 
-var player_controller_scene =preload("res://FrameWork/Fight/FightGestureController.tscn")
-var ai_controller_scene=preload("res://FrameWork/Fight/AiFightGestureController.gd")
+var player_controller_scene =preload("res://FrameWork/Fight/Controller/FightGestureController.tscn")
+var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
 
 func _ready():
 	
@@ -96,7 +96,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		push_error("actioninfo is null.")
 		return
 	
-	var base =FightBaseActionMng.get_by_base_id(action.base_action) as BaseAction
+	var base =FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
 	#动画播放时长
 	var time = base.duration
 	if time<=0 || time ==null:
@@ -108,7 +108,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	get_animation_tree().act(action,time)
 
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
-	var base =FightBaseActionMng.get_by_base_id(action.base_action) as BaseAction
+	var base =FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
 	#可以用type 来过滤
 	if "_in" in base.animation_name:
 		fightKinematicMovableObj.attackOver()

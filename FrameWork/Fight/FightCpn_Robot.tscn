@@ -1,7 +1,7 @@
 [gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://FrameWork/CollisionBox/WeaponBox.gd" type="Script" id=2]
-[ext_resource path="res://FrameWork/Fight/AiFightGestureController.gd" type="Script" id=3]
+[ext_resource path="res://FrameWork/Fight/Controller/AiFightGestureController.gd" type="Script" id=3]
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=5]
 [ext_resource path="res://FrameWork/Fight/FightAnimationTree.tscn" type="PackedScene" id=6]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]

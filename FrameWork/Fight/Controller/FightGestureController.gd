@@ -31,6 +31,15 @@ var defBotLimit = attackBotLimit+PI/3
 var defMidLimit = defBotLimit+PI/3
 var defUpLimit = defMidLimit+PI/3
 
+#记录方向按键的状态 up:10 down:01 left:10 right:01
+var _horizon_key_pressed  =0
+var _vertical_key_pressed =0
+
+#水平方向上最后按下的
+var _horizon_last_pressed = 0
+#垂直方向上最后按下的
+var _vetical_last_pressed =0
+
 #重攻击生效范围半径.
 var heavyAttackRadiusLimit = 5
 
@@ -105,7 +114,7 @@ func _create_attack_action(action_list):
 	
 	for i in range(action_list.size()):
 		var k = action_list[i]
-		var base = FightBaseActionMng.get_by_base_id(k) as BaseAction
+		var base = FightBaseActionDataSource.get_by_base_id(k) as BaseAction
 		if i <2:
 			
 			param_dict[k]={create_time=OS.get_ticks_msec(),
@@ -134,6 +143,41 @@ func _create_group_actions(action_dict:Dictionary):
 			result.append(act)
 		pass	
 	return result
+
+
+var _prv_input =null
+func _physics_process(delta):
+	
+	#根据按键重新构造input_vector
+	var input_vector = Vector2.ZERO;
+	
+	if  _vertical_key_pressed & 0b10 == 0b10:
+		input_vector.y = -1
+	elif  _vertical_key_pressed & 0b01 == 0b01:
+		input_vector.y =1
+	
+	if _horizon_key_pressed == 0b10:
+		input_vector.x = -1
+	elif _horizon_key_pressed == 0b01:
+		input_vector.x = 1
+	elif _horizon_key_pressed == 0b11:
+		if _horizon_last_pressed == 0b10:
+			input_vector.x = -1
+		elif _horizon_last_pressed == 0b01:
+			input_vector.x = 1
+	var is_echo =false
+	
+	if _prv_input!=null and _prv_input== input_vector:
+		is_echo = true
+		
+	if _prv_input!=null and _prv_input ==Vector2.ZERO and _prv_input== input_vector:
+			
+		pass
+	else:
+		var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,is_echo])	
+		emit_signal("NewFightMotion",newActionEvent)	
+		_prv_input = input_vector
+
 
 func _input(event):
 	
@@ -309,30 +353,59 @@ func _input(event):
 
 			var newActionEvent = Tool.getPollObject(NewActionEvent,[wu_motion,attack_begin_time,OS.get_ticks_msec()])
 			emit_signal("NewFightMotion",newActionEvent)
-			
-			
-	#移动
-	#超乱
-	#只有在非 攻击（ATTACK）状态下 才进行移动/ 奔跑切换
-	if event.is_action("ui_right")||event.is_action("ui_left")||event.is_action("ui_up")||event.is_action("ui_down"):
+	
+	
+	var is_action =event.is_action("ui_right")
+	#以上下左右的顺序 ，垂直方向上下对应用 10 和01  ；水平上左右对应用 10和01 表示
+	if event.is_action_pressed("up"):
+		_vertical_key_pressed =_vertical_key_pressed | 0b10
+	if event.is_action_pressed("down"):
+		_vertical_key_pressed =_vertical_key_pressed | 0b01
+	
+	if event.is_action_released("up") :
+		_vertical_key_pressed = _vertical_key_pressed & 0b00
+	elif event.is_action_released("down") :
+		_vertical_key_pressed = _vertical_key_pressed & 0b00
+	
+	if event.is_action_pressed("left"):
+		_horizon_key_pressed = _horizon_key_pressed | 0b10
+		_horizon_last_pressed = 0b10
+	elif event.is_action_pressed("right"):
+		_horizon_key_pressed = _horizon_key_pressed | 0b01
+		_horizon_last_pressed = 0b01
 		
-		var input_vector = Vector2.ZERO;
-		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left");
-		input_vector.y = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up");
+	if event.is_action_released("left") :
+		_horizon_key_pressed = _horizon_key_pressed & 0b01 
 		
-		input_vector =  input_vector.normalized()
-		
-		var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,event.is_echo()])
-		emit_signal("NewFightMotion",newActionEvent)	
-		
-		if event.is_action_pressed("cancel"):
+	elif event.is_action_released("right") :
+		_horizon_key_pressed = _horizon_key_pressed & 0b10 
+	
+	
+	if event.is_action_pressed("cancel"):
 
-			jisu.state = FightKinematicMovableObj.ActionState.Idle
-			hide_all()	
-			is_cancel = true	
-		#if jisu.state != FightKinematicMovableObj.ActionState.Attack:
-		#	jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Attack)
-		#	pass	
+		jisu.state = FightKinematicMovableObj.ActionState.Idle
+		hide_all()	
+		is_cancel = true	
+		#移动
+		#超乱
+		#只有在非 攻击（ATTACK）状态下 才进行移动/ 奔跑切换
+#		if event.is_action("ui_right")||event.is_action("ui_left")||event.is_action("ui_up")||event.is_action("ui_down"):
+			
+#			var input_vector = Vector2.ZERO;
+#			input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left");
+#			input_vector.y = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up");
+#
+#			input_vector =  input_vector.normalized()
+#			print(event.is_echo())
+#			var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,event.is_echo()])
+#			emit_signal("NewFightMotion",newActionEvent)	
+#
+#			if event.is_action_pressed("cancel"):
+#
+#				jisu.state = FightKinematicMovableObj.ActionState.Idle
+#				hide_all()	
+#				is_cancel = true	
+		
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
 		mouseMovingPos = event.global_position

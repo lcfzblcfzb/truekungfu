@@ -25,7 +25,7 @@ func on_action_event(event:NewActionEvent):
 	match( event.wu_motion):
 		
 		Tool.WuMotion.Stunned:
-			var base = FightBaseActionMng.get_by_base_id(Tool.FightMotion.Stunned) as BaseAction
+			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Stunned) as BaseAction
 			fight_cpn.actionMng.regist_action(Tool.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
 		
@@ -110,34 +110,42 @@ func on_move_event(event:MoveEvent):
 	var wu_motion = Tool.WuMotion.Idle
 	if  !event.is_echo:
 		if input_vector != Vector2.ZERO:
-
-			var is_run = is_trigger_run(input_vector)
-
-			if is_run :
-				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Run,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+			
+			if input_vector.y !=0:
+				#do jump
+				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.JumpUp,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
 				action_mng.regist_actioninfo(action)
-#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
 			else:
+			
+				var is_run = is_trigger_run(input_vector)
 
-				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
-				action_mng.regist_actioninfo(action)
-#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
+				if is_run :
+					var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Run,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+					action_mng.regist_actioninfo(action)
+	#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
+				else:
+
+					var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+					action_mng.regist_actioninfo(action)
+	#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 		else:
 
 			var lastMotion =action_mng.action_array.back()
 
-			if lastMotion.base_action != Tool.FightMotion.Run:
+			if lastMotion && lastMotion.base_action != Tool.FightMotion.Run:
 
 				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Idle,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
 				action_mng.regist_actioninfo(action)
 #				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
 	else:
-		var lastMotion =action_mng.action_array.back()
-		#这里是 攻击结束后，已经按下移动中的情况
-		if lastMotion.base_action ==Tool.FightMotion.Walk:
-
-			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
-			action_mng.regist_actioninfo(action)
+		
+		if action_mng.action_array.size()>0:
+		
+			var lastMotion =action_mng.action_array.back()
+			#这里是 攻击结束后，已经按下移动中的情况
+			if lastMotion && lastMotion.base_action != Tool.FightMotion.Run:
+				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+				action_mng.regist_actioninfo(action)
 			pass
 	pass
 	

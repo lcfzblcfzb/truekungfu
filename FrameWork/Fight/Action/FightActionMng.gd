@@ -46,7 +46,7 @@ func chek_execution_prority():
 		var back = action_array.back() as ActionInfo
 		#如果最后一个动作是INTERUPT 模式；
 		#则执行 抢占式操作,并将current_index 设置成此动作;
-		if back.execution_mod == ActionInfo.EXEMOD_INTERUPT || back.group_exe_mod ==ActionInfo.EXEMOD_INTERUPT:
+		if back.execution_mod == ActionInfo.EXEMOD_INTERUPT || back.group_exe_mod == ActionInfo.EXEMOD_INTERUPT:
 			if back !=_current_action:
 				_current_action.state = ActionInfo.STATE_INTERUPTED
 				emit_signal("ActionFinish",_current_action)
@@ -80,7 +80,7 @@ func debug_print():
 	var s =''
 	for i in n:
 		var a = action_array[-(i+1)] as ActionInfo
-		var baseAction =FightBaseActionMng.dict.get(a.base_action)
+		var baseAction =FightBaseActionDataSource.dict.get(a.base_action)
 		if a.state ==ActionInfo.STATE_ING:
 			s = s+"[current -> :" +baseAction.animation_name+"]"
 			pass

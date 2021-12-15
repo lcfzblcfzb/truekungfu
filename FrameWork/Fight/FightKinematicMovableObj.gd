@@ -15,7 +15,8 @@ enum ActionState{
 	Idle2Run,
 	Attack,
 	Stop,
-	
+	JumpUp,
+	JumpDown
 }
 
 var state = ActionState.Idle setget changeState
@@ -31,49 +32,86 @@ export(int, 0, 1000) var IDLE_2_RUN_ACC = 100
 export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100
 export(int, 0, 1000) var ATTACK_VELOCITY = 0
 export(int, 0, 1000) var ATTACK_ACC = 500
+export(int, 0, 1000) var JUMP_VELOCITY = 150
+
+
+func _ready():
+	#初始状态检测
+	#TODO 可以指定初始状态
+	if not body.is_on_floor():
+		self.state = ActionState.JumpDown
 
 func changeState(s):
 	
-	if(state!=ActionState.Attack && s!=state ):
+	if(state!=ActionState.Attack and s!=state ):
 		
 		match s:
 			ActionState.Idle:
 				isMoving = true
 				h_acceleration = IDLE_ACC
-				velocityToward = 0
+				h_velocityToward = 0
+				
+				v_acceleration = 0
+				v_velocityToward =0
+				self.faceDirection.y = 0
+				self.velocity.y = 0
 				pass
 			ActionState.Walk:
 				isMoving = true
 				h_acceleration = WALK_ACC
-				velocityToward = WALK_VELOCITY
+				h_velocityToward = WALK_VELOCITY
 				pass
 			ActionState.Run:
 				isMoving = true
 				h_acceleration = RUN_ACC
-				velocityToward = RUN_VELOCTIY
+				h_velocityToward = RUN_VELOCTIY
 				pass
 			ActionState.Run2Idle:
 				isMoving = true
 				h_acceleration = RUN_2_IDLE_ACC
-				velocityToward = RUN_2_IDLE_VELOCITY
+				h_velocityToward = RUN_2_IDLE_VELOCITY
 				pass
 			ActionState.Idle2Run:
 				isMoving = true
 				h_acceleration = IDLE_2_RUN_ACC
-				velocityToward = IDLE_2_RUN_VELOCITY
+				h_velocityToward = IDLE_2_RUN_VELOCITY
 				pass
 			ActionState.Attack:
 				isMoving = true
 				h_acceleration = ATTACK_ACC
-				velocityToward = ATTACK_VELOCITY
+				h_velocityToward = ATTACK_VELOCITY
 				pass
 			ActionState.Stop:
 				isMoving = false
+				
+			ActionState.JumpUp:
+				isMoving = true
+				v_acceleration = gravity
+				v_velocityToward = 0
+				velocity.y = -JUMP_VELOCITY
+				self.faceDirection.y = -1
+				
+			ActionState.JumpDown:
+				isMoving = true
+				v_acceleration = gravity
+				v_velocityToward = FREE_FALL_SPEED
+				self.faceDirection.y = 1
 				
 		print("  state change",s)
 		state =s	
 		emit_signal("State_Changed",s)
 	pass
+
+func _physics_process(delta):
+	#检测跳跃状态
+	if state==ActionState.JumpDown and body.is_on_floor():
+		self.state = ActionState.Idle
+		
+	if not body.is_on_floor() and self.state==ActionState.JumpUp:
+		#升至跳跃max,设置faceDirection 向下
+		self.state = ActionState.JumpDown
+	
+	
 #改变 movableobjstate
 func change_movable_state(input_vector,s):
 	self.charactor_face_direction = input_vector
@@ -113,12 +151,16 @@ func is_face_left():
 
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
+	#当前处于跳跃状态下，不接受其他动作
+	if state==ActionState.JumpUp or state==ActionState.JumpDown:
+		return
 	
 	var input_vector = Vector2.ZERO
 	
 	if action.param!=null && action.param.size()>0 && action.param[0] is Vector2:
 		input_vector = action.param[0]
 	print("in movable obj",input_vector)
+	
 	match(action.base_action):
 		Tool.FightMotion.Idle:
 			change_movable_state(input_vector,ActionState.Idle)
@@ -130,9 +172,11 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 			change_movable_state(input_vector,ActionState.Run2Idle)
 		Tool.FightMotion.Idle2Run:
 			change_movable_state(input_vector,ActionState.Idle2Run)
+		Tool.FightMotion.JumpUp:
+			change_movable_state(input_vector,ActionState.JumpUp)	
 		_:
 			
-			var baseObj = FightBaseActionMng.get_by_base_id(action.base_action) as BaseAction
+			var baseObj = FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
 			# 是攻击类型的type
 			#TODO 建立一个枚举 表示 action_type 方便理解
 			if 2 in baseObj.type:
