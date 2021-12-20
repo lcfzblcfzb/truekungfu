@@ -31,16 +31,26 @@
 [sub_resource type="AnimationNodeStateMachinePlayback" id=6]
 
 [node name="SchoolPlatform" type="Node2D"]
-position = Vector2( 137.489, 126.142 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -832.0 ],
+"_edit_vertical_guides_": [ -768.0, 768.0 ]
+}
 
-[node name="bg" type="Sprite" parent="."]
-position = Vector2( 768, 504 )
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0, 0 )
+
+[node name="bg" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, -4, 1536, 1007 )
 
-[node name="mountain_far" type="Sprite" parent="."]
-position = Vector2( 768, 304 )
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 5, 0 )
+motion_mirroring = Vector2( 1800, 0 )
+
+[node name="mountain_far" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 1536, 0, 1536, 605 )
@@ -66,9 +76,14 @@ position = Vector2( 6.51147, 9.8576 )
 polygon = PoolVector2Array( -8, 808, 1480, 808, 1546.12, 859.129, 1542.76, 1020.58, -4.49303, 1012.17 )
 
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
-position = Vector2( 390.264, 497.455 )
+position = Vector2( 424, 640 )
 collision_layer = 32
 collision_mask = 16
+
+[node name="FightKinematicMovableObj" parent="FIghtComponnet_Human" index="0"]
+WALK_VELOCITY = 200
+RUN_VELOCTIY = 300
+JUMP_VELOCITY = 250
 
 [node name="hip" parent="FIghtComponnet_Human/SpriteAnimation" index="0"]
 texture = ExtResource( 3 )

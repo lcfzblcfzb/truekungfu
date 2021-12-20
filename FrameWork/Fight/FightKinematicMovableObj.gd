@@ -107,9 +107,13 @@ func _physics_process(delta):
 	if state==ActionState.JumpDown and body.is_on_floor():
 		self.state = ActionState.Idle
 		
-	if not body.is_on_floor() and self.state==ActionState.JumpUp:
-		#升至跳跃max,设置faceDirection 向下
-		self.state = ActionState.JumpDown
+	if not body.is_on_floor() :
+		
+		if self.state==ActionState.JumpUp and velocity.y ==0:
+			#升至跳跃max,设置faceDirection 向下
+			self.state = ActionState.JumpDown
+		elif self.state!=ActionState.JumpDown:
+			self.state = ActionState.JumpDown
 	
 	
 #改变 movableobjstate

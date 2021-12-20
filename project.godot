@@ -432,7 +432,7 @@ right={
 
 common/enable_pause_aware_picking=true
 2d/physics_engine="GodotPhysics"
-2d/default_gravity=250
+2d/default_gravity=450
 
 [rendering]
 
