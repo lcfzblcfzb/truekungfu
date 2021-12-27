@@ -5,7 +5,7 @@
 [ext_resource path="res://FrameWork/Fight/StateController.gd" type="Script" id=5]
 [ext_resource path="res://FrameWork/Fight/FightAnimationTree.tscn" type="PackedScene" id=6]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
-[ext_resource path="res://FrameWork/Fight/FightKinematicMovableObj.tscn" type="PackedScene" id=10]
+[ext_resource path="res://FrameWork/moving_obj/FightKinematicMovableObj.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.27545

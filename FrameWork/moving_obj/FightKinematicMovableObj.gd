@@ -16,7 +16,8 @@ enum ActionState{
 	Attack,
 	Stop,
 	JumpUp,
-	JumpDown
+	JumpDown,
+	Climb
 }
 
 var state = ActionState.Idle setget changeState
@@ -32,8 +33,9 @@ export(int, 0, 1000) var IDLE_2_RUN_ACC = 100
 export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100
 export(int, 0, 1000) var ATTACK_VELOCITY = 0
 export(int, 0, 1000) var ATTACK_ACC = 500
-export(int, 0, 1000) var JUMP_VELOCITY = 150
-
+export(int, 0, 1000) var JUMP_VELOCITY = 300
+export(int, 0, 1000) var CLIMB_ACC = 500
+export(int, 0, 1000) var CLIMB_VELOCITY = 100
 
 func _ready():
 	#初始状态检测
@@ -96,7 +98,14 @@ func changeState(s):
 				v_acceleration = gravity
 				v_velocityToward = FREE_FALL_SPEED
 				self.faceDirection.y = 1
-				
+			
+			ActionState.Climb:
+				isMoving = true
+				v_acceleration =CLIMB_ACC
+				v_velocityToward=CLIMB_VELOCITY
+				h_acceleration =CLIMB_ACC
+				h_velocityToward=CLIMB_VELOCITY
+								
 		print("  state change",s)
 		state =s	
 		emit_signal("State_Changed",s)
@@ -104,17 +113,18 @@ func changeState(s):
 
 func _physics_process(delta):
 	#检测跳跃状态
-	if state==ActionState.JumpDown and body.is_on_floor():
+	if state==ActionState.JumpDown and body.is_on_genelized_floor():
 		self.state = ActionState.Idle
 		
-	if not body.is_on_floor() :
+	if not body.is_on_genelized_floor() :
 		
 		if self.state==ActionState.JumpUp and velocity.y ==0:
 			#升至跳跃max,设置faceDirection 向下
 			self.state = ActionState.JumpDown
-		elif self.state!=ActionState.JumpDown:
+		elif self.state!=ActionState.JumpDown and self.state!=ActionState.Climb:
 			self.state = ActionState.JumpDown
 	
+	print("is on floor", body.is_on_floor(),body.position.y)
 	
 #改变 movableobjstate
 func change_movable_state(input_vector,s):
@@ -165,7 +175,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		input_vector = action.param[0]
 	print("in movable obj",input_vector)
 	
-	match(action.base_action):
+	match(action.base_action): 
 		Tool.FightMotion.Idle:
 			change_movable_state(input_vector,ActionState.Idle)
 		Tool.FightMotion.Run:
@@ -178,6 +188,8 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 			change_movable_state(input_vector,ActionState.Idle2Run)
 		Tool.FightMotion.JumpUp:
 			change_movable_state(input_vector,ActionState.JumpUp)	
+		Tool.FightMotion.Climb:
+			change_movable_state(input_vector,ActionState.Climb)	
 		_:
 			
 			var baseObj = FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction

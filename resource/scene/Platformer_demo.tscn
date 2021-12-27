@@ -1,0 +1,130 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://resource/tiles/Platformer.tres" type="TileSet" id=1]
+[ext_resource path="res://FrameWork/Fight/FightCpn_human.tscn" type="PackedScene" id=2]
+[ext_resource path="res://FrameWork/Scene/Ladder.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_fore_arm.tres" type="Texture" id=4]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_upper_arm.tres" type="Texture" id=5]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_thigh.tres" type="Texture" id=6]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_fore_arm.tres" type="Texture" id=7]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_shank.tres" type="Texture" id=8]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_thigh.tres" type="Texture" id=9]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_foot.tres" type="Texture" id=10]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_upper_arm.tres" type="Texture" id=11]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_shank.tres" type="Texture" id=12]
+[ext_resource path="res://resource/standar_charactor/daoshi/head.tres" type="Texture" id=13]
+[ext_resource path="res://resource/standar_charactor/daoshi/hip.tres" type="Texture" id=14]
+[ext_resource path="res://resource/standar_charactor/daoshi/body.tres" type="Texture" id=15]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_hand.tres" type="Texture" id=16]
+[ext_resource path="res://resource/standar_charactor/daoshi/right_foot.tres" type="Texture" id=17]
+[ext_resource path="res://resource/standar_charactor/daoshi/left_hand.tres" type="Texture" id=18]
+[ext_resource path="res://FrameWork/Scene/Platform.tscn" type="PackedScene" id=19]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=3]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=4]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=5]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
+
+[node name="Platformer" type="Node2D"]
+
+[node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
+position = Vector2( 359, 387 )
+collision_layer = 32
+collision_mask = 16
+
+[node name="hip" parent="FIghtComponnet_Human/SpriteAnimation" index="0"]
+texture = ExtResource( 14 )
+texture_folder = "D:/GodotProj/resource/standar_charactor/daoshi"
+
+[node name="left_thigh" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="0"]
+texture = ExtResource( 6 )
+
+[node name="left_shank" parent="FIghtComponnet_Human/SpriteAnimation/hip/left_thigh" index="0"]
+texture = ExtResource( 8 )
+
+[node name="left_foot" parent="FIghtComponnet_Human/SpriteAnimation/hip/left_thigh/left_shank" index="0"]
+texture = ExtResource( 10 )
+
+[node name="right_thigh" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="1"]
+texture = ExtResource( 9 )
+
+[node name="right_shank" parent="FIghtComponnet_Human/SpriteAnimation/hip/right_thigh" index="0"]
+texture = ExtResource( 12 )
+
+[node name="right_foot" parent="FIghtComponnet_Human/SpriteAnimation/hip/right_thigh/right_shank" index="0"]
+texture = ExtResource( 17 )
+
+[node name="body" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="2"]
+texture = ExtResource( 15 )
+
+[node name="left_upper_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="0"]
+texture = ExtResource( 5 )
+
+[node name="left_fore_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/left_upper_arm" index="0"]
+texture = ExtResource( 7 )
+
+[node name="left_hand" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/left_upper_arm/left_fore_arm" index="0"]
+texture = ExtResource( 18 )
+
+[node name="right_upper_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="1"]
+texture = ExtResource( 11 )
+
+[node name="right_fore_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/right_upper_arm" index="0"]
+texture = ExtResource( 4 )
+
+[node name="right_hand" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/right_upper_arm/right_fore_arm" index="0"]
+texture = ExtResource( 16 )
+
+[node name="head" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="2"]
+texture = ExtResource( 13 )
+
+[node name="Wu" parent="FIghtComponnet_Human" index="6"]
+chosed_wuxue = 1
+
+[node name="AnimationTree" parent="FIghtComponnet_Human/Wu/debug_wuxue" index="1"]
+parameters/sm/playback = SubResource( 1 )
+parameters/sm2/playback = SubResource( 2 )
+parameters/sm2/StateMachine/playback = SubResource( 3 )
+parameters/sm2/StateMachine/StateMachine/playback = SubResource( 4 )
+"parameters/sm2/StateMachine 2/playback" = SubResource( 5 )
+parameters/sm2/mix/playback = SubResource( 6 )
+
+[node name="Ladder" parent="." instance=ExtResource( 3 )]
+position = Vector2( 660, 540 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 94 )
+collision_layer = 16
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 1, 0, 393221, 1, 0, 393222, 2, 0, 393223, 3, 0, 393224, 3, 0, 393225, 3, 0, 393226, 3, 0, 393227, 5, 0, 393228, 5, 0, 393229, 5, 0, 393230, 5, 0, 393231, 5, 0, 393232, 5, 0, 393233, 5, 0, 393234, 4, 0, 393235, 4, 0, 393236, 4, 0, 393237, 4, 0, 393238, 4, 0, 393239, 4, 0 )
+
+[node name="Platform" parent="." instance=ExtResource( 19 )]
+position = Vector2( 798, 511 )
+
+[node name="Area2D" parent="Platform" index="0"]
+collision_layer = 0
+collision_mask = 32
+input_pickable = false
+space_override = 0
+
+[node name="CollisionShape2D" parent="Platform/Area2D" index="0"]
+rotation = 3.14159
+one_way_collision = true
+
+[editable path="FIghtComponnet_Human"]
+[editable path="FIghtComponnet_Human/SpriteAnimation"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/hip"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/hurtbox"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/weaponBox"]
+[editable path="FIghtComponnet_Human/Wu"]
+[editable path="Ladder"]
+[editable path="Platform"]

@@ -81,11 +81,12 @@ func debug_print():
 	for i in n:
 		var a = action_array[-(i+1)] as ActionInfo
 		var baseAction =FightBaseActionDataSource.dict.get(a.base_action)
-		if a.state ==ActionInfo.STATE_ING:
-			s = s+"[current -> :" +baseAction.animation_name+"]"
-			pass
-		else:
-			s = s+"["+a.state as String +baseAction.animation_name+"]"
+		if baseAction:
+			if a.state ==ActionInfo.STATE_ING:
+				s = s+"[current -> :" +baseAction.animation_name+"]"
+				pass
+			else:
+				s = s+"["+a.state as String +baseAction.animation_name+"]"
 		pass
 	s=s+OS.get_ticks_msec() as String
 	print(s)

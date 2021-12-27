@@ -149,8 +149,24 @@ var _prv_input =null
 func _physics_process(delta):
 	
 	#根据按键重新构造input_vector
-	var input_vector = Vector2.ZERO;
+	var input_vector = _gen_input_vector_by_bincode()
+	var is_echo =false
 	
+	if _prv_input!=null and _prv_input== input_vector:
+		is_echo = true
+		
+	if _prv_input!=null and _prv_input ==Vector2.ZERO and _prv_input== input_vector:
+			
+		pass
+	else:
+		var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	
+		emit_signal("NewFightMotion",newActionEvent)	
+		_prv_input = input_vector
+
+#通过二进制生成input_vector
+func _gen_input_vector_by_bincode():
+	#根据按键重新构造input_vector
+	var input_vector = Vector2.ZERO;
 	if  _vertical_key_pressed & 0b10 == 0b10:
 		input_vector.y = -1
 	elif  _vertical_key_pressed & 0b01 == 0b01:
@@ -165,19 +181,9 @@ func _physics_process(delta):
 			input_vector.x = -1
 		elif _horizon_last_pressed == 0b01:
 			input_vector.x = 1
-	var is_echo =false
 	
-	if _prv_input!=null and _prv_input== input_vector:
-		is_echo = true
-		
-	if _prv_input!=null and _prv_input ==Vector2.ZERO and _prv_input== input_vector:
-			
-		pass
-	else:
-		var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,is_echo])	
-		emit_signal("NewFightMotion",newActionEvent)	
-		_prv_input = input_vector
-
+	return input_vector
+	
 
 func _input(event):
 	
@@ -354,8 +360,6 @@ func _input(event):
 			var newActionEvent = Tool.getPollObject(NewActionEvent,[wu_motion,attack_begin_time,OS.get_ticks_msec()])
 			emit_signal("NewFightMotion",newActionEvent)
 	
-	
-	var is_action =event.is_action("ui_right")
 	#以上下左右的顺序 ，垂直方向上下对应用 10 和01  ；水平上左右对应用 10和01 表示
 	if event.is_action_pressed("up"):
 		_vertical_key_pressed =_vertical_key_pressed | 0b10
@@ -380,6 +384,11 @@ func _input(event):
 	elif event.is_action_released("right") :
 		_horizon_key_pressed = _horizon_key_pressed & 0b10 
 	
+	if event.is_action_pressed("jump") :
+		var input_vector = _gen_input_vector_by_bincode()
+		var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,false,true])	
+		emit_signal("NewFightMotion",newActionEvent)	
+		
 	
 	if event.is_action_pressed("cancel"):
 

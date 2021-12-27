@@ -12,10 +12,6 @@ var isDead:bool;
 #func getSpeed():
 #	return speed
 
-func _physics_process(delta):
-	var f = is_on_floor()
-	var w = is_on_wall()
-
 
 func _ready():
 	CharactorMng.campDict[camp].append(self)

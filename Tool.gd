@@ -119,6 +119,7 @@ enum FightMotion{
 	Stunned =160,
 	JumpUp =161,
 	JumpDown =162,
+	Climb = 163
 	
 	Attack_Up_Pre=100,
 	Attack_Up_In=101,

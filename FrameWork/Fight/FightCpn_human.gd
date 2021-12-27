@@ -1,4 +1,4 @@
-extends BaseCharactor
+extends BasePlatformerCharactor
 
 class_name FightComponent_human
 
@@ -20,7 +20,7 @@ var fight_controller :BaseFightActionController
 
 export (bool) var is_player =false;
 
-var player_controller_scene =preload("res://FrameWork/Fight/Controller/FightGestureController.tscn")
+var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
 var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
 
 func _ready():
@@ -64,6 +64,9 @@ func _ready():
 #			break
 #	pass
 
+func get_velocity():
+	return fightKinematicMovableObj.velocity
+
 #是否进战斗了
 var is_engaged=false
 
@@ -97,6 +100,10 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		return
 	
 	var base =FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
+	
+	if base == null:
+		return
+	
 	#动画播放时长
 	var time = base.duration
 	if time<=0 || time ==null:
@@ -110,7 +117,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	var base =FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
 	#可以用type 来过滤
-	if "_in" in base.animation_name:
+	if base and "_in" in base.animation_name:
 		fightKinematicMovableObj.attackOver()
 		print("attack over time",OS.get_ticks_msec())
 		print("attack over",$SpriteAnimation/Sprite.frame)
