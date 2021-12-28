@@ -22,6 +22,12 @@ export (bool) var is_player =false;
 
 var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
 var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
+	
+#重载setter方法，在b= false 的时候，设置climb状态的结束
+func set_climbing(b):
+	.set_climbing(b)
+	if not b:
+		fightKinematicMovableObj.climb_over()
 
 func _ready():
 	

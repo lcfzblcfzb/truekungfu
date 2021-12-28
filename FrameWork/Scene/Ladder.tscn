@@ -4,7 +4,7 @@
 [ext_resource path="res://resource/texture/scene/shuimo_tiles-Sheet.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 22, 24 )
+extents = Vector2( 22, 115 )
 
 [node name="Ladder" type="Node2D"]
 

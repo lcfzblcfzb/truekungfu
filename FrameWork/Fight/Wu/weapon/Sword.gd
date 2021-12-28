@@ -113,9 +113,21 @@ func on_move_event(event:MoveEvent):
 	if  !event.is_echo:
 		
 		if event.is_jump:
-			#do jump
-			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.JumpUp,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
-			action_mng.regist_actioninfo(action)
+			
+			if fight_cpn.get("is_on_platform") ==true and input_vector.y>0:
+				
+				#jump down platform
+				fight_cpn.set("is_on_platform",false)
+				pass
+			
+			else:
+				#确保跳跃的时候可以控制方向
+				#如果只是平地起跳 input_vector=Vector2.ZERO的时候，也要保证 y=1；否则会被移动控制器忽略，使用上一个动作保存的方向
+				var vec = Vector2(input_vector.x,1)
+				#do jump up
+				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_GENEROUS,-1])
+				action_mng.regist_actioninfo(action)
+			
 		else:
 			if input_vector != Vector2.ZERO:
 				
@@ -151,7 +163,8 @@ func on_move_event(event:MoveEvent):
 	else:
 		var lastMotion =action_mng.action_array.back()
 		#这里是 攻击结束后，已经按下移动中的情况
-		if lastMotion and (lastMotion.base_action != Tool.FightMotion.Run):
+		#climb 是因为如果之前是climb ，而这里没有包括，则climb的动作会被walk替换
+		if lastMotion and (lastMotion.base_action != Tool.FightMotion.Run && lastMotion.base_action != Tool.FightMotion.Climb):
 
 			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,-1])
 			action_mng.regist_actioninfo(action)

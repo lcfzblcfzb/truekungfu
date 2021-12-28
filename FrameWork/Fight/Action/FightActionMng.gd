@@ -67,7 +67,6 @@ var actionPool = ObjPool.new(ActionInfo)
 # Deprecated
 func regist_action(a, duration=1, exemod=ActionInfo.EXEMOD_NEWEST,groupId =-1,param:Array=[] ):
 	#var action =ActionInfo.new(a,OS.get_ticks_msec(),param)
-	print("regist action",a)
 	var input_array = [a ,OS.get_ticks_msec(),param,duration*1000,exemod,groupId]
 	var action =actionPool.instance(input_array)
 
@@ -102,7 +101,7 @@ func regist_actioninfo(action:ActionInfo):
 
 	chek_execution_prority()
 	
-	debug_print()
+#	debug_print()
 	
 	return action
 
@@ -383,8 +382,8 @@ func _physics_process(delta):
 			_current_action.state = ActionInfo.STATE_ING
 			_current_action.action_begin_time = OS.get_ticks_msec()
 			_current_action.action_pass_time =0
-			print("action start....")
-			debug_print()
+			print("action start....",_current_action.base_action)
+#			debug_print()
 			emit_signal("ActionStart",_current_action)
 		elif _current_action.state ==ActionInfo.STATE_ING :
 
@@ -393,7 +392,7 @@ func _physics_process(delta):
 			if !_current_action.is_loop && _current_action.action_pass_time >= _current_action.action_duration_ms:
 				
 				print("action  ing")
-				debug_print()
+#				debug_print()
 				_current_action.state = ActionInfo.STATE_ENDED
 				var finished_Action =_current_action
 				self.current_index=current_index+1

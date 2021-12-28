@@ -34,7 +34,8 @@ export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100
 export(int, 0, 1000) var ATTACK_VELOCITY = 0
 export(int, 0, 1000) var ATTACK_ACC = 500
 export(int, 0, 1000) var JUMP_VELOCITY = 300
-export(int, 0, 1000) var CLIMB_ACC = 500
+export(int, 0, 1000) var JUMP_ACC = 300
+export(int, 0, 1000) var CLIMB_ACC = 900
 export(int, 0, 1000) var CLIMB_VELOCITY = 100
 
 func _ready():
@@ -90,6 +91,8 @@ func changeState(s):
 				isMoving = true
 				v_acceleration = gravity
 				v_velocityToward = 0
+				h_acceleration = JUMP_ACC
+				h_velocityToward = WALK_VELOCITY
 				velocity.y = -JUMP_VELOCITY
 				self.faceDirection.y = -1
 				
@@ -97,6 +100,8 @@ func changeState(s):
 				isMoving = true
 				v_acceleration = gravity
 				v_velocityToward = FREE_FALL_SPEED
+				h_acceleration = JUMP_ACC
+				h_velocityToward = WALK_VELOCITY
 				self.faceDirection.y = 1
 			
 			ActionState.Climb:
@@ -115,7 +120,8 @@ func _physics_process(delta):
 	#检测跳跃状态
 	if state==ActionState.JumpDown and body.is_on_genelized_floor():
 		self.state = ActionState.Idle
-		
+	
+	#若在空中的情况	
 	if not body.is_on_genelized_floor() :
 		
 		if self.state==ActionState.JumpUp and velocity.y ==0:
@@ -123,8 +129,6 @@ func _physics_process(delta):
 			self.state = ActionState.JumpDown
 		elif self.state!=ActionState.JumpDown and self.state!=ActionState.Climb:
 			self.state = ActionState.JumpDown
-	
-	print("is on floor", body.is_on_floor(),body.position.y)
 	
 #改变 movableobjstate
 func change_movable_state(input_vector,s):
@@ -158,6 +162,15 @@ func attackOver(s = ActionState.Idle):
 	if prv_s!=s:
 		print("  attack over",s)
 		emit_signal("State_Changed",s)
+		
+#攀爬动作结束的调用
+func climb_over(s = ActionState.Idle):
+	var prv_s = state
+	state =s	
+	if prv_s!=s:
+		print("  climb over",s)
+		emit_signal("State_Changed",s)
+	pass		
 	
 #当前角色朝向
 func is_face_left():
@@ -166,14 +179,25 @@ func is_face_left():
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
 	#当前处于跳跃状态下，不接受其他动作
-	if state==ActionState.JumpUp or state==ActionState.JumpDown:
+#	if state==ActionState.JumpUp or state==ActionState.JumpDown:
+#		return
+	
+	#当前处于下降下，如果按了移动，则会卡住。是因为移动完又自动会调用idle
+	if state ==ActionState.JumpDown and action.base_action==Tool.FightMotion.Idle:
 		return
+		
 	
 	var input_vector = Vector2.ZERO
 	
 	if action.param!=null && action.param.size()>0 && action.param[0] is Vector2:
 		input_vector = action.param[0]
 	print("in movable obj",input_vector)
+	
+	#如果当前处于下降，按了移动，则会表现异常（有可能上不去Platform）
+	#是因为移动的状态导致台阶判定出错
+	if state ==ActionState.JumpDown and action.base_action==Tool.FightMotion.Walk:
+		change_movable_state(Vector2(input_vector.x,1),ActionState.JumpDown)
+		return
 	
 	match(action.base_action): 
 		Tool.FightMotion.Idle:
@@ -202,3 +226,5 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 					print("attack action start..stop moving")
 					
 	pass
+
+

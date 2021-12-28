@@ -114,7 +114,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Action/BaseAction.gd"
 }, {
-"base": "Reference",
+"base": "KinematicBody2D",
 "class": "BaseCharactor",
 "language": "GDScript",
 "path": "res://FrameWork/Charactor/BaseCharactor.gd"
@@ -164,7 +164,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/behavior_tree/src/blackboard.gd"
 }, {
-"base": "Reference",
+"base": "AggresiveCharactor",
 "class": "ControlableMovingObj",
 "language": "GDScript",
 "path": "res://FrameWork/moving_obj/ControlableMovingObj.gd"
