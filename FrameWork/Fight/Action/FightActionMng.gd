@@ -93,6 +93,11 @@ func debug_print():
 #注册整个action
 func regist_actioninfo(action:ActionInfo):
 
+	#检查是否是重复的持久型action
+	if _current_action and action.is_bussiness_equal(_current_action):
+		
+		return
+	
 	_resize_action_array()
 
 	_add_action(action)

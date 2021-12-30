@@ -29,6 +29,7 @@ priority = 1.0
 position = Vector2( 2, -88 )
 
 [node name="Sprite" parent="Ladder" index="1"]
+visible = false
 position = Vector2( 0, -89.5 )
 scale = Vector2( 1, 4.72917 )
 
@@ -36,6 +37,11 @@ scale = Vector2( 1, 4.72917 )
 position = Vector2( 359, 387 )
 collision_layer = 32
 collision_mask = 16
+
+[node name="FightKinematicMovableObj" parent="FIghtComponnet_Human" index="0"]
+IDLE_ACC = 600
+CLIMB_ACC = 300
+CLIMB_VELOCITY = 100
 
 [node name="CollisionShape2D" parent="FIghtComponnet_Human" index="1"]
 position = Vector2( -7, 22 )

@@ -116,3 +116,28 @@ func _clean():
 	not_generous_type = []
 	_base_action_obj = null
 	pass
+
+# 是否业务层面上一样；只针对group_id=-1 (无分组类型)的action
+# 比较内容：
+# 1 base_action
+# 2 action_duration_ms ：这个出去检测；不同时间的action 业务上可以是做同样的
+# 3 param
+# 4 execution_mod
+# 5 not_generous_type
+# 6 group_id  
+func is_bussiness_equal(action:ActionInfo)->bool:
+	
+	#group_id 都要为 -1
+	if action.group_id!= -1 or group_id!=-1:
+		return false
+	if action.base_action!= base_action:
+		return false
+	if action_duration_ms!=action.action_duration_ms:
+		return false
+	if	param!=action.param:
+		return false
+	if execution_mod!=action.execution_mod:
+		return false
+	if not_generous_type!= action.not_generous_type:
+		return false
+	return true

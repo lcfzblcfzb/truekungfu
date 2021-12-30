@@ -22,7 +22,7 @@ enum ActionState{
 
 var state = ActionState.Idle setget changeState
 
-export(int, 0, 1000) var IDLE_ACC = 500
+export(int, 0, 1000) var IDLE_ACC = 600
 export(int, 0, 1000) var WALK_ACC = 600
 export(int, 0, 1000) var WALK_VELOCITY = 100
 export(int, 0, 1000) var RUN_ACC = 500
@@ -34,9 +34,9 @@ export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100
 export(int, 0, 1000) var ATTACK_VELOCITY = 0
 export(int, 0, 1000) var ATTACK_ACC = 500
 export(int, 0, 1000) var JUMP_VELOCITY = 300
-export(int, 0, 1000) var JUMP_ACC = 300
+export(int, 0, 1000) var JUMP_ACC = 900
 export(int, 0, 1000) var CLIMB_ACC = 900
-export(int, 0, 1000) var CLIMB_VELOCITY = 100
+export(int, 0, 1000) var CLIMB_VELOCITY = 80
 
 func _ready():
 	#初始状态检测
@@ -47,7 +47,7 @@ func _ready():
 func changeState(s):
 	
 	if(state!=ActionState.Attack and s!=state ):
-		
+		_snap_vector=SNAP_DOWN
 		match s:
 			ActionState.Idle:
 				isMoving = true
@@ -89,6 +89,7 @@ func changeState(s):
 				
 			ActionState.JumpUp:
 				isMoving = true
+				_snap_vector=NO_SNAP
 				v_acceleration = gravity
 				v_velocityToward = 0
 				h_acceleration = JUMP_ACC
@@ -106,6 +107,7 @@ func changeState(s):
 			
 			ActionState.Climb:
 				isMoving = true
+				_snap_vector=NO_SNAP
 				v_acceleration =CLIMB_ACC
 				v_velocityToward=CLIMB_VELOCITY
 				h_acceleration =CLIMB_ACC
@@ -178,10 +180,9 @@ func is_face_left():
 
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
-	#当前处于跳跃状态下，不接受其他动作
-#	if state==ActionState.JumpUp or state==ActionState.JumpDown:
-#		return
 	
+	#TODO 此处带备注的代码 都可以 写到状态机 中。
+	#	下面match 的部分可以用状态机改写;
 	#当前处于下降下，如果按了移动，则会卡住。是因为移动完又自动会调用idle
 	if state ==ActionState.JumpDown and action.base_action==Tool.FightMotion.Idle:
 		return
@@ -197,6 +198,10 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	#是因为移动的状态导致台阶判定出错
 	if state ==ActionState.JumpDown and action.base_action==Tool.FightMotion.Walk:
 		change_movable_state(Vector2(input_vector.x,1),ActionState.JumpDown)
+		return
+	
+	if state ==ActionState.Climb and (action.base_action==Tool.FightMotion.Idle or action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
+		change_movable_state(input_vector,ActionState.Climb)
 		return
 	
 	match(action.base_action): 

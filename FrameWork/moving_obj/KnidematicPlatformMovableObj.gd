@@ -24,6 +24,9 @@ const PIX_METER_RATE = 25
 #自由落体速度
 const FREE_FALL_SPEED = 1000
 
+const NO_SNAP=Vector2.ZERO
+const SNAP_DOWN= Vector2.DOWN*100
+
 #速度变化上限 的上限;
 # 由于目标对象的速度
 #var velocityTowardLimit = MAX_SPEED
@@ -43,6 +46,9 @@ var v_velocityToward =0
 
 #最终用于计算的加速度
 var _final_acc :Vector2
+
+var _snap_vector:Vector2=Vector2.ZERO
+
 
 func getHVelocityValue():
 	
@@ -65,9 +71,9 @@ var faceDirection:Vector2 =Vector2.ZERO  setget _setFaceDirection
 #设置faceDirections
 func _setFaceDirection(v):
 	
-	if v==Vector2.ZERO:
-		return
-	
+#	if v==Vector2.ZERO:
+#		return
+
 	if faceDirection !=v:
 		emit_signal("FaceDirectionChanged",v)
 	faceDirection = v	
@@ -122,7 +128,6 @@ func _movePlayer(delta):
 #	if(velocityToward>velocityTowardLimit):
 #		velocityToward = velocityTowardLimit
 	
-	
 	var _v_toward =  v_velocityToward * faceDirection.y
 	var _h_toward =  h_velocityToward * faceDirection.x 
 	
@@ -133,7 +138,7 @@ func _movePlayer(delta):
 	velocity.y = move_toward(velocity.y, _v_toward , v_acceleration *delta)
 	velocity.x = move_toward(velocity.x, _h_toward , h_acceleration *delta) 
 	
-	body.move_and_slide(velocity,Vector2.UP)
+	body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, false)
 
 
 #停下函数
