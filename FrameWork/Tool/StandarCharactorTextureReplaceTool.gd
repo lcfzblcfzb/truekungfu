@@ -1,7 +1,7 @@
 tool
 extends Sprite
 
-export(String, DIR, GLOBAL) var texture_folder :String
+export(String, DIR) var texture_folder :String
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if texture_folder and not texture_folder.empty():

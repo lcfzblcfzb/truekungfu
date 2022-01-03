@@ -3,6 +3,7 @@ class_name FightActionMng
 extends Node
 
 signal ActionStart
+signal ActionProcess
 signal ActionFinish
 
 var global_group_id = 100
@@ -404,7 +405,11 @@ func _physics_process(delta):
 				#为了让 使用 current_index 取到的 都是 inited/ing 状态的action
 				emit_signal("ActionFinish",finished_Action)
 				pass
-
+			else:
+				#发射信号 进行中
+				#不要在这里做复杂的操作！尽可能在业务完成后取消信号联结
+				emit_signal("ActionProcess",_current_action)
+				
 		elif _current_action.state == ActionInfo.STATE_ENDED:
 			push_warning("current action state in physics_process is against rule. its STATE_ENDED")
 			self.current_index=self.current_index+1

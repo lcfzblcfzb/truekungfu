@@ -103,7 +103,11 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	
 	if action==null:
 		push_error("actioninfo is null.")
-		return
+		return 
+	# 为了
+	if action.base_action == Tool.FightMotion.JumpUp or  action.base_action == Tool.FightMotion.JumpDown or  action.base_action == Tool.FightMotion.Climb:
+		actionMng.connect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
+		pass
 	
 	var base =FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
 	

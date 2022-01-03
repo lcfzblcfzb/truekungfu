@@ -35,7 +35,7 @@ export(int, 0, 1000) var ATTACK_VELOCITY = 0
 export(int, 0, 1000) var ATTACK_ACC = 500
 export(int, 0, 1000) var JUMP_VELOCITY = 300
 export(int, 0, 1000) var JUMP_ACC = 900
-export(int, 0, 1000) var CLIMB_ACC = 900
+export(int, 0, 100000) var CLIMB_ACC = 9000
 export(int, 0, 1000) var CLIMB_VELOCITY = 80
 
 func _ready():
@@ -104,7 +104,7 @@ func changeState(s):
 				h_acceleration = JUMP_ACC
 				h_velocityToward = WALK_VELOCITY
 				self.faceDirection.y = 1
-			
+				
 			ActionState.Climb:
 				isMoving = true
 				_snap_vector=NO_SNAP
@@ -121,7 +121,14 @@ func changeState(s):
 func _physics_process(delta):
 	#检测跳跃状态
 	if state==ActionState.JumpDown and body.is_on_genelized_floor():
-		self.state = ActionState.Idle
+		
+#		if faceDirection != Vector2.ZERO:
+			#这里加IF 的情况分析： 跳跃降落到地面，原先直接设置state=idle，在 避免重复添加action 改了FightActionMng之后
+			#假设降落到地面的过程中玩家一直按下左或者右方向不变，则在落地后的walk 会被FightActionMng 认为重复而丢弃
+			#所以会出现停住的现象
+#			self.state = ActionState.Walk
+#		else:
+			self.state = ActionState.Idle
 	
 	#若在空中的情况	
 	if not body.is_on_genelized_floor() :
@@ -178,6 +185,9 @@ func climb_over(s = ActionState.Idle):
 func is_face_left():
 	return faceDirection.x<0
 
+func _on_FightActionMng_ActionProcess(action:ActionInfo):
+	print(action)
+	pass
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
 	
@@ -196,7 +206,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	
 	#如果当前处于下降，按了移动，则会表现异常（有可能上不去Platform）
 	#是因为移动的状态导致台阶判定出错
-	if state ==ActionState.JumpDown and action.base_action==Tool.FightMotion.Walk:
+	if (state ==ActionState.JumpDown or state ==ActionState.JumpUp) and action.base_action==Tool.FightMotion.Walk:
 		change_movable_state(Vector2(input_vector.x,1),ActionState.JumpDown)
 		return
 	
