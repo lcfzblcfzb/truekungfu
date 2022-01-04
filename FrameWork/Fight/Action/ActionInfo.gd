@@ -23,6 +23,10 @@ func _init(pool,params_array:Array).(pool):
 	if action_duration_ms <0:
 		is_loop = true
 	execution_mod = params_array[4]
+	if params_array.size()>5:
+		repeatation_allowed = params_array[5]
+	else:
+		repeatation_allowed = true
 	
 pass
 #最普通的action方式，如果前一个action也是newest ，则会被覆盖
@@ -53,6 +57,8 @@ var action_begin_time;
 #但是考虑到游戏系统的时间是一种资源，如果需要引入 时间加速、减速特性，使用pass_time 的方式更容易处理
 var action_pass_time;
 var action_duration_ms;
+#是否支持重复的action 插入队列；若是false，若队列之前有两个is_bussiness_equal 一致的action ，后一个会被忽略
+var repeatation_allowed ;
 
 var param;#如果是 run/move 指令，保存方向向量
 
@@ -115,6 +121,7 @@ func _clean():
 	group_id = -1
 	not_generous_type = []
 	_base_action_obj = null
+	repeatation_allowed = null
 	pass
 
 # 是否业务层面上一样；只针对group_id=-1 (无分组类型)的action

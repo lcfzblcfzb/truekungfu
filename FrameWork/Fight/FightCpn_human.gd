@@ -48,6 +48,12 @@ func _ready():
 	$Wu.wuxue.animation_player.root_node = $Wu.wuxue.animation_player.get_path_to(sprite_animation)
 	sprite_animation.set_sprite_texture($Wu.get_texture())
 	$Wu.wuxue.animation_tree.active = true
+	
+	
+	#初始状态检测
+	#TODO 可以指定初始状态
+	if not is_on_floor():
+		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.JumpDown
 #	$Wu.switch_wu(WuxueMng.WuxueEnum.Fist)
 #	sprite.texture = $Wu.get_texture()
 #	yield(get_tree().create_timer(2),"timeout")
@@ -104,10 +110,6 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	if action==null:
 		push_error("actioninfo is null.")
 		return 
-	# 为了
-	if action.base_action == Tool.FightMotion.JumpUp or  action.base_action == Tool.FightMotion.JumpDown or  action.base_action == Tool.FightMotion.Climb:
-		actionMng.connect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
-		pass
 	
 	var base =FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
 	
@@ -162,3 +164,14 @@ func _on_hurtbox_area_entered(area):
 		test_dead_motion()
 		pass
 	pass # Replace with function body.
+
+
+func _on_FightKinematicMovableObj_State_Changed(state):
+	
+	if state ==FightKinematicMovableObj.ActionState.Idle && actionMng.is_connected("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess") :
+		
+		actionMng.call_deferred("disconnect","ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
+#		actionMng.disconnect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
+	elif state == FightKinematicMovableObj.ActionState.JumpUp or state == FightKinematicMovableObj.ActionState.JumpDown or  state == FightKinematicMovableObj.ActionState.Climb:
+		actionMng.connect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
+		pass

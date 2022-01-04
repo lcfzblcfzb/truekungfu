@@ -45,50 +45,7 @@ IDLE_ACC = 600
 position = Vector2( -7, 22 )
 
 [node name="hip" parent="FIghtComponnet_Human/SpriteAnimation" index="0"]
-texture = null
 texture_folder = "res://resource/standar_charactor/daoshi"
-
-[node name="left_thigh" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="0"]
-texture = null
-
-[node name="left_shank" parent="FIghtComponnet_Human/SpriteAnimation/hip/left_thigh" index="0"]
-texture = null
-
-[node name="left_foot" parent="FIghtComponnet_Human/SpriteAnimation/hip/left_thigh/left_shank" index="0"]
-texture = null
-
-[node name="right_thigh" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="1"]
-texture = null
-
-[node name="right_shank" parent="FIghtComponnet_Human/SpriteAnimation/hip/right_thigh" index="0"]
-texture = null
-
-[node name="right_foot" parent="FIghtComponnet_Human/SpriteAnimation/hip/right_thigh/right_shank" index="0"]
-texture = null
-
-[node name="body" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="2"]
-texture = null
-
-[node name="left_upper_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="0"]
-texture = null
-
-[node name="left_fore_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/left_upper_arm" index="0"]
-texture = null
-
-[node name="left_hand" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/left_upper_arm/left_fore_arm" index="0"]
-texture = null
-
-[node name="right_upper_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="1"]
-texture = null
-
-[node name="right_fore_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/right_upper_arm" index="0"]
-texture = null
-
-[node name="right_hand" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/right_upper_arm/right_fore_arm" index="0"]
-texture = null
-
-[node name="head" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="2"]
-texture = null
 
 [node name="Wu" parent="FIghtComponnet_Human" index="6"]
 chosed_wuxue = 1
@@ -121,7 +78,9 @@ space_override = 0
 [node name="CollisionShape2D" parent="Platform/Area2D" index="0"]
 rotation = 3.14159
 one_way_collision = true
-one_way_collision_margin = 128.0
+one_way_collision_margin = 38.8
+
+[connection signal="State_Changed" from="FIghtComponnet_Human/FightKinematicMovableObj" to="FIghtComponnet_Human" method="_on_FightKinematicMovableObj_State_Changed"]
 
 [editable path="Ladder"]
 [editable path="FIghtComponnet_Human"]

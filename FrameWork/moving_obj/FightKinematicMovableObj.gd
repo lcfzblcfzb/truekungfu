@@ -16,8 +16,8 @@ enum ActionState{
 	Attack,
 	Stop,
 	JumpUp,
-	JumpDown,
-	Climb
+	JumpDown,#8
+	Climb#9
 }
 
 var state = ActionState.Idle setget changeState
@@ -39,11 +39,8 @@ export(int, 0, 100000) var CLIMB_ACC = 9000
 export(int, 0, 1000) var CLIMB_VELOCITY = 80
 
 func _ready():
-	#初始状态检测
-	#TODO 可以指定初始状态
-	if not body.is_on_floor():
-		self.state = ActionState.JumpDown
-
+	pass
+	
 func changeState(s):
 	
 	if(state!=ActionState.Attack and s!=state ):
@@ -65,7 +62,7 @@ func changeState(s):
 				h_velocityToward = WALK_VELOCITY
 				pass
 			ActionState.Run:
-				isMoving = true
+				isMoving = true 
 				h_acceleration = RUN_ACC
 				h_velocityToward = RUN_VELOCTIY
 				pass
@@ -128,14 +125,15 @@ func _physics_process(delta):
 			#所以会出现停住的现象
 #			self.state = ActionState.Walk
 #		else:
-			self.state = ActionState.Idle
+		self.state = ActionState.Idle
 	
 	#若在空中的情况	
 	if not body.is_on_genelized_floor() :
 		
-		if self.state==ActionState.JumpUp and velocity.y ==0:
-			#升至跳跃max,设置faceDirection 向下
-			self.state = ActionState.JumpDown
+		if self.state==ActionState.JumpUp :
+			if velocity.y ==0:
+				#升至跳跃max,设置faceDirection 向下
+				self.state = ActionState.JumpDown
 		elif self.state!=ActionState.JumpDown and self.state!=ActionState.Climb:
 			self.state = ActionState.JumpDown
 	
@@ -185,19 +183,31 @@ func climb_over(s = ActionState.Idle):
 func is_face_left():
 	return faceDirection.x<0
 
+var _prv_process_action:ActionInfo
+
 func _on_FightActionMng_ActionProcess(action:ActionInfo):
-	print(action)
+	#避免触发jump 之类的；会导致无限循环的卡住。
+	if action.base_action == Tool.FightMotion.Walk or action.base_action == Tool.FightMotion.Run or action.base_action == Tool.FightMotion.Idle:
+#		if _prv_process_action ==null or _prv_process_action!= action :
+			_process_action(action)
+#		_prv_process_action = action
 	pass
+
+var _current_action:ActionInfo
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
 	
+	_process_action(action)
+
+
+#可能在action 开始 和 进行中的时候调用；
+func _process_action(action:ActionInfo):
 	#TODO 此处带备注的代码 都可以 写到状态机 中。
 	#	下面match 的部分可以用状态机改写;
-	#当前处于下降下，如果按了移动，则会卡住。是因为移动完又自动会调用idle
-	if state ==ActionState.JumpDown and action.base_action==Tool.FightMotion.Idle:
+	#当前处于下降下/或者 上升，如果按了移动，则会卡住。是因为移动完又自动会调用idle
+	if (state ==ActionState.JumpDown or state ==ActionState.JumpUp) and action.base_action==Tool.FightMotion.Idle:
 		return
 		
-	
 	var input_vector = Vector2.ZERO
 	
 	if action.param!=null && action.param.size()>0 && action.param[0] is Vector2:
@@ -206,8 +216,11 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	
 	#如果当前处于下降，按了移动，则会表现异常（有可能上不去Platform）
 	#是因为移动的状态导致台阶判定出错
-	if (state ==ActionState.JumpDown or state ==ActionState.JumpUp) and action.base_action==Tool.FightMotion.Walk:
-		change_movable_state(Vector2(input_vector.x,1),ActionState.JumpDown)
+	if ( state ==ActionState.JumpUp) and (action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
+		change_movable_state(Vector2(input_vector.x,-1) , state)
+		return
+	elif (state ==ActionState.JumpDown ) and (action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
+		change_movable_state(Vector2(input_vector.x,1) , state)
 		return
 	
 	if state ==ActionState.Climb and (action.base_action==Tool.FightMotion.Idle or action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
@@ -241,5 +254,3 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 					print("attack action start..stop moving")
 					
 	pass
-
-
