@@ -22,7 +22,8 @@ export (bool) var is_player =false;
 
 var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
 var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
-	
+
+
 #重载setter方法，在b= false 的时候，设置climb状态的结束
 func set_climbing(b):
 	.set_climbing(b)
@@ -49,7 +50,6 @@ func _ready():
 	sprite_animation.set_sprite_texture($Wu.get_texture())
 	$Wu.wuxue.animation_tree.active = true
 	
-	
 	#初始状态检测
 	#TODO 可以指定初始状态
 	if not is_on_floor():
@@ -61,6 +61,7 @@ func _ready():
 #	sprite.texture = $Wu.get_texture()
 #	test_switch()
 	pass 
+
 
 #func test_switch():
 #
@@ -165,13 +166,45 @@ func _on_hurtbox_area_entered(area):
 		pass
 	pass # Replace with function body.
 
-
+#movableobj 状态变化信号
 func _on_FightKinematicMovableObj_State_Changed(state):
 	
 	if state ==FightKinematicMovableObj.ActionState.Idle && actionMng.is_connected("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess") :
-		
+		#在IDLE 的时候检测是否监听actionProcess事件并且取消监听	
 		actionMng.call_deferred("disconnect","ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
 #		actionMng.disconnect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
 	elif state == FightKinematicMovableObj.ActionState.JumpUp or state == FightKinematicMovableObj.ActionState.JumpDown or  state == FightKinematicMovableObj.ActionState.Climb:
+		#在jumpup jumpdown climb 的时候监听
+		#可以在空中移动方向
 		actionMng.connect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
 		pass
+
+#移动的时候碰到的tile的信息
+func _on_FightKinematicMovableObj_CollisionObjChanged(collider):
+	
+	if collider is Platform: 
+		is_on_platform = true
+		print("is platform")
+	else:
+		is_on_platform = false 
+	pass # Replace with function body.
+
+
+func _on_FightKinematicMovableObj_FaceDirectionChanged(v:Vector2):
+	if v.y <= 0:
+	
+		if v.y<0:
+			#不检测platform 层
+			if collision_mask != 0b0000_0000_0000_0000_0000_0000_0001_0000 :
+	#			set_deferred("collisaion_mask", 0b0000_0000_0000_0000_0000_0000_0001_0000)
+				collision_mask = 0b0000_0000_0000_0000_0000_0000_0001_0000
+		
+	else:
+		if not is_on_platform:
+			#检测platform 层碰撞
+	#		set_deferred("collision_mask", 0b0000_0000_0000_0000_0000_0000_1001_0000)
+			if collision_mask != 0b0000_0000_0000_0000_0000_0000_1001_0000 :
+	#			set_deferred("collisaion_mask", 0b0000_0000_0000_0000_0000_0000_1001_0000)
+				collision_mask = 0b0000_0000_0000_0000_0000_0000_1001_0000
+		pass
+		

@@ -1363,7 +1363,7 @@ __meta__ = {
 
 [node name="SpriteAnimation" parent="." instance=ExtResource( 8 )]
 
-[node name="Sprite" parent="SpriteAnimation" index="0"]
+[node name="Sprite" parent="SpriteAnimation" index="1"]
 position = Vector2( -1.26608, 18.9449 )
 offset = Vector2( 13.185, -19.7395 )
 frame = 1
@@ -1417,5 +1417,6 @@ script = ExtResource( 3 )
 [connection signal="NewFightMotion" from="AiGestureController" to="." method="_on_Node2D_NewFightMotion"]
 
 [editable path="SpriteAnimation"]
+[editable path="SpriteAnimation/hip"]
 [editable path="SpriteAnimation/hurtbox"]
 [editable path="SpriteAnimation/weaponBox"]

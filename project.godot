@@ -239,6 +239,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Tool/ObjPool.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Platform",
+"language": "GDScript",
+"path": "res://FrameWork/Scene/Platform.gd"
+}, {
 "base": "BaseFightActionController",
 "class": "PlatformGestureActionController",
 "language": "GDScript",
@@ -258,6 +263,11 @@ _global_script_classes=[ {
 "class": "WeaponBox",
 "language": "GDScript",
 "path": "res://FrameWork/CollisionBox/WeaponBox.gd"
+}, {
+"base": "Reference",
+"class": "WuxueEventHandlerTools",
+"language": "GDScript",
+"path": "res://FrameWork/Fight/Wu/weapon/WuxueEventHandlerTools.gd"
 }, {
 "base": "Node",
 "class": "WuxueMngClass",
@@ -311,10 +321,12 @@ _global_script_class_icons={
 "NewActionEvent": "",
 "NpcOf2Direction": "",
 "ObjPool": "",
+"Platform": "",
 "PlatformGestureActionController": "",
 "Sword": "",
 "Weapon": "",
 "WeaponBox": "",
+"WuxueEventHandlerTools": "",
 "WuxueMngClass": ""
 }
 
@@ -439,12 +451,13 @@ jump={
 2d_physics/layer_5="World"
 2d_physics/layer_6="player"
 2d_physics/layer_7="ladder"
+2d_physics/layer_8="platform"
 
 [physics]
 
 common/enable_pause_aware_picking=true
 2d/physics_engine="GodotPhysics"
-2d/default_gravity=450
+2d/default_gravity=900
 
 [rendering]
 

@@ -380,7 +380,7 @@ func _input(event):
 	
 	if event.is_action_pressed("cancel"):
 
-		jisu.state = FightKinematicMovableObj.ActionState.Idle
+#		jisu.state = FightKinematicMovableObj.ActionState.Idle
 #		hide_all()	
 		is_cancel = true	
 		#移动

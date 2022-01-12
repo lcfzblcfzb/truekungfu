@@ -8,8 +8,6 @@ var animation_tree:AnimationTree
 var behaviourTree:BehaviorTree
 
 var wu_animation_res;
-#两个walk 动作转为run 的最小间隔/ms
-var run_action_min_interval_ms =500
 #重攻击时间阈值.ms
 var heavyAttackThreshold = 300.0
 
@@ -44,28 +42,6 @@ func on_ai_event(event:AIEvent):
 	pass
 
 
-#判定是否是run
-#进行一个run 判定
-#两个间隔时间在 run_action_min_interval  的walk 指令触发成run
-func is_trigger_run(input_vector)->bool:
-	var action_mng = fight_cpn.actionMng
-	var action_array =action_mng.action_array
-	var index =action_array.size()
-	
-	while true:
-		index=index-1
-		if index<0:
-			break
-		var tmp = action_array[index] as ActionInfo
-		#在极短时间内的几个run或者walk 都视为触发了run
-		if  tmp.action_create_time+run_action_min_interval_ms >= OS.get_ticks_msec():
-			if (tmp.base_action ==Tool.FightMotion.Walk ||tmp.base_action ==Tool.FightMotion.Run) && tmp.param[0] == input_vector:
-				return true
-		else:
-			return false;
-		pass
-	return false
-	pass
 
 #
 func _create_attack_action(action_list):
