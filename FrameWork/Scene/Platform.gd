@@ -1,4 +1,5 @@
-extends Area2D
+class_name Platform
+extends KinematicBody2D
 
 
 # Declare member variables here. Examples:

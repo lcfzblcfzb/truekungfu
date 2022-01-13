@@ -45,16 +45,15 @@ func changeState(s):
 	
 	if(state!=ActionState.Attack and s!=state ):
 		_snap_vector=SNAP_DOWN
+		use_snap =true
+		
+		v_acceleration = gravity
+		v_velocityToward = FREE_FALL_SPEED
 		match s:
 			ActionState.Idle:
 				isMoving = true
 				h_acceleration = IDLE_ACC
 				h_velocityToward = 0
-				
-				v_acceleration = 0
-				v_velocityToward =0
-				self.faceDirection.y = 0
-				self.velocity.y = 0
 				pass
 			ActionState.Walk:
 				isMoving = true
@@ -87,6 +86,7 @@ func changeState(s):
 			ActionState.JumpUp:
 				isMoving = true
 				_snap_vector=NO_SNAP
+				use_snap =false
 				v_acceleration = gravity
 				v_velocityToward = 0
 				h_acceleration = JUMP_ACC
@@ -96,6 +96,8 @@ func changeState(s):
 				
 			ActionState.JumpDown:
 				isMoving = true
+				_snap_vector=NO_SNAP
+				use_snap =false
 				v_acceleration = gravity
 				v_velocityToward = FREE_FALL_SPEED
 				h_acceleration = JUMP_ACC
@@ -105,6 +107,8 @@ func changeState(s):
 			ActionState.Climb:
 				isMoving = true
 				_snap_vector=NO_SNAP
+				use_snap =false
+				ignore_gravity = true
 				v_acceleration =CLIMB_ACC
 				v_velocityToward=CLIMB_VELOCITY
 				h_acceleration =CLIMB_ACC
@@ -176,6 +180,7 @@ func climb_over(s = ActionState.Idle):
 	state =s	
 	if prv_s!=s:
 		print("  climb over",s)
+		ignore_gravity = false
 		emit_signal("State_Changed",s)
 	pass		
 	
@@ -185,6 +190,7 @@ func is_face_left():
 
 var _prv_process_action:ActionInfo
 
+#在actionmng 进行中的action 进行处理
 func _on_FightActionMng_ActionProcess(action:ActionInfo):
 	#避免触发jump 之类的；会导致无限循环的卡住。
 	if action.base_action == Tool.FightMotion.Walk or action.base_action == Tool.FightMotion.Run or action.base_action == Tool.FightMotion.Idle:
@@ -196,7 +202,7 @@ func _on_FightActionMng_ActionProcess(action:ActionInfo):
 var _current_action:ActionInfo
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
-	
+	#在开始和 进行中 有可能触发
 	_process_action(action)
 
 

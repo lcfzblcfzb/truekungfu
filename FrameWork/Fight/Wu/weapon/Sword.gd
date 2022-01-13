@@ -107,72 +107,8 @@ func on_action_event(event:NewActionEvent):
 	
 func on_move_event(event:MoveEvent):
 	
-	var action_mng = fight_cpn.actionMng
-	var input_vector = event.move_direction
-	var wu_motion = Tool.WuMotion.Idle
+	WuxueEventHandlerTools.normal_on_moveevent(event,fight_cpn)
 	
-	if  !event.is_echo:
-		
-		if event.is_jump:
-			
-			if fight_cpn.get("is_on_platform") ==true and input_vector.y>0:
-				
-				#jump down platform
-				fight_cpn.set("is_on_platform",false)
-				pass
-			
-			else:
-				#确保跳跃的时候可以控制方向
-				#如果只是平地起跳 input_vector=Vector2.ZERO的时候，也要保证 y=1；否则会被移动控制器忽略，使用上一个动作保存的方向
-				var vec = Vector2(input_vector.x,1)
-				#do jump up
-				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_GENEROUS])
-				action_mng.regist_actioninfo(action)
-				
-			
-		else:
-			if input_vector != Vector2.ZERO:
-				
-				if input_vector.y !=0:
-					
-					if fight_cpn.get("is_climbing") == true:
-						#do climb
-						var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Climb,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS])
-						action_mng.regist_actioninfo(action)
-				else:
-				
-					var is_run = is_trigger_run(input_vector)
-
-					if is_run :
-						var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Run,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS])
-						action_mng.regist_actioninfo(action)
-						
-		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
-					else:
-
-						var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS])
-						action_mng.regist_actioninfo(action)
-						
-		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
-			else:
-
-				var lastMotion =action_mng.action_array.back()
-
-				if lastMotion and lastMotion.base_action != Tool.FightMotion.Run:
-
-					var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Idle,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS])
-					action_mng.regist_actioninfo(action)
-		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
-	else:
-		var lastMotion =action_mng.action_array.back()
-		#这里是 攻击结束后，已经按下移动中的情况
-		#climb 是因为如果之前是climb ，而这里没有包括，则climb的动作会被walk替换
-		if lastMotion and (lastMotion.base_action != Tool.FightMotion.Run && lastMotion.base_action != Tool.FightMotion.Climb):
-
-			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Walk,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,false])
-			action_mng.regist_actioninfo(action)
-			pass
-	pass
 	
 func on_ai_event(event:AIEvent):
 	_do_wu_motion(event.action_id,false)

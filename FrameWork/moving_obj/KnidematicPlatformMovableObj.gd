@@ -3,6 +3,7 @@ class_name KinematicPlatformMovableObj
 extends Node2D
 
 signal FaceDirectionChanged
+signal CollisionObjChanged
 #状态
 var isMoving = false
 #加速度
@@ -16,13 +17,14 @@ export var MAX_SPEED_ATTACK = 50
 
 #取得系统配置的 重力
 onready var gravity = ProjectSettings.get("physics/2d/default_gravity")
+onready var gravity_vector = ProjectSettings.get("default_gravity_vector") 
 
 const FLOOR_NORMAL = Vector2.UP
 # 像素与 m 的比例：25像素=1米
 const PIX_METER_RATE = 25
 
 #自由落体速度
-const FREE_FALL_SPEED = 1000
+const FREE_FALL_SPEED = 900
 
 const NO_SNAP=Vector2.ZERO
 const SNAP_DOWN= Vector2.DOWN*100
@@ -48,7 +50,15 @@ var v_velocityToward =0
 var _final_acc :Vector2
 
 var _snap_vector:Vector2=Vector2.ZERO
+#与地面发生碰撞的碰撞信息
+var _last_collision_id =null
+#是使用move_……_with_snap 或 move_and_slide
+var use_snap = true
 
+#是否忽略重力
+var ignore_gravity = false
+#是否处于地面变量记录
+var _on_floor =false
 
 func getHVelocityValue():
 	
@@ -127,8 +137,17 @@ func player_idle(delta):
 func _movePlayer(delta):
 #	if(velocityToward>velocityTowardLimit):
 #		velocityToward = velocityTowardLimit
+	var v_movingdirection = 1
+	if ignore_gravity:
+		v_movingdirection = faceDirection.y
+	else:
+		#y轴默认是朝下-》重力的方向
+		v_movingdirection = 1
+		if faceDirection.y < 0:
+			#表示是跳跃的情况
+			v_movingdirection = -1
 	
-	var _v_toward =  v_velocityToward * faceDirection.y
+	var _v_toward =  v_velocityToward * v_movingdirection
 	var _h_toward =  h_velocityToward * faceDirection.x 
 	
 	if _v_toward!=velocity.y && v_acceleration==0:
@@ -138,9 +157,44 @@ func _movePlayer(delta):
 	velocity.y = move_toward(velocity.y, _v_toward , v_acceleration *delta)
 	velocity.x = move_toward(velocity.x, _h_toward , h_acceleration *delta) 
 	
-	body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, false)
-
-
+	if use_snap:
+		body.move_and_slide(velocity,Vector2.UP)
+#		body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true)
+	else:
+		body.move_and_slide(velocity,Vector2.UP)
+	#is_on_floor 只能在move_and_slide之后调用
+	var _curr_on_floor = body.is_on_floor()
+	body.set("on_floor",_curr_on_floor)
+	#状态改变的信号输出
+	#只有在切换的那一瞬间进行信号发射
+	if not _on_floor and _curr_on_floor:
+		#这是之前不在地面，现在在地面的信号变化
+		var _collision = body.get_last_slide_collision()
+		if _collision!=null:
+			if _last_collision_id==null :
+				_last_collision_id =_collision.collider_id
+				emit_signal("CollisionObjChanged",_collision.collider)
+			elif _collision.collider_id != _last_collision_id:
+				_last_collision_id = _collision.collider_id
+				emit_signal("CollisionObjChanged",_collision.collider)
+	
+	elif _on_floor and not _curr_on_floor:
+		#之前在地面 现在跳跃起来的情况
+		_last_collision_id =null
+		emit_signal("CollisionObjChanged",null)
+	elif _on_floor and _curr_on_floor:
+		#这是接触到了不同collision 的情况
+		var _collision = body.get_last_slide_collision()
+		if _collision!=null:
+			if _last_collision_id==null :
+				_last_collision_id =_collision.collider_id
+				emit_signal("CollisionObjChanged",_collision.collider)
+			elif _collision.collider_id != _last_collision_id:
+				_last_collision_id = _collision.collider_id
+				emit_signal("CollisionObjChanged",_collision.collider)
+	
+	_on_floor = _curr_on_floor
+	
 #停下函数
 func _stopPlayer(delta):
 	h_velocityToward = 0
