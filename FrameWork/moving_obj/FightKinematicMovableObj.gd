@@ -17,16 +17,16 @@ enum ActionState{
 	Stop,
 	JumpUp,
 	JumpDown,#8
-	Climb#9
+	Climb#9                        
 }
 
 var state = ActionState.Idle setget changeState
 
 export(int, 0, 1000) var IDLE_ACC = 600
-export(int, 0, 1000) var WALK_ACC = 600
-export(int, 0, 1000) var WALK_VELOCITY = 100
+export(int, 0, 1000) var WALK_ACC = 900
+export(int, 0, 1000) var WALK_VELOCITY = 200
 export(int, 0, 1000) var RUN_ACC = 500
-export(int, 0, 1000) var RUN_VELOCTIY = 200
+export(int, 0, 1000) var RUN_VELOCTIY = 300
 export(int, 0, 1000) var RUN_2_IDLE_ACC = 700
 export(int, 0, 1000) var RUN_2_IDLE_VELOCITY = 100
 export(int, 0, 1000) var IDLE_2_RUN_ACC = 100
@@ -100,7 +100,7 @@ func changeState(s):
 				use_snap =false
 				v_acceleration = gravity
 				v_velocityToward = FREE_FALL_SPEED
-				h_acceleration = JUMP_ACC
+				h_acceleration = WALK_ACC
 				h_velocityToward = WALK_VELOCITY
 				self.faceDirection.y = 1
 				

@@ -58,6 +58,7 @@ parameters/sm2/mix/playback = SubResource( 6 )
 
 [node name="Platform" parent="." instance=ExtResource( 19 )]
 position = Vector2( 798, 511 )
+rotation = -0.335103
 
 [node name="KinematicBody2D" parent="Platform" index="1"]
 collision_layer = 128
@@ -65,6 +66,7 @@ collision_mask = 0
 
 [node name="w" parent="." instance=ExtResource( 19 )]
 position = Vector2( 960, 538 )
+rotation = 0.238041
 
 [node name="KinematicBody2D" parent="w" index="1"]
 collision_layer = 128

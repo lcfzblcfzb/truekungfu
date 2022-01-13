@@ -16,7 +16,7 @@ export var MAX_SPEED = 100
 export var MAX_SPEED_ATTACK = 50
 
 #取得系统配置的 重力
-onready var gravity = ProjectSettings.get("physics/2d/default_gravity")
+onready var gravity = ProjectSettings.get("physics/2d/default_gravity") 
 onready var gravity_vector = ProjectSettings.get("default_gravity_vector") 
 
 const FLOOR_NORMAL = Vector2.UP
@@ -27,7 +27,7 @@ const PIX_METER_RATE = 25
 const FREE_FALL_SPEED = 900
 
 const NO_SNAP=Vector2.ZERO
-const SNAP_DOWN= Vector2.DOWN*100
+const SNAP_DOWN= Vector2.DOWN*1000
 
 #速度变化上限 的上限;
 # 由于目标对象的速度
@@ -156,12 +156,14 @@ func _movePlayer(delta):
 		push_warning("h_acceleration is 0 but velocity_toward.x is not equal to velocity.x")
 	velocity.y = move_toward(velocity.y, _v_toward , v_acceleration *delta)
 	velocity.x = move_toward(velocity.x, _h_toward , h_acceleration *delta) 
-	
+#	velocity.x = _h_toward
+	print(velocity)
 	if use_snap:
-		body.move_and_slide(velocity,Vector2.UP)
-#		body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true)
+		velocity =body.move_and_slide(velocity,Vector2.UP,true,4,0.9)
+#		body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true ,4,0.9)
 	else:
-		body.move_and_slide(velocity,Vector2.UP)
+		velocity =body.move_and_slide(velocity,Vector2.UP, true,4,0.9)
+#		body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true,4,0.9)
 	#is_on_floor 只能在move_and_slide之后调用
 	var _curr_on_floor = body.is_on_floor()
 	body.set("on_floor",_curr_on_floor)
