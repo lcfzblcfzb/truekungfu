@@ -4,6 +4,7 @@
 [ext_resource path="res://addons/sprite_trail/SpriteTrail.gd" type="Script" id=3]
 [ext_resource path="res://resource/texture/texture002/jinyiwei_attackleft_right-Sheet.png" type="Texture" id=4]
 
+
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]

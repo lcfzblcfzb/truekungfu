@@ -4,6 +4,7 @@
 [ext_resource path="res://FrameWork/AI/AIDetector.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resource/tiles/dungeon.tres" type="TileSet" id=3]
 
+
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( -26, -24, -25, 23.5, 22.5, 22.5, 22, -23 )
 

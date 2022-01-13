@@ -164,10 +164,50 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/behavior_tree/src/blackboard.gd"
 }, {
-"base": "Reference",
+"base": "AggresiveCharactor",
 "class": "ControlableMovingObj",
 "language": "GDScript",
 "path": "res://FrameWork/moving_obj/ControlableMovingObj.gd"
+}, {
+"base": "Reference",
+"class": "DTS",
+"language": "GDScript",
+"path": "res://addons/dialogic/Localization/translation_service.gd"
+}, {
+"base": "Node",
+"class": "Dialogic",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicClass.gd"
+}, {
+"base": "Control",
+"class": "DialogicBackgroundMusic",
+"language": "GDScript",
+"path": "res://addons/dialogic/Nodes/BackgroundMusic.gd"
+}, {
+"base": "Node",
+"class": "DialogicCustomEvents",
+"language": "GDScript",
+"path": "res://addons/dialogic/Nodes/DialogicCustomEvents.gd"
+}, {
+"base": "Node",
+"class": "DialogicDefinitionsUtil",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicDefinitionsUtil.gd"
+}, {
+"base": "Node",
+"class": "DialogicParser",
+"language": "GDScript",
+"path": "res://addons/dialogic/Parser/DialogicParser.gd"
+}, {
+"base": "Reference",
+"class": "DialogicResources",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicResources.gd"
+}, {
+"base": "Reference",
+"class": "DialogicUtil",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicUtil.gd"
 }, {
 "base": "BaseFightActionController",
 "class": "FightActionController",
@@ -297,6 +337,14 @@ _global_script_class_icons={
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
 "ControlableMovingObj": "",
+"DTS": "",
+"Dialogic": "",
+"DialogicBackgroundMusic": "",
+"DialogicCustomEvents": "",
+"DialogicDefinitionsUtil": "",
+"DialogicParser": "",
+"DialogicResources": "",
+"DialogicUtil": "",
 "FightActionController": "",
 "FightActionMng": "",
 "FightComponent_human": "",
@@ -335,7 +383,7 @@ window/stretch/mode="2d"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/Trail/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/sprite_trail/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/Trail/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/sprite_trail/plugin.cfg" )
 
 [global]
 
