@@ -6,6 +6,7 @@ var fight_cpn
 var animation_player:AnimationPlayer
 var animation_tree:AnimationTree
 var behaviourTree:BehaviorTree
+var blackboard:Blackboard
 
 var wu_animation_res;
 #重攻击时间阈值.ms

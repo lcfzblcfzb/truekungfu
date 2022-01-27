@@ -14,6 +14,7 @@ onready var animation_cfg = $StateController
 onready var sprite_animation = $SpriteAnimation
 onready var actionMng:FightActionMng = $FightActionMng
 onready var wu = $Wu
+onready var corner_detector = $CornerDetect
 
 #动作控制器。是玩家输入或者是 AI 控制器
 var fight_controller :BaseFightActionController
@@ -23,6 +24,9 @@ export (bool) var is_player =false;
 var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
 var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
 
+#是否处于可攀爬位置
+func is_at_hanging_corner()->bool:
+	return corner_detector.is_colliding_with_corner()
 
 #重载setter方法，在b= false 的时候，设置climb状态的结束
 func set_climbing(b):
@@ -180,15 +184,15 @@ func _on_FightKinematicMovableObj_State_Changed(state):
 		pass
 
 #移动的时候碰到的tile的信息
-func _on_FightKinematicMovableObj_CollisionObjChanged(collider):
-	
-	if collider is Platform: 
-		is_on_platform = true
-		print("is platform")
-	else:
-		is_on_platform = false 
-	pass # Replace with function body.
-
+func _on_FightKinematicMovableObj_CollisionObjChanged(collision:KinematicCollision2D):
+	if collision:
+		var collider = collision.collider
+		if collider is Platform: 
+			is_on_platform = true
+			print("is platform")
+		else:
+			is_on_platform = false 
+		
 
 func _on_FightKinematicMovableObj_FaceDirectionChanged(v:Vector2):
 	if v.y <= 0:

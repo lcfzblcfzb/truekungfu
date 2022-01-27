@@ -9,6 +9,7 @@ func _ready():
 	animation_player = $sword_animation
 	animation_tree = $AnimationTree
 	behaviourTree =  $SwordBehaviorTree
+	blackboard = $Blackboard
 #	animation_player.root_node = animation_player.get_path_to(fight_cpn.sprite.get_parent())
 #	$AnimationTree.active = true
 	pass
@@ -150,3 +151,6 @@ class SwordCourt:
 		pass
 	
 		
+
+func _on_Detector_body_entered(body):
+	fight_cpn.is_engaged = true

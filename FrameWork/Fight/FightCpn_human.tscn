@@ -1,6 +1,6 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=24 format=2]
 
-[ext_resource path="res://resource/standar_charactor/daoshi/left_hand.tres" type="Texture" id=1]
+[ext_resource path="res://FrameWork/Fight/CornerDetect.gd" type="Script" id=1]
 [ext_resource path="res://resource/texture/animation/demo_motion_fist-Sheet.png" type="Texture" id=2]
 [ext_resource path="res://SwordDemoAnimationPlayer2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=4]
@@ -14,20 +14,7 @@
 [ext_resource path="res://FrameWork/Fight/Wu/Wu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FrameWork/Fight/Fight_Animation_Tree_Root.tres" type="AnimationNodeBlendTree" id=13]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/SwordTree.tscn" type="PackedScene" id=14]
-[ext_resource path="res://resource/standar_charactor/daoshi/right_fore_arm.tres" type="Texture" id=15]
-[ext_resource path="res://resource/standar_charactor/daoshi/right_hand.tres" type="Texture" id=16]
-[ext_resource path="res://resource/standar_charactor/daoshi/left_foot.tres" type="Texture" id=17]
-[ext_resource path="res://resource/standar_charactor/daoshi/right_foot.tres" type="Texture" id=18]
-[ext_resource path="res://resource/standar_charactor/daoshi/right_upper_arm.tres" type="Texture" id=19]
-[ext_resource path="res://resource/standar_charactor/daoshi/head.tres" type="Texture" id=20]
-[ext_resource path="res://resource/standar_charactor/daoshi/left_fore_arm.tres" type="Texture" id=21]
-[ext_resource path="res://resource/standar_charactor/daoshi/hip.tres" type="Texture" id=22]
-[ext_resource path="res://resource/standar_charactor/daoshi/right_shank.tres" type="Texture" id=23]
-[ext_resource path="res://resource/standar_charactor/daoshi/left_upper_arm.tres" type="Texture" id=24]
-[ext_resource path="res://resource/standar_charactor/daoshi/right_thigh.tres" type="Texture" id=25]
-[ext_resource path="res://resource/standar_charactor/daoshi/body.tres" type="Texture" id=26]
-[ext_resource path="res://resource/standar_charactor/daoshi/left_thigh.tres" type="Texture" id=27]
-[ext_resource path="res://resource/standar_charactor/daoshi/left_shank.tres" type="Texture" id=28]
+[ext_resource path="res://FrameWork/Verlex/scarf.tscn" type="PackedScene" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.27545
@@ -76,7 +63,7 @@ RUN_2_IDLE_ACC = 30
 IDLE_2_RUN_ACC = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -7.88965, 22.2373 )
+position = Vector2( 0, 24 )
 rotation = 1.57079
 shape = SubResource( 1 )
 
@@ -99,51 +86,6 @@ __meta__ = {
 
 [node name="SpriteAnimation" parent="." instance=ExtResource( 8 )]
 fight_component_path = NodePath("..")
-
-[node name="hip" parent="SpriteAnimation" index="0"]
-texture = ExtResource( 22 )
-
-[node name="left_thigh" parent="SpriteAnimation/hip" index="0"]
-texture = ExtResource( 27 )
-
-[node name="left_shank" parent="SpriteAnimation/hip/left_thigh" index="0"]
-texture = ExtResource( 28 )
-
-[node name="left_foot" parent="SpriteAnimation/hip/left_thigh/left_shank" index="0"]
-texture = ExtResource( 17 )
-
-[node name="right_thigh" parent="SpriteAnimation/hip" index="1"]
-texture = ExtResource( 25 )
-
-[node name="right_shank" parent="SpriteAnimation/hip/right_thigh" index="0"]
-texture = ExtResource( 23 )
-
-[node name="right_foot" parent="SpriteAnimation/hip/right_thigh/right_shank" index="0"]
-texture = ExtResource( 18 )
-
-[node name="body" parent="SpriteAnimation/hip" index="2"]
-texture = ExtResource( 26 )
-
-[node name="left_upper_arm" parent="SpriteAnimation/hip/body" index="0"]
-texture = ExtResource( 24 )
-
-[node name="left_fore_arm" parent="SpriteAnimation/hip/body/left_upper_arm" index="0"]
-texture = ExtResource( 21 )
-
-[node name="left_hand" parent="SpriteAnimation/hip/body/left_upper_arm/left_fore_arm" index="0"]
-texture = ExtResource( 1 )
-
-[node name="right_upper_arm" parent="SpriteAnimation/hip/body" index="1"]
-texture = ExtResource( 19 )
-
-[node name="right_fore_arm" parent="SpriteAnimation/hip/body/right_upper_arm" index="0"]
-texture = ExtResource( 15 )
-
-[node name="right_hand" parent="SpriteAnimation/hip/body/right_upper_arm/right_fore_arm" index="0"]
-texture = ExtResource( 16 )
-
-[node name="head" parent="SpriteAnimation/hip/body" index="2"]
-texture = ExtResource( 20 )
 
 [node name="Sprite" parent="SpriteAnimation" index="1"]
 texture = ExtResource( 2 )
@@ -206,6 +148,16 @@ script = ExtResource( 9 )
 
 [node name="Tween" type="Tween" parent="."]
 
+[node name="CornerDetect" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 10, 0 )
+collision_mask = 144
+script = ExtResource( 1 )
+
+[node name="scarf" parent="." instance=ExtResource( 15 )]
+position = Vector2( -13.0801, -22.4008 )
+
+[connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="CornerDetect" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
 [connection signal="area_entered" from="SpriteAnimation/hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_entered" from="SpriteAnimation/weaponBox" to="." method="_on_weaponBox_area_entered"]
 [connection signal="ActionFinish" from="FightActionMng" to="." method="_on_FightActionMng_ActionFinish"]

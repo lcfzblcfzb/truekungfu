@@ -255,6 +255,21 @@ _global_script_classes=[ {
 "path": "res://FrameWork/Fight/Wu/weapon/Sword.gd"
 }, {
 "base": "Node2D",
+"class": "VerletChain",
+"language": "GDScript",
+"path": "res://FrameWork/Verlex/verlet_chain.gd"
+}, {
+"base": "Node2D",
+"class": "VerletLink",
+"language": "GDScript",
+"path": "res://FrameWork/Verlex/verlet_link.gd"
+}, {
+"base": "Node2D",
+"class": "VerletLoop",
+"language": "GDScript",
+"path": "res://FrameWork/Verlex/verlet_loop.gd"
+}, {
+"base": "Node2D",
 "class": "Weapon",
 "language": "GDScript",
 "path": "res://FrameWork/Weapon/Weapon.gd"
@@ -324,6 +339,9 @@ _global_script_class_icons={
 "Platform": "",
 "PlatformGestureActionController": "",
 "Sword": "",
+"VerletChain": "",
+"VerletLink": "",
+"VerletLoop": "",
 "Weapon": "",
 "WeaponBox": "",
 "WuxueEventHandlerTools": "",
@@ -452,6 +470,7 @@ jump={
 2d_physics/layer_6="player"
 2d_physics/layer_7="ladder"
 2d_physics/layer_8="platform"
+2d_physics/layer_9="badguy"
 
 [physics]
 
@@ -461,4 +480,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+threads/thread_safe_bvh=true
 environment/default_environment="res://default_env.tres"

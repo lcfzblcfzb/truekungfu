@@ -18,6 +18,6 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	else:
 		moving_direction = Vector2.LEFT
 	
-	fight_componnent.fight_controller.emit_new_fight_motion_event(Tool.getPollObject(MoveEvent,[moving_direction,false]))
+	fight_componnent.fight_controller.emit_new_fight_motion_event(Tool.getPollObject(MoveEvent,[moving_direction,false,false]))
 	
 	return succeed()
