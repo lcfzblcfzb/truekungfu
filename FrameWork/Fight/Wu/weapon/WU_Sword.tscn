@@ -1,23 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/Sword.gd" type="Script" id=1]
-[ext_resource path="res://SwordDemoAnimationPlayer2.tscn" type="PackedScene" id=2]
-[ext_resource path="res://FrameWork/Fight/Fight_Animation_Tree_Root.tres" type="AnimationNodeBlendTree" id=3]
+[ext_resource path="res://ComplicatedSwordDemoAnimationPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=4]
 [ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=5]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/simple_attack.tscn" type="PackedScene" id=6]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=3]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=4]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=5]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
+[sub_resource type="AnimationNodeBlendTree" id=1]
+graph_offset = Vector2( -305.786, -21.5 )
 
 [node name="WU_Sword" type="Node2D"]
 script = ExtResource( 1 )
@@ -25,20 +15,9 @@ script = ExtResource( 1 )
 [node name="sword_animation" parent="." instance=ExtResource( 2 )]
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = ExtResource( 3 )
+tree_root = SubResource( 1 )
 anim_player = NodePath("../sword_animation")
 process_mode = 0
-parameters/TimeScale/scale = 1.0
-parameters/sm/playback = SubResource( 1 )
-parameters/sm/conditions/is_holding = false
-parameters/sm2/playback = SubResource( 2 )
-parameters/sm2/StateMachine/playback = SubResource( 3 )
-parameters/sm2/StateMachine/StateMachine/playback = SubResource( 4 )
-parameters/sm2/StateMachine/StateMachine/conditions/is_holding = false
-"parameters/sm2/StateMachine 2/playback" = SubResource( 5 )
-"parameters/sm2/StateMachine 2/conditions/is_holding" = false
-parameters/sm2/mix/playback = SubResource( 6 )
-parameters/sm2/mix/conditions/is_holding = false
 script = ExtResource( 4 )
 
 [node name="Blackboard" type="Node" parent="."]

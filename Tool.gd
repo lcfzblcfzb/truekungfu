@@ -80,6 +80,8 @@ enum WuMotion{
 	Stunned,
 	JumpUp,
 	JumpDown,
+	Hanging,
+	HangingClimb,
 	
 	Attack_Up,
 	Attack_Mid,
@@ -119,7 +121,11 @@ enum FightMotion{
 	Stunned =160,
 	JumpUp =161,
 	JumpDown =162,
-	Climb = 163
+	Climb = 163,
+	Hanging = 164,
+	HangingClimb = 165,
+	Attack = 166,
+	Defend = 167,
 	
 	Attack_Up_Pre=100,
 	Attack_Up_In=101,

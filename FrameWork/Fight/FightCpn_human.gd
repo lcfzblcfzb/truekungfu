@@ -173,7 +173,7 @@ func _on_hurtbox_area_entered(area):
 #movableobj 状态变化信号
 func _on_FightKinematicMovableObj_State_Changed(state):
 	
-	if state ==FightKinematicMovableObj.ActionState.Idle && actionMng.is_connected("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess") :
+	if (state ==FightKinematicMovableObj.ActionState.Idle or state ==FightKinematicMovableObj.ActionState.Hanging or state ==FightKinematicMovableObj.ActionState.HangingClimb ) and actionMng.is_connected("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess") :
 		#在IDLE 的时候检测是否监听actionProcess事件并且取消监听	
 		actionMng.call_deferred("disconnect","ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
 #		actionMng.disconnect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
@@ -181,6 +181,14 @@ func _on_FightKinematicMovableObj_State_Changed(state):
 		#在jumpup jumpdown climb 的时候监听
 		#可以在空中移动方向
 		actionMng.connect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
+		pass
+	
+	if state ==FightKinematicMovableObj.ActionState.HangingClimb:
+		#进入HangingClimb阶段；	
+		#TODO 动画播放结束
+		yield(get_tree().create_timer(0.5),"timeout")
+		#TODO 检测 _last_hang_climb_end 的合法性
+		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
 		pass
 
 #移动的时候碰到的tile的信息

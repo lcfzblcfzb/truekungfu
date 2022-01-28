@@ -18,7 +18,8 @@ enum ActionState{
 	JumpUp,
 	JumpDown,#8
 	Climb,#9
-	Hanging                        
+	Hanging,
+	HangingClimb#11 从hang攀爬到站起的过程          
 }
 
 var state = ActionState.Idle setget changeState
@@ -122,6 +123,14 @@ func changeState(s):
 				v_velocityToward=0
 				h_acceleration =9999
 				h_velocityToward=0
+				
+			ActionState.HangingClimb:
+				#攀爬墙壁边缘
+				ignore_gravity = true
+				v_acceleration =9999
+				v_velocityToward=0
+				h_acceleration =9999
+				h_velocityToward=0
 								
 		print("  state change",s)
 		state =s	
@@ -142,16 +151,19 @@ func _physics_process(delta):
 	
 	#若在空中的情况	
 	if not body.is_on_genelized_floor() :
-		if state != ActionState.Hanging:
-			if body.is_at_hanging_corner() : #优先设置成hanging
-				change_movable_state(Vector2.ZERO , ActionState.Hanging)
-				return
-			if self.state==ActionState.JumpUp :
-				if velocity.y ==0:
-					#升至跳跃max,设置faceDirection 向下
-					self.state = ActionState.JumpDown
-			elif self.state!=ActionState.JumpDown and self.state!=ActionState.Climb and self.state !=ActionState.Hanging:
+		
+		if self.state==ActionState.JumpUp :
+			if velocity.y ==0:
+				#升至跳跃max,设置faceDirection 向下
 				self.state = ActionState.JumpDown
+			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
+				change_movable_state(Vector2.ZERO , ActionState.Hanging)
+		elif self.state!=ActionState.JumpDown and self.state!=ActionState.Climb and self.state !=ActionState.Hanging and self.state != ActionState.HangingClimb:
+			#最基础的判定下落的地方
+			self.state = ActionState.JumpDown
+			
+		elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
+			change_movable_state(Vector2.ZERO , ActionState.Hanging)
 		
 #改变 movableobjstate
 func change_movable_state(input_vector,s):
@@ -194,7 +206,12 @@ func climb_over(s = ActionState.Idle):
 		print("  climb over",s)
 		ignore_gravity = false
 		emit_signal("State_Changed",s)
-	pass		
+	pass	
+#hangingClimb动作结束的回调
+func hanging_climb_over(position:Vector2,s = ActionState.Idle):
+	ignore_gravity = false
+	body.global_position = position
+	self.state = s
 	
 #当前角色朝向
 func is_face_left():
@@ -225,7 +242,11 @@ func _process_action(action:ActionInfo):
 	#当前处于下降下/或者 上升，如果按了移动，则会卡住。是因为移动完又自动会调用idle
 #	if (state ==ActionState.JumpDown or state ==ActionState.JumpUp) and action.base_action==Tool.FightMotion.Idle:
 #		return
-		
+	
+	if state == ActionState.HangingClimb:
+		#hangingclimb 状态下不接收输入
+		return
+	
 	var input_vector = Vector2.ZERO
 	
 	if action.param!=null && action.param.size()>0 && action.param[0] is Vector2:
@@ -233,25 +254,29 @@ func _process_action(action:ActionInfo):
 	print("in movable obj",input_vector)
 	
 	if state == ActionState.Hanging:
-		
-		#往hanging 相反移动的操作将结束hanging状态
+		#攀援的状态	
 		if sign(charactor_face_direction.x) * sign(input_vector.x) <0:
+			#往hanging 相反移动的操作将结束hanging状态
 			change_movable_state(input_vector , ActionState.Idle)
 			ignore_gravity = false
 			pass 
 		elif action.base_action ==Tool.FightMotion.JumpUp:
+			#跳跃
 			change_movable_state(input_vector , ActionState.JumpUp)
 			ignore_gravity = false
-		pass
+		elif sign(charactor_face_direction.x) * sign(input_vector.x) >0:
+			#相同方向 攀爬至平台上
+			change_movable_state(input_vector , ActionState.HangingClimb)
+			pass
 		
 	else:
 		
-		#如果当前处于下降，按了移动，则会表现异常（有可能上不去Platform）
-		#是因为移动的状态导致台阶判定出错
-		if ( state ==ActionState.JumpUp) and (action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
+		#在空中的状态在 接收到 IDLE,WALK,RUN移动指令的时候需要特殊处理
+		#会接收到IDLE是应为输入控制器 在最后一个按键抬起的时候会发送一个IDLE事件
+		if ( state ==ActionState.JumpUp) and (action.base_action==Tool.FightMotion.Idle or action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
 			change_movable_state(Vector2(input_vector.x,-1) , state)
 			return
-		elif (state ==ActionState.JumpDown ) and (action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
+		elif (state ==ActionState.JumpDown ) and (action.base_action==Tool.FightMotion.Idle or action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
 			change_movable_state(Vector2(input_vector.x,1) , state)
 			return
 		if state ==ActionState.Climb and (action.base_action==Tool.FightMotion.Idle or action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):

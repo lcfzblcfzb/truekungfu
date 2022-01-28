@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://FrameWork/Fight/CornerDetect.gd" type="Script" id=1]
-[ext_resource path="res://resource/texture/animation/demo_motion_fist-Sheet.png" type="Texture" id=2]
-[ext_resource path="res://SwordDemoAnimationPlayer2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ComplicatedSwordDemoAnimationPlayer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/Action/FightActionMng.tscn" type="PackedScene" id=5]
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=6]
@@ -10,30 +9,10 @@
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
 [ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=9]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/Sword.gd" type="Script" id=10]
-[ext_resource path="res://FightAnimationPlayer.tscn" type="PackedScene" id=11]
-[ext_resource path="res://FrameWork/Fight/Wu/Wu.tscn" type="PackedScene" id=12]
+[ext_resource path="res://FrameWork/Fight/Wu/weapon/Wu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FrameWork/Fight/Fight_Animation_Tree_Root.tres" type="AnimationNodeBlendTree" id=13]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/SwordTree.tscn" type="PackedScene" id=14]
 [ext_resource path="res://FrameWork/Verlex/scarf.tscn" type="PackedScene" id=15]
-
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 3.27545
-height = 1.70627
-
-[sub_resource type="Animation" id=51]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=52]
 
@@ -47,7 +26,13 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=57]
 
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 3.0
+height = 2.0
+
 [node name="FIghtComponnet_Human" type="KinematicBody2D"]
+collision_layer = 32
+collision_mask = 208
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 205.209, 141.586 ],
@@ -62,70 +47,34 @@ RUN_ACC = 470
 RUN_2_IDLE_ACC = 30
 IDLE_2_RUN_ACC = 200
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 24 )
-rotation = 1.57079
-shape = SubResource( 1 )
-
-[node name="AnimationPlayer" parent="." instance=ExtResource( 11 )]
-
-[node name="TextEdit" type="TextEdit" parent="."]
-visible = false
-margin_left = -33.9874
-margin_top = 7.9127
-margin_right = 126.013
-margin_bottom = 67.9127
-text = "a_b_in"
-context_menu_enabled = false
-shortcut_keys_enabled = false
-virtual_keyboard_enabled = false
-selecting_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="SpriteAnimation" parent="." instance=ExtResource( 8 )]
 fight_component_path = NodePath("..")
 
-[node name="Sprite" parent="SpriteAnimation" index="1"]
-texture = ExtResource( 2 )
-frame = 12
+[node name="hip" parent="SpriteAnimation" index="0"]
+texture_folder = ""
 
-[node name="TextEdit" type="TextEdit" parent="SpriteAnimation/Sprite" index="0"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-rect_rotation = 18.0
-text = "a_b_after"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SwordDemoAnimationPlayer" parent="SpriteAnimation" index="3"]
-anims/RESET = SubResource( 51 )
-
-[node name="hurtbox" parent="SpriteAnimation" index="4"]
+[node name="hurtbox" parent="SpriteAnimation" index="1"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="weaponBox" parent="SpriteAnimation" index="5"]
+[node name="weaponBox" parent="SpriteAnimation" index="2"]
 collision_layer = 0
 collision_mask = 0
 
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 
 [node name="Wu" parent="." instance=ExtResource( 12 )]
+chosed_wuxue = 1
 FightComponentPath = NodePath("..")
 
 [node name="debug_wuxue" type="Node2D" parent="Wu"]
 visible = false
 script = ExtResource( 10 )
 
-[node name="sword_animation" parent="Wu/debug_wuxue" instance=ExtResource( 3 )]
-
 [node name="AnimationTree" type="AnimationTree" parent="Wu/debug_wuxue"]
 tree_root = ExtResource( 13 )
-anim_player = NodePath("../sword_animation")
+anim_player = NodePath("../SwordDemoAnimationPlayer")
+active = true
 process_mode = 0
 parameters/TimeScale/scale = 1.0
 parameters/sm/playback = SubResource( 52 )
@@ -146,18 +95,27 @@ _blackboard = NodePath("../Blackboard")
 [node name="Blackboard" type="Node" parent="Wu/debug_wuxue"]
 script = ExtResource( 9 )
 
+[node name="SwordDemoAnimationPlayer" parent="Wu/debug_wuxue" instance=ExtResource( 3 )]
+
 [node name="Tween" type="Tween" parent="."]
 
 [node name="CornerDetect" type="RayCast2D" parent="."]
+position = Vector2( 0, -34 )
 enabled = true
 cast_to = Vector2( 10, 0 )
 collision_mask = 144
 script = ExtResource( 1 )
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -3 )
+rotation = 1.57079
+shape = SubResource( 1 )
+
 [node name="scarf" parent="." instance=ExtResource( 15 )]
 position = Vector2( -13.0801, -22.4008 )
 
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="CornerDetect" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
+[connection signal="State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_State_Changed"]
 [connection signal="area_entered" from="SpriteAnimation/hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_entered" from="SpriteAnimation/weaponBox" to="." method="_on_weaponBox_area_entered"]
 [connection signal="ActionFinish" from="FightActionMng" to="." method="_on_FightActionMng_ActionFinish"]

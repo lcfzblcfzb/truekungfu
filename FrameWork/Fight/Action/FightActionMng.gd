@@ -396,7 +396,7 @@ func _physics_process(delta):
 
 			if !_current_action.is_loop && _current_action.action_pass_time >= _current_action.action_duration_ms:
 				
-				print("action  ing")
+				print("actioning")
 #				debug_print()
 				_current_action.state = ActionInfo.STATE_ENDED
 				var finished_Action =_current_action
