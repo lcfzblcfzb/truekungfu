@@ -1,14 +1,17 @@
 extends AnimationTree
 
-var state_machine_playback = get("parameters/sm/playback")
+const MOVE =0 
+const HANGING =1
+const CLIMB =2
+const JUMP =3
+const ATTACK =4
 
-export (NodePath)var _fight_action_path setget set_fight_action_control
+var TRANSITION = "parameters/Transition/current"
+var MOVE_BP ="parameters/move/blend_position"
 
-export (NodePath) var textEdit_animator
-export (NodePath) var sword_animator
+var current_state = MOVE
 
 func _ready():
-#
 #	yield(get_tree().create_timer(3),"timeout")
 #	anim_player = textEdit_animator
 	pass
@@ -20,11 +23,11 @@ func set_fight_action_control(f):
 
 signal State_Changed;
 #前一个路过的结点；
-var prv_node =""
+var prv_node =-1
 
 func _process(delta):
 	
-	var current_node = state_machine_playback.get_current_node()
+	var current_node = get(TRANSITION)
 	if current_node!=prv_node:
 		emitSignal(current_node)
 		prv_node = current_node
@@ -36,15 +39,33 @@ func act(action:ActionInfo,timescale):
 	print("【action】: ",animation)
 	if animation!=null:
 		
-		travelTo(animation)
+		travelTo(action)
 		#set_deferred("parameters/TimeScale/scale",5)
 		var time = 1/timescale
-		print(time)
 		set_deferred("parameters/TimeScale/scale",time)
 		
 #封装的travel 方法;
-func travelTo(name):
-	state_machine_playback.travel(name)
+func travelTo(action:ActionInfo):
+	
+	match action.base_action:
+		Tool.FightMotion.Idle:
+			set(TRANSITION,MOVE)
+			set(MOVE_BP,Vector2.ZERO)
+			
+		Tool.FightMotion.Walk:
+			set(TRANSITION,MOVE)
+			set(MOVE_BP,Vector2.RIGHT)
+		
+		Tool.FightMotion.Hanging:
+			set(TRANSITION,HANGING)
+		
+		Tool.FightMotion.HangingClimb:
+			set("parameters/hangingclimbshot/active",true)
+		_:
+			set(TRANSITION,MOVE)
+			set(MOVE_BP,Vector2.ZERO)
+	
+#	state_machine_playback.travel(name)
 
 #玩一下yield方法；
 func emitSignal(toNode):

@@ -7,10 +7,11 @@ static func get_wuxue_type():
 func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_fist-Sheet.png"
 	
-	
-	animation_player = $fist_animation
+	animation_player = $AnimationPlayer
 	animation_tree = $AnimationTree
-	
+	behaviourTree =  $FistBehaviorTree
+	blackboard = $Blackboard
+	behaviourTree.blackboard = blackboard
 #	yield(get_tree().create_timer(3),"timeout")
 #	var animationPlayer = preload("res://FightAnimationPlayer.tscn").instance() as AnimationPlayer
 #	add_child(animationPlayer)
@@ -27,6 +28,16 @@ func on_action_event(event:NewActionEvent):
 		Tool.WuMotion.Stunned:
 			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Stunned) as BaseAction
 			fight_cpn.actionMng.regist_action(Tool.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			pass
+		
+		Tool.WuMotion.Hanging:
+			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Hanging) as BaseAction
+			fight_cpn.actionMng.regist_action(event.wu_motion,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			pass
+		
+		Tool.WuMotion.HangingClimb:
+			var base = FightBaseActionDataSource.get_by_base_id(event.wu_motion) as BaseAction
+			fight_cpn.actionMng.regist_action(event.wu_motion,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
 		
 		Tool.WuMotion.Attack_Up:
@@ -106,5 +117,4 @@ func on_action_event(event:NewActionEvent):
 func on_move_event(event:MoveEvent):
 	
 	WuxueEventHandlerTools.normal_on_moveevent(event,fight_cpn)
-	
 	

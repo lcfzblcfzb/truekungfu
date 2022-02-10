@@ -3,7 +3,7 @@ extends RayCast2D
 var _last_hang_climb_end:Vector2
 
 func is_colliding_with_corner()->bool:
-	if is_colliding():
+	if is_colliding(): 
 		
 		var collider = get_collider()
 		if collider!=null:

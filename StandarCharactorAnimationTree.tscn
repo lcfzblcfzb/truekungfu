@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://FrameWork/Charactor/StandarCharactorTree.tres" type="AnimationNodeBlendTree" id=1]
+
+[node name="AnimationTree" type="AnimationTree"]
+tree_root = ExtResource( 1 )
+anim_player = NodePath("../AnimationPlayer")
+parameters/TimeScale/scale = 1.0
+parameters/Transition/current = 0
+parameters/attack/blend_position = -0.000885725
+parameters/hangingclimbshot/active = false
+parameters/jump_blend/blend_amount = 0
+parameters/move/blend_position = Vector2( -0.00667304, -0.00395262 )

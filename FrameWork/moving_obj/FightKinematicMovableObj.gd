@@ -5,6 +5,7 @@ extends KinematicPlatformMovableObj
 
 signal State_Changed
 signal Charactor_Face_Direction_Changed
+signal Active_State_Changed
 
 enum ActionState{
 	
@@ -24,7 +25,7 @@ enum ActionState{
 
 var state = ActionState.Idle setget changeState
 
-export(int, 0, 1000) var IDLE_ACC = 900
+export(int, 0, 1000) var IDLE_ACC = 1900
 export(int, 0, 1000) var WALK_ACC = 900
 export(int, 0, 1000) var WALK_VELOCITY = 110
 export(int, 0, 1000) var RUN_ACC = 500
@@ -49,6 +50,7 @@ func changeState(s):
 		_snap_vector=SNAP_DOWN
 		use_snap =true
 		
+		ignore_gravity = false
 		v_acceleration = gravity
 		v_velocityToward = FREE_FALL_SPEED
 		match s:
@@ -98,6 +100,7 @@ func changeState(s):
 				
 			ActionState.JumpDown:
 				isMoving = true
+				
 				_snap_vector=NO_SNAP
 				use_snap =false
 				v_acceleration = gravity
@@ -147,7 +150,7 @@ func _physics_process(delta):
 			#所以会出现停住的现象
 #			self.state = ActionState.Walk
 #		else:
-		self.state = ActionState.Idle
+		emit_signal("Active_State_Changed",Tool.FightMotion.Idle)
 	
 	#若在空中的情况	
 	if not body.is_on_genelized_floor() :
@@ -155,15 +158,18 @@ func _physics_process(delta):
 		if self.state==ActionState.JumpUp :
 			if velocity.y ==0:
 				#升至跳跃max,设置faceDirection 向下
-				self.state = ActionState.JumpDown
-			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
-				change_movable_state(Vector2.ZERO , ActionState.Hanging)
+				emit_signal("Active_State_Changed",Tool.FightMotion.JumpDown)
+#				self.state = ActionState.JumpDown
+#			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
+#				change_movable_state(Vector2.ZERO , ActionState.Hanging)
+				
 		elif self.state!=ActionState.JumpDown and self.state!=ActionState.Climb and self.state !=ActionState.Hanging and self.state != ActionState.HangingClimb:
 			#最基础的判定下落的地方
-			self.state = ActionState.JumpDown
+			emit_signal("Active_State_Changed",Tool.FightMotion.JumpDown)
+#			self.state = ActionState.JumpDown
 			
-		elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
-			change_movable_state(Vector2.ZERO , ActionState.Hanging)
+#		elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
+#			change_movable_state(Vector2.ZERO , ActionState.Hanging)
 		
 #改变 movableobjstate
 func change_movable_state(input_vector,s):
@@ -232,6 +238,7 @@ var _current_action:ActionInfo
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
 	#在开始和 进行中 有可能触发
+	
 	_process_action(action)
 
 
@@ -253,59 +260,67 @@ func _process_action(action:ActionInfo):
 		input_vector = action.param[0]
 	print("in movable obj",input_vector)
 	
-	if state == ActionState.Hanging:
+#	if state == ActionState.Hanging:
 		#攀援的状态	
-		if sign(charactor_face_direction.x) * sign(input_vector.x) <0:
-			#往hanging 相反移动的操作将结束hanging状态
-			change_movable_state(input_vector , ActionState.Idle)
-			ignore_gravity = false
-			pass 
-		elif action.base_action ==Tool.FightMotion.JumpUp:
-			#跳跃
-			change_movable_state(input_vector , ActionState.JumpUp)
-			ignore_gravity = false
-		elif sign(charactor_face_direction.x) * sign(input_vector.x) >0:
-			#相同方向 攀爬至平台上
-			change_movable_state(input_vector , ActionState.HangingClimb)
-			pass
-		
-	else:
+#		if sign(charactor_face_direction.x) * sign(input_vector.x) <0:
+#			#往hanging 相反移动的操作将结束hanging状态
+#			change_movable_state(input_vector , ActionState.Idle)
+#			ignore_gravity = false
+#			pass 
+#		elif action.base_action ==Tool.FightMotion.JumpUp:
+#			#跳跃
+#			change_movable_state(input_vector , ActionState.JumpUp)
+#			ignore_gravity = false
+#		elif sign(charactor_face_direction.x) * sign(input_vector.x) >0:
+#			#相同方向 攀爬至平台上
+#			change_movable_state(input_vector , ActionState.HangingClimb)
+#			pass
+#		pass
+#	else:
 		
 		#在空中的状态在 接收到 IDLE,WALK,RUN移动指令的时候需要特殊处理
 		#会接收到IDLE是应为输入控制器 在最后一个按键抬起的时候会发送一个IDLE事件
-		if ( state ==ActionState.JumpUp) and (action.base_action==Tool.FightMotion.Idle or action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
-			change_movable_state(Vector2(input_vector.x,-1) , state)
-			return
-		elif (state ==ActionState.JumpDown ) and (action.base_action==Tool.FightMotion.Idle or action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
-			change_movable_state(Vector2(input_vector.x,1) , state)
-			return
-		if state ==ActionState.Climb and (action.base_action==Tool.FightMotion.Idle or action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
-			change_movable_state(input_vector,ActionState.Climb)
-			return
-	
-		match(action.base_action): 
-			Tool.FightMotion.Idle:
-				change_movable_state(input_vector,ActionState.Idle)
-			Tool.FightMotion.Run:
-				change_movable_state(input_vector,ActionState.Run)
-			Tool.FightMotion.Walk:
-				change_movable_state(input_vector,ActionState.Walk)
-			Tool.FightMotion.Run2Idle:
-				change_movable_state(input_vector,ActionState.Run2Idle)
-			Tool.FightMotion.Idle2Run:
-				change_movable_state(input_vector,ActionState.Idle2Run)
-			Tool.FightMotion.JumpUp:
-				change_movable_state(input_vector,ActionState.JumpUp)	
-			Tool.FightMotion.Climb:
-				change_movable_state(input_vector,ActionState.Climb)	
-			_:
-				var baseObj = FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
-				# 是攻击类型的type
-				#TODO 建立一个枚举 表示 action_type 方便理解
-				if 2 in baseObj.type:
-					var name =baseObj.animation_name as String
-					if "_pre" in name: 
-						change_movable_state(input_vector,ActionState.Attack)
-						print("attack action start..stop moving")
+	if ( state ==ActionState.JumpUp) and (action.base_action==Tool.FightMotion.Idle or action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
+		change_movable_state(Vector2(input_vector.x,-1) , state)
+		return
+	elif (state ==ActionState.JumpDown ) and (action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
+		change_movable_state(Vector2(input_vector.x,1) , state)
+		return
+	if state ==ActionState.Climb and (action.base_action==Tool.FightMotion.Idle or action.base_action==Tool.FightMotion.Walk or action.base_action==Tool.FightMotion.Run):
+		change_movable_state(input_vector,ActionState.Climb)
+		return
+
+	match(action.base_action): 
+		Tool.FightMotion.Idle:
+			change_movable_state(input_vector,ActionState.Idle)
+		Tool.FightMotion.Run:
+			change_movable_state(input_vector,ActionState.Run)
+		Tool.FightMotion.Walk:
+			change_movable_state(input_vector,ActionState.Walk)
+		Tool.FightMotion.Run2Idle:
+			change_movable_state(input_vector,ActionState.Run2Idle)
+		Tool.FightMotion.Idle2Run:
+			change_movable_state(input_vector,ActionState.Idle2Run)
+		Tool.FightMotion.JumpUp:
+			input_vector.y = O.UP.y
+			change_movable_state(input_vector,ActionState.JumpUp)	
+		Tool.FightMotion.JumpDown:
+			input_vector.y = O.DOWN.y
+			change_movable_state(input_vector,ActionState.JumpDown)	
+		Tool.FightMotion.Climb:
+			change_movable_state(input_vector,ActionState.Climb)	
+		Tool.FightMotion.Hanging:
+			change_movable_state(input_vector,ActionState.Hanging)
+		Tool.FightMotion.HangingClimb:
+			change_movable_state(input_vector,ActionState.HangingClimb)		
+		_:
+			var baseObj = FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
+			# 是攻击类型的type
+			#TODO 建立一个枚举 表示 action_type 方便理解
+			if 2 in baseObj.type:
+				var name =baseObj.animation_name as String
+				if "_pre" in name: 
+					change_movable_state(input_vector,ActionState.Attack)
+					print("attack action start..stop moving")
 						
 	pass

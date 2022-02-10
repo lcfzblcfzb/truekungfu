@@ -1,30 +1,12 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://FrameWork/Fight/CornerDetect.gd" type="Script" id=1]
-[ext_resource path="res://ComplicatedSwordDemoAnimationPlayer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/Action/FightActionMng.tscn" type="PackedScene" id=5]
-[ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=6]
 [ext_resource path="res://FrameWork/moving_obj/FightKinematicMovableObj.tscn" type="PackedScene" id=7]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
-[ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=9]
-[ext_resource path="res://FrameWork/Fight/Wu/weapon/Sword.gd" type="Script" id=10]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/Wu.tscn" type="PackedScene" id=12]
-[ext_resource path="res://FrameWork/Fight/Fight_Animation_Tree_Root.tres" type="AnimationNodeBlendTree" id=13]
-[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/SwordTree.tscn" type="PackedScene" id=14]
 [ext_resource path="res://FrameWork/Verlex/scarf.tscn" type="PackedScene" id=15]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=52]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=53]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=54]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=55]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=56]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=57]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.0
@@ -48,6 +30,7 @@ RUN_2_IDLE_ACC = 30
 IDLE_2_RUN_ACC = 200
 
 [node name="SpriteAnimation" parent="." instance=ExtResource( 8 )]
+position = Vector2( 2, -17 )
 fight_component_path = NodePath("..")
 
 [node name="hip" parent="SpriteAnimation" index="0"]
@@ -64,38 +47,7 @@ collision_mask = 0
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 
 [node name="Wu" parent="." instance=ExtResource( 12 )]
-chosed_wuxue = 1
 FightComponentPath = NodePath("..")
-
-[node name="debug_wuxue" type="Node2D" parent="Wu"]
-visible = false
-script = ExtResource( 10 )
-
-[node name="AnimationTree" type="AnimationTree" parent="Wu/debug_wuxue"]
-tree_root = ExtResource( 13 )
-anim_player = NodePath("../SwordDemoAnimationPlayer")
-active = true
-process_mode = 0
-parameters/TimeScale/scale = 1.0
-parameters/sm/playback = SubResource( 52 )
-parameters/sm/conditions/is_holding = false
-parameters/sm2/playback = SubResource( 53 )
-parameters/sm2/StateMachine/playback = SubResource( 54 )
-parameters/sm2/StateMachine/StateMachine/playback = SubResource( 55 )
-parameters/sm2/StateMachine/StateMachine/conditions/is_holding = false
-"parameters/sm2/StateMachine 2/playback" = SubResource( 56 )
-"parameters/sm2/StateMachine 2/conditions/is_holding" = false
-parameters/sm2/mix/playback = SubResource( 57 )
-parameters/sm2/mix/conditions/is_holding = false
-script = ExtResource( 6 )
-
-[node name="SwordBehaviorTree" parent="Wu/debug_wuxue" instance=ExtResource( 14 )]
-_blackboard = NodePath("../Blackboard")
-
-[node name="Blackboard" type="Node" parent="Wu/debug_wuxue"]
-script = ExtResource( 9 )
-
-[node name="SwordDemoAnimationPlayer" parent="Wu/debug_wuxue" instance=ExtResource( 3 )]
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -114,6 +66,8 @@ shape = SubResource( 1 )
 [node name="scarf" parent="." instance=ExtResource( 15 )]
 position = Vector2( -13.0801, -22.4008 )
 
+[connection signal="Active_State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_Active_State_Changed"]
+[connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="SpriteAnimation" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="CornerDetect" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
 [connection signal="State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_State_Changed"]
 [connection signal="area_entered" from="SpriteAnimation/hurtbox" to="." method="_on_hurtbox_area_entered"]

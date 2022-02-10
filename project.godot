@@ -345,7 +345,7 @@ _global_script_class_icons={
 [application]
 
 config/name="锦衣卫"
-run/main_scene="res://resource/scene/Platformer_demo.tscn"
+run/main_scene="res://resource/scene/fight_demo.tscn"
 
 [autoload]
 
@@ -353,6 +353,7 @@ Tool="*res://Tool.gd"
 CharactorMng="*res://FrameWork/Scene/CharactorMng.gd"
 FightBaseActionDataSource="*res://FrameWork/Fight/FightBaseActionDataSource.gd"
 WuxueMng="*res://FrameWork/Fight/Wu/weapon/WuxueMng.gd"
+O="*res://FrameWork/_.gd"
 
 [display]
 

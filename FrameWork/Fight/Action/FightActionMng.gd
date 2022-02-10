@@ -8,6 +8,18 @@ signal ActionFinish
 
 var global_group_id = 100
 
+
+#获得 最后一个执行的action；如果没有返回null
+func nearest_executed_action()->ActionInfo:
+	
+	if _current_action !=null:
+		return _current_action
+	
+	elif action_array.size()>0:
+		return action_array.back()
+	
+	return null
+
 func next_group_id():
 	global_group_id = global_group_id+1
 	return global_group_id
@@ -77,26 +89,35 @@ func debug_print():
 	
 	#打印一些数据
 	var n =  10  if  action_array.size()>10 else action_array.size()
+	
+	if n < action_array.size()-current_index:
+		n= action_array.size()-current_index+1
 	var s =''
 	for i in n:
 		var a = action_array[-(i+1)] as ActionInfo
 		var baseAction =FightBaseActionDataSource.dict.get(a.base_action)
 		if baseAction:
-			if a.state ==ActionInfo.STATE_ING:
+			if a.state ==ActionInfo.STATE_ING :
 				s = s+"[current -> :" +baseAction.animation_name+"]"
 				pass
 			else:
 				s = s+"["+a.state as String +baseAction.animation_name+"]"
 		pass
-	s=s+OS.get_ticks_msec() as String
 	print(s)
-
+var debugcount = 0
 #注册整个action
 func regist_actioninfo(action:ActionInfo):
 
 	#检查是否是重复的持久型action
-	if _current_action and (not action.repeatation_allowed) and action.is_bussiness_equal(_current_action):
-		return
+	if action_array.size()>0:
+		var nearest_action = action_array.back()
+		if nearest_action and (not action.repeatation_allowed) and action.is_bussiness_equal(nearest_action):
+			return
+	
+	if action.base_action ==Tool.FightMotion.JumpDown:
+		debugcount+=1
+		if debugcount>1:
+			print("debugcountdad")
 	
 	_resize_action_array()
 
@@ -106,9 +127,25 @@ func regist_actioninfo(action:ActionInfo):
 
 	chek_execution_prority()
 	
-#	debug_print()
+	check_break_loop(action)
+	debug_print()
 	
 	return action
+
+#检测break_loop类型的操作
+func check_break_loop(action:ActionInfo):
+
+	if _current_action.is_loop and _current_action.state == ActionInfo.STATE_ING and action.loop_break:
+		
+		_current_action.state = ActionInfo.STATE_ENDED
+		var finished_Action =_current_action
+		self.current_index=current_index+1
+		#为了让 使用 current_index 取到的 都是 inited/ing 状态的action
+		emit_signal("ActionFinish",finished_Action)
+		
+		pass
+	
+	pass
 
 #添加一个组的动作
 func regist_group_actions(actions:Array,groupId,group_exe_mod=ActionInfo.EXEMOD_NEWEST):
@@ -376,6 +413,7 @@ func _check_generous_on_process():
 		self.current_index = current_index+1
 		
 		pass
+
 
 func _physics_process(delta):
 

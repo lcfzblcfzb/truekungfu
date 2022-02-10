@@ -27,6 +27,11 @@ func _init(pool,params_array:Array).(pool):
 		repeatation_allowed = params_array[5]
 	else:
 		repeatation_allowed = true
+		
+	if params_array.size()>6:
+		loop_break = params_array[6]
+	else:
+		loop_break = false
 	
 pass
 #最普通的action方式，如果前一个action也是newest ，则会被覆盖
@@ -40,6 +45,8 @@ const EXEMOD_INTERUPT =20
 #添加的时候，不会去掉newest; 在轮到它执行的时刻，有新的结点出现，就让出给新的。可以设置not_generous_type过滤规则
 const EXEMOD_GENEROUS =40
 
+#如果当前action 的 is_loop = true，则 loop_break = true 的action 加入的时候将打破此loop
+var loop_break:bool = false
 
 var group_id = -1
 var not_generous_type = []
