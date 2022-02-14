@@ -163,6 +163,8 @@ func _movePlayer(delta):
 		velocity.x = move_toward(velocity.x, _h_toward , h_acceleration *delta) 
 	else: 
 		velocity.x = _h_toward
+		if ignore_gravity:
+			velocity.y = _v_toward
 #	velocity.x = _h_toward
 #	print(velocity)
 	if use_snap:

@@ -216,7 +216,7 @@ func climb_over(s = ActionState.Idle):
 #hangingClimb动作结束的回调
 func hanging_climb_over(position:Vector2,s = ActionState.Idle):
 	ignore_gravity = false
-	body.global_position = position
+#	body.global_position = position
 	self.state = s
 	
 #当前角色朝向
@@ -232,6 +232,22 @@ func _on_FightActionMng_ActionProcess(action:ActionInfo):
 #		if _prv_process_action ==null or _prv_process_action!= action :
 		_process_action(action)
 #		_prv_process_action = action
+	elif action.base_action == Tool.FightMotion.HangingClimb:
+		
+		#TODO 待优化
+		var end_position = body.corner_detector._last_hang_climb_end as Vector2
+		
+		var time = (action.action_duration_ms -action.action_pass_time) / 1000
+		
+		var distance = global_position.distance_to(end_position)
+		
+		var speed = distance /time
+		#TODO 优化点：符合实际的攀爬应该分为两段：第一段垂直上升，第二段水平方向移动
+		faceDirection =  global_position.direction_to(end_position)
+		v_velocityToward = speed  
+		h_velocityToward = speed  
+		
+		pass
 	pass
 
 var _current_action:ActionInfo
@@ -312,6 +328,8 @@ func _process_action(action:ActionInfo):
 		Tool.FightMotion.Hanging:
 			change_movable_state(input_vector,ActionState.Hanging)
 		Tool.FightMotion.HangingClimb:
+			
+			
 			change_movable_state(input_vector,ActionState.HangingClimb)		
 		_:
 			var baseObj = FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction

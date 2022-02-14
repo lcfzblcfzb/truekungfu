@@ -183,11 +183,11 @@ func _on_hurtbox_area_entered(area):
 #movableobj 状态变化信号
 func _on_FightKinematicMovableObj_State_Changed(state):
 	
-	if (state ==FightKinematicMovableObj.ActionState.Idle or state ==FightKinematicMovableObj.ActionState.Hanging or state ==FightKinematicMovableObj.ActionState.HangingClimb ) and actionMng.is_connected("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess") :
+	if (state ==FightKinematicMovableObj.ActionState.Idle or state ==FightKinematicMovableObj.ActionState.Hanging ) and actionMng.is_connected("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess") :
 		#在IDLE 的时候检测是否监听actionProcess事件并且取消监听	
 		actionMng.call_deferred("disconnect","ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
 #		actionMng.disconnect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
-	elif state == FightKinematicMovableObj.ActionState.JumpUp or state == FightKinematicMovableObj.ActionState.JumpDown or  state == FightKinematicMovableObj.ActionState.Climb:
+	elif state == FightKinematicMovableObj.ActionState.JumpUp or state == FightKinematicMovableObj.ActionState.JumpDown or  state == FightKinematicMovableObj.ActionState.Climb or state ==FightKinematicMovableObj.ActionState.HangingClimb :
 		#在jumpup jumpdown climb 的时候监听
 		#可以在空中移动方向
 		actionMng.connect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")

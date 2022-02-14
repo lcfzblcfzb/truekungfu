@@ -38,6 +38,7 @@ func test_tilemap_corner(collider)->bool :
 				
 				var local_pos = collider.map_to_world(cell_pos)
 				_last_hang_climb_end = collider.to_global(local_pos)
+			
 				return true
 			else:
 				return false
@@ -46,6 +47,7 @@ func test_tilemap_corner(collider)->bool :
 			if collider.get_cell(cell_pos.x +1,cell_pos.y) == TileMap.INVALID_CELL and collider.get_cell(cell_pos.x +1,cell_pos.y -1) == TileMap.INVALID_CELL and  collider.get_cell(cell_pos.x ,cell_pos.y -1) == TileMap.INVALID_CELL:
 				var local_pos = collider.map_to_world(cell_pos)
 				_last_hang_climb_end = collider.to_global(local_pos)
+			
 				return true
 			else:
 				return false
@@ -61,3 +63,4 @@ func _on_FightKinematicMovableObj_Charactor_Face_Direction_Changed(direction):
 		position.x=-3
 		scale.x = -1
 	pass # Replace with function body.
+
