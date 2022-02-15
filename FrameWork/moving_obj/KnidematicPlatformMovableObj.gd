@@ -165,17 +165,25 @@ func _movePlayer(delta):
 		velocity.x = _h_toward
 		if ignore_gravity:
 			velocity.y = _v_toward
+			
+	var floor_angle = body.get_floor_angle(O.UP)
+	if floor_angle>0.1 and floor_angle<0.9:
+		_snap_vector = SNAP_DOWN
+	else:
+		_snap_vector = NO_SNAP
 #	velocity.x = _h_toward
 #	print(velocity)
 	if use_snap:
-		velocity =body.move_and_slide(velocity,Vector2.UP,true,4,0.9)
-#		body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true ,4,0.9)
+#		velocity =body.move_and_slide(velocity,Vector2.UP,true,4,0.9)
+		velocity = body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true ,4,0.9)
 	else:
 		velocity =body.move_and_slide(velocity,Vector2.UP, true,4,0.9)
-#		body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true,4,0.9)
+#		velocity = body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true,4,0.9)
 	#is_on_floor 只能在move_and_slide之后调用
 	var _curr_on_floor = body.is_on_floor()
 	body.set("on_floor",_curr_on_floor)
+	
+#	push_warning("globalpos x: %f,y: %f ;v_velocity:%f; h_velocity:%f" %[global_position.x,global_position.y,v_velocityToward *get_physics_process_delta_time(),h_velocityToward * get_physics_process_delta_time()])
 	
 	#状态改变的信号输出
 	#只有在切换的那一瞬间进行信号发射

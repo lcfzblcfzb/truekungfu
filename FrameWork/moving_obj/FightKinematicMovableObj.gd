@@ -121,6 +121,7 @@ func changeState(s):
 			
 			ActionState.Hanging:
 				#攀爬墙壁边缘
+				use_snap =false
 				ignore_gravity = true
 				v_acceleration =9999
 				v_velocityToward=0
@@ -129,6 +130,7 @@ func changeState(s):
 				
 			ActionState.HangingClimb:
 				#攀爬墙壁边缘
+				use_snap =false
 				ignore_gravity = true
 				v_acceleration =9999
 				v_velocityToward=0
@@ -242,8 +244,10 @@ func _on_FightActionMng_ActionProcess(action:ActionInfo):
 		var distance = global_position.distance_to(end_position)
 		
 		var speed = distance /time
+		
 		#TODO 优化点：符合实际的攀爬应该分为两段：第一段垂直上升，第二段水平方向移动
-		faceDirection =  global_position.direction_to(end_position)
+		
+		self.faceDirection = global_position.direction_to(end_position)
 		v_velocityToward = speed  
 		h_velocityToward = speed  
 		

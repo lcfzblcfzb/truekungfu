@@ -89,4 +89,4 @@ nodes/jumpup/position = Vector2( -800, -340 )
 nodes/move/node = SubResource( 19 )
 nodes/move/position = Vector2( -600, -900 )
 nodes/output/position = Vector2( 60, -480 )
-node_connections = [ "output", 0, "TimeScale", "Transition", 0, "move", "Transition", 1, "hangingclimbshot", "Transition", 2, "climb", "Transition", 3, "jump_blend", "Transition", 4, "attack", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "TimeScale", 0, "Transition" ]
+node_connections = [ "output", 0, "TimeScale", "Transition", 0, "move", "Transition", 1, "hangingclimbshot", "Transition", 2, "climb", "Transition", 3, "jump_blend", "Transition", 4, "attack", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "TimeScale", 0, "Transition" ]
