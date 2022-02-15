@@ -66,51 +66,6 @@ shape = SubResource( 3 )
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 1 )]
 position = Vector2( 91.7602, 94.7899 )
 
-[node name="hip" parent="FIghtComponnet_Human/SpriteAnimation" index="0"]
-texture = null
-
-[node name="left_thigh" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="0"]
-texture = null
-
-[node name="left_shank" parent="FIghtComponnet_Human/SpriteAnimation/hip/left_thigh" index="0"]
-texture = null
-
-[node name="left_foot" parent="FIghtComponnet_Human/SpriteAnimation/hip/left_thigh/left_shank" index="0"]
-texture = null
-
-[node name="right_thigh" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="1"]
-texture = null
-
-[node name="right_shank" parent="FIghtComponnet_Human/SpriteAnimation/hip/right_thigh" index="0"]
-texture = null
-
-[node name="right_foot" parent="FIghtComponnet_Human/SpriteAnimation/hip/right_thigh/right_shank" index="0"]
-texture = null
-
-[node name="body" parent="FIghtComponnet_Human/SpriteAnimation/hip" index="2"]
-texture = null
-
-[node name="left_upper_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="0"]
-texture = null
-
-[node name="left_fore_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/left_upper_arm" index="0"]
-texture = null
-
-[node name="left_hand" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/left_upper_arm/left_fore_arm" index="0"]
-texture = null
-
-[node name="right_upper_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="1"]
-texture = null
-
-[node name="right_fore_arm" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/right_upper_arm" index="0"]
-texture = null
-
-[node name="right_hand" parent="FIghtComponnet_Human/SpriteAnimation/hip/body/right_upper_arm/right_fore_arm" index="0"]
-texture = null
-
-[node name="head" parent="FIghtComponnet_Human/SpriteAnimation/hip/body" index="2"]
-texture = null
-
 [node name="hurtbox" parent="FIghtComponnet_Human/SpriteAnimation" index="4"]
 collision_layer = 2
 
@@ -132,53 +87,8 @@ parameters/sm2/mix/playback = SubResource( 9 )
 
 [node name="FIghtComponnet_Human2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 230.718, 95.7762 )
-camp = 1
 is_player = false
-
-[node name="hip" parent="FIghtComponnet_Human2/SpriteAnimation" index="0"]
-texture = null
-
-[node name="left_thigh" parent="FIghtComponnet_Human2/SpriteAnimation/hip" index="0"]
-texture = null
-
-[node name="left_shank" parent="FIghtComponnet_Human2/SpriteAnimation/hip/left_thigh" index="0"]
-texture = null
-
-[node name="left_foot" parent="FIghtComponnet_Human2/SpriteAnimation/hip/left_thigh/left_shank" index="0"]
-texture = null
-
-[node name="right_thigh" parent="FIghtComponnet_Human2/SpriteAnimation/hip" index="1"]
-texture = null
-
-[node name="right_shank" parent="FIghtComponnet_Human2/SpriteAnimation/hip/right_thigh" index="0"]
-texture = null
-
-[node name="right_foot" parent="FIghtComponnet_Human2/SpriteAnimation/hip/right_thigh/right_shank" index="0"]
-texture = null
-
-[node name="body" parent="FIghtComponnet_Human2/SpriteAnimation/hip" index="2"]
-texture = null
-
-[node name="left_upper_arm" parent="FIghtComponnet_Human2/SpriteAnimation/hip/body" index="0"]
-texture = null
-
-[node name="left_fore_arm" parent="FIghtComponnet_Human2/SpriteAnimation/hip/body/left_upper_arm" index="0"]
-texture = null
-
-[node name="left_hand" parent="FIghtComponnet_Human2/SpriteAnimation/hip/body/left_upper_arm/left_fore_arm" index="0"]
-texture = null
-
-[node name="right_upper_arm" parent="FIghtComponnet_Human2/SpriteAnimation/hip/body" index="1"]
-texture = null
-
-[node name="right_fore_arm" parent="FIghtComponnet_Human2/SpriteAnimation/hip/body/right_upper_arm" index="0"]
-texture = null
-
-[node name="right_hand" parent="FIghtComponnet_Human2/SpriteAnimation/hip/body/right_upper_arm/right_fore_arm" index="0"]
-texture = null
-
-[node name="head" parent="FIghtComponnet_Human2/SpriteAnimation/hip/body" index="2"]
-texture = null
+camp = 1
 
 [node name="hurtbox" parent="FIghtComponnet_Human2/SpriteAnimation" index="4"]
 collision_layer = 8
