@@ -9,4 +9,3 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	assert("is_engaged" in agent)
 	agent.check_engaged()
 	verified = agent.is_engaged
-	print(verified)

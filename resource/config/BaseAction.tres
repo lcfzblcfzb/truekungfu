@@ -606,7 +606,7 @@
 	"id": 161,
 	"name": "jump_up",
 	"animation_name": "jump_up",
-	"duration": 1,
+	"duration": -1,
 	"type": [
 	  1
 	]
@@ -615,6 +615,51 @@
 	"id": 162,
 	"name": "jump_down",
 	"animation_name": "jump_down",
+	"duration": -1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 163,
+	"name": "Climb",
+	"animation_name": "climb",
+	"duration": 1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 164,
+	"name": "Hanging",
+	"animation_name": "hanging",
+	"duration": -1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 165,
+	"name": "HangingClimb",
+	"animation_name": "hangingclimb",
+	"duration": 1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 166,
+	"name": "Attack",
+	"animation_name": "attack",
+	"duration": 1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 167,
+	"name": "Defend",
+	"animation_name": "defend",
 	"duration": 1,
 	"type": [
 	  1

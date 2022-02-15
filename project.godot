@@ -164,51 +164,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/behavior_tree/src/blackboard.gd"
 }, {
-"base": "AggresiveCharactor",
-"class": "ControlableMovingObj",
-"language": "GDScript",
-"path": "res://FrameWork/moving_obj/ControlableMovingObj.gd"
-}, {
-"base": "Reference",
-"class": "DTS",
-"language": "GDScript",
-"path": "res://addons/dialogic/Localization/translation_service.gd"
-}, {
-"base": "Node",
-"class": "Dialogic",
-"language": "GDScript",
-"path": "res://addons/dialogic/Other/DialogicClass.gd"
-}, {
-"base": "Control",
-"class": "DialogicBackgroundMusic",
-"language": "GDScript",
-"path": "res://addons/dialogic/Nodes/BackgroundMusic.gd"
-}, {
-"base": "Node",
-"class": "DialogicCustomEvents",
-"language": "GDScript",
-"path": "res://addons/dialogic/Nodes/DialogicCustomEvents.gd"
-}, {
-"base": "Node",
-"class": "DialogicDefinitionsUtil",
-"language": "GDScript",
-"path": "res://addons/dialogic/Other/DialogicDefinitionsUtil.gd"
-}, {
-"base": "Node",
-"class": "DialogicParser",
-"language": "GDScript",
-"path": "res://addons/dialogic/Parser/DialogicParser.gd"
-}, {
-"base": "Reference",
-"class": "DialogicResources",
-"language": "GDScript",
-"path": "res://addons/dialogic/Other/DialogicResources.gd"
-}, {
-"base": "Reference",
-"class": "DialogicUtil",
-"language": "GDScript",
-"path": "res://addons/dialogic/Other/DialogicUtil.gd"
-}, {
 "base": "BaseFightActionController",
 "class": "FightActionController",
 "language": "GDScript",
@@ -295,6 +250,21 @@ _global_script_classes=[ {
 "path": "res://FrameWork/Fight/Wu/weapon/Sword.gd"
 }, {
 "base": "Node2D",
+"class": "VerletChain",
+"language": "GDScript",
+"path": "res://FrameWork/Verlex/verlet_chain.gd"
+}, {
+"base": "Node2D",
+"class": "VerletLink",
+"language": "GDScript",
+"path": "res://FrameWork/Verlex/verlet_link.gd"
+}, {
+"base": "Node2D",
+"class": "VerletLoop",
+"language": "GDScript",
+"path": "res://FrameWork/Verlex/verlet_loop.gd"
+}, {
+"base": "Node2D",
 "class": "Weapon",
 "language": "GDScript",
 "path": "res://FrameWork/Weapon/Weapon.gd"
@@ -346,15 +316,6 @@ _global_script_class_icons={
 "BaseWuxueAction": "",
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
-"ControlableMovingObj": "",
-"DTS": "",
-"Dialogic": "",
-"DialogicBackgroundMusic": "",
-"DialogicCustomEvents": "",
-"DialogicDefinitionsUtil": "",
-"DialogicParser": "",
-"DialogicResources": "",
-"DialogicUtil": "",
 "FightActionController": "",
 "FightActionMng": "",
 "FightComponent_human": "",
@@ -372,6 +333,9 @@ _global_script_class_icons={
 "Platform": "",
 "PlatformGestureActionController": "",
 "Sword": "",
+"VerletChain": "",
+"VerletLink": "",
+"VerletLoop": "",
 "Weapon": "",
 "WeaponBox": "",
 "WuxueEventHandlerTools": "",
@@ -381,6 +345,7 @@ _global_script_class_icons={
 [application]
 
 config/name="锦衣卫"
+run/main_scene="res://resource/scene/fight_demo.tscn"
 
 [autoload]
 
@@ -388,6 +353,7 @@ Tool="*res://Tool.gd"
 CharactorMng="*res://FrameWork/Scene/CharactorMng.gd"
 FightBaseActionDataSource="*res://FrameWork/Fight/FightBaseActionDataSource.gd"
 WuxueMng="*res://FrameWork/Fight/Wu/weapon/WuxueMng.gd"
+O="*res://FrameWork/_.gd"
 
 [display]
 
@@ -395,7 +361,7 @@ window/stretch/mode="2d"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/Trail/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/sprite_trail/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/Trail/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/sprite_trail/plugin.cfg" )
 
 [global]
 
@@ -499,13 +465,16 @@ jump={
 2d_physics/layer_5="World"
 2d_physics/layer_6="player"
 2d_physics/layer_7="ladder"
+2d_physics/layer_8="platform"
+2d_physics/layer_9="badguy"
 
 [physics]
 
 common/enable_pause_aware_picking=true
 2d/physics_engine="GodotPhysics"
-2d/default_gravity=450
+2d/default_gravity=900
 
 [rendering]
 
+threads/thread_safe_bvh=true
 environment/default_environment="res://default_env.tres"

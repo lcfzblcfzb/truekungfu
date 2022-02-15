@@ -6,9 +6,10 @@ static func get_wuxue_type():
 
 func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_template-Sheet_def.png"
-	animation_player = $sword_animation
+	animation_player = $AnimationPlayer
 	animation_tree = $AnimationTree
 	behaviourTree =  $SwordBehaviorTree
+	blackboard = $Blackboard
 #	animation_player.root_node = animation_player.get_path_to(fight_cpn.sprite.get_parent())
 #	$AnimationTree.active = true
 	pass
@@ -150,3 +151,6 @@ class SwordCourt:
 		pass
 	
 		
+
+func _on_Detector_body_entered(body):
+	fight_cpn.is_engaged = true

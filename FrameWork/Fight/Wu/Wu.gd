@@ -87,13 +87,13 @@ func switch_wu(type= WuxueMng.WuxueEnum.Fist):
 		wuxue.animation_tree.active = false
 	
 	if debug_wuxue and debug_wuxue.visible == true:
-		
+		#如果存在debug_wuxue的情况 使用debug武学
 		wuxue = debug_wuxue
 		fight_component.sprite.texture = get_texture()
 		debug_wuxue.fight_cpn =fight_component
 		pass
 	else :
-	
+		#创建wuxue 
 		var newwuxue = get_or_create_wuxue(type) 
 		if newwuxue:
 			

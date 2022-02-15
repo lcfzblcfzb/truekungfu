@@ -1,0 +1,92 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=17 format=2]
+
+[sub_resource type="AnimationNodeTimeScale" id=12]
+
+[sub_resource type="AnimationNodeTransition" id=13]
+input_count = 5
+input_0/name = "move"
+input_0/auto_advance = false
+input_1/name = "hanging"
+input_1/auto_advance = false
+input_2/name = "climb"
+input_2/auto_advance = false
+input_3/name = "jump"
+input_3/auto_advance = false
+input_4/name = "attack"
+input_4/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id=31]
+animation = "attack"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=14]
+blend_point_0/node = SubResource( 31 )
+blend_point_0/pos = 0.0
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "climb"
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "hanging"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "hangingclimb"
+
+[sub_resource type="AnimationNodeOneShot" id=16]
+
+[sub_resource type="AnimationNodeBlend2" id=11]
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "jumpdown"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "jumpup"
+
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "walk"
+
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "walk"
+
+[sub_resource type="AnimationNodeAnimation" id=30]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=32]
+animation = "walk"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=19]
+blend_point_0/node = SubResource( 28 )
+blend_point_0/pos = Vector2( 1, 0 )
+blend_point_1/node = SubResource( 29 )
+blend_point_1/pos = Vector2( -1, 0 )
+blend_point_2/node = SubResource( 30 )
+blend_point_2/pos = Vector2( 0, 0 )
+blend_point_3/node = SubResource( 32 )
+blend_point_3/pos = Vector2( 0, 1 )
+blend_mode = 1
+
+[resource]
+graph_offset = Vector2( -810.681, -480.244 )
+nodes/TimeScale/node = SubResource( 12 )
+nodes/TimeScale/position = Vector2( -122.478, -516.494 )
+nodes/Transition/node = SubResource( 13 )
+nodes/Transition/position = Vector2( -320, -560 )
+nodes/attack/node = SubResource( 14 )
+nodes/attack/position = Vector2( -620, -140 )
+nodes/climb/node = SubResource( 15 )
+nodes/climb/position = Vector2( -620, -480 )
+nodes/hanging/node = SubResource( 6 )
+nodes/hanging/position = Vector2( -820, -740 )
+nodes/hangingclimb/node = SubResource( 7 )
+nodes/hangingclimb/position = Vector2( -820, -600 )
+nodes/hangingclimbshot/node = SubResource( 16 )
+nodes/hangingclimbshot/position = Vector2( -620, -700 )
+nodes/jump_blend/node = SubResource( 11 )
+nodes/jump_blend/position = Vector2( -620, -340 )
+nodes/jumpdown/node = SubResource( 17 )
+nodes/jumpdown/position = Vector2( -800, -220 )
+nodes/jumpup/node = SubResource( 18 )
+nodes/jumpup/position = Vector2( -800, -340 )
+nodes/move/node = SubResource( 19 )
+nodes/move/position = Vector2( -600, -900 )
+nodes/output/position = Vector2( 60, -480 )
+node_connections = [ "output", 0, "TimeScale", "Transition", 0, "move", "Transition", 1, "hangingclimbshot", "Transition", 2, "climb", "Transition", 3, "jump_blend", "Transition", 4, "attack", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "TimeScale", 0, "Transition" ]

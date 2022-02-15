@@ -16,7 +16,7 @@ export var MAX_SPEED = 100
 export var MAX_SPEED_ATTACK = 50
 
 #取得系统配置的 重力
-onready var gravity = ProjectSettings.get("physics/2d/default_gravity")
+onready var gravity = ProjectSettings.get("physics/2d/default_gravity") 
 onready var gravity_vector = ProjectSettings.get("default_gravity_vector") 
 
 const FLOOR_NORMAL = Vector2.UP
@@ -27,7 +27,7 @@ const PIX_METER_RATE = 25
 const FREE_FALL_SPEED = 900
 
 const NO_SNAP=Vector2.ZERO
-const SNAP_DOWN= Vector2.DOWN*100
+const SNAP_DOWN= Vector2.DOWN*1000
 
 #速度变化上限 的上限;
 # 由于目标对象的速度
@@ -59,6 +59,9 @@ var use_snap = true
 var ignore_gravity = false
 #是否处于地面变量记录
 var _on_floor =false
+#使用摩擦力
+#若是false，水平上的速度会直接到达而不是逐渐到达
+var use_friction = false
 
 func getHVelocityValue():
 	
@@ -155,29 +158,33 @@ func _movePlayer(delta):
 	if _h_toward!=velocity.x && h_acceleration==0:
 		push_warning("h_acceleration is 0 but velocity_toward.x is not equal to velocity.x")
 	velocity.y = move_toward(velocity.y, _v_toward , v_acceleration *delta)
-	velocity.x = move_toward(velocity.x, _h_toward , h_acceleration *delta) 
 	
+	if use_friction: 
+		velocity.x = move_toward(velocity.x, _h_toward , h_acceleration *delta) 
+	else: 
+		velocity.x = _h_toward
+		if ignore_gravity:
+			velocity.y = _v_toward
+#	velocity.x = _h_toward
+#	print(velocity)
 	if use_snap:
-		body.move_and_slide(velocity,Vector2.UP)
-#		body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true)
+		velocity =body.move_and_slide(velocity,Vector2.UP,true,4,0.9)
+#		body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true ,4,0.9)
 	else:
-		body.move_and_slide(velocity,Vector2.UP)
+		velocity =body.move_and_slide(velocity,Vector2.UP, true,4,0.9)
+#		body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true,4,0.9)
 	#is_on_floor 只能在move_and_slide之后调用
 	var _curr_on_floor = body.is_on_floor()
 	body.set("on_floor",_curr_on_floor)
+	
 	#状态改变的信号输出
 	#只有在切换的那一瞬间进行信号发射
 	if not _on_floor and _curr_on_floor:
 		#这是之前不在地面，现在在地面的信号变化
 		var _collision = body.get_last_slide_collision()
 		if _collision!=null:
-			if _last_collision_id==null :
-				_last_collision_id =_collision.collider_id
-				emit_signal("CollisionObjChanged",_collision.collider)
-			elif _collision.collider_id != _last_collision_id:
 				_last_collision_id = _collision.collider_id
-				emit_signal("CollisionObjChanged",_collision.collider)
-	
+				emit_signal("CollisionObjChanged",_collision)
 	elif _on_floor and not _curr_on_floor:
 		#之前在地面 现在跳跃起来的情况
 		_last_collision_id =null
@@ -194,6 +201,7 @@ func _movePlayer(delta):
 				emit_signal("CollisionObjChanged",_collision.collider)
 	
 	_on_floor = _curr_on_floor
+	
 	
 #停下函数
 func _stopPlayer(delta):

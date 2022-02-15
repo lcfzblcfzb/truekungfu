@@ -141,7 +141,6 @@ func _physics_process(delta):
 		is_echo = true
 		
 	if _prv_input!=null and _prv_input ==Vector2.ZERO and _prv_input== input_vector:
-			
 		pass
 	else:
 		var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	

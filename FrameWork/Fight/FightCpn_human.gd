@@ -9,11 +9,11 @@ onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicM
 #需要传入controlableMovingObj的速度参数
 func getSpeed():
 	return $ActionHandler.getSpeed()
-#保存动画时间的字典
-onready var animation_cfg = $StateController
+	
 onready var sprite_animation = $SpriteAnimation
 onready var actionMng:FightActionMng = $FightActionMng
 onready var wu = $Wu
+onready var corner_detector = $CornerDetect
 
 #动作控制器。是玩家输入或者是 AI 控制器
 var fight_controller :BaseFightActionController
@@ -23,6 +23,9 @@ export (bool) var is_player =false;
 var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
 var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
 
+#是否处于可攀爬位置
+func is_at_hanging_corner()->bool:
+	return corner_detector.is_colliding_with_corner()
 
 #重载setter方法，在b= false 的时候，设置climb状态的结束
 func set_climbing(b):
@@ -46,8 +49,10 @@ func _ready():
 		fight_controller.call_deferred('active_tree')
 		
 	#初始化 武学
-	$Wu.wuxue.animation_player.root_node = $Wu.wuxue.animation_player.get_path_to(sprite_animation)
-	sprite_animation.set_sprite_texture($Wu.get_texture())
+	$Wu.wuxue.animation_player.root_node = $Wu.wuxue.animation_player.get_path_to(sprite_animation.get_node("hip"))
+	
+	#TODO 根据配置设置角色形象
+#	sprite_animation.set_sprite_texture($Wu.get_texture())
 	$Wu.wuxue.animation_tree.active = true
 	
 	#初始状态检测
@@ -87,7 +92,12 @@ var is_engaged=false
 func check_engaged():
 	var oppose_array = CharactorMng.findOpposeMember(camp)
 	if oppose_array.size()>0:
-		is_engaged = true
+		var oppo = oppose_array[0] as BaseCharactor
+		
+		if oppo.global_position.distance_to(global_position) < 200:
+			is_engaged = true
+		else:
+			is_engaged = false
 	else:
 		is_engaged = false
 	
@@ -123,7 +133,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		time=1
 		
 	print("action start time",OS.get_ticks_msec())
-	print("action frame:",$SpriteAnimation/Sprite.frame)
+#	print("action frame:",$SpriteAnimation/Sprite.frame)
 #	$FightAnimationTree.act(action,time)	
 	get_animation_tree().act(action,time)
 
@@ -134,6 +144,10 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 		fightKinematicMovableObj.attackOver()
 		print("attack over time",OS.get_ticks_msec())
 		print("attack over",$SpriteAnimation/Sprite.frame)
+		
+	if action.base_action == Tool.FightMotion.HangingClimb:
+		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
+		corner_detector.set_deferred("enabled", true)
 
 func test_dead_motion():
 	
@@ -169,26 +183,34 @@ func _on_hurtbox_area_entered(area):
 #movableobj 状态变化信号
 func _on_FightKinematicMovableObj_State_Changed(state):
 	
-	if state ==FightKinematicMovableObj.ActionState.Idle && actionMng.is_connected("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess") :
+	if (state ==FightKinematicMovableObj.ActionState.Idle or state ==FightKinematicMovableObj.ActionState.Hanging ) and actionMng.is_connected("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess") :
 		#在IDLE 的时候检测是否监听actionProcess事件并且取消监听	
 		actionMng.call_deferred("disconnect","ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
 #		actionMng.disconnect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
-	elif state == FightKinematicMovableObj.ActionState.JumpUp or state == FightKinematicMovableObj.ActionState.JumpDown or  state == FightKinematicMovableObj.ActionState.Climb:
+	elif state == FightKinematicMovableObj.ActionState.JumpUp or state == FightKinematicMovableObj.ActionState.JumpDown or  state == FightKinematicMovableObj.ActionState.Climb or state ==FightKinematicMovableObj.ActionState.HangingClimb :
 		#在jumpup jumpdown climb 的时候监听
 		#可以在空中移动方向
 		actionMng.connect("ActionProcess",fightKinematicMovableObj,"_on_FightActionMng_ActionProcess")
 		pass
+	
+	if state == FightKinematicMovableObj.ActionState.HangingClimb:
+		#进入HangingClimb阶段；	
+		corner_detector.enabled = false
+		pass
+	elif state ==FightKinematicMovableObj.ActionState.Hanging:
+		
+		pass
 
 #移动的时候碰到的tile的信息
-func _on_FightKinematicMovableObj_CollisionObjChanged(collider):
-	
-	if collider is Platform: 
-		is_on_platform = true
-		print("is platform")
-	else:
-		is_on_platform = false 
-	pass # Replace with function body.
-
+func _on_FightKinematicMovableObj_CollisionObjChanged(collision:KinematicCollision2D):
+	if collision:
+		var collider = collision.collider
+		if collider is Platform: 
+			is_on_platform = true
+			print("is platform")
+		else:
+			is_on_platform = false 
+		
 
 func _on_FightKinematicMovableObj_FaceDirectionChanged(v:Vector2):
 	if v.y <= 0:
@@ -208,3 +230,14 @@ func _on_FightKinematicMovableObj_FaceDirectionChanged(v:Vector2):
 				collision_mask = 0b0000_0000_0000_0000_0000_0000_1001_0000
 		pass
 		
+
+
+func _on_FightKinematicMovableObj_Active_State_Changed(base_action):
+	var base = FightBaseActionDataSource.get_by_base_id(base_action) as BaseAction
+	if base != null :
+		if base_action == Tool.FightMotion.JumpUp or base_action == Tool.FightMotion.JumpDown:
+			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_SEQ, true, true])
+			actionMng.regist_actioninfo(action)
+		else:
+			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			actionMng.regist_actioninfo(action)

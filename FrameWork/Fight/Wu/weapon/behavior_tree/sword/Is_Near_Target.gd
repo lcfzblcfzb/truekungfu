@@ -14,7 +14,7 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	
 	var distance = abs(fight_componnent.global_position.x - target.global_position.x)
 	
-	if distance>64:
+	if distance>20:
 		verified = false
 	else:
 		verified = true
