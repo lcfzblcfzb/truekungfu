@@ -19,7 +19,7 @@ onready var corner_detector = $CornerDetect
 var fight_controller :BaseFightActionController
 
 export (bool) var is_player =false;
-
+#控制器的预加载
 var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
 var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
 
@@ -40,6 +40,11 @@ func _ready():
 		fight_controller.jisu = self
 		add_child(fight_controller)
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
+		
+		var camera = Camera2D.new()
+		add_child(camera)
+		camera.current = true
+		
 	else:
 		#TODO AI controller
 		fight_controller = ai_controller_scene.new() 

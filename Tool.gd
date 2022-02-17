@@ -82,6 +82,8 @@ enum WuMotion{
 	JumpDown,
 	Hanging,
 	HangingClimb,
+	Attack,
+	Defend,
 	
 	Attack_Up,
 	Attack_Mid,

@@ -651,7 +651,7 @@
 	"id": 166,
 	"name": "Attack",
 	"animation_name": "attack",
-	"duration": 1,
+	"duration": 0.3,
 	"type": [
 	  1
 	]

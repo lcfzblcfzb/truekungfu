@@ -100,7 +100,7 @@ func switch_wu(type= WuxueMng.WuxueEnum.Fist):
 			newwuxue.fight_cpn = fight_component
 			add_child(newwuxue)
 			wuxue = newwuxue
-			wuxue.animation_player.root_node = wuxue.animation_player.get_path_to(fight_component.sprite.get_parent())
+			wuxue.animation_player.root_node = wuxue.animation_player.get_path_to(fight_component.sprite_animation.get_node("hip"))
 			fight_component.sprite.texture = get_texture()
 			wuxue.animation_tree.active = true
 		
@@ -108,10 +108,8 @@ func on_player_event(new_motion:NewActionEvent):
 	wuxue.on_action_event(new_motion)
 
 func on_move_event(new_motion:MoveEvent):
-	
 	wuxue.on_move_event(new_motion)
 	
-
 func on_ai_event(new_motion:AIEvent):
 	wuxue.on_ai_event(new_motion)
 	pass

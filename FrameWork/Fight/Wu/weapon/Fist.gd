@@ -36,9 +36,13 @@ func on_action_event(event:NewActionEvent):
 			pass
 		
 		Tool.WuMotion.HangingClimb:
-			var base = FightBaseActionDataSource.get_by_base_id(event.wu_motion) as BaseAction
+			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.HangingClimb) as BaseAction
 			fight_cpn.actionMng.regist_action(event.wu_motion,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
+		
+		Tool.WuMotion.Attack:
+			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Attack) as BaseAction
+			fight_cpn.actionMng.regist_action(Tool.FightMotion.Attack,base.duration,ActionInfo.EXEMOD_INTERUPT)
 		
 		Tool.WuMotion.Attack_Up:
 			if is_heavy:

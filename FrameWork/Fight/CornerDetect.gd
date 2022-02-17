@@ -10,6 +10,9 @@ func is_colliding_with_corner()->bool:
 			
 			if collider is TileMap:
 				return test_tilemap_corner(collider)
+			elif collider is Platform:
+				_last_hang_climb_end = get_collision_point()
+				return true
 			
 			return true
 	

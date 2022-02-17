@@ -16,9 +16,9 @@ func set_sprite_texture(tex):
 func change_face_direction(face):
 	
 	if face>0:
-		$hip.scale.x = 1
+		scale.x = 1
 	elif face<0:
-		$hip.scale.x = -1
+		scale.x = -1
 	print("change face direction",face)
 	pass
 

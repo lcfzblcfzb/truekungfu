@@ -57,10 +57,15 @@ func travelTo(action:ActionInfo):
 			set(MOVE_BP,Vector2.RIGHT)
 		
 		Tool.FightMotion.Hanging:
+			set("parameters/hangingclimbshot/active",false)
 			set(TRANSITION,HANGING)
 		
 		Tool.FightMotion.HangingClimb:
 			set("parameters/hangingclimbshot/active",true)
+			set(TRANSITION,HANGING)
+		
+		Tool.FightMotion.Attack:
+			set(TRANSITION,ATTACK)
 		_:
 			set(TRANSITION,MOVE)
 			set(MOVE_BP,Vector2.ZERO)

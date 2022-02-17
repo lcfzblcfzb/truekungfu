@@ -20,14 +20,30 @@ static func _check_and_do_hangingclimb(event,fight_cpn)->bool:
 			action_mng.regist_actioninfo(action)
 			return true
 		
-		if input_vector != Vector2.ZERO and !event.is_echo:
+		if (input_vector.x<0 and fight_cpn.is_face_left() or input_vector.x>0 and not fight_cpn.is_face_left() )and !event.is_echo:
+			
 			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.HangingClimb) as BaseAction
-			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_INTERUPT])
+			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
 			action_mng.regist_actioninfo(action)
 			return true
+	elif lastMotion and lastMotion.base_action == Tool.FightMotion.HangingClimb and not event.is_echo:
+		
+		if event.is_jump:
+			var vec = Vector2(input_vector.x,-1)
+				#do jump up
+			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_INTERUPT])
+			action_mng.regist_actioninfo(action)
+			return true
+		pass 
+	
+	elif lastMotion and lastMotion.base_action == Tool.FightMotion.Walk and fight_cpn.is_at_hanging_corner() and event.is_jump:
+		
+		var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.HangingClimb) as BaseAction
+		var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+		action_mng.regist_actioninfo(action)
+		return true
 		
 		pass
-	
 	return false
 	pass
 	
@@ -38,14 +54,14 @@ static func _check_and_do_hanging(event,fight_cpn)->bool:
 	var input_vector = event.move_direction
 	var lastMotion =action_mng.nearest_executed_action()
 	
-	if lastMotion and lastMotion.base_action != Tool.FightMotion.Hanging and lastMotion.base_action != Tool.FightMotion.HangingClimb and  fight_cpn.is_at_hanging_corner() :
+	if lastMotion and lastMotion.base_action != Tool.FightMotion.Hanging and lastMotion.base_action != Tool.FightMotion.HangingClimb and lastMotion.base_action != Tool.FightMotion.JumpUp and  fight_cpn.is_at_hanging_corner() and not fight_cpn.is_on_genelized_floor():
 		
-		var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Hanging,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_INTERUPT])
+		var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Hanging,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_SEQ,false,true])
 		action_mng.regist_actioninfo(action)
 		return true
 		
 	elif lastMotion and lastMotion.base_action == Tool.FightMotion.Hanging:
-		#是HANGING 则不进入下面的移动操作
+		#是HANGING 则进入下面的移动操作
 		return true
 		
 	return false
@@ -143,7 +159,7 @@ static func normal_on_moveevent(event,fight_cpn):
 		if lastMotion and (lastMotion.base_action != Tool.FightMotion.Run && lastMotion.base_action != Tool.FightMotion.Climb):
 			
 			var motion = Tool.FightMotion.Walk
-						
+			
 			if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
 				motion = Tool.FightMotion.JumpUp 
 			elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
