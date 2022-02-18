@@ -11,7 +11,7 @@ export (NodePath) var FightComponentPath
 var fight_component 
 
 #测试时候使用
-onready var debug_wuxue=$debug_wuxue
+var debug_wuxue
 
 #缓存dict
 var wuxue_cache_dict ={}
@@ -38,6 +38,7 @@ func get_or_create_wuxue(type):
 		return instance
 
 func _ready():
+	debug_wuxue = get_node_or_null("debug_wuxue")
 	fight_component = get_node(FightComponentPath)
 	_init_wu(chosed_wuxue)
 #	call_deferred("switch_wu",chosed_wuxue)

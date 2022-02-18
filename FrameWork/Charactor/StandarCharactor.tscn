@@ -2703,7 +2703,9 @@ __meta__ = {
 }
 
 [node name="AnimationTree" parent="." instance=ExtResource( 17 )]
+process_mode = 0
 parameters/attack/blend_position = 0.0
+parameters/attack_shot/active = false
 parameters/move/blend_position = Vector2( 0, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

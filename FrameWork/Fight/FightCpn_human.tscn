@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://FrameWork/Fight/CornerDetect.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=4]
@@ -7,6 +7,8 @@
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/Wu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FrameWork/Verlex/scarf.tscn" type="PackedScene" id=15]
+
+[sub_resource type="RectangleShape2D" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.0
@@ -36,13 +38,26 @@ fight_component_path = NodePath("..")
 [node name="hip" parent="SpriteAnimation" index="0"]
 texture_folder = ""
 
+[node name="body" parent="SpriteAnimation/hip" index="2"]
+position = Vector2( -2, -3 )
+
 [node name="hurtbox" parent="SpriteAnimation" index="1"]
+position = Vector2( -2, 0 )
 collision_layer = 0
 collision_mask = 0
 
+[node name="CollisionShape2D" parent="SpriteAnimation/hurtbox" index="0"]
+position = Vector2( 0, 1 )
+
 [node name="weaponBox" parent="SpriteAnimation" index="2"]
+position = Vector2( 0, 0 )
 collision_layer = 0
 collision_mask = 0
+
+[node name="CollisionShape2D" parent="SpriteAnimation/weaponBox" index="0"]
+position = Vector2( 16, -5 )
+rotation = 0.0
+shape = SubResource( 2 )
 
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 

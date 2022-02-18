@@ -222,17 +222,17 @@ func _on_FightKinematicMovableObj_FaceDirectionChanged(v:Vector2):
 	
 		if v.y<0:
 			#不检测platform 层
-			if collision_mask != 0b0000_0000_0000_0000_0000_0000_0001_0000 :
+			if collision_mask != 0b0000_0000_0000_0000_0000_0000_0111_0000 :
 	#			set_deferred("collisaion_mask", 0b0000_0000_0000_0000_0000_0000_0001_0000)
-				collision_mask = 0b0000_0000_0000_0000_0000_0000_0001_0000
+				collision_mask = 0b0000_0000_0000_0000_0000_0000_0111_0000
 		
 	else:
 		if not is_on_platform:
 			#检测platform 层碰撞
 	#		set_deferred("collision_mask", 0b0000_0000_0000_0000_0000_0000_1001_0000)
-			if collision_mask != 0b0000_0000_0000_0000_0000_0000_1001_0000 :
+			if collision_mask != 0b0000_0000_0000_0000_0000_0000_1111_0000 :
 	#			set_deferred("collisaion_mask", 0b0000_0000_0000_0000_0000_0000_1001_0000)
-				collision_mask = 0b0000_0000_0000_0000_0000_0000_1001_0000
+				collision_mask = 0b0000_0000_0000_0000_0000_0000_1111_0000
 		pass
 		
 

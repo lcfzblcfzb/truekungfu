@@ -1,9 +1,9 @@
-[gd_resource type="AnimationNodeBlendTree" load_steps=17 format=2]
+[gd_resource type="AnimationNodeBlendTree" load_steps=18 format=2]
 
 [sub_resource type="AnimationNodeTimeScale" id=12]
 
 [sub_resource type="AnimationNodeTransition" id=13]
-input_count = 5
+input_count = 4
 input_0/name = "move"
 input_0/auto_advance = false
 input_1/name = "hanging"
@@ -12,8 +12,6 @@ input_2/name = "climb"
 input_2/auto_advance = false
 input_3/name = "jump"
 input_3/auto_advance = false
-input_4/name = "attack"
-input_4/auto_advance = false
 
 [sub_resource type="AnimationNodeAnimation" id=31]
 animation = "attack"
@@ -21,6 +19,8 @@ animation = "attack"
 [sub_resource type="AnimationNodeBlendSpace1D" id=14]
 blend_point_0/node = SubResource( 31 )
 blend_point_0/pos = 0.0
+
+[sub_resource type="AnimationNodeOneShot" id=33]
 
 [sub_resource type="AnimationNodeAnimation" id=15]
 animation = "climb"
@@ -65,13 +65,15 @@ blend_point_3/pos = Vector2( 0, 1 )
 blend_mode = 1
 
 [resource]
-graph_offset = Vector2( -1271.19, -194.5 )
+graph_offset = Vector2( -615.491, -609.211 )
 nodes/TimeScale/node = SubResource( 12 )
-nodes/TimeScale/position = Vector2( -122.478, -516.494 )
+nodes/TimeScale/position = Vector2( 160, -560 )
 nodes/Transition/node = SubResource( 13 )
-nodes/Transition/position = Vector2( -320, -560 )
+nodes/Transition/position = Vector2( -320, -580 )
 nodes/attack/node = SubResource( 14 )
-nodes/attack/position = Vector2( -600, -80 )
+nodes/attack/position = Vector2( -320, -320 )
+nodes/attack_shot/node = SubResource( 33 )
+nodes/attack_shot/position = Vector2( -80, -540 )
 nodes/climb/node = SubResource( 15 )
 nodes/climb/position = Vector2( -620, -480 )
 nodes/hanging/node = SubResource( 6 )
@@ -88,5 +90,5 @@ nodes/jumpup/node = SubResource( 18 )
 nodes/jumpup/position = Vector2( -800, -340 )
 nodes/move/node = SubResource( 19 )
 nodes/move/position = Vector2( -600, -900 )
-nodes/output/position = Vector2( 60, -480 )
-node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Transition", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "Transition", 0, "move", "Transition", 1, "hangingclimbshot", "Transition", 2, "climb", "Transition", 3, "jump_blend", "Transition", 4, "attack", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb" ]
+nodes/output/position = Vector2( 380, -540 )
+node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "attack_shot", "Transition", 0, "move", "Transition", 1, "hangingclimbshot", "Transition", 2, "climb", "Transition", 3, "jump_blend", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "attack_shot", 0, "Transition", "attack_shot", 1, "attack" ]

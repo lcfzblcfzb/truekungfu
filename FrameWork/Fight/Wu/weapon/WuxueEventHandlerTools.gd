@@ -138,9 +138,10 @@ static func normal_on_moveevent(event,fight_cpn):
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 			else:
 
-				var lastMotion =action_mng.action_array.back()
 
-				if lastMotion:
+				if action_mng.action_array.size()>0:
+					
+					var lastMotion =action_mng.action_array.back()
 					var motion = Tool.FightMotion.Idle
 					if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
 						motion = Tool.FightMotion.JumpUp

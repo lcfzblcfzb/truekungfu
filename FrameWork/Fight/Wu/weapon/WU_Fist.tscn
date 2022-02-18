@@ -2526,8 +2526,9 @@ tree_root = ExtResource( 3 )
 anim_player = NodePath("../AnimationPlayer")
 process_mode = 0
 parameters/TimeScale/scale = 1.0
-parameters/Transition/current = 4
+parameters/Transition/current = 0
 parameters/attack/blend_position = 0.0
+parameters/attack_shot/active = false
 parameters/hangingclimbshot/active = false
 parameters/jump_blend/blend_amount = 0
 parameters/move/blend_position = Vector2( 0, 0 )
@@ -2539,6 +2540,7 @@ script = ExtResource( 4 )
 script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
 anims/RESET = SubResource( 1 )
 anims/attack = SubResource( 2 )
 anims/climb = SubResource( 3 )

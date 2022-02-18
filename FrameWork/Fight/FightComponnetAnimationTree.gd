@@ -4,7 +4,6 @@ const MOVE =0
 const HANGING =1
 const CLIMB =2
 const JUMP =3
-const ATTACK =4
 
 var TRANSITION = "parameters/Transition/current"
 var MOVE_BP ="parameters/move/blend_position"
@@ -65,7 +64,7 @@ func travelTo(action:ActionInfo):
 			set(TRANSITION,HANGING)
 		
 		Tool.FightMotion.Attack:
-			set(TRANSITION,ATTACK)
+			set("parameters/attack_shot/active",true)
 		_:
 			set(TRANSITION,MOVE)
 			set(MOVE_BP,Vector2.ZERO)
