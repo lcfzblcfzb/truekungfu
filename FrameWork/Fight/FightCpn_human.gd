@@ -2,7 +2,8 @@ extends BasePlatformerCharactor
 
 class_name FightComponent_human
 
-var hp;
+var block_value=5
+var health_point=1
 
 onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicMovableObj
 #接口
@@ -35,12 +36,27 @@ func set_climbing(b):
 
 func _ready():
 	
+	#初始化 武器碰撞
+	var col = CollisionShape2D.new()
+	col.shape = wu.get_weapon_box()
+	sprite_animation.weapon_box.add_child(col)
+	if col.shape is CapsuleShape2D:
+		col.position.x = col.shape.radius
+	#设置fight_cpn 到hitbox和hurtbox
+	sprite_animation.weapon_box.fight_cpn = self
+	sprite_animation.hurt_box.fight_cpn = self
+	
 	if is_player:
 		fight_controller = player_controller_scene.instance()
 		fight_controller.jisu = self
 		add_child(fight_controller)
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
 		
+		#设置武器碰撞检测层
+		sprite_animation.weapon_box.collision_layer = 0b0001
+		sprite_animation.weapon_box.collision_mask = 0b1000
+		sprite_animation.hurt_box.collision_layer = 0b0010
+		sprite_animation.hurt_box.collision_mask = 0b0100
 		var camera = Camera2D.new()
 		add_child(camera)
 		camera.current = true
@@ -53,6 +69,19 @@ func _ready():
 		fight_controller.init_behaviour_tree(self,$Wu.get_behavior_tree())
 		fight_controller.call_deferred('active_tree')
 		
+		if camp == Tool.CampEnum.Bad:
+			#设置武器碰撞检测层
+			sprite_animation.weapon_box.collision_layer =	 0b0100
+			sprite_animation.weapon_box.collision_mask = 	 0b0010
+			sprite_animation.hurt_box.collision_layer =  	0b1000
+			sprite_animation.hurt_box.collision_mask =	    0b0001
+		elif camp == Tool.CampEnum.Good:
+			#设置武器碰撞检测层
+			sprite_animation.weapon_box.collision_layer = 0b0001
+			sprite_animation.weapon_box.collision_mask =  0b1000
+			sprite_animation.hurt_box.collision_layer =   0b0010
+			sprite_animation.hurt_box.collision_mask = 0b0100
+			
 	#初始化 武学
 	$Wu.wuxue.animation_player.root_node = $Wu.wuxue.animation_player.get_path_to(sprite_animation.get_node("hip"))
 	
@@ -137,10 +166,16 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	if time<=0 || time ==null:
 		time=1
 		
+	if action.base_action ==Tool.FightMotion.Attack:
+		sprite_animation.weapon_box.monitoring = true
+		sprite_animation.weapon_box.monitorable = true
+		pass
+		
 	print("action start time",OS.get_ticks_msec())
 #	print("action frame:",$SpriteAnimation/Sprite.frame)
 #	$FightAnimationTree.act(action,time)	
 	get_animation_tree().act(action,time)
+
 
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	var base =FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
@@ -246,3 +281,18 @@ func _on_FightKinematicMovableObj_Active_State_Changed(base_action):
 		else:
 			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 			actionMng.regist_actioninfo(action)
+
+
+func _on_SpriteAnimation_Hit(area):
+	pass # Replace with function body.
+
+
+func _on_SpriteAnimation_Hurt(area):
+	if block_value>0:
+		block_value = block_value -1
+		print("Im hurt")
+	elif health_point >0:
+		health_point = health_point -1
+		if health_point<=0:
+			print("Im dead")
+	pass # Replace with function body.

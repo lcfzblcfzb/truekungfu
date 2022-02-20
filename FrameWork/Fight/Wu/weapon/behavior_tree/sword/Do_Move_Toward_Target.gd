@@ -20,7 +20,6 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 		moving_direction = Vector2.RIGHT
 	else:
 		moving_direction = Vector2.LEFT
-	push_warning("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMtoward")
 	
 	if _command_frame_id == get_tree().get_frame():	
 		return succeed()

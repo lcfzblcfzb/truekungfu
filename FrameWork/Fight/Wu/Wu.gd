@@ -62,6 +62,9 @@ func get_animation_tree()->AnimationTree:
 	return wuxue.animation_tree
 	pass
 	
+func get_weapon_box()->Shape2D:
+	return wuxue.weapon_box_path
+	
 # TODO 在ready的时候，设置wuxue 的fight_component
 func _init_wu(type= WuxueMng.WuxueEnum.Fist):
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://FrameWork/Fight/CornerDetect.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=4]
@@ -7,8 +7,6 @@
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/Wu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FrameWork/Verlex/scarf.tscn" type="PackedScene" id=15]
-
-[sub_resource type="RectangleShape2D" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.0
@@ -35,29 +33,8 @@ IDLE_2_RUN_ACC = 200
 position = Vector2( 2, -17 )
 fight_component_path = NodePath("..")
 
-[node name="hip" parent="SpriteAnimation" index="0"]
-texture_folder = ""
-
-[node name="body" parent="SpriteAnimation/hip" index="2"]
-position = Vector2( -2, -3 )
-
-[node name="hurtbox" parent="SpriteAnimation" index="1"]
-position = Vector2( -2, 0 )
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" parent="SpriteAnimation/hurtbox" index="0"]
-position = Vector2( 0, 1 )
-
-[node name="weaponBox" parent="SpriteAnimation" index="2"]
+[node name="hurt_box" parent="SpriteAnimation" index="0"]
 position = Vector2( 0, 0 )
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" parent="SpriteAnimation/weaponBox" index="0"]
-position = Vector2( 16, -5 )
-rotation = 0.0
-shape = SubResource( 2 )
 
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 
@@ -86,14 +63,12 @@ position = Vector2( -13.0801, -22.4008 )
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="CornerDetect" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
 [connection signal="FaceDirectionChanged" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_FaceDirectionChanged"]
 [connection signal="State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_State_Changed"]
-[connection signal="area_entered" from="SpriteAnimation/hurtbox" to="." method="_on_hurtbox_area_entered"]
-[connection signal="area_entered" from="SpriteAnimation/weaponBox" to="." method="_on_weaponBox_area_entered"]
+[connection signal="Hit" from="SpriteAnimation" to="." method="_on_SpriteAnimation_Hit"]
+[connection signal="Hurt" from="SpriteAnimation" to="." method="_on_SpriteAnimation_Hurt"]
 [connection signal="ActionFinish" from="FightActionMng" to="." method="_on_FightActionMng_ActionFinish"]
 [connection signal="ActionStart" from="FightActionMng" to="." method="_on_FightActionMng_ActionStart"]
 [connection signal="ActionStart" from="FightActionMng" to="FightKinematicMovableObj" method="_on_FightActionMng_ActionStart"]
 
 [editable path="SpriteAnimation"]
-[editable path="SpriteAnimation/hip"]
-[editable path="SpriteAnimation/hurtbox"]
-[editable path="SpriteAnimation/weaponBox"]
+[editable path="SpriteAnimation/hurt_box"]
 [editable path="Wu"]

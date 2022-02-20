@@ -12,6 +12,8 @@ func _ready():
 	behaviourTree =  $FistBehaviorTree
 	blackboard = $Blackboard
 	behaviourTree.blackboard = blackboard
+	
+	weapon_box_path =load("res://resource/shape/weapon_shape_fist.tres")
 #	yield(get_tree().create_timer(3),"timeout")
 #	var animationPlayer = preload("res://FightAnimationPlayer.tscn").instance() as AnimationPlayer
 #	add_child(animationPlayer)
