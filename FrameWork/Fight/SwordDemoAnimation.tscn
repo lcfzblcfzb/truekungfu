@@ -5,18 +5,18 @@
 [ext_resource path="res://FrameWork/CollisionBox/HurtBox.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=108]
-extents = Vector2( 2.36391, 14.0475 )
+extents = Vector2( 4, 15 )
 
 [node name="Appearance" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="hurt_box" parent="." instance=ExtResource( 5 )]
-position = Vector2( 13.5134, 7.88988 )
 scale = Vector2( -1, 1 )
 collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" parent="hurt_box" index="0"]
+position = Vector2( 2, 0 )
 shape = SubResource( 108 )
 
 [node name="weapon_box" type="Area2D" parent="."]

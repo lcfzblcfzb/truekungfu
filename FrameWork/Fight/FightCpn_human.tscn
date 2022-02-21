@@ -34,7 +34,7 @@ position = Vector2( 2, -17 )
 fight_component_path = NodePath("..")
 
 [node name="hurt_box" parent="SpriteAnimation" index="0"]
-position = Vector2( 0, 0 )
+monitoring = false
 
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 

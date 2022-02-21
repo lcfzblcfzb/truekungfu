@@ -33,28 +33,15 @@ func _on_FightKinematicMovableObj_Charactor_Face_Direction_Changed(direction):
 	change_face_direction(direction.x)
 
 func _physics_process(delta):
-	#检测武器实时碰撞
+	#检测武器实时碰撞(不使用信号是因为信号无法检测 在启动 monitoring的瞬间已经处于碰撞状态的情况
 	if weapon_box.monitoring :
 		var list =weapon_box.get_overlapping_areas()
 		if list.size()>0:
 			emit_signal("Hit",list)	
-			weapon_box.set_deferred("monitoring",false)
-			
-	
-	if hurt_box.monitoring :
-		var list =hurt_box.get_overlapping_areas()
-		if list.size()>0:
-			
+			weapon_box.monitoring = false
 			for area in list:
 				var fight_cpn = area.fight_cpn
-				fight_cpn.sprite_animation.weapon_box.set_deferred("monitorable",false)
+				fight_cpn.sprite_animation.emit_signal("Hurt",weapon_box)	
 				pass
 			
-			emit_signal("Hurt",list)	
 
-func _on_weapon_box_area_entered(area):
-	pass # Replace with function body.
-
-
-func _on_hurt_box_area_entered(area):
-	pass

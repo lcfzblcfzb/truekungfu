@@ -199,27 +199,6 @@ func test_dead_motion():
 	pass		
 
 
-func _on_weaponBox_area_entered(area):
-	
-	if area is HurtBox:
-		
-		pass
-	elif area is WeaponBox:
-		
-		var otherfighter =area.fight_cpn as FightComponent_human
-		wu.wuxue.against_wuxue(otherfighter.wu.wuxue)
-		pass
-	pass # Replace with function body.
-
-
-func _on_hurtbox_area_entered(area):
-	
-	if area is WeaponBox:
-		isDead  = true
-		test_dead_motion()
-		pass
-	pass # Replace with function body.
-
 #movableobj 状态变化信号
 func _on_FightKinematicMovableObj_State_Changed(state):
 	
@@ -283,7 +262,7 @@ func _on_FightKinematicMovableObj_Active_State_Changed(base_action):
 			actionMng.regist_actioninfo(action)
 
 
-func _on_SpriteAnimation_Hit(area):
+func _on_SpriteAnimation_Hit(areas):
 	pass # Replace with function body.
 
 
@@ -294,5 +273,7 @@ func _on_SpriteAnimation_Hurt(area):
 	elif health_point >0:
 		health_point = health_point -1
 		if health_point<=0:
+			isDead  = true
+			test_dead_motion()
 			print("Im dead")
 	pass # Replace with function body.
