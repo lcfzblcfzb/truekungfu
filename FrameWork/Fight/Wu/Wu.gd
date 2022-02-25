@@ -127,3 +127,22 @@ func _on_FightController_NewFightMotion(new_motion:BaseFightEvent):
 		on_ai_event(new_motion)
 	pass
 
+
+
+func _on_FightActionMng_ActionStart(action:ActionInfo):
+	
+	if action.base_action ==Tool.FightMotion.Attack:
+		pass
+	
+
+
+func _on_FightActionMng_ActionFinish(action:ActionInfo):
+	
+	if action.base_action ==Tool.FightMotion.Attack:
+		pass
+
+
+#animation_player组件的回掉
+func _on_SpriteAnimation_AnimationCallMethod(param):
+	wuxue.animation_call_method(param)
+	pass # Replace with function body.

@@ -10,7 +10,7 @@ var dict ={
 #枚举类型
 enum WuxueEnum{
 	
-	Fist,Sword
+	Fist=1,Sword=2
 	
 }
 

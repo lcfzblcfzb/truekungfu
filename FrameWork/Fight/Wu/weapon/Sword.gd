@@ -6,7 +6,6 @@ static func get_wuxue_type():
 
 func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_template-Sheet_def.png"
-	animation_player = $AnimationPlayer
 	animation_tree = $AnimationTree
 	behaviourTree =  $SwordBehaviorTree
 	blackboard = $Blackboard

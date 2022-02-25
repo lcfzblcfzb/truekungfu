@@ -2,6 +2,7 @@ extends Node2D
 
 signal Hit
 signal Hurt
+signal AnimationCallMethod
 
 export (NodePath)var fight_component_path
 
@@ -10,14 +11,17 @@ var fight_component:FightComponent_human
 onready var weapon_box:WeaponBox = $weapon_box 
 onready var hurt_box:HurtBox = $hurt_box
 
+#可选角色形象
+export (Tool.CharactorEnum) var chosed_characor = Tool.CharactorEnum.Daoshi
+
 func _ready():
+	$StandarAnimatedCharactor.choose_charactor(chosed_characor)
 	fight_component = get_node(fight_component_path)
-	$hurt_box.fight_cpn = fight_component
-	
+	$hurt_box.set("fight_cpn",fight_component)
 	change_face_direction(1)
 
-func set_sprite_texture(tex):
-	$Sprite.texture = tex
+func choose_animation_player(wuxue):
+	$StandarAnimatedCharactor.get_coresponding_animationplayer(wuxue)
 
 func change_face_direction(face):
 	
@@ -44,4 +48,5 @@ func _physics_process(delta):
 				fight_cpn.sprite_animation.emit_signal("Hurt",weapon_box)	
 				pass
 			
-
+func get_coresponding_animation_tree():
+	return $StandarAnimatedCharactor.get_coresponding_animation_tree()

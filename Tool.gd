@@ -37,6 +37,13 @@ enum CampEnum {
 	Harmless#任何一方都无法攻击
 }
 
+#角色样式
+enum CharactorEnum{
+	Daoshi,
+	Rusheng,
+	
+}
+
 func test():
 	print("print test global")
 

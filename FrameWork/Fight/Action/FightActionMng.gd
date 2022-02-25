@@ -8,6 +8,15 @@ signal ActionFinish
 
 var global_group_id = 100
 
+export var MAX_ACTION_ARRAY_SIZE =101
+#动作历史记录
+var action_array = []
+
+var current_index = 0 setget set_current_index
+
+var _current_action:ActionInfo = null
+#旧数组数据
+var old_array =[]
 
 #获得 最后一个执行的action；如果没有返回null
 func nearest_executed_action()->ActionInfo:
@@ -24,11 +33,6 @@ func next_group_id():
 	global_group_id = global_group_id+1
 	return global_group_id
 
-export var MAX_ACTION_ARRAY_SIZE =101
-#动作历史记录
-var action_array = []
-
-var current_index = 0 setget set_current_index
 
 func set_current_index(idx):
 	current_index = idx
@@ -49,8 +53,6 @@ func updateCurrentAction():
 		_current_action = null
 	pass
 
-	pass
-
 #检测执行顺序如果有STATE_INTERUPTED 类型的就直接执行
 func chek_execution_prority():
 
@@ -69,20 +71,13 @@ func chek_execution_prority():
 		_check_generous_on_add()
 	pass
 
-var _current_action:ActionInfo = null
-#旧数组数据
-var old_array =[]
-#对象池
-var actionPool = ObjPool.new(ActionInfo)
-
 #保持数组长度不超过 MAX_ACTION_ARRAY_SIZE 的长度
 #缓存上一个数组的数据
 # Deprecated
 func regist_action(a, duration=1, exemod=ActionInfo.EXEMOD_NEWEST,groupId =-1,param:Array=[] ):
 	#var action =ActionInfo.new(a,OS.get_ticks_msec(),param)
 	var input_array = [a ,OS.get_ticks_msec(),param,duration*1000,exemod,groupId]
-	var action =actionPool.instance(input_array)
-
+	var action =Tool.getPollObject(ActionInfo,input_array)
 	regist_actioninfo (action)
 
 func debug_print():
@@ -104,7 +99,7 @@ func debug_print():
 				s = s+"["+a.state as String +baseAction.animation_name+"]"
 		pass
 	print(s)
-var debugcount = 0
+	
 #注册整个action
 func regist_actioninfo(action:ActionInfo):
 
@@ -113,11 +108,6 @@ func regist_actioninfo(action:ActionInfo):
 		var nearest_action = action_array.back()
 		if nearest_action and (not action.repeatation_allowed) and action.is_bussiness_equal(nearest_action):
 			return
-	
-	if action.base_action ==Tool.FightMotion.JumpDown:
-		debugcount+=1
-		if debugcount>1:
-			print("debugcountdad")
 	
 	_resize_action_array()
 
@@ -128,7 +118,7 @@ func regist_actioninfo(action:ActionInfo):
 	chek_execution_prority()
 	
 	check_break_loop(action)
-	debug_print()
+#	debug_print()
 	
 	return action
 

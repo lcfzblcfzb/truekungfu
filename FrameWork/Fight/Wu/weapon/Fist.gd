@@ -7,7 +7,6 @@ static func get_wuxue_type():
 func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_fist-Sheet.png"
 	
-	animation_player = $AnimationPlayer
 	animation_tree = $AnimationTree
 	behaviourTree =  $FistBehaviorTree
 	blackboard = $Blackboard
@@ -120,6 +119,8 @@ func on_action_event(event:NewActionEvent):
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 	
 func on_move_event(event:MoveEvent):
-	
 	WuxueEventHandlerTools.normal_on_moveevent(event,fight_cpn)
 	
+#animation_player组件的回调
+func animation_call_method(param):
+	pass

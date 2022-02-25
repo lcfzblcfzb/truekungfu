@@ -3,7 +3,6 @@ extends Node2D
 
 var fight_cpn
 
-var animation_player:AnimationPlayer
 var animation_tree:AnimationTree
 var behaviourTree:BehaviorTree
 var blackboard:Blackboard

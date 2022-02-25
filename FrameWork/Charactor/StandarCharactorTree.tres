@@ -65,7 +65,7 @@ blend_point_3/pos = Vector2( 0, 1 )
 blend_mode = 1
 
 [resource]
-graph_offset = Vector2( -615.491, -609.211 )
+graph_offset = Vector2( 0, -21 )
 nodes/TimeScale/node = SubResource( 12 )
 nodes/TimeScale/position = Vector2( 160, -560 )
 nodes/Transition/node = SubResource( 13 )
@@ -91,4 +91,4 @@ nodes/jumpup/position = Vector2( -800, -340 )
 nodes/move/node = SubResource( 19 )
 nodes/move/position = Vector2( -600, -900 )
 nodes/output/position = Vector2( 380, -540 )
-node_connections = [ "output", 0, "TimeScale", "Transition", 0, "move", "Transition", 1, "hangingclimbshot", "Transition", 2, "climb", "Transition", 3, "jump_blend", "attack_shot", 0, "Transition", "attack_shot", 1, "attack", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "TimeScale", 0, "attack_shot", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown" ]
+node_connections = [ "output", 0, "TimeScale", "attack_shot", 0, "Transition", "attack_shot", 1, "attack", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "TimeScale", 0, "attack_shot", "Transition", 0, "move", "Transition", 1, "hangingclimbshot", "Transition", 2, "climb", "Transition", 3, "jump_blend", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown" ]

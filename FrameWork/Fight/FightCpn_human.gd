@@ -83,12 +83,11 @@ func _ready():
 			sprite_animation.hurt_box.collision_mask = 0b0100
 			
 	#初始化 武学
-	$Wu.wuxue.animation_player.root_node = $Wu.wuxue.animation_player.get_path_to(sprite_animation.get_node("hip"))
+#	$Wu.wuxue.animation_player.root_node = $Wu.wuxue.animation_player.get_path_to(sprite_animation.get_node("hip"))
 	
 	#TODO 根据配置设置角色形象
 #	sprite_animation.set_sprite_texture($Wu.get_texture())
-	$Wu.wuxue.animation_tree.active = true
-	
+	sprite_animation.choose_animation_player($Wu.chosed_wuxue)
 	#初始状态检测
 	#TODO 可以指定初始状态
 	if not is_on_floor():
@@ -147,7 +146,7 @@ var prv_animin =""
 
 func get_animation_tree():
 	
-	return $Wu.get_animation_tree()
+	return $SpriteAnimation.get_coresponding_animation_tree()
 	pass
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
@@ -276,4 +275,3 @@ func _on_SpriteAnimation_Hurt(area):
 			isDead  = true
 			test_dead_motion()
 			print("Im dead")
-	pass # Replace with function body.
