@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/Fist.gd" type="Script" id=1]
 [ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=2]
 [ext_resource path="res://FrameWork/Charactor/StandarCharactorTree.tres" type="AnimationNodeBlendTree" id=3]
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/fist/FistBehaviorTree.tscn" type="PackedScene" id=5]
+[ext_resource path="res://FrameWork/CollisionBox/WeaponBox.gd" type="Script" id=6]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -2554,5 +2555,8 @@ anims/jumpup = SubResource( 10 )
 anims/run = SubResource( 11 )
 anims/stunned = SubResource( 12 )
 anims/walk = SubResource( 13 )
+
+[node name="WeaponBox" type="Area2D" parent="."]
+script = ExtResource( 6 )
 
 [editable path="FistBehaviorTree"]

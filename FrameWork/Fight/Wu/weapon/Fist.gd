@@ -119,7 +119,6 @@ func on_action_event(event:NewActionEvent):
 				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M_Pre,Tool.FightMotion.HeavyAttack_M_In,Tool.FightMotion.HeavyAttack_M_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 	
-	
 func on_move_event(event:MoveEvent):
 	
 	WuxueEventHandlerTools.normal_on_moveevent(event,fight_cpn)
