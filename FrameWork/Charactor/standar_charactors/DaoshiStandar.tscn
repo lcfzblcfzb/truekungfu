@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://FrameWork/Charactor/StandarCharactor.gd" type="Script" id=1]
 [ext_resource path="res://resource/standar_charactor/daoshi/hip.tres" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://resource/standar_charactor/daoshi/left_shank.tres" type="Texture" id=14]
 [ext_resource path="res://resource/standar_charactor/daoshi/right_fore_arm.tres" type="Texture" id=15]
 [ext_resource path="res://resource/standar_charactor/daoshi/left_upper_arm.tres" type="Texture" id=16]
+[ext_resource path="res://FrameWork/Weapon/Sword.tscn" type="PackedScene" id=17]
 
 [node name="hip" type="Sprite"]
 show_behind_parent = true
@@ -108,6 +109,9 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="behind_body" type="Node2D" parent="body"]
+show_behind_parent = true
+
 [node name="left_upper_arm" type="Sprite" parent="body"]
 show_behind_parent = true
 position = Vector2( 0, -15 )
@@ -176,6 +180,9 @@ __meta__ = {
 "_edit_bone_": true,
 "_editor_description_": ""
 }
+
+[node name="sword" parent="body/right_upper_arm/right_fore_arm/right_hand" instance=ExtResource( 17 )]
+rotation = 1.94463
 
 [node name="head" type="Sprite" parent="body"]
 show_behind_parent = true

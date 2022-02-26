@@ -21,7 +21,7 @@ func _ready():
 	change_face_direction(1)
 
 func choose_animation_player(wuxue):
-	$StandarAnimatedCharactor.get_coresponding_animationplayer(wuxue)
+	$StandarAnimatedCharactor.choose_coresponding_animationplayer(wuxue)
 
 func change_face_direction(face):
 	

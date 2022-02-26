@@ -145,7 +145,6 @@ var prv_face_direction = Vector2.ZERO
 var prv_animin =""
 
 func get_animation_tree():
-	
 	return $SpriteAnimation.get_coresponding_animation_tree()
 	pass
 

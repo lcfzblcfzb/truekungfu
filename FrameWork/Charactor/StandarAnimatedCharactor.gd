@@ -5,6 +5,14 @@ var rusheng_scn = preload("res://FrameWork/Charactor/standar_charactors/RushengS
 
 onready var charactor_scene:StandarCharactor = $hip
 
+var chosed_animation_player:AnimationPlayer
+
+func _ready():
+	chosed_animation_player = $AnimationPlayers/AnimationPlayer
+	_check_dependency()
+	$AnimationTree.active = true
+	pass
+
 func choose_charactor(c):
 	
 	if charactor_scene.charactor_type == c:
@@ -18,24 +26,31 @@ func choose_charactor(c):
 			charactor_scene = rusheng_scn.instance()
 			charactor_scene.set("animation_node",self)
 			add_child(charactor_scene)
-			$AnimationTree/AnimationPlayer.root_node = $AnimationTree/AnimationPlayer.get_path_to(charactor_scene)
 			
 		Tool.CharactorEnum.Daoshi:
 			charactor_scene = daoshi_scn.instance()
 			charactor_scene.set("animation_node",self)
 			add_child(charactor_scene)
-			$AnimationTree/AnimationPlayer.root_node = $AnimationTree/AnimationPlayer.get_path_to(charactor_scene)
 	
-func get_coresponding_animationplayer(wuxue):
+	_check_dependency()
 	
-#	match wuxue :
-#		WuxueMng.WuxueEnum.Fist:
-#			$AnimationTree.anim_player = $AnimationTree.get_path_to($AnimationPlayer)
-#		WuxueMng.WuxueEnum.Sword:
-#			$AnimationTree.anim_player = $AnimationTree.get_path_to($AnimationPlayer)
-#		_:
-#			$AnimationTree.anim_player = $AnimationTree.get_path_to($AnimationPlayer)
+func choose_coresponding_animationplayer(wuxue):
+	
+	match wuxue :
+		WuxueMng.WuxueEnum.Fist:
+			chosed_animation_player = $AnimationPlayers/AnimationPlayer_Fist
+		WuxueMng.WuxueEnum.Sword:
+			chosed_animation_player = $AnimationPlayers/AnimationPlayer_Sword
+		_:
+			chosed_animation_player = $AnimationPlayers/AnimationPlayer
+	
+	_check_dependency()
 	$AnimationTree.active = true
 
 func get_coresponding_animation_tree():
 	return $AnimationTree
+
+func _check_dependency():
+	chosed_animation_player.root_node = chosed_animation_player.get_path_to(charactor_scene)
+	$AnimationTree.anim_player = $AnimationTree.get_path_to(chosed_animation_player)
+	pass
