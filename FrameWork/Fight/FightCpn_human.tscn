@@ -75,4 +75,5 @@ position = Vector2( -13.0801, -22.4008 )
 [editable path="SpriteAnimation"]
 [editable path="SpriteAnimation/hurt_box"]
 [editable path="SpriteAnimation/StandarAnimatedCharactor"]
+[editable path="SpriteAnimation/StandarAnimatedCharactor/hip"]
 [editable path="Wu"]

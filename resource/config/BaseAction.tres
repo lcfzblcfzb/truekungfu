@@ -664,5 +664,14 @@
 	"type": [
 	  1
 	]
+  },
+  {
+	"id": 168,
+	"name": "Engaged",
+	"animation_name": "engaged",
+	"duration": 1,
+	"type": [
+	  1
+	]
   }
 ]

@@ -41,7 +41,6 @@ enum CampEnum {
 enum CharactorEnum{
 	Daoshi,
 	Rusheng,
-	
 }
 
 func test():
@@ -91,6 +90,7 @@ enum WuMotion{
 	HangingClimb,
 	Attack,
 	Defend,
+	Engaged,
 	
 	Attack_Up,
 	Attack_Mid,
@@ -135,6 +135,7 @@ enum FightMotion{
 	HangingClimb = 165,
 	Attack = 166,
 	Defend = 167,
+	Engaged = 168,
 	
 	Attack_Up_Pre=100,
 	Attack_Up_In=101,

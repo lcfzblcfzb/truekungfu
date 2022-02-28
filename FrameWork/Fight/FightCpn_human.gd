@@ -87,7 +87,7 @@ func _ready():
 	
 	#TODO 根据配置设置角色形象
 #	sprite_animation.set_sprite_texture($Wu.get_texture())
-	sprite_animation.choose_animation_player($Wu.chosed_wuxue)
+	sprite_animation.choose_animation_player($Wu.wuxue)
 	#初始状态检测
 	#TODO 可以指定初始状态
 	if not is_on_floor():
@@ -186,6 +186,11 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	if action.base_action == Tool.FightMotion.HangingClimb:
 		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
 		corner_detector.set_deferred("enabled", true)
+	
+	
+	if action.base_action ==Tool.FightMotion.Engaged:
+		sprite_animation.set_state(StandarCharactor.CharactorState.Engaged)
+		pass
 
 func test_dead_motion():
 	

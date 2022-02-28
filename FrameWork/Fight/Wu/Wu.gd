@@ -138,7 +138,7 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	
 	if action.base_action ==Tool.FightMotion.Attack:
 		pass
-
+	
 
 #animation_player组件的回掉
 func _on_SpriteAnimation_AnimationCallMethod(param):

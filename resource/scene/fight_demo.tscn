@@ -59,6 +59,9 @@ chosed_characor = 1
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
 position = Vector2( 88, 559 )
 
+[node name="Wu" parent="FIghtComponnet_Human" index="3"]
+chosed_wuxue = 2
+
 [editable path="Ladder"]
 [editable path="Platform"]
 [editable path="w"]
@@ -66,9 +69,11 @@ position = Vector2( 88, 559 )
 [editable path="enermy/SpriteAnimation"]
 [editable path="enermy/SpriteAnimation/hurt_box"]
 [editable path="enermy/SpriteAnimation/StandarAnimatedCharactor"]
+[editable path="enermy/SpriteAnimation/StandarAnimatedCharactor/hip"]
 [editable path="enermy/Wu"]
 [editable path="FIghtComponnet_Human"]
 [editable path="FIghtComponnet_Human/SpriteAnimation"]
 [editable path="FIghtComponnet_Human/SpriteAnimation/hurt_box"]
 [editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/hip"]
 [editable path="FIghtComponnet_Human/Wu"]

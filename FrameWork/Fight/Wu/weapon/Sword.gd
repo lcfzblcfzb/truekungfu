@@ -2,7 +2,11 @@ class_name Sword
 extends BaseWuXue
 
 static func get_wuxue_type():
-	return WuxueMng.WuxueEnum.Fist
+	return WuxueMng.WuxueEnum.Sword
+
+func _init():
+	
+	weapon_path = "res://FrameWork/Weapon/Sword.tscn"
 
 func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_template-Sheet_def.png"
@@ -22,7 +26,11 @@ func _do_wu_motion(wu_motion,is_heavy):
 			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Stunned) as BaseAction
 			fight_cpn.actionMng.regist_action(Tool.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
-		
+			
+		Tool.WuMotion.Engaged:
+			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Engaged) as BaseAction
+			fight_cpn.actionMng.regist_action(Tool.FightMotion.Engaged,base.duration,ActionInfo.EXEMOD_NEWEST)
+			pass
 		Tool.WuMotion.Attack_Up:
 			if is_heavy:
 				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U_Pre,Tool.FightMotion.HeavyAttack_U_In,Tool.FightMotion.HeavyAttack_U_After])

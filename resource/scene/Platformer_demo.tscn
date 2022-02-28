@@ -61,4 +61,6 @@ position = Vector2( 331, 237 )
 [editable path="FIghtComponnet_Human"]
 [editable path="FIghtComponnet_Human/SpriteAnimation"]
 [editable path="FIghtComponnet_Human/SpriteAnimation/hurt_box"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/hip"]
 [editable path="FIghtComponnet_Human/Wu"]

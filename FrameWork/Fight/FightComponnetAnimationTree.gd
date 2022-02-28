@@ -65,6 +65,10 @@ func travelTo(action:ActionInfo):
 		
 		Tool.FightMotion.Attack:
 			set("parameters/attack_shot/active",true)
+		
+		Tool.FightMotion.Engaged:
+			set("parameters/engaged_shot/active",true)
+		
 		_:
 			set(TRANSITION,MOVE)
 			set(MOVE_BP,Vector2.ZERO)

@@ -34,9 +34,9 @@ func choose_charactor(c):
 	
 	_check_dependency()
 	
-func choose_coresponding_animationplayer(wuxue):
+func choose_coresponding_animationplayer(wuxue:BaseWuXue):
 	
-	match wuxue :
+	match wuxue.get_wuxue_type() :
 		WuxueMng.WuxueEnum.Fist:
 			chosed_animation_player = $AnimationPlayers/AnimationPlayer_Fist
 		WuxueMng.WuxueEnum.Sword:
@@ -46,6 +46,11 @@ func choose_coresponding_animationplayer(wuxue):
 	
 	_check_dependency()
 	$AnimationTree.active = true
+	
+	#武器 的 外形 在此初始化
+	if wuxue.weapon_path:
+		var weapon = load(wuxue.weapon_path).instance() as Weapon
+		weapon.add_to_charactor(charactor_scene)
 
 func get_coresponding_animation_tree():
 	return $AnimationTree
@@ -54,3 +59,6 @@ func _check_dependency():
 	chosed_animation_player.root_node = chosed_animation_player.get_path_to(charactor_scene)
 	$AnimationTree.anim_player = $AnimationTree.get_path_to(chosed_animation_player)
 	pass
+
+func set_state(s):
+	charactor_scene.state =s

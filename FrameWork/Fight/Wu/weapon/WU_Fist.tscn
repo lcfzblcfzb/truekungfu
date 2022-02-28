@@ -18,6 +18,7 @@ parameters/TimeScale/scale = 1.0
 parameters/Transition/current = 0
 parameters/attack/blend_position = 0.0
 parameters/attack_shot/active = false
+parameters/engaged_shot/active = false
 parameters/hangingclimbshot/active = false
 parameters/jump_blend/blend_amount = 0
 parameters/move/blend_position = Vector2( 0, 0 )
