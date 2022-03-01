@@ -254,6 +254,11 @@ func _add_to_action_array(action:ActionInfo):
 	var back_action = action_array.back() as ActionInfo
 
 	if back_action.execution_mod == ActionInfo.EXEMOD_NEWEST:
+		
+		if back_action.state == ActionInfo.STATE_ING:
+			back_action.state =ActionInfo.STATE_PASSED
+			emit_signal("ActionFinish",back_action)
+		
 		action_array.pop_back()
 		back_action.dead()
 		action_array.append(action)

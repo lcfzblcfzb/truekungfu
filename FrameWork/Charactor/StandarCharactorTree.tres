@@ -29,7 +29,8 @@ blend_point_0/pos = 0.0
 animation = "climb"
 
 [sub_resource type="AnimationNodeOneShot" id=35]
-filters = [ "body/left_upper_arm/left_fore_arm/left_hand:position", "body/left_upper_arm/left_fore_arm/left_hand:rotation_degrees", "body/left_upper_arm/left_fore_arm:position", "body/left_upper_arm/left_fore_arm:rotation_degrees", "body/left_upper_arm:position", "body/left_upper_arm:rotation_degrees", "body/right_upper_arm/right_fore_arm/right_hand:position", "body/right_upper_arm/right_fore_arm/right_hand:rotation_degrees", "body/right_upper_arm/right_fore_arm:position", "body/right_upper_arm/right_fore_arm:rotation_degrees", "body/right_upper_arm:position", "body/right_upper_arm:rotation_degrees", "body:position", "body:rotation_degrees" ]
+filter_enabled = true
+filters = [ "body/head:position", "body/head:rotation_degrees", "body/left_upper_arm/left_fore_arm/left_hand/sword_left_hand:position", "body/left_upper_arm/left_fore_arm/left_hand/sword_left_hand:rotation_degrees", "body/left_upper_arm/left_fore_arm/left_hand:position", "body/left_upper_arm/left_fore_arm/left_hand:rotation_degrees", "body/left_upper_arm/left_fore_arm:position", "body/left_upper_arm/left_fore_arm:rotation_degrees", "body/left_upper_arm:position", "body/left_upper_arm:rotation_degrees", "body/right_upper_arm/right_fore_arm/right_hand:position", "body/right_upper_arm/right_fore_arm/right_hand:rotation_degrees", "body/right_upper_arm/right_fore_arm:position", "body/right_upper_arm/right_fore_arm:rotation_degrees", "body/right_upper_arm:position", "body/right_upper_arm:rotation_degrees", "body:position", "body:rotation_degrees" ]
 
 [sub_resource type="AnimationNodeAnimation" id=6]
 animation = "hanging"
@@ -71,7 +72,7 @@ blend_point_3/pos = Vector2( 0, 1 )
 blend_mode = 1
 
 [resource]
-graph_offset = Vector2( 0, -87 )
+graph_offset = Vector2( -911.478, -552.202 )
 nodes/Animation/node = SubResource( 34 )
 nodes/Animation/position = Vector2( -20, -340 )
 nodes/TimeScale/node = SubResource( 12 )
@@ -101,4 +102,4 @@ nodes/jumpup/position = Vector2( -800, -340 )
 nodes/move/node = SubResource( 19 )
 nodes/move/position = Vector2( -600, -900 )
 nodes/output/position = Vector2( 600, -540 )
-node_connections = [ "output", 0, "TimeScale", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "attack_shot", 0, "Transition", "attack_shot", 1, "attack", "engaged_shot", 0, "attack_shot", "engaged_shot", 1, "Animation", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "Transition", 0, "move", "Transition", 1, "hangingclimbshot", "Transition", 2, "climb", "Transition", 3, "jump_blend", "TimeScale", 0, "engaged_shot" ]
+node_connections = [ "output", 0, "TimeScale", "Transition", 0, "move", "Transition", 1, "hangingclimbshot", "Transition", 2, "climb", "Transition", 3, "jump_blend", "attack_shot", 0, "Transition", "attack_shot", 1, "attack", "TimeScale", 0, "engaged_shot", "engaged_shot", 0, "attack_shot", "engaged_shot", 1, "Animation", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb" ]

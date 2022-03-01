@@ -1,11 +1,13 @@
 class_name StandarCharactor
+
 extends Sprite
+
 # Tool.CharactorEnum
 var charactor_type 
 #就是 SpriteAnimation 节点
 var animation_node
 # 数组
-var _parts_array:Array
+var _gears_array:Array
 
 #身体部位的枚举
 enum CharactorBodySlotEnum{
@@ -33,16 +35,15 @@ enum CharactorBodySlotEnum{
 	Head = 70
 }
 
-
-var state setget set_state;
+#可以理解为关键帧
+export(int) var state setget set_state;
 
 func set_state(s):
 	state = s
 	
-	for part in _parts_array:
+	for part in _gears_array:
 		part.to_state(s)
 	pass
-
 
 enum CharactorState{
 	Peace=1,
@@ -50,6 +51,23 @@ enum CharactorState{
 	
 }
 
+#添加一个装备
+func add_gear(gear):
+	if _gears_array.has(gear):
+		return
+	_gears_array.append(gear)
+	add_child(gear)
+	gear._attach_charactor = self
+	gear.on_add_to_charactor(self)
+	
+func remove_gear(gear):
+	var idx =_gears_array.find(gear)
+	if idx>=0:
+		_gears_array.remove(idx)
+		remove_child(gear)
+		gear._attach_charactor = null
+		gear.on_remove_from_charactor(self)
+		
 
 #animationPlayer中 由call_method_track 调用的方法
 #做一个代理调用方法
@@ -60,23 +78,12 @@ func animation_call_method(args1):
 #加一个部位
 func add_to_body(slot_id:int, part , front = true):
 	
-	if slot_id == part.slot_id:
-		return
-	
-	if part.slot_id and part.slot_id > 0 :
-		var prv_part = get_body_part_by_id(part.slot_id)
-		if prv_part:
-			prv_part.remove_child(part)
-	
 	var to_part = get_body_part_by_id(slot_id)
 	if to_part:
 		to_part.add_child(part)
 		if !front:
 			part.show_behind_parent = true
-		part.slot_id = slot_id
 	
-	if !_parts_array.has(part):
-		_parts_array.append(part)
 	
 func get_body_part_by_id(slot_id):
 	

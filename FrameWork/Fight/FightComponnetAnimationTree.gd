@@ -9,11 +9,6 @@ var TRANSITION = "parameters/Transition/current"
 var MOVE_BP ="parameters/move/blend_position"
 
 var current_state = MOVE
-
-func _ready():
-#	yield(get_tree().create_timer(3),"timeout")
-#	anim_player = textEdit_animator
-	pass
 	
 var fight_action_control;
 
@@ -31,7 +26,6 @@ func _process(delta):
 		emitSignal(current_node)
 		prv_node = current_node
 		
-	pass
 #动作动作
 func act(action:ActionInfo,timescale):
 	var animation = action.get_base_action().get("animation_name")

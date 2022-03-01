@@ -5,8 +5,7 @@ static func get_wuxue_type():
 	return WuxueMng.WuxueEnum.Sword
 
 func _init():
-	
-	weapon_path = "res://FrameWork/Weapon/Sword.tscn"
+	weapon_path = "res://FrameWork/Gear/Weapon/Sword.tscn"
 
 func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_template-Sheet_def.png"
@@ -161,3 +160,8 @@ class SwordCourt:
 
 func _on_Detector_body_entered(body):
 	fight_cpn.is_engaged = true
+
+
+#animation_player组件的回调
+func animation_call_method(param):
+	pass

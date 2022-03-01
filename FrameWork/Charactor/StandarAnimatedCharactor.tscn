@@ -1,10 +1,9 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://FrameWork/Charactor/standar_charactors/DaoshiStandar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://FrameWork/Charactor/StandarCharactorTree.tres" type="AnimationNodeBlendTree" id=2]
 [ext_resource path="res://FrameWork/Charactor/StandarAnimatedCharactor.gd" type="Script" id=3]
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=4]
-[ext_resource path="res://FrameWork/Weapon/Sword.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -6155,7 +6154,6 @@ resource_name = "defend"
 
 [sub_resource type="Animation" id=40]
 resource_name = "engaged"
-length = 0.9
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
@@ -6541,28 +6539,28 @@ tracks/31/keys = {
 "values": [ 0.0 ]
 }
 tracks/32/type = "value"
-tracks/32/path = NodePath("body/left_upper_arm/left_fore_arm/left_hand/sword:position")
+tracks/32/path = NodePath("body/left_upper_arm/left_fore_arm/left_hand/sword_left_hand:position")
 tracks/32/interp = 1
 tracks/32/loop_wrap = true
 tracks/32/imported = false
 tracks/32/enabled = true
 tracks/32/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 0 ), Vector2( 1, 0 ), Vector2( 8.34162, -10.8456 ), Vector2( -8.01017, -5.72205e-06 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 8, -11 ), Vector2( -2, -1 ), Vector2( -9, 9.53674e-07 ), Vector2( -10, 0 ) ]
 }
 tracks/33/type = "value"
-tracks/33/path = NodePath("body/left_upper_arm/left_fore_arm/left_hand/sword:rotation_degrees")
+tracks/33/path = NodePath("body/left_upper_arm/left_fore_arm/left_hand/sword_left_hand:rotation_degrees")
 tracks/33/interp = 1
 tracks/33/loop_wrap = true
 tracks/33/imported = false
 tracks/33/enabled = true
 tracks/33/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5, 0.8, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ -110.0, -110.0, -140.407, 128.4, 115.0 ]
+"values": [ -110.0, -110.0, -135.0, -7.5, 120.0, 120.0 ]
 }
 
 [sub_resource type="Animation" id=31]
@@ -8021,24 +8019,12 @@ parameters/attack_shot/active = false
 parameters/engaged_shot/active = false
 parameters/hangingclimbshot/active = false
 parameters/jump_blend/blend_amount = 0
-parameters/move/blend_position = Vector2( 0, 0 )
+parameters/move/blend_position = Vector2( 0.0493827, 0.835694 )
 script = ExtResource( 4 )
 
 [node name="hip" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 0 )
-
-[node name="sword" parent="hip/body/left_upper_arm/left_fore_arm/left_hand" index="0" instance=ExtResource( 5 )]
-position = Vector2( -8.01017, -5.72205e-06 )
-rotation = 2.00713
-
-[node name="right_upper_arm" parent="hip/body" index="1"]
-rotation = -0.0263974
-
-[node name="right_fore_arm" parent="hip/body/right_upper_arm" index="0"]
-rotation = -0.328832
-
-[node name="right_hand" parent="hip/body/right_upper_arm/right_fore_arm" index="0"]
-rotation = 0.297379
+state = 2
 
 [node name="AnimationPlayers" type="Node" parent="."]
 

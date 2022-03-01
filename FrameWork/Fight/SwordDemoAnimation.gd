@@ -15,13 +15,18 @@ onready var hurt_box:HurtBox = $hurt_box
 export (Tool.CharactorEnum) var chosed_characor = Tool.CharactorEnum.Daoshi
 
 func _ready():
-	$StandarAnimatedCharactor.choose_charactor(chosed_characor)
+	$StandarAnimatedCharactor.choose_charactor(chosed_characor,self)
 	fight_component = get_node(fight_component_path)
 	$hurt_box.set("fight_cpn",fight_component)
 	change_face_direction(1)
 
-func choose_animation_player(wuxue):
-	$StandarAnimatedCharactor.choose_coresponding_animationplayer(wuxue)
+func choose_wuxue_animation_and_gear(wuxue):
+	$StandarAnimatedCharactor.choose_coresponding_wuxue(wuxue)
+
+func change_state(state):
+	change_state(state)
+	
+
 
 func change_face_direction(face):
 	

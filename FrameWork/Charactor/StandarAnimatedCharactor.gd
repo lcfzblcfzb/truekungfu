@@ -13,7 +13,7 @@ func _ready():
 	$AnimationTree.active = true
 	pass
 
-func choose_charactor(c):
+func choose_charactor(c,animation_node):
 	
 	if charactor_scene.charactor_type == c:
 		return 
@@ -24,17 +24,17 @@ func choose_charactor(c):
 	match c:
 		Tool.CharactorEnum.Rusheng:
 			charactor_scene = rusheng_scn.instance()
-			charactor_scene.set("animation_node",self)
+			charactor_scene.set("animation_node",animation_node)
 			add_child(charactor_scene)
 			
 		Tool.CharactorEnum.Daoshi:
 			charactor_scene = daoshi_scn.instance()
-			charactor_scene.set("animation_node",self)
+			charactor_scene.set("animation_node",animation_node)
 			add_child(charactor_scene)
 	
 	_check_dependency()
 	
-func choose_coresponding_animationplayer(wuxue:BaseWuXue):
+func choose_coresponding_wuxue(wuxue:BaseWuXue):
 	
 	match wuxue.get_wuxue_type() :
 		WuxueMng.WuxueEnum.Fist:
@@ -50,7 +50,8 @@ func choose_coresponding_animationplayer(wuxue:BaseWuXue):
 	#武器 的 外形 在此初始化
 	if wuxue.weapon_path:
 		var weapon = load(wuxue.weapon_path).instance() as Weapon
-		weapon.add_to_charactor(charactor_scene)
+		charactor_scene.add_gear(weapon)
+		charactor_scene.state = StandarCharactor.CharactorState.Peace
 
 func get_coresponding_animation_tree():
 	return $AnimationTree

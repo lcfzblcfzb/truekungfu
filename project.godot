@@ -129,6 +129,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/event/BaseFightEvent.gd"
 }, {
+"base": "Node2D",
+"class": "BaseGear",
+"language": "GDScript",
+"path": "res://FrameWork/Gear/BaseGear.gd"
+}, {
 "base": "BaseCharactor",
 "class": "BasePlatformerCharactor",
 "language": "GDScript",
@@ -309,10 +314,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Verlex/verlet_loop.gd"
 }, {
-"base": "Node2D",
+"base": "BaseGear",
 "class": "Weapon",
 "language": "GDScript",
-"path": "res://FrameWork/Weapon/Weapon.gd"
+"path": "res://FrameWork/Gear/Weapon/Weapon.gd"
 }, {
 "base": "Area2D",
 "class": "WeaponBox",
@@ -354,6 +359,7 @@ _global_script_class_icons={
 "BaseCharactor": "",
 "BaseFightActionController": "",
 "BaseFightEvent": "",
+"BaseGear": "",
 "BasePlatformerCharactor": "",
 "BaseWu": "",
 "BaseWuXue": "",
