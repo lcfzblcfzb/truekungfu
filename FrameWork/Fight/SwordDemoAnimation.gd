@@ -25,8 +25,6 @@ func choose_wuxue_animation_and_gear(wuxue):
 
 func change_state(state):
 	change_state(state)
-	
-
 
 func change_face_direction(face):
 	

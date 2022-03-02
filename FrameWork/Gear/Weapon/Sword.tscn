@@ -1,15 +1,27 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://resource/texture/weapon/weapons-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://resource/texture/weapon/sword-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://FrameWork/Gear/Weapon/Sword.gd" type="Script" id=2]
 
 [node name="sword" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="sword_left_hand" type="Sprite" parent="."]
+position = Vector2( 8, 0 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
+region_enabled = true
+region_rect = Rect2( 0, 1, 3, 26 )
+
+[node name="sword_sheath" type="Sprite" parent="."]
+position = Vector2( 8, 0 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -14 )
+region_enabled = true
+region_rect = Rect2( 4, 0, 2, 24 )
 
 [node name="sword_right_hand" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
+region_enabled = true
+region_rect = Rect2( 0, 1, 3, 26 )

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/weapons-Sheet.png-114d4f13a5f8276ccb278975c360d5c3.stex"
+path="res://.import/sword-Sheet.png-c25452d09d599c34a2fbb45700a5ed8d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/texture/weapon/weapons-Sheet.png"
-dest_files=[ "res://.import/weapons-Sheet.png-114d4f13a5f8276ccb278975c360d5c3.stex" ]
+source_file="res://resource/texture/weapon/sword-Sheet.png"
+dest_files=[ "res://.import/sword-Sheet.png-c25452d09d599c34a2fbb45700a5ed8d.stex" ]
 
 [params]
 

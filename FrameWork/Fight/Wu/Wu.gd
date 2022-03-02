@@ -79,11 +79,12 @@ func _init_wu(type= WuxueMng.WuxueEnum.Fist):
 		pass
 	else :
 	
-		var newwuxue = get_or_create_wuxue(type) 
+		var newwuxue = get_or_create_wuxue(type) as Node2D
 		if newwuxue:
-			
 			newwuxue.fight_cpn = fight_component
-			add_child(newwuxue)
+			if newwuxue.get_parent() == null:
+				add_child(newwuxue)
+			
 			wuxue = newwuxue
 
 func switch_wu(type= WuxueMng.WuxueEnum.Fist):
@@ -102,7 +103,8 @@ func switch_wu(type= WuxueMng.WuxueEnum.Fist):
 		if newwuxue:
 			
 			newwuxue.fight_cpn = fight_component
-			add_child(newwuxue)
+			if newwuxue.get_parent() == null:
+				add_child(newwuxue)
 			wuxue = newwuxue
 #			wuxue.animation_player.root_node = wuxue.animation_player.get_path_to(fight_component.sprite_animation.get_node("hip"))
 		

@@ -73,7 +73,6 @@ func remove_gear(gear):
 #做一个代理调用方法
 func animation_call_method(args1):
 	animation_node.emit_signal("AnimationCallMethod",args1)
-	pass
 
 #加一个部位
 func add_to_body(slot_id:int, part , front = true):
@@ -83,6 +82,7 @@ func add_to_body(slot_id:int, part , front = true):
 		to_part.add_child(part)
 		if !front:
 			part.show_behind_parent = true
+
 	
 	
 func get_body_part_by_id(slot_id):

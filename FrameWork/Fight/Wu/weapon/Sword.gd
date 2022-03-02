@@ -30,6 +30,21 @@ func _do_wu_motion(wu_motion,is_heavy):
 			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Engaged) as BaseAction
 			fight_cpn.actionMng.regist_action(Tool.FightMotion.Engaged,base.duration,ActionInfo.EXEMOD_NEWEST)
 			pass
+		
+		Tool.WuMotion.Hanging:
+			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Hanging) as BaseAction
+			fight_cpn.actionMng.regist_action(wu_motion,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			pass
+		
+		Tool.WuMotion.HangingClimb:
+			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.HangingClimb) as BaseAction
+			fight_cpn.actionMng.regist_action(wu_motion,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			pass
+		
+		Tool.WuMotion.Attack:
+			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Attack) as BaseAction
+			fight_cpn.actionMng.regist_action(Tool.FightMotion.Attack,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			
 		Tool.WuMotion.Attack_Up:
 			if is_heavy:
 				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U_Pre,Tool.FightMotion.HeavyAttack_U_In,Tool.FightMotion.HeavyAttack_U_After])
