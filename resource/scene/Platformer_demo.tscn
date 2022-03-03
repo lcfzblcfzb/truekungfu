@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://resource/scene/Platformer_demo.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.tscn" type="PackedScene" id=2]
 [ext_resource path="res://FrameWork/Scene/Ladder.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resource/tiles/platformer_mountain.tres" type="TileSet" id=4]
-[ext_resource path="res://FrameWork/Charactor/standar_charactors/RushengStandar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://FrameWork/Scene/Platform.tscn" type="PackedScene" id=19]
 
 [node name="Platformer" type="Node2D"]
@@ -52,8 +51,6 @@ tile_data = PoolIntArray( 1638434, 19, 0, 1769510, 47, 0, 1835046, 49, 0, 183504
 
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
 position = Vector2( 331, 237 )
-
-[node name="hip" parent="FIghtComponnet_Human/SpriteAnimation" index="2" instance=ExtResource( 5 )]
 
 [editable path="Ladder"]
 [editable path="Platform"]

@@ -58,6 +58,8 @@ shape = SubResource( 1 )
 [node name="scarf" parent="." instance=ExtResource( 15 )]
 position = Vector2( -13.0801, -22.4008 )
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="Active_State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_Active_State_Changed"]
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="SpriteAnimation" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="CornerDetect" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]

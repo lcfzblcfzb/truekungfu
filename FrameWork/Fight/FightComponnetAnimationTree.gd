@@ -5,8 +5,14 @@ const HANGING =1
 const CLIMB =2
 const JUMP =3
 
-var TRANSITION = "parameters/Transition/current"
+const STATE_PREPARED =0
+const STATE_UNPREPARED = 1
+
+var TRANSITION_UNPREPARED = "parameters/unprepared_tran/current"
+var TRANSITION_PREPARED = "parameters/prepared_tran/current"
+
 var MOVE_BP ="parameters/move/blend_position"
+var MOVE_PREPARED_BP ="parameters/move_prepared/blend_position"
 
 var current_state = MOVE
 	
@@ -21,7 +27,7 @@ var prv_node =-1
 
 func _process(delta):
 	
-	var current_node = get(TRANSITION)
+	var current_node = get(TRANSITION_PREPARED)
 	if current_node!=prv_node:
 		emitSignal(current_node)
 		prv_node = current_node
@@ -42,30 +48,45 @@ func travelTo(action:ActionInfo):
 	
 	match action.base_action:
 		Tool.FightMotion.Idle:
-			set(TRANSITION,MOVE)
+			set(TRANSITION_PREPARED,MOVE)
+			set(TRANSITION_UNPREPARED,MOVE)
 			set(MOVE_BP,Vector2.ZERO)
+			set(MOVE_PREPARED_BP,Vector2.ZERO)
 			
 		Tool.FightMotion.Walk:
-			set(TRANSITION,MOVE)
+			set(TRANSITION_PREPARED,MOVE)
+			set(TRANSITION_UNPREPARED,MOVE)
 			set(MOVE_BP,Vector2.RIGHT)
+			set(MOVE_PREPARED_BP,Vector2.RIGHT)
 		
 		Tool.FightMotion.Hanging:
 			set("parameters/hangingclimbshot/active",false)
-			set(TRANSITION,HANGING)
+			set("parameters/hangingclimbshot_prepared/active",false)
+			set(TRANSITION_PREPARED,HANGING)
+			set(TRANSITION_UNPREPARED,HANGING)
 		
 		Tool.FightMotion.HangingClimb:
+			set("parameters/hangingclimbshot_prepared/active",true)
 			set("parameters/hangingclimbshot/active",true)
-			set(TRANSITION,HANGING)
+			set(TRANSITION_PREPARED,HANGING)
+			set(TRANSITION_UNPREPARED,HANGING)
 		
 		Tool.FightMotion.Attack:
 			set("parameters/attack_shot/active",true)
 		
-		Tool.FightMotion.Engaged:
-			set("parameters/engaged_shot/active",true)
+		Tool.FightMotion.Prepared:
+			set("parameters/prepared_shot/active",true)
+			set("parameters/state_tran/current",STATE_PREPARED)
+			
+		Tool.FightMotion.Unprepared:
+			set("parameters/unprepared_shot/active",true)
+			set("parameters/state_tran/current",STATE_UNPREPARED)
 		
 		_:
-			set(TRANSITION,MOVE)
+			set(TRANSITION_PREPARED,MOVE)
+			set(TRANSITION_UNPREPARED,MOVE)
 			set(MOVE_BP,Vector2.ZERO)
+			set(MOVE_PREPARED_BP,Vector2.ZERO)
 	
 #	state_machine_playback.travel(name)
 

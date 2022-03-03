@@ -26,10 +26,11 @@ func _do_wu_motion(wu_motion,is_heavy):
 			fight_cpn.actionMng.regist_action(Tool.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
 			
-		Tool.WuMotion.Engaged:
-			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Engaged) as BaseAction
-			fight_cpn.actionMng.regist_action(Tool.FightMotion.Engaged,base.duration,ActionInfo.EXEMOD_NEWEST)
-			pass
+		Tool.WuMotion.Prepared:
+			fight_cpn.is_prepared = true
+		
+		Tool.WuMotion.Unprepared:
+			fight_cpn.is_prepared = false
 		
 		Tool.WuMotion.Hanging:
 			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Hanging) as BaseAction

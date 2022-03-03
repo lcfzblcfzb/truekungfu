@@ -30,7 +30,13 @@ func on_action_event(event:NewActionEvent):
 			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Stunned) as BaseAction
 			fight_cpn.actionMng.regist_action(Tool.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
+			
+		Tool.WuMotion.Prepared:
+			fight_cpn.is_prepared = true
 		
+		Tool.WuMotion.Unprepared:
+			fight_cpn.is_prepared = false
+			
 		Tool.WuMotion.Hanging:
 			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Hanging) as BaseAction
 			fight_cpn.actionMng.regist_action(event.wu_motion,base.duration,ActionInfo.EXEMOD_INTERUPT)

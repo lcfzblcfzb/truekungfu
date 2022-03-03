@@ -56,5 +56,3 @@ func get_coresponding_animation_tree():
 
 func set_state(s):
 	$StandarAnimatedCharactor.set_state(s)
-	
-	pass

@@ -667,8 +667,17 @@
   },
   {
 	"id": 168,
-	"name": "Engaged",
-	"animation_name": "engaged",
+	"name": "Prepared",
+	"animation_name": "prepared",
+	"duration": 1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 169,
+	"name": "Unprepared",
+	"animation_name": "unprepared",
 	"duration": 1,
 	"type": [
 	  1

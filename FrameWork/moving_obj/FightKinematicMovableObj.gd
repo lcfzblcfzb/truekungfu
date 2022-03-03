@@ -339,7 +339,7 @@ func _process_action(action:ActionInfo):
 			var baseObj = FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
 			# 是攻击类型的type
 			#TODO 建立一个枚举 表示 action_type 方便理解
-			if 2 in baseObj.type:
+			if baseObj and 2 in baseObj.type:
 				var name =baseObj.animation_name as String
 				if "_pre" in name: 
 					change_movable_state(input_vector,ActionState.Attack)

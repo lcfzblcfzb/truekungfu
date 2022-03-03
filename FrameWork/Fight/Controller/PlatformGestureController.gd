@@ -178,7 +178,7 @@ func _input(event):
 		var newActionEvent = Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Attack,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	if event.is_action_pressed("prepared"):
-		var newActionEvent = Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Engaged,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Prepared,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	
 	var is_action =event.is_action("ui_right")

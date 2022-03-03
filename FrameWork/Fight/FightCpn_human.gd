@@ -18,7 +18,7 @@ onready var corner_detector = $CornerDetect
 
 #动作控制器。是玩家输入或者是 AI 控制器
 var fight_controller :BaseFightActionController
-
+#是否是玩家操作的角色
 export (bool) var is_player =false;
 #控制器的预加载
 var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
@@ -121,6 +121,11 @@ func get_velocity():
 #是否进战斗了
 var is_engaged=false
 
+func set_engaged(e):
+	is_engaged = e
+	if e:
+		self.is_prepared = true
+
 #检测是否进战斗了	
 func check_engaged():
 	var oppose_array = CharactorMng.findOpposeMember(camp)
@@ -133,6 +138,42 @@ func check_engaged():
 			is_engaged = false
 	else:
 		is_engaged = false
+
+#是否处于准备状态
+var is_prepared = false setget set_prepared
+
+func set_prepared(p):
+	
+	if p and not is_prepared:
+		#是从false 变化到 true的情况； 出剑
+		var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Prepared) as BaseAction
+		if base != null :
+			var action = Tool.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			actionMng.regist_actioninfo(action)
+	elif is_prepared and not p:
+		#是从true 变为false；收剑
+		var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Unprepared) as BaseAction
+		if base != null :
+			var action = Tool.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			actionMng.regist_actioninfo(action)
+		pass
+	
+	is_prepared = p 
+	if p:
+		update_prepared_timer()
+#计算prepared状态的timer
+onready var _unpreparing_timer = $Timer
+
+func update_prepared_timer():
+	_unpreparing_timer.start(1)
+	
+	while true:
+		var func_return = yield(_unpreparing_timer,"timeout")
+		if is_engaged:
+			_unpreparing_timer.start(1)
+		else:
+			self.is_prepared = false
+			break
 	
 export(float) var impact_strength=0;
 
@@ -154,7 +195,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		push_error("actioninfo is null.")
 		return 
 	
-	var base =FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
+	var base =FightBaseActionDataSource.get_by_base_id(action.base_action as int) as BaseAction
 	
 	if base == null:
 		return
@@ -167,8 +208,11 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	if action.base_action ==Tool.FightMotion.Attack:
 		sprite_animation.weapon_box.monitoring = true
 		sprite_animation.weapon_box.monitorable = true
-		pass
 		
+		if is_prepared == false:
+			self.is_prepared = true
+		pass
+	
 	print("action start time",OS.get_ticks_msec())
 #	print("action frame:",$SpriteAnimation/Sprite.frame)
 #	$FightAnimationTree.act(action,time)	
@@ -187,7 +231,7 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
 		corner_detector.set_deferred("enabled", true)
 	
-	if action.base_action ==Tool.FightMotion.Engaged:
+	if action.base_action ==Tool.FightMotion.Prepared:
 		
 #		yield(sprite_animation.get_coresponding_animation_tree(),"State_Changed")
 		sprite_animation.set_state(StandarCharactor.CharactorState.Engaged)

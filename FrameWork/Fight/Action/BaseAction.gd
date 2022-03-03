@@ -5,7 +5,7 @@ extends Object
 
 func _init(param:Dictionary):
 	
-	id= param.get("id")
+	id= param.get("id") as int
 	name= param.get("name")
 	animation_name= param.get("animation_name")
 	type= param.get("type")

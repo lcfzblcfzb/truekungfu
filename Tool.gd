@@ -89,7 +89,8 @@ enum WuMotion{
 	HangingClimb,
 	Attack,
 	Defend,
-	Engaged,
+	Prepared,
+	Unprepared,
 	
 	Attack_Up,
 	Attack_Mid,
@@ -134,7 +135,8 @@ enum FightMotion{
 	HangingClimb = 165,
 	Attack = 166,
 	Defend = 167,
-	Engaged = 168,
+	Prepared = 168,
+	Unprepared = 169,
 	
 	Attack_Up_Pre=100,
 	Attack_Up_In=101,
