@@ -15,13 +15,19 @@ script = ExtResource( 1 )
 tree_root = ExtResource( 3 )
 process_mode = 0
 parameters/TimeScale/scale = 1.0
-parameters/Transition/current = 0
 parameters/attack/blend_position = 0.0
 parameters/attack_shot/active = false
-parameters/engaged_shot/active = false
 parameters/hangingclimbshot/active = false
+parameters/hangingclimbshot_prepared/active = false
 parameters/jump_blend/blend_amount = 0
+parameters/jump_blend_prepraed/blend_amount = 0
 parameters/move/blend_position = Vector2( 0, 0 )
+parameters/move_prepared/blend_position = Vector2( 0, 0 )
+parameters/prepared_shot/active = false
+parameters/prepared_tran/current = 0
+parameters/state_tran/current = 0
+parameters/unprepared_shot/active = false
+parameters/unprepared_tran/current = 0
 script = ExtResource( 4 )
 
 [node name="FistBehaviorTree" parent="." instance=ExtResource( 5 )]

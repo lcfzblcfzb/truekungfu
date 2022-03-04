@@ -154,7 +154,7 @@ static func normal_on_moveevent(event,fight_cpn):
 					action_mng.regist_actioninfo(action)
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
 	else:
-		var lastMotion =action_mng.action_array.back()
+		var lastMotion =action_mng.last_action()
 		#这里是 攻击结束后，已经按下移动中的情况
 		#climb 是因为如果之前是climb ，而这里没有包括，则climb的动作会被walk替换
 		if lastMotion and (lastMotion.base_action != Tool.FightMotion.Run && lastMotion.base_action != Tool.FightMotion.Climb):

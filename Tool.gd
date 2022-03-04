@@ -91,6 +91,7 @@ enum WuMotion{
 	Defend,
 	Prepared,
 	Unprepared,
+	Switch,
 	
 	Attack_Up,
 	Attack_Mid,

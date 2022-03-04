@@ -20,7 +20,7 @@ func _ready():
 	$hurt_box.set("fight_cpn",fight_component)
 	change_face_direction(1)
 
-func choose_wuxue_animation_and_gear(wuxue):
+func choose_wuxue_animation_and_gear(wuxue:BaseWuXue):
 	$StandarAnimatedCharactor.choose_coresponding_wuxue(wuxue)
 
 func change_state(state):

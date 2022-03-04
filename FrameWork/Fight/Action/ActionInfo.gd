@@ -34,7 +34,7 @@ func _init(pool,params_array:Array).(pool):
 		loop_break = false
 	
 pass
-#最普通的action方式，如果前一个action也是newest ，则会被覆盖
+#最普通的action方式，如果前一个action(未进行中) 也是newest ，则会被覆盖
 const EXEMOD_NEWEST =0
 #按顺序排队执行
 const EXEMOD_SEQ = 10
@@ -105,7 +105,7 @@ func _set_state(s_to):
 				push_warning("FightControlActionStateShift NoLegal,from: to:")
 			pass
 		STATE_INTERUPTED:
-			if state != STATE_ING:
+			if state != STATE_ING or state!=STATE_INITED:
 				push_warning("FightControlActionStateShift NoLegal,from: to:")
 			pass
 		STATE_PASSED:

@@ -57,25 +57,13 @@ is_player = false
 chosed_characor = 1
 
 [node name="AnimationTree" parent="enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
-parameters/hangingclimbshot_prepared/active = false
-parameters/jump_blend_prepraed/blend_amount = 0
-parameters/move_prepared/blend_position = Vector2( 0, 0 )
-parameters/prepared_shot/active = false
 parameters/state_tran/current = 0
-parameters/unprepared_shot/active = false
-parameters/unprepared_tran/current = 0
 
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
 position = Vector2( 88, 559 )
 
 [node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
-parameters/hangingclimbshot_prepared/active = false
-parameters/jump_blend_prepraed/blend_amount = 0
-parameters/move_prepared/blend_position = Vector2( 0, 0 )
-parameters/prepared_shot/active = false
 parameters/state_tran/current = 0
-parameters/unprepared_shot/active = false
-parameters/unprepared_tran/current = 0
 
 [node name="Wu" parent="FIghtComponnet_Human" index="3"]
 chosed_wuxue = 2

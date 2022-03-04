@@ -180,6 +180,9 @@ func _input(event):
 	if event.is_action_pressed("prepared"):
 		var newActionEvent = Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Prepared,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
+	if event.is_action_pressed("switch"):
+		var newActionEvent = Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Switch,attack_begin_time,OS.get_ticks_msec()])
+		emit_signal("NewFightMotion",newActionEvent)
 	
 	var is_action =event.is_action("ui_right")
 	#以上下左右的顺序 ，垂直方向上下对应用 10 和01  ；水平上左右对应用 10和01 表示

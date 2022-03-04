@@ -29,6 +29,13 @@ func nearest_executed_action()->ActionInfo:
 	
 	return null
 
+func last_action():
+	
+	if action_array.size()>0:
+		return action_array.back()
+	else:
+		return null
+
 func next_group_id():
 	global_group_id = global_group_id+1
 	return global_group_id
@@ -36,10 +43,10 @@ func next_group_id():
 
 func set_current_index(idx):
 	current_index = idx
-	updateCurrentAction()
+	_updateCurrentAction()
 
 #set 当前索引的时候，更新下当前action
-func updateCurrentAction():
+func _updateCurrentAction():
 
 	if current_index < action_array.size():
 		_current_action = action_array[current_index]
@@ -53,23 +60,6 @@ func updateCurrentAction():
 		_current_action = null
 	pass
 
-#检测执行顺序如果有STATE_INTERUPTED 类型的就直接执行
-func chek_execution_prority():
-
-	if current_index <action_array.size():
-
-		var back = action_array.back() as ActionInfo
-		#如果最后一个动作是INTERUPT 模式；
-		#则执行 抢占式操作,并将current_index 设置成此动作;
-		if back.execution_mod == ActionInfo.EXEMOD_INTERUPT || back.group_exe_mod == ActionInfo.EXEMOD_INTERUPT:
-			if back !=_current_action:
-				_current_action.state = ActionInfo.STATE_INTERUPTED
-				emit_signal("ActionFinish",_current_action)
-
-				self.current_index = action_array.size()-1
-		#检测是否当前的action是generous
-		_check_generous_on_add()
-	pass
 
 #保持数组长度不超过 MAX_ACTION_ARRAY_SIZE 的长度
 #缓存上一个数组的数据
@@ -110,32 +100,26 @@ func regist_actioninfo(action:ActionInfo):
 			return
 	
 	_resize_action_array()
-
-	_add_action(action)
-
-	updateCurrentAction()
-
-	chek_execution_prority()
 	
-	check_break_loop(action)
+	_check_execution_prority_and_add(action)
+	
+	_updateCurrentAction()
+	
+	_check_break_loop(action)
 #	debug_print()
 	
 	return action
 
 #检测break_loop类型的操作
-func check_break_loop(action:ActionInfo):
+func _check_break_loop(action:ActionInfo):
 
-	if _current_action.is_loop and _current_action.state == ActionInfo.STATE_ING and action.loop_break:
+	if _current_action and _current_action.is_loop and _current_action.state == ActionInfo.STATE_ING and action.loop_break:
 		
 		_current_action.state = ActionInfo.STATE_ENDED
 		var finished_Action =_current_action
 		self.current_index=current_index+1
 		#为了让 使用 current_index 取到的 都是 inited/ing 状态的action
 		emit_signal("ActionFinish",finished_Action)
-		
-		pass
-	
-	pass
 
 #添加一个组的动作
 func regist_group_actions(actions:Array,groupId,group_exe_mod=ActionInfo.EXEMOD_NEWEST):
@@ -152,10 +136,11 @@ func _is_interrupt_mod(action:ActionInfo,prvAction:ActionInfo):
 	
 	if action.group_id<0&&action.execution_mod==ActionInfo.EXEMOD_INTERUPT:
 		return true
-	
+	#检测group 的 exemod
 	if action.group_id>0 && action.group_exe_mod==ActionInfo.EXEMOD_INTERUPT && prvAction.group_id!=action.group_id:
 		return true
-	
+	#检测 个体 的 exemod
+	#若这个action 的 group_exe_mod 不是interupt 但是 个体的 mod 是 interupt 且处于group 的第一个时候，这个组在插入的时候被当作 interrupt 使用
 	if action.group_id>0 && action.execution_mod==ActionInfo.EXEMOD_INTERUPT && prvAction.group_id!=action.group_id:
 		return true
 		
@@ -163,10 +148,10 @@ func _is_interrupt_mod(action:ActionInfo,prvAction:ActionInfo):
 	return false
 
 
-func _add_action(action:ActionInfo):
-	
-	if current_index<=action_array.size()-1:
-		# A:前一个有待执行的活动
+#检测执行顺序如果有STATE_INTERUPTED 类型的就直接执行
+func _check_execution_prority_and_add(action):
+
+	if current_index <action_array.size():
 		
 		var prv_action = action_array.back() as ActionInfo
 		
@@ -175,23 +160,11 @@ func _add_action(action:ActionInfo):
 			_blind_append_interupt(action)
 			pass
 		else:
-			
-			if prv_action.group_id>0:
-				_add_to_group(action)
-				pass
-			else:
-				_add_to_action_array(action)
-				pass
-
-			pass
-		
-		pass
+			_check_newest_on_add(action,prv_action)
+			#检测是否当前的action是generous
+			_check_generous_on_add()
 	else:
-		# B:没有前一个活动
 		action_array.append(action)
-		pass
-	
-	pass
 
 #某个action group 是否处于 STATE_ING
 func _is_action_group_playing(action:ActionInfo)->bool:
@@ -205,10 +178,17 @@ func _is_action_group_playing(action:ActionInfo)->bool:
 		
 	return true
 	pass
+
+func _check_newest_on_add(action,prv_action):
+	if prv_action.group_id>0:
+		_add_to_group(action,prv_action)
+	else:
+		_add_to_action_array(action)
+	pass	
+
 #新的action加入到action_array，且前一个action 是 group类型
-func _add_to_group(action:ActionInfo):
+func _add_to_group(action:ActionInfo,prvAction):
 	
-	var prvAction = action_array.back() as ActionInfo
 	if prvAction==null:
 		push_error("prv action is null inside add_to_group()")
 		return
@@ -217,15 +197,12 @@ func _add_to_group(action:ActionInfo):
 	if prvAction.group_exe_mod == ActionInfo.EXEMOD_NEWEST:
 		var prv_group_id = prvAction.group_id
 
-		if _is_action_group_playing(prvAction) || prv_group_id == action.group_id:
-			
+		if _is_action_group_playing(prvAction) or prv_group_id == action.group_id:
 			#前一个group 已经正在执行中了。
 			_add_to_action_array(action)
-			pass
 		else:
 			#前一个group 还没有执行。 进行替换工作
 			_blind_replace_newest(action,prv_group_id)
-			pass
 		
 	else:
 		_add_to_action_array(action)
@@ -255,18 +232,16 @@ func _add_to_action_array(action:ActionInfo):
 
 	if back_action.execution_mod == ActionInfo.EXEMOD_NEWEST:
 		
-		if back_action.state == ActionInfo.STATE_ING:
+		if back_action.state == ActionInfo.STATE_INITED:
 			back_action.state =ActionInfo.STATE_PASSED
 			emit_signal("ActionFinish",back_action)
-		
-		action_array.pop_back()
-		back_action.dead()
+			#TODO  存在隐患。这里直接将back_action设置为dead
+			action_array.pop_back()
+			back_action.dead()
+			
 		action_array.append(action)
-		pass
 	else:
 		action_array.append(action)
-	pass
-
 
 #检测下action_array 是否太大，并进行处理
 func _resize_action_array():
@@ -449,12 +424,17 @@ func _physics_process(delta):
 			push_warning("current action state in physics_process is against rule. its STATE_NULL")
 			self.current_index=self.current_index+1
 
+
+
+
 #一个interupt类型的action 加入队列
 func _blind_append_interupt(action:ActionInfo):
 	if _current_action!=null:
-			_current_action.state =ActionInfo.STATE_INTERUPTED
-			emit_signal("ActionFinish",_current_action)
-
+		_current_action.state =ActionInfo.STATE_INTERUPTED
+		emit_signal("ActionFinish",_current_action)
+	
+	self.current_index = action_array.size()-1
+	
 	var sliced_actions = action_array.slice(current_index,action_array.size())
 	action_array.resize(current_index)
 	action_array.append(action)

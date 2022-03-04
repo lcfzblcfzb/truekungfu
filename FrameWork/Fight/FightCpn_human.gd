@@ -139,10 +139,15 @@ func check_engaged():
 	else:
 		is_engaged = false
 
-#是否处于准备状态
-var is_prepared = false setget set_prepared
+#切换武器
+func switch_weapon(wuxue):
+	wu.switch_wu(wuxue)
+	sprite_animation.choose_wuxue_animation_and_gear(wu.wuxue)
 
-func set_prepared(p):
+#是否处于准备状态
+var is_prepared = false setget _set_prepared
+
+func _set_prepared(p):
 	
 	if p and not is_prepared:
 		#是从false 变化到 true的情况； 出剑
@@ -160,17 +165,18 @@ func set_prepared(p):
 	
 	is_prepared = p 
 	if p:
-		update_prepared_timer()
+		_update_prepared_timer()
 #计算prepared状态的timer
 onready var _unpreparing_timer = $Timer
-
-func update_prepared_timer():
-	_unpreparing_timer.start(1)
+#更新 PREPARED状态 计时器
+func _update_prepared_timer():
+	_unpreparing_timer.start(5)
 	
 	while true:
 		var func_return = yield(_unpreparing_timer,"timeout")
+		
 		if is_engaged:
-			_unpreparing_timer.start(1)
+			_unpreparing_timer.start(5)
 		else:
 			self.is_prepared = false
 			break
@@ -209,8 +215,6 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		sprite_animation.weapon_box.monitoring = true
 		sprite_animation.weapon_box.monitorable = true
 		
-		if is_prepared == false:
-			self.is_prepared = true
 		pass
 	
 	print("action start time",OS.get_ticks_msec())
@@ -233,10 +237,11 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	
 	if action.base_action ==Tool.FightMotion.Prepared:
 		
-#		yield(sprite_animation.get_coresponding_animation_tree(),"State_Changed")
 		sprite_animation.set_state(StandarCharactor.CharactorState.Engaged)
-		pass
-
+		
+	if action.base_action ==Tool.FightMotion.Unprepared:
+		sprite_animation.set_state(StandarCharactor.CharactorState.Peace)
+		
 func test_dead_motion():
 	
 	var tween = $Tween
