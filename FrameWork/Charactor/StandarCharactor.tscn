@@ -143,6 +143,8 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="left_weapon" type="Node2D" parent="body/left_upper_arm/left_fore_arm/left_hand"]
+
 [node name="right_upper_arm" type="Sprite" parent="body"]
 position = Vector2( -1, -13 )
 texture = ExtResource( 6 )
@@ -176,6 +178,8 @@ __meta__ = {
 "_edit_bone_": true,
 "_editor_description_": ""
 }
+
+[node name="right_weapon" type="Node2D" parent="body/right_upper_arm/right_fore_arm/right_hand"]
 
 [node name="head" type="Sprite" parent="body"]
 show_behind_parent = true

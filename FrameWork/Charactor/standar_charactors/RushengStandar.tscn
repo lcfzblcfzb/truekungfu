@@ -2656,6 +2656,8 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="left_weapon" type="Node2D" parent="body/left_upper_arm/left_fore_arm/left_hand"]
+
 [node name="right_upper_arm" type="Sprite" parent="body"]
 position = Vector2( -1, -13 )
 texture = ExtResource( 12 )
@@ -2690,6 +2692,8 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="right_weapon" type="Node2D" parent="body/right_upper_arm/right_fore_arm/right_hand"]
+
 [node name="head" type="Sprite" parent="body"]
 show_behind_parent = true
 position = Vector2( 0, -15 )
@@ -2705,8 +2709,15 @@ __meta__ = {
 process_mode = 0
 parameters/attack/blend_position = 0.0
 parameters/attack_shot/active = false
-parameters/engaged_shot/active = false
+parameters/hangingclimbshot_prepared/active = false
+parameters/jump_blend_prepraed/blend_amount = 0
 parameters/move/blend_position = Vector2( 0, 0 )
+parameters/move_prepared/blend_position = Vector2( 0, 0 )
+parameters/prepared_shot/active = false
+parameters/prepared_tran/current = 0
+parameters/state_tran/current = 0
+parameters/unprepared_shot/active = false
+parameters/unprepared_tran/current = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )

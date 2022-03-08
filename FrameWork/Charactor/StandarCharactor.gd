@@ -27,10 +27,12 @@ enum CharactorBodySlotEnum{
 	Left_Upper_Arm = 50,
 	Left_Fore_Arm = 51,
 	Left_Hand =52,
+	Left_Weapon=53,
 	
 	Right_Upper_Arm = 60,
 	Right_Fore_Arm = 61,
 	Right_Hand = 62,
+	Right_Weapon = 63,
 	
 	Head = 70
 }
@@ -121,6 +123,8 @@ func get_body_part_by_id(slot_id):
 			pass
 		CharactorBodySlotEnum.Left_Hand:
 			return $body/left_upper_arm/left_fore_arm/left_hand
+		CharactorBodySlotEnum.Left_Weapon:
+			return $body/left_upper_arm/left_fore_arm/left_hand/left_weapon
 			pass	
 		CharactorBodySlotEnum.Right_Upper_Arm:
 			return $body/right_upper_arm
@@ -130,4 +134,6 @@ func get_body_part_by_id(slot_id):
 			pass
 		CharactorBodySlotEnum.Right_Hand:
 			return $body/right_upper_arm/right_fore_arm/right_hand
-			pass	
+			pass
+		CharactorBodySlotEnum.Right_Weapon:
+			return $body/right_upper_arm/right_fore_arm/right_hand/right_weapon		

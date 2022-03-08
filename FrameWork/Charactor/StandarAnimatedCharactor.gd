@@ -19,6 +19,7 @@ func choose_charactor(c,animation_node):
 		return 
 	
 	if charactor_scene!= null :
+		remove_child(charactor_scene)
 		charactor_scene.queue_free()
 	
 	match c:
