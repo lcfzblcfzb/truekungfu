@@ -41,6 +41,16 @@ enum CharactorEnum{
 	Daoshi,
 	Rusheng,
 }
+#装备枚举（base_id)
+enum GearEnum{
+	
+	Sword=100
+	
+	
+}
+
+
+
 
 func test():
 	print("print test global")

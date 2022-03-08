@@ -8597,25 +8597,8 @@ script = ExtResource( 4 )
 position = Vector2( 0, 0 )
 state = 2
 
-[node name="sword_left_hand" parent="hip/body/left_upper_arm/left_fore_arm/left_hand" index="0"]
-rotation = -1.91986
-texture = ExtResource( 5 )
-offset = Vector2( 0, -12 )
-region_enabled = true
-region_rect = Rect2( 0, 1, 3, 26 )
-
-[node name="right_upper_arm" parent="hip/body" index="1"]
-rotation = -0.595609
-
-[node name="right_fore_arm" parent="hip/body/right_upper_arm" index="0"]
-rotation = -0.149888
-
-[node name="right_hand" parent="hip/body/right_upper_arm/right_fore_arm" index="0"]
-rotation = 0.741182
-
 [node name="sword_right_hand" parent="hip/body/right_upper_arm/right_fore_arm/right_hand" index="0"]
-visible = false
-rotation = -1.91986
+rotation = 2.0944
 texture = ExtResource( 5 )
 offset = Vector2( 0, -12 )
 region_enabled = true

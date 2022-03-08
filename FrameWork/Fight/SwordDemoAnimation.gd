@@ -56,3 +56,6 @@ func get_coresponding_animation_tree():
 
 func set_state(s):
 	$StandarAnimatedCharactor.set_state(s)
+
+func get_standar_charactor()->StandarCharactor:
+	return $StandarAnimatedCharactor.get_standar_charactor()

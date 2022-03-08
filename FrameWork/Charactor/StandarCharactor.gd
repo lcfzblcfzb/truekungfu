@@ -61,7 +61,7 @@ func add_gear(gear):
 	gear.on_add_to_charactor(self)
 	
 func remove_gear(gear):
-	var idx =_gears_array.find(gear)
+	var idx =_gears_array.find(gear)   
 	if idx>=0:
 		_gears_array.remove(idx)
 		remove_child(gear)

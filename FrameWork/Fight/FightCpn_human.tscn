@@ -36,6 +36,15 @@ fight_component_path = NodePath("..")
 [node name="hurt_box" parent="SpriteAnimation" index="0"]
 monitoring = false
 
+[node name="right_upper_arm" parent="SpriteAnimation/StandarAnimatedCharactor/hip/body" index="1"]
+rotation = 0.0
+
+[node name="right_fore_arm" parent="SpriteAnimation/StandarAnimatedCharactor/hip/body/right_upper_arm" index="0"]
+rotation = 0.0
+
+[node name="right_hand" parent="SpriteAnimation/StandarAnimatedCharactor/hip/body/right_upper_arm/right_fore_arm" index="0"]
+rotation = 0.0
+
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 
 [node name="Wu" parent="." instance=ExtResource( 12 )]

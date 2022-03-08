@@ -181,6 +181,7 @@ func _input(event):
 		var newActionEvent = Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Prepared,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	if event.is_action_pressed("switch"):
+		
 		var newActionEvent = Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Switch,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	

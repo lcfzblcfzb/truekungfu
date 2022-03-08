@@ -140,6 +140,7 @@ func check_engaged():
 		is_engaged = false
 
 #切换武器
+#wuxue: WuxueMng.WuxueEnum.Fist
 func switch_weapon(wuxue):
 	wu.switch_wu(wuxue)
 	sprite_animation.choose_wuxue_animation_and_gear(wu.wuxue)

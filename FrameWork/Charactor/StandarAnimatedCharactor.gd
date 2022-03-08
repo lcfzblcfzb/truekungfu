@@ -50,6 +50,7 @@ func choose_coresponding_wuxue(wuxue:BaseWuXue):
 	#武器 的 外形 在此初始化
 	if wuxue.weapon_path:
 		var weapon = load(wuxue.weapon_path).instance() as Weapon
+		wuxue._gear_cache.append(weapon)
 		charactor_scene.add_gear(weapon)
 		charactor_scene.state = StandarCharactor.CharactorState.Peace
 
@@ -63,3 +64,6 @@ func _check_dependency():
 
 func set_state(s):
 	charactor_scene.state =s
+
+func get_standar_charactor()->StandarCharactor:
+	return charactor_scene

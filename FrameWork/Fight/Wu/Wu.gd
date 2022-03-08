@@ -84,7 +84,6 @@ func _init_wu(type= WuxueMng.WuxueEnum.Fist):
 			newwuxue.fight_cpn = fight_component
 			if newwuxue.get_parent() == null:
 				add_child(newwuxue)
-			
 			wuxue = newwuxue
 
 func switch_wu(type= WuxueMng.WuxueEnum.Fist):
@@ -101,6 +100,10 @@ func switch_wu(type= WuxueMng.WuxueEnum.Fist):
 		#创建wuxue 
 		var newwuxue = get_or_create_wuxue(type) 
 		if newwuxue:
+			
+			for _gear in wuxue._gear_cache:
+				fight_component.sprite_animation.get_standar_charactor().remove_gear(_gear)
+			wuxue._gear_cache.clear()
 			
 			newwuxue.fight_cpn = fight_component
 			if newwuxue.get_parent() == null:

@@ -30,7 +30,11 @@ func on_action_event(event:NewActionEvent):
 			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Stunned) as BaseAction
 			fight_cpn.actionMng.regist_action(Tool.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
+				
+		Tool.WuMotion.Switch:
 			
+			fight_cpn.switch_weapon(WuxueMng.WuxueEnum.Sword)
+				
 		Tool.WuMotion.Prepared:
 			fight_cpn.is_prepared = true
 		
