@@ -1,3 +1,4 @@
+class_name StandarAnimatedCharactor
 extends Node2D
 
 var daoshi_scn = preload("res://FrameWork/Charactor/standar_charactors/DaoshiStandar.tscn")
@@ -53,8 +54,10 @@ func choose_coresponding_wuxue(wuxue:BaseWuXue):
 		var weapon = load(wuxue.weapon_path).instance() as Weapon
 		wuxue._gear_cache.append(weapon)
 		charactor_scene.add_gear(weapon)
-		charactor_scene.state = StandarCharactor.CharactorState.Peace
 
+		charactor_scene.state = StandarCharactor.CharactorState.Peace
+		weapon.repath_to_animation_charactor(self)
+		
 func get_coresponding_animation_tree():
 	return $AnimationTree
 
