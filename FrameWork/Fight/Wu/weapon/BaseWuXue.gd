@@ -91,3 +91,4 @@ func _create_group_actions(action_dict:Dictionary):
 #判定命中后的情况并且施加对应的惩罚或者奖励
 func against_wuxue(otherWuxue:BaseWuXue):
 	push_warning("against_wuxue is virtual. need to be implemented")
+

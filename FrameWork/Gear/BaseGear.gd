@@ -41,7 +41,7 @@ func repath_to_animation_charactor(animation_charactor):
 			prepared_animation.track_set_path(track_idx,path)
 			#3 在track 上 插入key ,和在editor 上创建动画时候一样
 			prepared_animation.animation_track_insert_key(track_idx,0,anim)
-			
+
 			_cached_anim_2_id[anim]= track_idx
 		else:
 			sync_to_remote_movement(animation_charactor,anim)
@@ -60,4 +60,10 @@ func sync_to_remote_movement(animation_charactor,anim):
 	prepared_animation.animation_track_insert_key(track_idx,0,"sync_to_source")
 	
 	_cached_anim_2_id[anim]= track_idx
+	pass
+
+func on_actioninfo_start(action:ActionInfo):
+	pass
+	
+func on_actioninfo_end(action:ActionInfo):
 	pass

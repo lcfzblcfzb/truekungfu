@@ -46,7 +46,6 @@ func on_add_to_charactor(_charactor:StandarCharactor):
 	_charactor.add_to_body(StandarCharactor.CharactorBodySlotEnum.Left_Weapon , sword_left_remote )
 	sword_left_remote.remote_path = sword_left_remote.get_path_to(sword_right_hand)
 	
-	pass
 func on_remove_from_charactor(_charactor:StandarCharactor):
 	sheath_remote.get_parent().remove_child(sheath_remote)
 	sword_right_remote.get_parent().remove_child(sword_right_remote)
@@ -57,17 +56,16 @@ func on_remove_from_charactor(_charactor:StandarCharactor):
 		var anim_array = _animated_charactor.chosed_animation_player.get_animation_list()
 		
 		for anim in anim_array:
-			
-			if animation_player.has_animation(anim):
-				var prepared_animation = _animated_charactor.chosed_animation_player.get_animation(anim)
-				#1 在源animationplayer上 名称为 anim 的动画 上新增一个 type_animation 的 track,获得返回的track id
-				if _cached_anim_2_id.has(anim):
-					var _track_id = _cached_anim_2_id[anim]
-					print(prepared_animation.get_track_count())
-					prepared_animation.remove_track(_track_id)
-					print(prepared_animation.get_track_count())
+
+			var prepared_animation = _animated_charactor.chosed_animation_player.get_animation(anim)
+			#1 在源animationplayer上 名称为 anim 的动画 上新增一个 type_animation 的 track,获得返回的track id
+			if _cached_anim_2_id.has(anim):
+
+				var _track_id = _cached_anim_2_id[anim]
+				prepared_animation.remove_track(_track_id)
+				print(prepared_animation.get_track_count())
 		_cached_anim_2_id.clear()
-	_animated_charactor.chosed_animation_player.clear_caches()
+		
 	_animated_charactor = null	
 	
 func set_sync_to_source():
@@ -104,3 +102,15 @@ func set_unsync_to_source():
 	sword_left_remote.update_position = false
 	sword_left_remote.update_rotation = false
 	sword_left_remote.update_scale = false
+
+func on_actioninfo_start(action:ActionInfo):
+	if action.base_action == Tool.FightMotion.Prepared:
+		$AnimationPlayer.play("prepared")
+	elif action.base_action == Tool.FightMotion.Unprepared:
+		$AnimationPlayer.play("unprepared")
+	elif action.base_action == Tool.FightMotion.Attack:
+		set_unsync_to_source()
+		print(action.action_duration_ms/1000.0)
+		$AnimationPlayer.play("attack",-1,1000/action.action_duration_ms)
+	else:
+		set_sync_to_source()

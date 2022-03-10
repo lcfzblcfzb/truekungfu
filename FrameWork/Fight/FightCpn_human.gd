@@ -216,7 +216,6 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		sprite_animation.weapon_box.monitoring = true
 		sprite_animation.weapon_box.monitorable = true
 		
-		pass
 	
 	print("action start time",OS.get_ticks_msec())
 #	print("action frame:",$SpriteAnimation/Sprite.frame)
@@ -230,7 +229,6 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	if base and "_in" in base.animation_name:
 		fightKinematicMovableObj.attackOver()
 		print("attack over time",OS.get_ticks_msec())
-		print("attack over",$SpriteAnimation/Sprite.frame)
 		
 	if action.base_action == Tool.FightMotion.HangingClimb:
 		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)

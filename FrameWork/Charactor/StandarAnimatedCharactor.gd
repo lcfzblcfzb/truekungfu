@@ -6,13 +6,44 @@ var rusheng_scn = preload("res://FrameWork/Charactor/standar_charactors/RushengS
 
 onready var charactor_scene:StandarCharactor = $hip
 
-var chosed_animation_player:AnimationPlayer
+var chosed_animation_player:AnimationPlayer 
+
+# wuxue -> { animation_name-> Animation }
+var _wuxue_2_animations_map={}
 
 func _ready():
-	chosed_animation_player = $AnimationPlayers/AnimationPlayer
+	chosed_animation_player= $AnimationPlayers/AnimationPlayer
+#	_cache_animations()
 	_check_dependency()
 	$AnimationTree.active = true
-	pass
+#将动画resource取出缓存起来
+func _cache_animations():
+	for wuxue in WuxueMng.WuxueEnum:
+		var animationplayer = _get_animationplayer_by_type(wuxue)
+		
+		var _wuxue_id =WuxueMng.WuxueEnum[wuxue]
+		var anim_dict = {}
+		for animation in animationplayer.get_animation_list():
+			anim_dict[animation] = animationplayer.get_animation(animation)
+		_wuxue_2_animations_map[_wuxue_id] = anim_dict
+#将缓存的动画资源加载到  playeragent
+func copy_2_animation_agent(wuxue):
+	
+	if !_wuxue_2_animations_map.has(wuxue):
+		return
+	
+	for _animation in $AnimationPlayerAgent.get_animation_list():
+		$AnimationPlayerAgent.remove_animation(_animation)
+		
+	var animation_dict = _wuxue_2_animations_map.get(wuxue)
+	
+	for animation in animation_dict:
+		$AnimationPlayerAgent.add_animation(animation,animation_dict[animation].duplicate(true))
+
+func _debug_animation_player(animationPlayer:AnimationPlayer):
+	
+	for anim in animationPlayer.get_animation_list():
+		print("animation name"+anim+" ; animation node:"+ animationPlayer.get_animation(anim).resource_name)
 
 func choose_charactor(c,animation_node):
 	
@@ -35,18 +66,24 @@ func choose_charactor(c,animation_node):
 			add_child(charactor_scene)
 	
 	_check_dependency()
+
+func _get_animationplayer_by_type(wuxue):
 	
-func choose_coresponding_wuxue(wuxue:BaseWuXue):
-	
-	match wuxue.get_wuxue_type() :
+	match wuxue :
 		WuxueMng.WuxueEnum.Fist:
-			chosed_animation_player = $AnimationPlayers/AnimationPlayer_Fist
+			return $AnimationPlayers/AnimationPlayer_Fist
 		WuxueMng.WuxueEnum.Sword:
-			chosed_animation_player = $AnimationPlayers/AnimationPlayer_Sword
+			return $AnimationPlayers/AnimationPlayer_Sword
 		_:
-			chosed_animation_player = $AnimationPlayers/AnimationPlayer
-	
+			return $AnimationPlayers/AnimationPlayer
+
+func choose_coresponding_wuxue(wuxue:BaseWuXue):
+	#失效的方法： 在切换wuxue 的时候 会报错，动画不能准确切换
+	chosed_animation_player = _get_animationplayer_by_type(wuxue.get_wuxue_type())
+#	copy_2_animation_agent(wuxue.get_wuxue_type())
+	_debug_animation_player($AnimationPlayerAgent)
 	_check_dependency()
+	
 	$AnimationTree.active = true
 	
 	#武器 的 外形 在此初始化
@@ -56,7 +93,7 @@ func choose_coresponding_wuxue(wuxue:BaseWuXue):
 		charactor_scene.add_gear(weapon)
 
 		charactor_scene.state = StandarCharactor.CharactorState.Peace
-		weapon.repath_to_animation_charactor(self)
+#		weapon.repath_to_animation_charactor(self)
 		
 func get_coresponding_animation_tree():
 	return $AnimationTree
@@ -64,7 +101,6 @@ func get_coresponding_animation_tree():
 func _check_dependency():
 	chosed_animation_player.root_node = chosed_animation_player.get_path_to(charactor_scene)
 	$AnimationTree.anim_player = $AnimationTree.get_path_to(chosed_animation_player)
-	pass
 
 func set_state(s):
 	charactor_scene.state =s

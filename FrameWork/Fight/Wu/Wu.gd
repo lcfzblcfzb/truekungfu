@@ -134,6 +134,10 @@ func _on_FightController_NewFightMotion(new_motion:BaseFightEvent):
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
 	
+	for _gear in wuxue._gear_cache:
+		_gear.on_actioninfo_start(action)
+		pass
+	
 	if action.base_action ==Tool.FightMotion.Attack:
 		pass
 	
@@ -144,6 +148,9 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	if action.base_action ==Tool.FightMotion.Attack:
 		pass
 	
+	for _gear in wuxue._gear_cache:
+		_gear.on_actioninfo_end(action)
+		pass
 
 #animation_player组件的回掉
 func _on_SpriteAnimation_AnimationCallMethod(param):
