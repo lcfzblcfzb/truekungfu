@@ -37,13 +37,13 @@ func set_climbing(b):
 func _ready():
 	
 	#初始化 武器碰撞
-	var col = CollisionShape2D.new()
-	col.shape = wu.get_weapon_box()
-	sprite_animation.weapon_box.add_child(col)
-	if col.shape is CapsuleShape2D:
-		col.position.x = col.shape.radius
+#	var col = CollisionShape2D.new()
+#	col.shape = wu.get_weapon_box()
+#	sprite_animation.weapon_box.add_child(col)
+#	if col.shape is CapsuleShape2D:
+#		col.position.x = col.shape.radius
 	#设置fight_cpn 到hitbox和hurtbox
-	sprite_animation.weapon_box.fight_cpn = self
+#	sprite_animation.weapon_box.fight_cpn = self
 	sprite_animation.hurt_box.fight_cpn = self
 	
 	if is_player:
@@ -52,11 +52,6 @@ func _ready():
 		add_child(fight_controller)
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
 		
-		#设置武器碰撞检测层
-		sprite_animation.weapon_box.collision_layer = 0b0001
-		sprite_animation.weapon_box.collision_mask = 0b1000
-		sprite_animation.hurt_box.collision_layer = 0b0010
-		sprite_animation.hurt_box.collision_mask = 0b0100
 		var camera = Camera2D.new()
 		add_child(camera)
 		camera.current = true
@@ -68,23 +63,8 @@ func _ready():
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
 		fight_controller.init_behaviour_tree(self,$Wu.get_behavior_tree())
 		fight_controller.call_deferred('active_tree')
-		
-		if camp == Tool.CampEnum.Bad:
-			#设置武器碰撞检测层
-			sprite_animation.weapon_box.collision_layer =	 0b0100
-			sprite_animation.weapon_box.collision_mask = 	 0b0010
-			sprite_animation.hurt_box.collision_layer =  	0b1000
-			sprite_animation.hurt_box.collision_mask =	    0b0001
-		elif camp == Tool.CampEnum.Good:
-			#设置武器碰撞检测层
-			sprite_animation.weapon_box.collision_layer = 0b0001
-			sprite_animation.weapon_box.collision_mask =  0b1000
-			sprite_animation.hurt_box.collision_layer =   0b0010
-			sprite_animation.hurt_box.collision_mask = 0b0100
-			
-	#初始化 武学
-#	$Wu.wuxue.animation_player.root_node = $Wu.wuxue.animation_player.get_path_to(sprite_animation.get_node("hip"))
 	
+	#初始化 武学
 	#TODO 根据配置设置角色形象
 #	sprite_animation.set_sprite_texture($Wu.get_texture())
 	sprite_animation.choose_wuxue_animation_and_gear($Wu.wuxue)
@@ -211,11 +191,6 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	var time = base.duration
 	if time<=0 || time ==null:
 		time=1
-		
-	if action.base_action ==Tool.FightMotion.Attack:
-		sprite_animation.weapon_box.monitoring = true
-		sprite_animation.weapon_box.monitorable = true
-		
 	
 	print("action start time",OS.get_ticks_msec())
 #	print("action frame:",$SpriteAnimation/Sprite.frame)

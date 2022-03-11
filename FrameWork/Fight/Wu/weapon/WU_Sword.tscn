@@ -2221,6 +2221,7 @@ parameters/jump_blend/blend_amount = 0
 parameters/jump_blend_prepraed/blend_amount = 0
 parameters/move/blend_position = Vector2( 0, 0 )
 parameters/move_prepared/blend_position = Vector2( 0, 0 )
+parameters/prepared/blend_position = 0
 parameters/prepared_shot/active = false
 parameters/prepared_tran/current = 0
 parameters/state_tran/current = 0
@@ -2232,6 +2233,7 @@ script = ExtResource( 4 )
 script = ExtResource( 5 )
 
 [node name="SwordBehaviorTree" parent="." instance=ExtResource( 6 )]
+_agent = NodePath("..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 1 )

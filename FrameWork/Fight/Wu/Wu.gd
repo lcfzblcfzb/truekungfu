@@ -86,6 +86,9 @@ func _init_wu(type= WuxueMng.WuxueEnum.Fist):
 				add_child(newwuxue)
 			wuxue = newwuxue
 
+#切换武学
+#1清理上一个wuxue 的装备等等
+#2添加入
 func switch_wu(type= WuxueMng.WuxueEnum.Fist):
 	if wuxue:
 		wuxue.animation_tree.active = false
@@ -100,7 +103,8 @@ func switch_wu(type= WuxueMng.WuxueEnum.Fist):
 		#创建wuxue 
 		var newwuxue = get_or_create_wuxue(type) 
 		if newwuxue:
-			
+			#装备的退换
+			#对应武学的装备 保存在各自身上，切换的时候之前的武学负责移除装备
 			for _gear in wuxue._gear_cache:
 				fight_component.sprite_animation.get_standar_charactor().remove_gear(_gear)
 			wuxue._gear_cache.clear()

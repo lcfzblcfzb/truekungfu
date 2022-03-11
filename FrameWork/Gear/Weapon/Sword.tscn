@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resource/texture/weapon/sword-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://FrameWork/Gear/Weapon/Sword.gd" type="Script" id=2]
+[ext_resource path="res://FrameWork/CollisionBox/WeaponBox.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CapsuleShape2D" id=6]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -101,6 +104,18 @@ tracks/7/keys = {
 "update": 0,
 "values": [ 1 ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("weaponBox:monitoring")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "attack"
@@ -151,6 +166,20 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath("weaponBox")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "start_monitoring"
+} ]
 }
 
 [sub_resource type="Animation" id=1]
@@ -371,6 +400,13 @@ tracks/7/keys = {
 z_as_relative = false
 script = ExtResource( 2 )
 
+[node name="weaponBox" parent="." instance=ExtResource( 3 )]
+monitorable = false
+
+[node name="CollisionShape2D" parent="weaponBox" index="0"]
+position = Vector2( 17, 1 )
+shape = SubResource( 6 )
+
 [node name="sword_left_hand" type="Sprite" parent="."]
 visible = false
 texture = ExtResource( 1 )
@@ -397,7 +433,10 @@ region_enabled = true
 region_rect = Rect2( 0, 1, 3, 26 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
 anims/RESET = SubResource( 2 )
 anims/attack = SubResource( 5 )
 anims/prepared = SubResource( 1 )
 anims/unprepared = SubResource( 4 )
+
+[editable path="weaponBox"]

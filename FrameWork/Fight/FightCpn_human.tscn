@@ -36,6 +36,48 @@ fight_component_path = NodePath("..")
 [node name="hurt_box" parent="SpriteAnimation" index="0"]
 monitoring = false
 
+[node name="hip" parent="SpriteAnimation/StandarAnimatedCharactor" index="1"]
+position = Vector2( 0, 0 )
+
+[node name="left_thigh" parent="SpriteAnimation/StandarAnimatedCharactor/hip" index="0"]
+rotation = 0.0
+
+[node name="left_shank" parent="SpriteAnimation/StandarAnimatedCharactor/hip/left_thigh" index="0"]
+rotation = 0.0
+
+[node name="left_foot" parent="SpriteAnimation/StandarAnimatedCharactor/hip/left_thigh/left_shank" index="0"]
+rotation = 0.0
+
+[node name="right_thigh" parent="SpriteAnimation/StandarAnimatedCharactor/hip" index="1"]
+rotation = 0.0
+
+[node name="right_shank" parent="SpriteAnimation/StandarAnimatedCharactor/hip/right_thigh" index="0"]
+rotation = 0.0
+
+[node name="right_foot" parent="SpriteAnimation/StandarAnimatedCharactor/hip/right_thigh/right_shank" index="0"]
+rotation = 0.0
+
+[node name="body" parent="SpriteAnimation/StandarAnimatedCharactor/hip" index="2"]
+rotation = 0.0
+
+[node name="left_upper_arm" parent="SpriteAnimation/StandarAnimatedCharactor/hip/body" index="0"]
+rotation = 0.0
+
+[node name="left_fore_arm" parent="SpriteAnimation/StandarAnimatedCharactor/hip/body/left_upper_arm" index="0"]
+rotation = 0.0
+
+[node name="left_hand" parent="SpriteAnimation/StandarAnimatedCharactor/hip/body/left_upper_arm/left_fore_arm" index="0"]
+rotation = 0.0
+
+[node name="right_upper_arm" parent="SpriteAnimation/StandarAnimatedCharactor/hip/body" index="1"]
+rotation = 0.0
+
+[node name="right_fore_arm" parent="SpriteAnimation/StandarAnimatedCharactor/hip/body/right_upper_arm" index="0"]
+rotation = 0.0
+
+[node name="right_hand" parent="SpriteAnimation/StandarAnimatedCharactor/hip/body/right_upper_arm/right_fore_arm" index="0"]
+rotation = 0.0
+
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 
 [node name="Wu" parent="." instance=ExtResource( 12 )]

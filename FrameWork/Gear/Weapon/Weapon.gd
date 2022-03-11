@@ -1,6 +1,8 @@
 extends BaseGear
 class_name Weapon
 
+var weapon_box:WeaponBox
+
 enum Direction{
 	UP,CENTER,DOWN
 }

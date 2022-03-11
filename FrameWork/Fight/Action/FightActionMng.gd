@@ -424,9 +424,6 @@ func _physics_process(delta):
 			push_warning("current action state in physics_process is against rule. its STATE_NULL")
 			self.current_index=self.current_index+1
 
-
-
-
 #一个interupt类型的action 加入队列
 func _blind_append_interupt(action:ActionInfo):
 	if _current_action!=null:

@@ -4,8 +4,19 @@ extends Weapon
 onready var sword_right_hand = $sword_right_hand
 onready var sword_sheath = $sword_sheath
 
+
 func _ready():
 	animation_player = $AnimationPlayer
+	weapon_box = $weaponBox
+	
+	if fight_cpn.camp == Tool.CampEnum.Bad:
+		#设置武器碰撞检测层
+		weapon_box.collision_layer =	 0b0100
+		weapon_box.collision_mask = 	 0b0010
+	elif fight_cpn.camp == Tool.CampEnum.Good:
+		#设置武器碰撞检测层
+		weapon_box.collision_layer = 0b0001
+		weapon_box.collision_mask =  0b1000
 
 var	peace_transform = Transform2D(deg2rad(-110),Vector2(0,1))
 var	engaged_transform = Transform2D(deg2rad(120),Vector2(0,0))
@@ -51,6 +62,9 @@ func on_remove_from_charactor(_charactor:StandarCharactor):
 	sword_right_remote.get_parent().remove_child(sword_right_remote)
 	sword_left_remote.get_parent().remove_child(sword_left_remote)
 	
+	sheath_remote.queue_free()
+	sword_right_remote.queue_free()
+	sword_left_remote.queue_free()
 	if _cached_anim_2_id.size()>0:
 		
 		var anim_array = _animated_charactor.chosed_animation_player.get_animation_list()
@@ -67,6 +81,7 @@ func on_remove_from_charactor(_charactor:StandarCharactor):
 		_cached_anim_2_id.clear()
 		
 	_animated_charactor = null	
+	queue_free()
 	
 func set_sync_to_source():
 	
@@ -97,7 +112,6 @@ func set_unsync_to_source():
 	sword_right_remote.update_rotation = false
 	sword_right_remote.update_scale = false
 	
-	
 	sword_left_remote.remote_path =""
 	sword_left_remote.update_position = false
 	sword_left_remote.update_rotation = false
@@ -112,5 +126,7 @@ func on_actioninfo_start(action:ActionInfo):
 		set_unsync_to_source()
 		print(action.action_duration_ms/1000.0)
 		$AnimationPlayer.play("attack",-1,1000/action.action_duration_ms)
+		$AnimationPlayer.advance(0)
 	else:
 		set_sync_to_source()
+	pass

@@ -5,6 +5,8 @@ var _attach_charactor;
 var animation_player:AnimationPlayer
 var _cached_anim_2_id = {}
 
+var fight_cpn
+
 var _animated_charactor
 
 export(int) var state = StandarCharactor.CharactorState.Peace setget to_state
@@ -61,9 +63,9 @@ func sync_to_remote_movement(animation_charactor,anim):
 	
 	_cached_anim_2_id[anim]= track_idx
 	pass
-
+#Wu 那里回调的 actioninfo start方法
 func on_actioninfo_start(action:ActionInfo):
 	pass
-	
+#同上 是 end 方法的回调
 func on_actioninfo_end(action:ActionInfo):
 	pass
