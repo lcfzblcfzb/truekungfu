@@ -1,4 +1,4 @@
-extends BasePlatformerCharactor
+extends BasePlatformerRole
 
 class_name FightComponent_human
 
@@ -110,7 +110,7 @@ func set_engaged(e):
 func check_engaged():
 	var oppose_array = CharactorMng.findOpposeMember(camp)
 	if oppose_array.size()>0:
-		var oppo = oppose_array[0] as BaseCharactor
+		var oppo = oppose_array[0] as BaseRole
 		
 		if oppo.global_position.distance_to(global_position) < 200:
 			is_engaged = true

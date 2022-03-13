@@ -3,7 +3,7 @@ class_name StandarCharactor
 extends Sprite
 
 # Tool.CharactorEnum
-var charactor_type 
+export (Tool.CharactorEnum) var charactor_type 
 #就是 SpriteAnimation 节点
 var animation_node
 # 数组

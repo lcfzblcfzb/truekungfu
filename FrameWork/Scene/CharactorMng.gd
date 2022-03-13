@@ -26,7 +26,7 @@ func findOpposeMember(camp,duplicate=false)->Array:
 	return []
 
 #移除出数组
-func remove_from_list(charactor:BaseCharactor):
+func remove_from_list(charactor):
 	var campList = campDict.get(charactor.camp) as Array
 	
 	var index = campList.find(charactor)

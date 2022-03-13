@@ -53,9 +53,6 @@ collision_layer = 256
 camp = 1
 is_player = false
 
-[node name="SpriteAnimation" parent="enermy" index="1"]
-chosed_characor = 1
-
 [node name="AnimationTree" parent="enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
 parameters/state_tran/current = 0
 

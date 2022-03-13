@@ -2541,6 +2541,7 @@ __meta__ = {
 "_edit_ik_": true,
 "_editor_description_": ""
 }
+charactor_type = 101
 
 [node name="left_thigh" type="Sprite" parent="."]
 position = Vector2( 0, -1 )
@@ -2713,6 +2714,7 @@ parameters/hangingclimbshot_prepared/active = false
 parameters/jump_blend_prepraed/blend_amount = 0
 parameters/move/blend_position = Vector2( 0, 0 )
 parameters/move_prepared/blend_position = Vector2( 0, 0 )
+parameters/prepared/blend_position = 0
 parameters/prepared_shot/active = false
 parameters/prepared_tran/current = 0
 parameters/state_tran/current = 0

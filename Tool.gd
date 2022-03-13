@@ -29,6 +29,12 @@ enum EventType{
 	
 }
 
+#角色骨骼类型-- 用户统一动画的制作。同种类型的骨骼可以适配同一套动画
+enum ChatactorSkeletalType{
+	Normal=0,#普通正常成年男子体型
+	Fat=1# 胖的体系（肚子大 腿短 比较滑稽）
+}
+
 enum CampEnum {
 	Good,
 	Bad,
@@ -38,8 +44,9 @@ enum CampEnum {
 
 #角色样式
 enum CharactorEnum{
-	Daoshi,
-	Rusheng,
+	Daoshi=100,
+	Rusheng=101,
+	Fatguy=200,
 }
 #装备枚举（base_id)
 enum GearEnum{

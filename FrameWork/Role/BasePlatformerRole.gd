@@ -1,5 +1,5 @@
-class_name BasePlatformerCharactor
-extends BaseCharactor
+class_name BasePlatformerRole
+extends BaseRole
 
 #是否处于可攀爬场景楼梯的范围内。是改变运动状态为攀爬的必要条件
 var is_climbing =false setget set_climbing;
