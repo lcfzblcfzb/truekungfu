@@ -91,11 +91,14 @@ func set_sync_to_source():
 	sheath_remote.update_scale = true
 	
 #	sword_right_remote.remote_path = sword_right_remote.get_path_to(sword_right_hand)
+	if state ==StandarCharactor.CharactorState.Engaged:
+		sword_right_remote.remote_path = sword_right_remote.get_path_to(sword_right_hand)
 	sword_right_remote.update_position = true
 	sword_right_remote.update_rotation = true
 	sword_right_remote.update_scale = true
-
-#	sword_left_remote.remote_path = sword_left_remote.get_path_to(sword_right_hand)
+	
+	if state ==StandarCharactor.CharactorState.Peace:
+		sword_left_remote.remote_path = sword_left_remote.get_path_to(sword_right_hand)
 	sword_left_remote.update_position = true
 	sword_left_remote.update_rotation = true
 	sword_left_remote.update_scale = true
@@ -130,3 +133,8 @@ func on_actioninfo_start(action:ActionInfo):
 	else:
 		set_sync_to_source()
 	pass
+func on_actioninfo_end(action:ActionInfo):
+	
+	if action.base_action == Tool.FightMotion.Attack:
+		set_sync_to_source()
+		

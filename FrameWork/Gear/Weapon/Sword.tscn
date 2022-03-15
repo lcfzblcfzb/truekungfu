@@ -401,7 +401,7 @@ z_as_relative = false
 script = ExtResource( 2 )
 
 [node name="weaponBox" parent="." instance=ExtResource( 3 )]
-monitorable = false
+monitoring = true
 
 [node name="CollisionShape2D" parent="weaponBox" index="0"]
 position = Vector2( 17, 1 )
