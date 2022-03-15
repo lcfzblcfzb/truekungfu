@@ -180,6 +180,11 @@ _global_script_classes=[ {
 "path": "res://addons/dialogic/Localization/translation_service.gd"
 }, {
 "base": "Node",
+"class": "DataLoader",
+"language": "GDScript",
+"path": "res://FrameWork/Data/DataLoader.gd"
+}, {
+"base": "Node",
 "class": "Dialogic",
 "language": "GDScript",
 "path": "res://addons/dialogic/Other/DialogicClass.gd"
@@ -305,14 +310,9 @@ _global_script_classes=[ {
 "path": "res://FrameWork/Charactor/StandarCharactor.gd"
 }, {
 "base": "Reference",
-"class": "StandarCharactorDMG",
-"language": "GDScript",
-"path": "res://FrameWork/Charactor/StandarCharactorDMG.gd"
-}, {
-"base": "BaseWuXue",
 "class": "Sword",
 "language": "GDScript",
-"path": "res://FrameWork/Fight/Wu/weapon/Sword.gd"
+"path": "res://Game/Wuxue/Sword.gd"
 }, {
 "base": "Node2D",
 "class": "VerletChain",
@@ -384,6 +384,7 @@ _global_script_class_icons={
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
 "DTS": "",
+"DataLoader": "",
 "Dialogic": "",
 "DialogicBackgroundMusic": "",
 "DialogicCustomEvents": "",
@@ -409,7 +410,6 @@ _global_script_class_icons={
 "PlatformGestureActionController": "",
 "StandarAnimatedCharactor": "",
 "StandarCharactor": "",
-"StandarCharactorDMG": "",
 "Sword": "",
 "VerletChain": "",
 "VerletLink": "",
@@ -428,10 +428,11 @@ run/main_scene="res://resource/scene/fight_demo.tscn"
 [autoload]
 
 Tool="*res://Tool.gd"
-CharactorMng="*res://FrameWork/Scene/CharactorMng.gd"
+RoleMng="*res://FrameWork/Scene/RoleMng.gd"
 FightBaseActionDataSource="*res://FrameWork/Fight/Action/FightBaseActionDataSource.gd"
 WuxueMng="*res://FrameWork/Fight/Wu/weapon/WuxueMng.gd"
 O="*res://FrameWork/_.gd"
+BaseStandarCharactorsDMG="*res://Game/Charactor/StandarCharactorsDMG.gd"
 
 [display]
 

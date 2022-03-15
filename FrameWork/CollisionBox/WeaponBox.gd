@@ -9,7 +9,8 @@ func _physics_process(delta):
 	if monitoring :
 		var list =get_overlapping_areas()
 		if list.size()>0:
-			emit_signal("Hit",list)	
+			#TODO 有点怪 通过sprite_animation 发出信号 最终还是fight_cpn 处理了；；
+			fight_cpn.sprite_animation.emit_signal("Hit",list)	
 			monitoring = false
 			for area in list:
 				var fight_cpn = area.fight_cpn

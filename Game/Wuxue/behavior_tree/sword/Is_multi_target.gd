@@ -8,7 +8,7 @@ extends BTConditional
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	assert("is_engaged" in agent)
 	
-	var oppose_array = CharactorMng.findOpposeMember(agent.camp)
+	var oppose_array = RoleMng.findOpposeMember(agent.camp)
 	
 	if oppose_array.size()>1:
 		blackboard.set_data("oppose_array",oppose_array)

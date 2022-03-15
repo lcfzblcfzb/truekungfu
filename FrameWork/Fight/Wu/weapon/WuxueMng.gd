@@ -4,13 +4,15 @@ class_name WuxueMngClass
 #字典对象
 var dict ={
 	WuxueEnum.Fist:preload("res://FrameWork/Fight/Wu/weapon/WU_Fist.tscn"),
-	WuxueEnum.Sword:preload("res://FrameWork/Fight/Wu/weapon/WU_Sword.tscn")
+	WuxueEnum.Sword:preload("res://Game/Wuxue/WU_Sword.tscn")
 }
 
 #枚举类型
 enum WuxueEnum{
 	
-	Fist=1,Sword=2
+	Nope=0,
+	Fist=1,
+	Sword=2
 	
 }
 

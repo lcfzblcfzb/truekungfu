@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://FrameWork/Charactor/StandarCharactor.gd" type="Script" id=1]
 [ext_resource path="res://resource/standar_charactor/daoshi/hip.tres" type="Texture" id=2]
@@ -16,6 +16,10 @@
 [ext_resource path="res://resource/standar_charactor/daoshi/left_shank.tres" type="Texture" id=14]
 [ext_resource path="res://resource/standar_charactor/daoshi/right_fore_arm.tres" type="Texture" id=15]
 [ext_resource path="res://resource/standar_charactor/daoshi/left_upper_arm.tres" type="Texture" id=16]
+[ext_resource path="res://FrameWork/CollisionBox/HurtBox.tscn" type="PackedScene" id=17]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 15 )
 
 [node name="hip" type="Sprite"]
 show_behind_parent = true
@@ -217,3 +221,14 @@ __meta__ = {
 "_edit_bone_": true,
 "_editor_description_": ""
 }
+
+[node name="hurt_box" parent="." instance=ExtResource( 17 )]
+scale = Vector2( -1, 1 )
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="hurt_box" index="0"]
+position = Vector2( 2, 0 )
+shape = SubResource( 1 )
+
+[editable path="hurt_box"]

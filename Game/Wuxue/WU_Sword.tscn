@@ -1,10 +1,10 @@
 [gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://FrameWork/Fight/Wu/weapon/Sword.gd" type="Script" id=1]
-[ext_resource path="res://FrameWork/Charactor/StandarCharactorTree.tres" type="AnimationNodeBlendTree" id=3]
-[ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=4]
-[ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=5]
-[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/sword/simple_attack.tscn" type="PackedScene" id=6]
+[ext_resource path="res://resource/animation/StandarCharactorTree.tres" type="AnimationNodeBlendTree" id=1]
+[ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=2]
+[ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=3]
+[ext_resource path="res://Game/Wuxue/Sword.gd" type="Script" id=4]
+[ext_resource path="res://Game/Wuxue/behavior_tree/sword/simple_attack.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -2206,10 +2206,10 @@ tracks/29/keys = {
 }
 
 [node name="WU_Sword" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource( 4 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = ExtResource( 3 )
+tree_root = ExtResource( 1 )
 anim_player = NodePath("../AnimationPlayer")
 process_mode = 0
 parameters/TimeScale/scale = 1.0
@@ -2227,12 +2227,12 @@ parameters/prepared_tran/current = 0
 parameters/state_tran/current = 0
 parameters/unprepared_shot/active = false
 parameters/unprepared_tran/current = 0
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 
 [node name="Blackboard" type="Node" parent="."]
-script = ExtResource( 5 )
+script = ExtResource( 2 )
 
-[node name="SwordBehaviorTree" parent="." instance=ExtResource( 6 )]
+[node name="SwordBehaviorTree" parent="." instance=ExtResource( 5 )]
 _agent = NodePath("..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

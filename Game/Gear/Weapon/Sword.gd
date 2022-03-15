@@ -9,6 +9,8 @@ func _ready():
 	animation_player = $AnimationPlayer
 	weapon_box = $weaponBox
 	
+	weapon_box.monitoring=false
+	
 	if fight_cpn.camp == Tool.CampEnum.Bad:
 		#设置武器碰撞检测层
 		weapon_box.collision_layer =	 0b0100
@@ -44,7 +46,9 @@ func _on_to_state(s):
 			sword_right_remote.remote_path = sword_right_remote.get_path_to(sword_right_hand)
 			
 func on_add_to_charactor(_charactor:StandarCharactor):
-
+	
+	weapon_box.fight_cpn = fight_cpn
+	
 	sheath_remote = RemoteTransform2D.new()
 	_charactor.add_to_body(StandarCharactor.CharactorBodySlotEnum.Left_Weapon , sheath_remote )
 	sheath_remote.remote_path = sheath_remote.get_path_to(sword_sheath)

@@ -143,7 +143,7 @@ input_3/name = "jump"
 input_3/auto_advance = false
 
 [resource]
-graph_offset = Vector2( 0, -90 )
+graph_offset = Vector2( 0, -21 )
 nodes/TimeScale/node = SubResource( 12 )
 nodes/TimeScale/position = Vector2( 1000, -840 )
 nodes/attack/node = SubResource( 14 )
@@ -197,4 +197,4 @@ nodes/unprepared_shot/node = SubResource( 51 )
 nodes/unprepared_shot/position = Vector2( 740, -840 )
 nodes/unprepared_tran/node = SubResource( 13 )
 nodes/unprepared_tran/position = Vector2( -300, -580 )
-node_connections = [ "output", 0, "TimeScale", "state_tran", 0, "prepared_tran", "state_tran", 1, "unprepared_tran", "unprepared_shot", 0, "prepared_shot", "unprepared_shot", 1, "unprepared", "attack_shot", 0, "state_tran", "attack_shot", 1, "attack", "hangingclimbshot_prepared", 0, "hanging_prepared", "hangingclimbshot_prepared", 1, "hangingclimb_prepared", "jump_blend_prepraed", 0, "jumpup_prepared", "jump_blend_prepraed", 1, "jumpdown_prepared", "prepared_shot", 0, "attack_shot", "prepared_shot", 1, "prepared", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "unprepared_tran", 0, "move", "unprepared_tran", 1, "hangingclimbshot", "unprepared_tran", 2, "climb", "unprepared_tran", 3, "jump_blend", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "TimeScale", 0, "unprepared_shot", "prepared_tran", 0, "move_prepared", "prepared_tran", 1, "hangingclimbshot_prepared", "prepared_tran", 2, "climb_prepared", "prepared_tran", 3, "jump_blend_prepraed" ]
+node_connections = [ "output", 0, "TimeScale", "unprepared_shot", 0, "prepared_shot", "unprepared_shot", 1, "unprepared", "prepared_tran", 0, "move_prepared", "prepared_tran", 1, "hangingclimbshot_prepared", "prepared_tran", 2, "climb_prepared", "prepared_tran", 3, "jump_blend_prepraed", "hangingclimbshot_prepared", 0, "hanging_prepared", "hangingclimbshot_prepared", 1, "hangingclimb_prepared", "unprepared_tran", 0, "move", "unprepared_tran", 1, "hangingclimbshot", "unprepared_tran", 2, "climb", "unprepared_tran", 3, "jump_blend", "TimeScale", 0, "unprepared_shot", "jump_blend_prepraed", 0, "jumpup_prepared", "jump_blend_prepraed", 1, "jumpdown_prepared", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "prepared_shot", 0, "attack_shot", "prepared_shot", 1, "prepared", "attack_shot", 0, "state_tran", "attack_shot", 1, "attack", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "state_tran", 0, "prepared_tran", "state_tran", 1, "unprepared_tran" ]

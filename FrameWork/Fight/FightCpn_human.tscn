@@ -33,9 +33,6 @@ IDLE_2_RUN_ACC = 200
 position = Vector2( 2, -17 )
 fight_component_path = NodePath("..")
 
-[node name="hurt_box" parent="SpriteAnimation" index="0"]
-monitoring = false
-
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 
 [node name="Wu" parent="." instance=ExtResource( 12 )]
@@ -75,7 +72,7 @@ position = Vector2( -13.0801, -22.4008 )
 [connection signal="ActionStart" from="FightActionMng" to="Wu" method="_on_FightActionMng_ActionStart"]
 
 [editable path="SpriteAnimation"]
-[editable path="SpriteAnimation/hurt_box"]
 [editable path="SpriteAnimation/StandarAnimatedCharactor"]
 [editable path="SpriteAnimation/StandarAnimatedCharactor/hip"]
+[editable path="SpriteAnimation/StandarAnimatedCharactor/hip/hurt_box"]
 [editable path="Wu"]

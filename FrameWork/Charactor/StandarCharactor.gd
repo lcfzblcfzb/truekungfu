@@ -85,7 +85,8 @@ func add_to_body(slot_id:int, part , front = true):
 		if !front:
 			part.show_behind_parent = true
 
-	
+func get_hurt_box()->HurtBox:
+	return $hurt_box as HurtBox
 	
 func get_body_part_by_id(slot_id):
 	

@@ -1,0 +1,17 @@
+[	
+	{
+		"id":100,
+		"name":"Daoshi",
+		"skeletal_type":0
+	},
+	{
+		"id":101,
+		"name":"Rusheng",
+		"skeletal_type":0
+	},
+	{
+		"id":200,
+		"name":"Fatguy",
+		"skeletal_type":1
+	}
+]

@@ -1,26 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.gd" type="Script" id=2]
 [ext_resource path="res://FrameWork/Charactor/StandarAnimatedCharactor.tscn" type="PackedScene" id=3]
-[ext_resource path="res://FrameWork/CollisionBox/HurtBox.tscn" type="PackedScene" id=5]
-
-[sub_resource type="RectangleShape2D" id=108]
-extents = Vector2( 4, 15 )
 
 [node name="Appearance" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="hurt_box" parent="." instance=ExtResource( 5 )]
-scale = Vector2( -1, 1 )
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" parent="hurt_box" index="0"]
-position = Vector2( 2, 0 )
-shape = SubResource( 108 )
-
 [node name="StandarAnimatedCharactor" parent="." instance=ExtResource( 3 )]
-
-[connection signal="area_entered" from="hurt_box" to="." method="_on_hurt_box_area_entered"]
-
-[editable path="hurt_box"]
