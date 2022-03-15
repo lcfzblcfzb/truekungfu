@@ -11,9 +11,6 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	if fight_componnent.fightKinematicMovableObj.state == FightKinematicMovableObj.ActionState.Idle:
 		return succeed()
 	var moving_direction = Vector2.ZERO
-	if fight_componnent.actionMng._current_action!=null:
-		push_warning(fight_componnent.actionMng._current_action.base_action as String)
-	
 	if _command_frame_id == get_tree().get_frame():	
 		return succeed()
 	

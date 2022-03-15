@@ -5,7 +5,7 @@ static func get_wuxue_type():
 	return WuxueMng.WuxueEnum.Sword
 
 func _init():
-	weapon_path = "res://FrameWork/Gear/Weapon/Sword.tscn"
+	weapon_path = "res://Game/Gear/Weapon/Sword.tscn"
 
 func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_template-Sheet_def.png"

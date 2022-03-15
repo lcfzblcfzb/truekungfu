@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://FrameWork/Charactor/StandarCharactor.gd" type="Script" id=1]
 [ext_resource path="res://resource/standar_charactor/rusheng002/hip.tres" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://resource/standar_charactor/rusheng002/left_upper_arm.tres" type="Texture" id=15]
 [ext_resource path="res://resource/standar_charactor/rusheng002/right_foot.tres" type="Texture" id=16]
 [ext_resource path="res://StandarCharactorAnimationTree.tscn" type="PackedScene" id=17]
+[ext_resource path="res://FrameWork/CollisionBox/HurtBox.tscn" type="PackedScene" id=18]
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -2530,6 +2531,9 @@ tracks/29/keys = {
 "values": [ 0.0, 0.0, 0.0, 0.0 ]
 }
 
+[sub_resource type="RectangleShape2D" id=28]
+extents = Vector2( 4, 15 )
+
 [node name="hip" type="Sprite"]
 show_behind_parent = true
 texture = ExtResource( 2 )
@@ -2735,3 +2739,15 @@ anims/jumpup = SubResource( 25 )
 anims/run = SubResource( 26 )
 anims/stunned = SubResource( 27 )
 anims/walk = SubResource( 2 )
+
+[node name="hurt_box" parent="." instance=ExtResource( 18 )]
+scale = Vector2( -1, 1 )
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" parent="hurt_box" index="0"]
+position = Vector2( 2, 0 )
+shape = SubResource( 28 )
+
+[editable path="hurt_box"]

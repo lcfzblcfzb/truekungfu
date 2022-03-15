@@ -8,8 +8,6 @@ export (NodePath)var fight_component_path
 
 var fight_component:FightComponent_human 
 
-onready var hurt_box:HurtBox = $hurt_box
-
 #可选角色形象
 export (Tool.CharactorEnum) var chosed_characor = Tool.CharactorEnum.Daoshi
 
@@ -17,8 +15,9 @@ func _ready():
 	#根据设置的charactor 找到对应的角色类 并设置上
 	$StandarAnimatedCharactor.choose_charactor(chosed_characor,self)
 	fight_component = get_node(fight_component_path)
-	$hurt_box.set("fight_cpn",fight_component)
 	
+	var hurt_box = $StandarAnimatedCharactor.get_standar_charactor().get_hurt_box()
+	hurt_box.set("fight_cpn",fight_component)
 	if fight_component.camp == Tool.CampEnum.Bad:
 		#设置武器碰撞检测层
 		hurt_box.collision_layer =  	0b1000

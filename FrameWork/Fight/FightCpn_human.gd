@@ -44,7 +44,6 @@ func _ready():
 #		col.position.x = col.shape.radius
 	#设置fight_cpn 到hitbox和hurtbox
 #	sprite_animation.weapon_box.fight_cpn = self
-	sprite_animation.hurt_box.fight_cpn = self
 	
 	if is_player:
 		fight_controller = player_controller_scene.instance()
@@ -108,7 +107,7 @@ func set_engaged(e):
 
 #检测是否进战斗了	
 func check_engaged():
-	var oppose_array = CharactorMng.findOpposeMember(camp)
+	var oppose_array = RoleMng.findOpposeMember(camp)
 	if oppose_array.size()>0:
 		var oppo = oppose_array[0] as BaseRole
 		

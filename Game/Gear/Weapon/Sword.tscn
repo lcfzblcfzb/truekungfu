@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resource/texture/weapon/sword-Sheet.png" type="Texture" id=1]
-[ext_resource path="res://FrameWork/Gear/Weapon/Sword.gd" type="Script" id=2]
-[ext_resource path="res://FrameWork/CollisionBox/WeaponBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://FrameWork/CollisionBox/WeaponBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Game/Gear/Weapon/Sword.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=6]
 
@@ -398,10 +398,10 @@ tracks/7/keys = {
 
 [node name="sword" type="Node2D"]
 z_as_relative = false
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
-[node name="weaponBox" parent="." instance=ExtResource( 3 )]
-monitoring = true
+[node name="weaponBox" parent="." instance=ExtResource( 2 )]
+monitorable = false
 
 [node name="CollisionShape2D" parent="weaponBox" index="0"]
 position = Vector2( 17, 1 )

@@ -12,7 +12,7 @@ func load_from_file():
 	
 	if base_action_array!=null:
 		for action in base_action_array:
-			var base_action = BaseAction.new(action)
+			var base_action = BaseAction.new()
 			#json 中数字默认是float 要转成INT
 			dict[action.id as int]= base_action
 			pass

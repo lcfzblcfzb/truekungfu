@@ -4,5 +4,8 @@ class_name BaseCharactor
 var id
 
 var name
-#骨骼类型
-var skeletal_type
+#骨骼类型   Tool.ChatactorSkeletalType
+var skeletal_type setget _set_skeletal_type
+
+func _set_skeletal_type(s):
+	skeletal_type = int(s)
