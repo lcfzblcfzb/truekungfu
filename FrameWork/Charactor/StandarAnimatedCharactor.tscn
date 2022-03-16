@@ -12215,7 +12215,7 @@ script = ExtResource( 3 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 2 )
-anim_player = NodePath("../AnimationPlayers/AnimationPlayer")
+anim_player = NodePath("../AnimationPlayers/AnimationPlayer_Sword")
 parameters/TimeScale/scale = 1.0
 parameters/attack/blend_position = 0
 parameters/attack_shot/active = false

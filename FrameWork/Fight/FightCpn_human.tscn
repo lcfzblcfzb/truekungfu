@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://FrameWork/Fight/CornerDetect.gd" type="Script" id=1]
+[ext_resource path="res://FrameWork/UI/Energy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Fight/Action/FightActionMng.tscn" type="PackedScene" id=5]
 [ext_resource path="res://FrameWork/moving_obj/FightKinematicMovableObj.tscn" type="PackedScene" id=7]
@@ -56,6 +57,9 @@ shape = SubResource( 1 )
 position = Vector2( -13.0801, -22.4008 )
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Energy" parent="." instance=ExtResource( 2 )]
+position = Vector2( -31, -74 )
 
 [connection signal="Active_State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_Active_State_Changed"]
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="SpriteAnimation" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]

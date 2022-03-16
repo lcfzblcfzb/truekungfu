@@ -1,5 +1,7 @@
 extends Node
 
+func _ready():
+	pass
 
 var dPi = 2*PI
 var hPi = PI/2

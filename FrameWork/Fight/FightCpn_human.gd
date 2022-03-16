@@ -77,6 +77,11 @@ func _ready():
 #	$Wu.switch_wu(WuxueMng.WuxueEnum.Sword)
 #	sprite.texture = $Wu.get_texture()
 #	test_switch()
+	
+	$Energy.set_max_value(block_value)
+	$Energy.update_value(block_value)
+	
+	UiManager.regist_none_ovelap_UI($Energy.get_texture_progress())
 	pass 
 
 
@@ -295,6 +300,7 @@ func _on_SpriteAnimation_Hit(areas):
 func _on_SpriteAnimation_Hurt(area):
 	if block_value>0:
 		block_value = block_value -1
+		$Energy.update_value(block_value)
 		print("Im hurt")
 	elif health_point >0:
 		health_point = health_point -1

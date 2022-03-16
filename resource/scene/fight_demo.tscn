@@ -62,9 +62,6 @@ position = Vector2( 88, 559 )
 [node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
 parameters/state_tran/current = 0
 
-[node name="Wu" parent="FIghtComponnet_Human" index="3"]
-chosed_wuxue = 2
-
 [node name="fat_enermy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 293, 550 )
 camp = 1

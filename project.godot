@@ -309,7 +309,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Charactor/StandarCharactor.gd"
 }, {
-"base": "BaseWuXue",
+"base": "Reference",
 "class": "Sword",
 "language": "GDScript",
 "path": "res://Game/Wuxue/Sword.gd"
@@ -433,6 +433,7 @@ FightBaseActionDataSource="*res://FrameWork/Fight/Action/FightBaseActionDataSour
 WuxueMng="*res://FrameWork/Fight/Wu/weapon/WuxueMng.gd"
 O="*res://FrameWork/_.gd"
 BaseStandarCharactorsDMG="*res://Game/Charactor/StandarCharactorsDMG.gd"
+UiManager="*res://FrameWork/UI/UI_Manager.gd"
 
 [display]
 

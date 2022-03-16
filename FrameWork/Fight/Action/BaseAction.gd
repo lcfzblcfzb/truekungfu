@@ -12,7 +12,7 @@ extends Object
 #	duration= param.get("duration")
 	
 
-var id;
+var id:int;
 var name;
 var animation_name;
 var type:Array;
