@@ -126,7 +126,7 @@ static func normal_on_moveevent(event,fight_cpn):
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
 					else:
 						var motion = Tool.FightMotion.Walk
-						
+						push_warning("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 						if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
 							motion = Tool.FightMotion.JumpUp
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
@@ -162,10 +162,12 @@ static func normal_on_moveevent(event,fight_cpn):
 			var motion = Tool.FightMotion.Walk
 			
 			if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
+				
 				motion = Tool.FightMotion.JumpUp 
 			elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
+				push_warning("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"+input_vector as String)
 				motion = Tool.FightMotion.JumpDown
-			
+			push_warning("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC")	
 			var action = Tool.getPollObject(ActionInfo,[motion, OS.get_ticks_msec(), [input_vector], -1, ActionInfo.EXEMOD_GENEROUS, false, true])
 			action_mng.regist_actioninfo(action)
 			pass

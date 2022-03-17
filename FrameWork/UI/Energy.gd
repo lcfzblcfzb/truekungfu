@@ -4,7 +4,8 @@ var max_value =0
 var value  = 0
 
 func _ready():
-	pass # Replace with function body.
+	var margins = [$TextureProgress.margin_bottom,$TextureProgress.margin_top,$TextureProgress.margin_left,$TextureProgress.margin_right]
+	$TextureProgress.set_meta("margin",margins)
 
 func _physics_process(delta):
 	

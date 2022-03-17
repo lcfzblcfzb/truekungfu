@@ -34,7 +34,7 @@ export(int, 0, 1000) var RUN_2_IDLE_ACC = 700
 export(int, 0, 1000) var RUN_2_IDLE_VELOCITY = 100
 export(int, 0, 1000) var IDLE_2_RUN_ACC = 100
 export(int, 0, 1000) var IDLE_2_RUN_VELOCITY = 100
-export(int, 0, 1000) var ATTACK_VELOCITY = 0
+export(int, 0, 1000) var ATTACK_VELOCITY = 100
 export(int, 0, 1000) var ATTACK_ACC = 500
 export(int, 0, 1000) var JUMP_VELOCITY = 250
 export(int, 0, 1000) var JUMP_ACC = 900
@@ -46,7 +46,7 @@ func _ready():
 	
 func changeState(s):
 	
-	if(state!=ActionState.Attack and s!=state ):
+	if(s!=state ):
 		_snap_vector=SNAP_DOWN
 		use_snap =true
 		
@@ -101,8 +101,8 @@ func changeState(s):
 			ActionState.JumpDown:
 				isMoving = true
 				
-				_snap_vector=NO_SNAP
-				use_snap =false
+#				_snap_vector=NO_SNAP
+#				use_snap =false
 				v_acceleration = gravity
 				v_velocityToward = FREE_FALL_SPEED
 				h_acceleration = WALK_ACC
@@ -156,10 +156,10 @@ func _physics_process(delta):
 	
 	#若在空中的情况	
 	if not body.is_on_genelized_floor() :
-		
 		if self.state==ActionState.JumpUp :
 			if velocity.y ==0:
 				#升至跳跃max,设置faceDirection 向下
+				push_warning("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 				emit_signal("Active_State_Changed",Tool.FightMotion.JumpDown)
 #				self.state = ActionState.JumpDown
 #			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
@@ -332,9 +332,9 @@ func _process_action(action:ActionInfo):
 		Tool.FightMotion.Hanging:
 			change_movable_state(input_vector,ActionState.Hanging)
 		Tool.FightMotion.HangingClimb:
-			
-			
 			change_movable_state(input_vector,ActionState.HangingClimb)		
+		Tool.FightMotion.Attack:
+			change_movable_state(Vector2(faceDirection.x,0),ActionState.Attack)
 		_:
 			var baseObj = FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
 			# 是攻击类型的type

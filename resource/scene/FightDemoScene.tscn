@@ -59,41 +59,20 @@ shape = SubResource( 3 )
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 1 )]
 position = Vector2( 91.7602, 94.7899 )
 
-[node name="hurtbox" parent="FIghtComponnet_Human/SpriteAnimation" index="1"]
-collision_layer = 2
-
-[node name="weaponBox" parent="FIghtComponnet_Human/SpriteAnimation" index="2"]
-collision_layer = 1
-collision_mask = 12
-monitoring = false
-
-[node name="Wu" parent="FIghtComponnet_Human" index="3"]
-chosed_wuxue = 1
-
 [node name="FIghtComponnet_Human2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 230.718, 95.7762 )
 camp = 1
 is_player = false
 
-[node name="hurtbox" parent="FIghtComponnet_Human2/SpriteAnimation" index="1"]
-collision_layer = 8
-
-[node name="weaponBox" parent="FIghtComponnet_Human2/SpriteAnimation" index="2"]
-collision_layer = 4
-collision_mask = 3
-
-[node name="Wu" parent="FIghtComponnet_Human2" index="3"]
-chosed_wuxue = 1
-
 [editable path="FIghtComponnet_Human"]
 [editable path="FIghtComponnet_Human/SpriteAnimation"]
-[editable path="FIghtComponnet_Human/SpriteAnimation/hip"]
-[editable path="FIghtComponnet_Human/SpriteAnimation/hurtbox"]
-[editable path="FIghtComponnet_Human/SpriteAnimation/weaponBox"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/hip"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/hip/hurt_box"]
 [editable path="FIghtComponnet_Human/Wu"]
 [editable path="FIghtComponnet_Human2"]
 [editable path="FIghtComponnet_Human2/SpriteAnimation"]
-[editable path="FIghtComponnet_Human2/SpriteAnimation/hip"]
-[editable path="FIghtComponnet_Human2/SpriteAnimation/hurtbox"]
-[editable path="FIghtComponnet_Human2/SpriteAnimation/weaponBox"]
+[editable path="FIghtComponnet_Human2/SpriteAnimation/StandarAnimatedCharactor"]
+[editable path="FIghtComponnet_Human2/SpriteAnimation/StandarAnimatedCharactor/hip"]
+[editable path="FIghtComponnet_Human2/SpriteAnimation/StandarAnimatedCharactor/hip/hurt_box"]
 [editable path="FIghtComponnet_Human2/Wu"]

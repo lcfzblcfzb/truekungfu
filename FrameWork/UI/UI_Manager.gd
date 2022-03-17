@@ -5,13 +5,17 @@ var none_overlaping_array=[]
 var safe_margin =10
 
 var IS_MOVEAWAY ="is_moveaway"
+var INTER_NUM ="internum"
 
+var _original_margin:Rect2;
+	
 
 func _process(delta):
 	
 	start_check()
 	pass
 
+#通过注册到管理器，实现血条不会重叠的效果
 func regist_none_ovelap_UI(control):
 	none_overlaping_array.append(control)
 
@@ -32,29 +36,51 @@ func start_check():
 			if _check_if_overlap(_cur,_next):
 				#do over lap
 				#DO PUSH AWAY
-				_next.set_position(_next.rect_position+ Vector2( 0 , -_cur.rect_size.y))
+				_next.set_global_position(_next.get_global_rect().position+Vector2( 0 , -_cur.rect_size.y-3))
+#				_next.set_position(_next.rect_position+ Vector2( 0 , -_cur.rect_size.y-3))
 				_next.set_meta(IS_MOVEAWAY,true)
-				pass
-			else:
 				
-				var safe_margin_a = _cur.get_rect().grow(safe_margin)
+				if _next.has_meta(INTER_NUM) :
+					var list =_next.get_meta(INTER_NUM) as Array
+					if !list.has(_cur):
+						list.append(_cur)
+				else:
+					var arr =[]
+					arr.append(_cur)
+					_next.set_meta(INTER_NUM,arr)
+				
+			else:
+				var rect_a =_cur.get_global_rect()
+				var rect_b =_next.get_global_rect()
+				var safe_margin_a = rect_a.grow(safe_margin)
+				
 				safe_margin_a.position = _cur.rect_global_position
-				var safe_margin_b = _next.get_rect().grow(safe_margin)
+				var safe_margin_b = rect_b.grow(safe_margin)
 				safe_margin_b.position = _next.rect_global_position
 				
 				if safe_margin_a.intersects(safe_margin_b):
 					
+					
 					pass
 				elif _next.has_meta(IS_MOVEAWAY) and _next.get_meta(IS_MOVEAWAY):
-					#恢复到原位
-					_next.set_position(_next.rect_position+ Vector2(0, _cur.rect_size.y))
-					_next.set_meta(IS_MOVEAWAY,false)
+					
+					if _next.has_meta(INTER_NUM) :
+						var list = _next.get_meta(INTER_NUM) as Array
+						var idx = list.find(_cur)
+						if idx>=0:
+							list.remove(idx)
+						
+						if list.size()<=0 :
+							#恢复到原位
+		#					_next.set_position(_next.rect_position+ Vector2( 0 , _cur.rect_size.y+3))
+							var margins =_next.get_meta("margin")
+							_next.set_margin(MARGIN_TOP,margins[1])
+							_next.set_margin(MARGIN_BOTTOM,margins[0])
+							_next.set_margin(MARGIN_LEFT,margins[2])
+							_next.set_margin(MARGIN_RIGHT,margins[3])
+							_next.set_meta(IS_MOVEAWAY,false)
 					pass
 				pass
-				
-				var h =_next.has_meta(IS_MOVEAWAY);
-				var m =_next.get_meta(IS_MOVEAWAY)
-				print(h,m)
 				
 			pass
 		
