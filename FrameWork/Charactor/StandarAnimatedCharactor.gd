@@ -15,7 +15,7 @@ var _wuxue_2_animations_map={}
 var fight_cpn
 
 func _ready():
-	chosed_animation_player= $AnimationPlayers/AnimationPlayer
+	chosed_animation_player= $CharactorAnimationPlayers/AnimationPlayer
 #	_cache_animations()
 	_check_dependency()
 	$AnimationTree.active = true
@@ -81,12 +81,12 @@ func choose_charactor(c,animation_node):
 
 func _get_animationplayer_by_type(wuxue , skeletkal_type):
 	
-	for animation_player in $AnimationPlayers.get_children():
+	for animation_player in $CharactorAnimationPlayers.get_children():
 		
 		if animation_player.wuxue_id == wuxue and animation_player.skelekal_type == skeletkal_type:
 			return animation_player
 			
-	return $AnimationPlayers/AnimationPlayer
+	return $CharactorAnimationPlayers/AnimationPlayer
 
 # 1选择wuxue 对应的 animationplayer(charactor的）
 # 2选择wuxue 对应的装备（武器) 装备到charactor 身上

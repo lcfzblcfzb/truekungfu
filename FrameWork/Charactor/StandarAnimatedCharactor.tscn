@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://FrameWork/Charactor/standar_charactors/DaoshiStandar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resource/animation/StandarCharactorTree.tres" type="AnimationNodeBlendTree" id=2]
@@ -4699,6 +4699,9 @@ resource_name = "jumpdown"
 
 [sub_resource type="Animation" id=23]
 resource_name = "jumpup"
+
+[sub_resource type="Animation" id=61]
+resource_name = "preAttack"
 
 [sub_resource type="Animation" id=42]
 resource_name = "prepared"
@@ -12215,7 +12218,7 @@ script = ExtResource( 3 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 2 )
-anim_player = NodePath("../AnimationPlayers/AnimationPlayer_Sword")
+anim_player = NodePath("../CharactorAnimationPlayers/AnimationPlayer_Sword")
 parameters/TimeScale/scale = 1.0
 parameters/attack/blend_position = 0
 parameters/attack_shot/active = false
@@ -12282,9 +12285,9 @@ z_index = 13
 [node name="head" parent="hip/body" index="2"]
 position = Vector2( -1, -24 )
 
-[node name="AnimationPlayers" type="Node" parent="."]
+[node name="CharactorAnimationPlayers" type="Node" parent="."]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationPlayers"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharactorAnimationPlayers"]
 root_node = NodePath("../../hip")
 reset_on_save = false
 method_call_mode = 1
@@ -12305,7 +12308,7 @@ anims/unprepared = SubResource( 43 )
 anims/walk = SubResource( 13 )
 script = ExtResource( 5 )
 
-[node name="AnimationPlayer_Fist" type="AnimationPlayer" parent="AnimationPlayers"]
+[node name="AnimationPlayer_Fist" type="AnimationPlayer" parent="CharactorAnimationPlayers"]
 root_node = NodePath("../../hip")
 reset_on_save = false
 method_call_mode = 1
@@ -12319,6 +12322,7 @@ anims/holding = SubResource( 20 )
 anims/idle = SubResource( 21 )
 anims/jumpdown = SubResource( 22 )
 anims/jumpup = SubResource( 23 )
+anims/preAttack = SubResource( 61 )
 anims/prepared = SubResource( 42 )
 anims/run = SubResource( 24 )
 anims/stunned = SubResource( 25 )
@@ -12327,7 +12331,7 @@ anims/walk = SubResource( 26 )
 script = ExtResource( 5 )
 wuxue_id = 1
 
-[node name="AnimationPlayer_Sword" type="AnimationPlayer" parent="AnimationPlayers"]
+[node name="AnimationPlayer_Sword" type="AnimationPlayer" parent="CharactorAnimationPlayers"]
 root_node = NodePath("../../hip")
 reset_on_save = false
 method_call_mode = 1
@@ -12349,7 +12353,7 @@ anims/walk = SubResource( 39 )
 script = ExtResource( 5 )
 wuxue_id = 2
 
-[node name="AnimationPlayer_Fist_Fatguy" type="AnimationPlayer" parent="AnimationPlayers"]
+[node name="AnimationPlayer_Fist_Fatguy" type="AnimationPlayer" parent="CharactorAnimationPlayers"]
 root_node = NodePath("../../hip")
 anims/RESET = SubResource( 46 )
 anims/attack = SubResource( 47 )
@@ -12369,6 +12373,8 @@ anims/walk = SubResource( 60 )
 script = ExtResource( 5 )
 wuxue_id = 1
 skelekal_type = 1
+
+[node name="WeaponAnimationPlayers" type="Node" parent="."]
 
 [editable path="hip"]
 [editable path="hip/hurt_box"]

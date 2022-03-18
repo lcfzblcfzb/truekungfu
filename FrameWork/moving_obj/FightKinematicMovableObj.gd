@@ -159,7 +159,6 @@ func _physics_process(delta):
 		if self.state==ActionState.JumpUp :
 			if velocity.y ==0:
 				#升至跳跃max,设置faceDirection 向下
-				push_warning("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 				emit_signal("Active_State_Changed",Tool.FightMotion.JumpDown)
 #				self.state = ActionState.JumpDown
 #			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
@@ -189,14 +188,14 @@ func setCharactorFaceDirection(v):
 	if v.x==0:
 		return
 	
-	#在attack 的时候无法改变朝向
-	if state != ActionState.Attack:
+#	#在attack 的时候无法改变朝向   -->目前来说可以
+#	if state != ActionState.Attack:
 		
-		if v!= charactor_face_direction:
-			charactor_face_direction = v
-			emit_signal("Charactor_Face_Direction_Changed",charactor_face_direction)
-		else:
-			charactor_face_direction = v
+	if v!= charactor_face_direction:
+		charactor_face_direction = v
+		emit_signal("Charactor_Face_Direction_Changed",charactor_face_direction)
+	else:
+		charactor_face_direction = v
 			
 #攻击结束回调。 可以由动画的终结信号调用
 func attackOver(s = ActionState.Idle):

@@ -286,16 +286,16 @@ func _on_FightKinematicMovableObj_Active_State_Changed(base_action):
 	var base = FightBaseActionDataSource.get_by_base_id(base_action) as BaseAction
 	if base != null :
 		if base_action == Tool.FightMotion.JumpUp: 
-			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
 			actionMng.regist_actioninfo(action)
 		
 		elif  base_action == Tool.FightMotion.JumpDown:
 			
-			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 			actionMng.regist_actioninfo(action)
 			
 		else:
-			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 			actionMng.regist_actioninfo(action)
 
 

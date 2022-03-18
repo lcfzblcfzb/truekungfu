@@ -682,5 +682,14 @@
 	"type": [
 	  1
 	]
+  },
+  {
+	"id": 170,
+	"name": "PreAttack",
+	"animation_name": "preAttack",
+	"duration": 1,
+	"type": [
+	  1
+	]
   }
 ]

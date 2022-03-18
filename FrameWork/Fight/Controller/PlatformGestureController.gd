@@ -272,7 +272,8 @@ func _input(event):
 				moving_position_array.append(_calc_position_byte_array(R))
 			pass
 		
-		
+func get_moving_vector()->Vector2:
+	return _gen_input_vector_by_bincode()
 
 func _on_Timer_timeout():
 #	show_heavy_attack_indicator()

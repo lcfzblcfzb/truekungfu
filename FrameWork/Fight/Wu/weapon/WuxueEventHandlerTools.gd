@@ -158,16 +158,9 @@ static func normal_on_moveevent(event,fight_cpn):
 		#这里是 攻击结束后，已经按下移动中的情况
 		#climb 是因为如果之前是climb ，而这里没有包括，则climb的动作会被walk替换
 		if lastMotion and (lastMotion.base_action != Tool.FightMotion.Run && lastMotion.base_action != Tool.FightMotion.Climb):
-			
 			var motion = Tool.FightMotion.Walk
-			
-			if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
-				
-				motion = Tool.FightMotion.JumpUp 
-			elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
-				push_warning("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"+input_vector as String)
-				motion = Tool.FightMotion.JumpDown
-			push_warning("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC")	
+			if movable.state == FightKinematicMovableObj.ActionState.JumpUp or movable.state == FightKinematicMovableObj.ActionState.JumpDown or movable.state == FightKinematicMovableObj.ActionState.Attack:
+				return
 			var action = Tool.getPollObject(ActionInfo,[motion, OS.get_ticks_msec(), [input_vector], -1, ActionInfo.EXEMOD_GENEROUS, false, true])
 			action_mng.regist_actioninfo(action)
 			pass
@@ -178,7 +171,7 @@ static func normal_on_moveevent(event,fight_cpn):
 #进行一个run 判定
 #两个间隔时间在 run_action_min_interval  的walk 指令触发成run
 static func is_trigger_run(input_vector,fight_cpn)->bool:
-	
+	 
 	var action_mng = fight_cpn.actionMng
 	var action_array =action_mng.action_array
 	var index =action_array.size()

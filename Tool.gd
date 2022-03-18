@@ -157,6 +157,7 @@ enum FightMotion{
 	Defend = 167,
 	Prepared = 168,
 	Unprepared = 169,
+	PreAttack = 170,
 	
 	Attack_Up_Pre=100,
 	Attack_Up_In=101,
