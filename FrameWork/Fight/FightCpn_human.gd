@@ -24,6 +24,15 @@ export (bool) var is_player =false;
 var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
 var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
 
+#已经学会的 wuxue
+export (Array,Glob.WuxueEnum) var _learned_wuxue:Array=[Glob.WuxueEnum.Fist]
+
+#已装备的 道具
+var _equiped_gears = []
+#使用中的weapon
+var weapon_onuse :Weapon
+
+
 #是否处于可攀爬位置
 func is_at_hanging_corner()->bool:
 	return corner_detector.is_colliding_with_corner()
@@ -71,10 +80,10 @@ func _ready():
 	#TODO 可以指定初始状态
 	if not is_on_floor():
 		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.JumpDown
-#	$Wu.switch_wu(WuxueMng.WuxueEnum.Fist)
+#	$Wu.switch_wu(Glob.WuxueEnum.Fist)
 #	sprite.texture = $Wu.get_texture()
 #	yield(get_tree().create_timer(2),"timeout")
-#	$Wu.switch_wu(WuxueMng.WuxueEnum.Sword)
+#	$Wu.switch_wu(Glob.WuxueEnum.Sword)
 #	sprite.texture = $Wu.get_texture()
 #	test_switch()
 	
@@ -84,10 +93,36 @@ func _ready():
 	UiManager.regist_none_ovelap_UI($Energy.get_texture_progress())
 	pass 
 
+#初始化 武学
+func init_wuxue(_wuxue_list:Array):
+	learn_wuxue(_wuxue_list)
 
+#学习 wuxue
+func learn_wuxue(_wuxue_list:Array):
+	for _wuxue in _wuxue_list:
+		#去重复
+		if _learned_wuxue.has(_wuxue):
+			continue
+		_learned_wuxue.append(_wuxue)	
+
+#初始化武器
+#base_weapon_id :Glob.GearEnum
+func init_weapon(base_weapon_id):
+	
+	pass
+	
+#装备武器
+func equip_weapon(base_weapon_id):
+	
+	pass
+	
+#装备道具
+func equip_gear(base_gear_id):
+	
+	pass	
 #func test_switch():
 #
-#	var gongfu =[WuxueMng.WuxueEnum.Fist,WuxueMng.WuxueEnum.Sword]
+#	var gongfu =[Glob.WuxueEnum.Fist,Glob.WuxueEnum.Sword]
 #	var i=0;
 #
 #	while (true):
@@ -124,7 +159,7 @@ func check_engaged():
 		is_engaged = false
 
 #切换武器
-#wuxue: WuxueMng.WuxueEnum.Fist
+#wuxue: Glob.WuxueEnum.Fist
 func switch_weapon(wuxue):
 	wu.switch_wu(wuxue)
 	sprite_animation.choose_wuxue_animation_and_gear(wu.wuxue)
@@ -136,15 +171,15 @@ func _set_prepared(p):
 	
 	if p and not is_prepared:
 		#是从false 变化到 true的情况； 出剑
-		var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Prepared) as BaseAction
+		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Prepared) as BaseAction
 		if base != null :
-			var action = Tool.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			var action = Glob.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 			actionMng.regist_actioninfo(action)
 	elif is_prepared and not p:
 		#是从true 变为false；收剑
-		var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Unprepared) as BaseAction
+		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Unprepared) as BaseAction
 		if base != null :
-			var action = Tool.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			var action = Glob.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 			actionMng.regist_actioninfo(action)
 		pass
 	
@@ -186,7 +221,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		push_error("actioninfo is null.")
 		return 
 	
-	var base =FightBaseActionDataSource.get_by_base_id(action.base_action as int) as BaseAction
+	var base =FightBaseActionDataSource.get_by_id(action.base_action as int) as BaseAction
 	
 	if base == null:
 		return
@@ -203,21 +238,21 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 
 
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
-	var base =FightBaseActionDataSource.get_by_base_id(action.base_action) as BaseAction
+	var base =FightBaseActionDataSource.get_by_id(action.base_action) as BaseAction
 	#可以用type 来过滤
 	if base and "_in" in base.animation_name:
 		fightKinematicMovableObj.attackOver()
 		print("attack over time",OS.get_ticks_msec())
 		
-	if action.base_action == Tool.FightMotion.HangingClimb:
+	if action.base_action == Glob.FightMotion.HangingClimb:
 		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
 		corner_detector.set_deferred("enabled", true)
 	
-	if action.base_action ==Tool.FightMotion.Prepared:
+	if action.base_action ==Glob.FightMotion.Prepared:
 		
 		sprite_animation.set_state(StandarCharactor.CharactorState.Engaged)
 		
-	if action.base_action ==Tool.FightMotion.Unprepared:
+	if action.base_action ==Glob.FightMotion.Unprepared:
 		sprite_animation.set_state(StandarCharactor.CharactorState.Peace)
 		
 func test_dead_motion():
@@ -283,19 +318,19 @@ func _on_FightKinematicMovableObj_FaceDirectionChanged(v:Vector2):
 
 
 func _on_FightKinematicMovableObj_Active_State_Changed(base_action):
-	var base = FightBaseActionDataSource.get_by_base_id(base_action) as BaseAction
+	var base = FightBaseActionDataSource.get_by_id(base_action) as BaseAction
 	if base != null :
-		if base_action == Tool.FightMotion.JumpUp: 
-			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+		if base_action == Glob.FightMotion.JumpUp: 
+			var action = Glob.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
 			actionMng.regist_actioninfo(action)
 		
-		elif  base_action == Tool.FightMotion.JumpDown:
+		elif  base_action == Glob.FightMotion.JumpDown:
 			
-			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			var action = Glob.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 			actionMng.regist_actioninfo(action)
 			
 		else:
-			var action = Tool.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			var action = Glob.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 			actionMng.regist_actioninfo(action)
 
 

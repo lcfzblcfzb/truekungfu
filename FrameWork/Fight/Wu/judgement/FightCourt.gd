@@ -5,88 +5,88 @@ static func normal_judge(fighter0:FightComponent_human,fighter1:FightComponent_h
 	
 	#TODO 根据不同 类型进行一个决策
 	match action_force_type0:
-		BaseWuXue.ActionForceType.CI:
+		WuXue.ActionForceType.CI:
 			
 			match action_force_type1:
-				BaseWuXue.ActionForceType.CI:
+				WuXue.ActionForceType.CI:
 					#无事发生
 					_normal_ci_ci(fighter0,fighter1,action_force_type0,action_force_type1)
 					pass
-				BaseWuXue.ActionForceType.SAO:
+				WuXue.ActionForceType.SAO:
 					#给0 减益
 					#或者给1 增益
 					
 					_normal_ci_sao(fighter0,fighter1,action_force_type0,action_force_type1)
 					pass
-				BaseWuXue.ActionForceType.GE:
+				WuXue.ActionForceType.GE:
 					#给1 减益	
 					
 					_normal_ci_ge(fighter0,fighter1,action_force_type0,action_force_type1)
 					pass
-				BaseWuXue.ActionForceType.LIAO:
+				WuXue.ActionForceType.LIAO:
 					#给0 减益
 					
 					_normal_ci_liao(fighter0,fighter1,action_force_type0,action_force_type1)
 					pass
-		BaseWuXue.ActionForceType.SAO:
+		WuXue.ActionForceType.SAO:
 			match action_force_type1:
-				BaseWuXue.ActionForceType.CI:
+				WuXue.ActionForceType.CI:
 					
 					_normal_ci_sao(fighter1,fighter0,action_force_type1,action_force_type0)
 					
 					
 					pass
-				BaseWuXue.ActionForceType.SAO:
+				WuXue.ActionForceType.SAO:
 					_normal_sao_sao(fighter0,fighter1,action_force_type0,action_force_type1)
 					
 					pass
-				BaseWuXue.ActionForceType.GE:	
+				WuXue.ActionForceType.GE:	
 					
 					_normal_sao_ge(fighter0,fighter1,action_force_type0,action_force_type1)
 					
 					pass
-				BaseWuXue.ActionForceType.LIAO:
+				WuXue.ActionForceType.LIAO:
 					
 					_normal_sao_liao(fighter0,fighter1,action_force_type0,action_force_type1)
 					
 					pass
-		BaseWuXue.ActionForceType.GE:	
+		WuXue.ActionForceType.GE:	
 			match action_force_type1:
-				BaseWuXue.ActionForceType.CI:
+				WuXue.ActionForceType.CI:
 					_normal_ci_ge(fighter1,fighter0,action_force_type1,action_force_type0)
 					
 					pass
-				BaseWuXue.ActionForceType.SAO:
+				WuXue.ActionForceType.SAO:
 					_normal_sao_ge(fighter1,fighter0,action_force_type1,action_force_type0)
 					
 					pass
-				BaseWuXue.ActionForceType.GE:	
+				WuXue.ActionForceType.GE:	
 					
 					_normal_ge_ge(fighter1,fighter0,action_force_type1,action_force_type0)
 					
 					pass
-				BaseWuXue.ActionForceType.LIAO:
+				WuXue.ActionForceType.LIAO:
 					
 					_normal_ge_liao(fighter0,fighter1,action_force_type0,action_force_type1)
 					
 					pass
-		BaseWuXue.ActionForceType.LIAO:
+		WuXue.ActionForceType.LIAO:
 			match action_force_type1:
-				BaseWuXue.ActionForceType.CI:
+				WuXue.ActionForceType.CI:
 					_normal_ci_liao(fighter1,fighter0,action_force_type1,action_force_type0)
 					
 					pass
-				BaseWuXue.ActionForceType.SAO:
+				WuXue.ActionForceType.SAO:
 					
 					_normal_sao_liao(fighter1,fighter0,action_force_type1,action_force_type0)
 					
 					pass
-				BaseWuXue.ActionForceType.GE:	
+				WuXue.ActionForceType.GE:	
 					
 					_normal_ge_liao(fighter1,fighter0,action_force_type1,action_force_type0)
 					
 					pass
-				BaseWuXue.ActionForceType.LIAO:
+				WuXue.ActionForceType.LIAO:
 					
 					_normal_liao_liao(fighter0,fighter1,action_force_type0,action_force_type1)
 					

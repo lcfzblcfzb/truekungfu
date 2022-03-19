@@ -46,15 +46,15 @@ func test_array_slice():
 
 
 func test_obj_pool():
-	var obj =Tool.getPollObject(NewActionEvent,[])
+	var obj =Glob.getPollObject(NewActionEvent,[])
 	assert_true(obj is NewActionEvent)
 	
-	var obj2 =Tool.getPollObject(ActionInfo,[1,2,3,4,5])
+	var obj2 =Glob.getPollObject(ActionInfo,[1,2,3,4,5])
 	assert_true(obj2 is ActionInfo)
 	
 	var array=[]
 	for i in 10:
-		array.append(Tool.getPollObject(ActionInfo,[1,2,3,4,5]))
+		array.append(Glob.getPollObject(ActionInfo,[1,2,3,4,5]))
 #	var fight_event=BaseFightEvent.new(ObjPool.new(BaseFightEvent),2,[])
 	
 	for a in array:

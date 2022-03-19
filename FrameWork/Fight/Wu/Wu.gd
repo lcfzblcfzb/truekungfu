@@ -1,11 +1,11 @@
 extends Node2D
 class_name BaseWu
 
-var default_wuxue = WuxueMngClass.WuxueEnum.Fist
+var default_wuxue = Glob.WuxueEnum.Fist
 
-export( WuxueMngClass.WuxueEnum) var chosed_wuxue  = WuxueMngClass.WuxueEnum.Fist
+export( Glob.WuxueEnum) var chosed_wuxue  = default_wuxue
 
-var wuxue:BaseWuXue
+var wuxue:WuXue
 
 export (NodePath) var FightComponentPath
 var fight_component 
@@ -142,14 +142,14 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		_gear.on_actioninfo_start(action)
 		pass
 	
-	if action.base_action ==Tool.FightMotion.Attack:
+	if action.base_action ==Glob.FightMotion.Attack:
 		pass
 	
 
 
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	
-	if action.base_action ==Tool.FightMotion.Attack:
+	if action.base_action ==Glob.FightMotion.Attack:
 		pass
 	
 	for _gear in wuxue._gear_cache:

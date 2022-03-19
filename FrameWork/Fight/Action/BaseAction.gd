@@ -1,7 +1,6 @@
 class_name BaseAction
 
-extends Object
-
+extends IntEntity
 
 #func _init(param:Dictionary):
 #
@@ -10,9 +9,8 @@ extends Object
 #	animation_name= param.get("animation_name")
 #	type= param.get("type")
 #	duration= param.get("duration")
-	
 
-var id:int;
+
 var name;
 var animation_name;
 var type:Array;

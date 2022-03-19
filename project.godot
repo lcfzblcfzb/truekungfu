@@ -109,7 +109,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/behavior_tree/src/btnodes/leaves/bt_wait.gd"
 }, {
-"base": "Object",
+"base": "IntEntity",
 "class": "BaseAction",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Action/BaseAction.gd"
@@ -129,10 +129,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/event/BaseFightEvent.gd"
 }, {
-"base": "Node2D",
+"base": "Reference",
 "class": "BaseGear",
 "language": "GDScript",
-"path": "res://FrameWork/Gear/BaseGear.gd"
+"path": "res://FrameWork/Gear/base/BaseGear.gd"
+}, {
+"base": "Reference",
+"class": "BaseOutfit",
+"language": "GDScript",
+"path": "res://FrameWork/Outfit/BaseOutfit.gd"
 }, {
 "base": "BaseRole",
 "class": "BasePlatformerRole",
@@ -144,20 +149,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Role/BaseRole.gd"
 }, {
+"base": "Reference",
+"class": "BaseWeapon",
+"language": "GDScript",
+"path": "res://FrameWork/Gear/Weapon/base/BaseWeapon.gd"
+}, {
 "base": "Node2D",
 "class": "BaseWu",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Wu/Wu.gd"
 }, {
-"base": "Node2D",
-"class": "BaseWuXue",
-"language": "GDScript",
-"path": "res://FrameWork/Fight/Wu/weapon/BaseWuXue.gd"
-}, {
 "base": "Node",
 "class": "BaseWuXueActionMng",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Action/BaseWuXueActionMng.gd"
+}, {
+"base": "Reference",
+"class": "BaseWuxue",
+"language": "GDScript",
+"path": "res://FrameWork/Fight/Wu/wuxue/base/BaseWuxue.gd"
 }, {
 "base": "Object",
 "class": "BaseWuxueAction",
@@ -179,10 +189,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Localization/translation_service.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "DataLoader",
 "language": "GDScript",
 "path": "res://FrameWork/Data/DataLoader.gd"
+}, {
+"base": "Node",
+"class": "DataMng",
+"language": "GDScript",
+"path": "res://FrameWork/Data/DataManager/DataMng.gd"
 }, {
 "base": "Node",
 "class": "Dialogic",
@@ -249,15 +264,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/StateController.gd"
 }, {
-"base": "BaseWuXue",
+"base": "WuXue",
 "class": "Fist",
 "language": "GDScript",
-"path": "res://FrameWork/Fight/Wu/weapon/Fist.gd"
+"path": "res://FrameWork/Fight/Wu/wuxue/Fist.gd"
+}, {
+"base": "Node2D",
+"class": "Gear",
+"language": "GDScript",
+"path": "res://FrameWork/Gear/Gear.gd"
 }, {
 "base": "Area2D",
 "class": "HurtBox",
 "language": "GDScript",
 "path": "res://FrameWork/CollisionBox/HurtBox.gd"
+}, {
+"base": "Reference",
+"class": "Identified",
+"language": "GDScript",
+"path": "res://FrameWork/Data/Entity/Identified.gd"
+}, {
+"base": "Identified",
+"class": "IntEntity",
+"language": "GDScript",
+"path": "res://FrameWork/Data/Entity/IntEntity.gd"
 }, {
 "base": "Node2D",
 "class": "KinematicMovableObj",
@@ -268,6 +298,11 @@ _global_script_classes=[ {
 "class": "KinematicPlatformMovableObj",
 "language": "GDScript",
 "path": "res://FrameWork/moving_obj/KnidematicPlatformMovableObj.gd"
+}, {
+"base": "DataMng",
+"class": "ListDataMng",
+"language": "GDScript",
+"path": "res://FrameWork/Data/DataManager/ListDataMng.gd"
 }, {
 "base": "BaseFightEvent",
 "class": "MoveEvent",
@@ -309,7 +344,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Charactor/StandarCharactor.gd"
 }, {
-"base": "Reference",
+"base": "WuXue",
 "class": "Sword",
 "language": "GDScript",
 "path": "res://Game/Wuxue/Sword.gd"
@@ -329,25 +364,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Verlex/verlet_loop.gd"
 }, {
-"base": "BaseGear",
+"base": "Gear",
 "class": "Weapon",
 "language": "GDScript",
-"path": "res://FrameWork/Gear/Weapon/Weapon.gd"
+"path": "res://FrameWork/Gear/Weapon.gd"
 }, {
 "base": "Area2D",
 "class": "WeaponBox",
 "language": "GDScript",
 "path": "res://FrameWork/CollisionBox/WeaponBox.gd"
 }, {
+"base": "Node2D",
+"class": "WuXue",
+"language": "GDScript",
+"path": "res://FrameWork/Fight/Wu/wuxue/Wuxue.gd"
+}, {
 "base": "Reference",
 "class": "WuxueEventHandlerTools",
 "language": "GDScript",
-"path": "res://FrameWork/Fight/Wu/weapon/WuxueEventHandlerTools.gd"
+"path": "res://FrameWork/Fight/Wu/wuxue/WuxueEventHandlerTools.gd"
 }, {
 "base": "Node",
 "class": "WuxueMngClass",
 "language": "GDScript",
-"path": "res://FrameWork/Fight/Wu/weapon/WuxueMng.gd"
+"path": "res://FrameWork/Fight/Wu/wuxue/WuxueMng.gd"
 } ]
 _global_script_class_icons={
 "AIDetector": "",
@@ -375,16 +415,19 @@ _global_script_class_icons={
 "BaseFightActionController": "",
 "BaseFightEvent": "",
 "BaseGear": "",
+"BaseOutfit": "",
 "BasePlatformerRole": "",
 "BaseRole": "",
+"BaseWeapon": "",
 "BaseWu": "",
-"BaseWuXue": "",
 "BaseWuXueActionMng": "",
+"BaseWuxue": "",
 "BaseWuxueAction": "",
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
 "DTS": "",
 "DataLoader": "",
+"DataMng": "",
 "Dialogic": "",
 "DialogicBackgroundMusic": "",
 "DialogicCustomEvents": "",
@@ -399,9 +442,13 @@ _global_script_class_icons={
 "FightKinematicMovableObj": "",
 "Fight_State_Controller": "",
 "Fist": "",
+"Gear": "",
 "HurtBox": "",
+"Identified": "",
+"IntEntity": "",
 "KinematicMovableObj": "",
 "KinematicPlatformMovableObj": "",
+"ListDataMng": "",
 "MoveEvent": "",
 "NewActionEvent": "",
 "NpcOf2Direction": "",
@@ -416,6 +463,7 @@ _global_script_class_icons={
 "VerletLoop": "",
 "Weapon": "",
 "WeaponBox": "",
+"WuXue": "",
 "WuxueEventHandlerTools": "",
 "WuxueMngClass": ""
 }
@@ -427,13 +475,17 @@ run/main_scene="res://resource/scene/fight_demo.tscn"
 
 [autoload]
 
-Tool="*res://Tool.gd"
+Glob="*res://Glob.gd"
 RoleMng="*res://FrameWork/Scene/RoleMng.gd"
 FightBaseActionDataSource="*res://FrameWork/Fight/Action/FightBaseActionDataSource.gd"
-WuxueMng="*res://FrameWork/Fight/Wu/weapon/WuxueMng.gd"
+WuxueMng="*res://FrameWork/Fight/Wu/wuxue/WuxueMng.gd"
 O="*res://FrameWork/_.gd"
 BaseStandarCharactorsDMG="*res://Game/Charactor/StandarCharactorsDMG.gd"
 UiManager="*res://FrameWork/UI/UI_Manager.gd"
+BaseWuxueDmg="*res://FrameWork/Fight/Wu/wuxue/BaseWuxueDMG.gd"
+BaseGearDmg="*res://FrameWork/Gear/base/BaseGearDMG.gd"
+BaseWeaponDmg="*res://FrameWork/Gear/Weapon/base/BaseWeaponDMG.gd"
+BaseOutfitDmg="*res://FrameWork/Outfit/BaseOutfitDMG.gd"
 
 [display]
 

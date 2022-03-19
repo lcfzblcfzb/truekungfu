@@ -1,15 +1,11 @@
 class_name DataLoader
-extends Node
 
-var _file_path
-var _datas=[]
-
-func load_from_json_array_file(path,_class:GDScript):
+static func load_from_json_array_file(path,_class:GDScript)->Array:
 	
 	var json_result = _load_json_file(path)
 	
+	var _datas=[]
 	if json_result!=null:
-		_file_path = path
 		
 		if typeof(json_result) == TYPE_ARRAY:
 			
@@ -34,10 +30,12 @@ func load_from_json_array_file(path,_class:GDScript):
 		
 	pass
 	
+	return _datas
 	
 
+
 #从text文件中读取json 并保存为json对象
-func _load_json_file(path):
+static func _load_json_file(path):
 	"""Loads a JSON file from the given res path and return the loaded JSON object."""
 	var file = File.new()
 	file.open(path, file.READ)

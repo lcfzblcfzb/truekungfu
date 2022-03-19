@@ -58,4 +58,4 @@ func _input(event):
 	
 	if(event is InputEventMouseMotion):
 		var mouseMovingPos = event.global_position
-		var screenPos =Tool.getCameraPosition(target_obj)
+		var screenPos =Glob.getCameraPosition(target_obj)

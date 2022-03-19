@@ -1,11 +1,11 @@
 class_name Sword
-extends BaseWuXue
+extends WuXue
 
 static func get_wuxue_type():
-	return WuxueMng.WuxueEnum.Sword
+	return Glob.WuxueEnum.Sword
 
 func _init():
-	weapon_path = "res://Game/Gear/Weapon/Sword.tscn"
+	weapon_path = "res://FrameWork/Gear/Weapon/SwordPrototype.tscn"
 
 func _ready():
 	wu_animation_res = "res://texture/animation/demo_motion_template-Sheet_def.png"
@@ -21,108 +21,108 @@ func _do_wu_motion(wu_motion,is_heavy):
 	
 	match( wu_motion):
 		
-		Tool.WuMotion.Stunned:
-			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Stunned) as BaseAction
-			fight_cpn.actionMng.regist_action(Tool.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
+		Glob.WuMotion.Stunned:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Stunned) as BaseAction
+			fight_cpn.actionMng.regist_action(Glob.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
 			
-		Tool.WuMotion.Prepared:
+		Glob.WuMotion.Prepared:
 			fight_cpn.is_prepared = true
 		
-		Tool.WuMotion.Unprepared:
+		Glob.WuMotion.Unprepared:
 			fight_cpn.is_prepared = false
 		
-		Tool.WuMotion.Hanging:
-			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Hanging) as BaseAction
+		Glob.WuMotion.Hanging:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Hanging) as BaseAction
 			fight_cpn.actionMng.regist_action(wu_motion,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
 		
-		Tool.WuMotion.HangingClimb:
-			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.HangingClimb) as BaseAction
+		Glob.WuMotion.HangingClimb:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.HangingClimb) as BaseAction
 			fight_cpn.actionMng.regist_action(wu_motion,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
 		
-		Tool.WuMotion.Attack:
+		Glob.WuMotion.Attack:
 			if fight_cpn.is_prepared == false:
 				fight_cpn.is_prepared = true
-			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.Attack) as BaseAction
-			fight_cpn.actionMng.regist_action(Tool.FightMotion.Attack,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Attack) as BaseAction
+			fight_cpn.actionMng.regist_action(Glob.FightMotion.Attack,base.duration,ActionInfo.EXEMOD_INTERUPT)
 		
-		Tool.WuMotion.Switch:
+		Glob.WuMotion.Switch:
 			
-			fight_cpn.switch_weapon(WuxueMng.WuxueEnum.Fist)
+			fight_cpn.switch_weapon(Glob.WuxueEnum.Fist)
 			pass
-		Tool.WuMotion.Attack_Up:
+		Glob.WuMotion.Attack_Up:
 			if is_heavy:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U_Pre,Tool.FightMotion.HeavyAttack_U_In,Tool.FightMotion.HeavyAttack_U_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_U_Pre,Glob.FightMotion.HeavyAttack_U_In,Glob.FightMotion.HeavyAttack_U_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 			else:
-				var a_list =_create_attack_action([Tool.FightMotion.Attack_Up_Pre,Tool.FightMotion.Attack_Up_In,Tool.FightMotion.Attack_Up_After])
+				var a_list =_create_attack_action([Glob.FightMotion.Attack_Up_Pre,Glob.FightMotion.Attack_Up_In,Glob.FightMotion.Attack_Up_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Attack_Mid:
+		Glob.WuMotion.Attack_Mid:
 			if is_heavy:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M_Pre,Tool.FightMotion.HeavyAttack_M_In,Tool.FightMotion.HeavyAttack_M_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_M_Pre,Glob.FightMotion.HeavyAttack_M_In,Glob.FightMotion.HeavyAttack_M_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 			else:
-				var a_list =_create_attack_action([Tool.FightMotion.Attack_Mid_Pre,Tool.FightMotion.Attack_Mid_In,Tool.FightMotion.Attack_Mid_After])
+				var a_list =_create_attack_action([Glob.FightMotion.Attack_Mid_Pre,Glob.FightMotion.Attack_Mid_In,Glob.FightMotion.Attack_Mid_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Attack_Bot:
+		Glob.WuMotion.Attack_Bot:
 			if is_heavy:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_B_Pre,Tool.FightMotion.HeavyAttack_B_In,Tool.FightMotion.HeavyAttack_B_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_B_Pre,Glob.FightMotion.HeavyAttack_B_In,Glob.FightMotion.HeavyAttack_B_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 			else:
-				var a_list =_create_attack_action([Tool.FightMotion.Attack_Bot_Pre,Tool.FightMotion.Attack_Bot_In,Tool.FightMotion.Attack_Bot_After])
+				var a_list =_create_attack_action([Glob.FightMotion.Attack_Bot_Pre,Glob.FightMotion.Attack_Bot_In,Glob.FightMotion.Attack_Bot_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Defend_Up:
-			var a_list =_create_attack_action([Tool.FightMotion.Def_Up_Pre,Tool.FightMotion.Def_Up_In,Tool.FightMotion.Def_Up_After])
+		Glob.WuMotion.Defend_Up:
+			var a_list =_create_attack_action([Glob.FightMotion.Def_Up_Pre,Glob.FightMotion.Def_Up_In,Glob.FightMotion.Def_Up_After])
 			fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Defend_Mid:
-			var a_list =_create_attack_action([Tool.FightMotion.Def_Mid_Pre,Tool.FightMotion.Def_Mid_In,Tool.FightMotion.Def_Mid_After])
+		Glob.WuMotion.Defend_Mid:
+			var a_list =_create_attack_action([Glob.FightMotion.Def_Mid_Pre,Glob.FightMotion.Def_Mid_In,Glob.FightMotion.Def_Mid_After])
 			fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Defend_Bot:
-			var a_list =_create_attack_action([Tool.FightMotion.Def_Bot_Pre,Tool.FightMotion.Def_Bot_In,Tool.FightMotion.Def_Bot_After])
+		Glob.WuMotion.Defend_Bot:
+			var a_list =_create_attack_action([Glob.FightMotion.Def_Bot_Pre,Glob.FightMotion.Def_Bot_In,Glob.FightMotion.Def_Bot_After])
 			fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Attack_U2M:
+		Glob.WuMotion.Attack_U2M:
 			if is_heavy:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U2M_Pre,Tool.FightMotion.HeavyAttack_U2M_In,Tool.FightMotion.HeavyAttack_U2M_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_U2M_Pre,Glob.FightMotion.HeavyAttack_U2M_In,Glob.FightMotion.HeavyAttack_U2M_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 			else:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M_Pre,Tool.FightMotion.HeavyAttack_M_In,Tool.FightMotion.HeavyAttack_M_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_M_Pre,Glob.FightMotion.HeavyAttack_M_In,Glob.FightMotion.HeavyAttack_M_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Attack_U2B:
+		Glob.WuMotion.Attack_U2B:
 			if is_heavy:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U2B_Pre,Tool.FightMotion.HeavyAttack_U2B_In,Tool.FightMotion.HeavyAttack_U2B_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_U2B_Pre,Glob.FightMotion.HeavyAttack_U2B_In,Glob.FightMotion.HeavyAttack_U2B_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 			else:
-				var a_list =_create_attack_action([Tool.FightMotion.Attack_Bot_Pre,Tool.FightMotion.Attack_Bot_In,Tool.FightMotion.Attack_Bot_After])
+				var a_list =_create_attack_action([Glob.FightMotion.Attack_Bot_Pre,Glob.FightMotion.Attack_Bot_In,Glob.FightMotion.Attack_Bot_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Attack_M2U:
+		Glob.WuMotion.Attack_M2U:
 			if is_heavy:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M2U_Pre,Tool.FightMotion.HeavyAttack_M2U_In,Tool.FightMotion.HeavyAttack_M2U_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_M2U_Pre,Glob.FightMotion.HeavyAttack_M2U_In,Glob.FightMotion.HeavyAttack_M2U_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 			else:
-				var a_list =_create_attack_action([Tool.FightMotion.Attack_Up_Pre,Tool.FightMotion.Attack_Up_In,Tool.FightMotion.Attack_Up_After])
+				var a_list =_create_attack_action([Glob.FightMotion.Attack_Up_Pre,Glob.FightMotion.Attack_Up_In,Glob.FightMotion.Attack_Up_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Attack_M2B:
+		Glob.WuMotion.Attack_M2B:
 			if is_heavy:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M2B_Pre,Tool.FightMotion.HeavyAttack_M2B_In,Tool.FightMotion.HeavyAttack_M2B_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_M2B_Pre,Glob.FightMotion.HeavyAttack_M2B_In,Glob.FightMotion.HeavyAttack_M2B_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 			else:
-				var a_list =_create_attack_action([Tool.FightMotion.Attack_Bot_Pre,Tool.FightMotion.Attack_Bot_In,Tool.FightMotion.Attack_Bot_After])
+				var a_list =_create_attack_action([Glob.FightMotion.Attack_Bot_Pre,Glob.FightMotion.Attack_Bot_In,Glob.FightMotion.Attack_Bot_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Attack_B2U:
+		Glob.WuMotion.Attack_B2U:
 			if is_heavy:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_B2U_Pre,Tool.FightMotion.HeavyAttack_B2U_In,Tool.FightMotion.HeavyAttack_B2U_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_B2U_Pre,Glob.FightMotion.HeavyAttack_B2U_In,Glob.FightMotion.HeavyAttack_B2U_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 			else:
-				var a_list =_create_attack_action([Tool.FightMotion.Attack_Up_Pre,Tool.FightMotion.Attack_Up_In,Tool.FightMotion.Attack_Up_After])
+				var a_list =_create_attack_action([Glob.FightMotion.Attack_Up_Pre,Glob.FightMotion.Attack_Up_In,Glob.FightMotion.Attack_Up_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
-		Tool.WuMotion.Attack_B2M:
+		Glob.WuMotion.Attack_B2M:
 			if is_heavy:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_B2M_Pre,Tool.FightMotion.HeavyAttack_B2M_In,Tool.FightMotion.HeavyAttack_B2M_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_B2M_Pre,Glob.FightMotion.HeavyAttack_B2M_In,Glob.FightMotion.HeavyAttack_B2M_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 			else:
-				var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M_Pre,Tool.FightMotion.HeavyAttack_M_In,Tool.FightMotion.HeavyAttack_M_After])
+				var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_M_Pre,Glob.FightMotion.HeavyAttack_M_In,Glob.FightMotion.HeavyAttack_M_After])
 				fight_cpn.actionMng.regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_NEWEST)
 	
 
@@ -144,7 +144,7 @@ func on_ai_event(event:AIEvent):
 
 
 #与另一个wuxue 发生战斗
-func against_wuxue(otherWuxue:BaseWuXue):
+func against_wuxue(otherWuxue:WuXue):
 	
 	var fighter0 = fight_cpn
 	var fighter1 = otherWuxue.fight_cpn

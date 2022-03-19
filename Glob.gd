@@ -53,13 +53,46 @@ enum CharactorEnum{
 #装备枚举（base_id)
 enum GearEnum{
 	
-	Sword=100
-	
+	DuanDao=601,
+	DuanJian=602,
 	
 }
 
+#武器类型（武器大类)
+enum WeaponType{
+	Fist=0,
+	Dao=1,
+	Jian=2,
+	Qiang=3,
+	Mao=4
+	
+}
+
+#装备部位(并非具体的部位）
+enum GearSlot{
+	Head =1 ,
+	Body =2,
+	Hip =3,
+	Hand =4,
+	Foot =5,
+	Weapon =6
+}
+
+#道具的类型
+enum OutfitUseType{
+	#可装备物品
+	Gear =1
+}
 
 
+#枚举类型
+enum WuxueEnum{
+	
+	Nope=0,
+	Fist=1,
+	Sword=2
+	
+}
 
 func test():
 	print("print test global")

@@ -1,7 +1,7 @@
 extends AnimationPlayer
 
-export(WuxueMngClass.WuxueEnum) var wuxue_id
-export(Tool.ChatactorSkeletalType) var skelekal_type
+export(Glob.WuxueEnum) var wuxue_id
+export(Glob.ChatactorSkeletalType) var skelekal_type
 
 # Declare member variables here. Examples:
 # var a = 2

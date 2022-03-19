@@ -47,38 +47,38 @@ func act(action:ActionInfo,timescale):
 func travelTo(action:ActionInfo):
 	
 	match action.base_action:
-		Tool.FightMotion.Idle:
+		Glob.FightMotion.Idle:
 			set(TRANSITION_PREPARED,MOVE)
 			set(TRANSITION_UNPREPARED,MOVE)
 			set(MOVE_BP,Vector2.ZERO)
 			set(MOVE_PREPARED_BP,Vector2.ZERO)
 			
-		Tool.FightMotion.Walk:
+		Glob.FightMotion.Walk:
 			set(TRANSITION_PREPARED,MOVE)
 			set(TRANSITION_UNPREPARED,MOVE)
 			set(MOVE_BP,Vector2.RIGHT)
 			set(MOVE_PREPARED_BP,Vector2.RIGHT)
 		
-		Tool.FightMotion.Hanging:
+		Glob.FightMotion.Hanging:
 			set("parameters/hangingclimbshot/active",false)
 			set("parameters/hangingclimbshot_prepared/active",false)
 			set(TRANSITION_PREPARED,HANGING)
 			set(TRANSITION_UNPREPARED,HANGING)
 		
-		Tool.FightMotion.HangingClimb:
+		Glob.FightMotion.HangingClimb:
 			set("parameters/hangingclimbshot_prepared/active",true)
 			set("parameters/hangingclimbshot/active",true)
 			set(TRANSITION_PREPARED,HANGING)
 			set(TRANSITION_UNPREPARED,HANGING)
 		
-		Tool.FightMotion.Attack:
+		Glob.FightMotion.Attack:
 			set("parameters/attack_shot/active",true)
 		
-		Tool.FightMotion.Prepared:
+		Glob.FightMotion.Prepared:
 			set("parameters/prepared_shot/active",true)
 			set("parameters/state_tran/current",STATE_PREPARED)
 			
-		Tool.FightMotion.Unprepared:
+		Glob.FightMotion.Unprepared:
 			set("parameters/unprepared_shot/active",true)
 			set("parameters/state_tran/current",STATE_UNPREPARED)
 		

@@ -2,83 +2,82 @@
 
 [ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=1]
 [ext_resource path="res://Game/Wuxue/behavior_tree/sword/Do_Attack.gd" type="Script" id=2]
-[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Is_Endangered.gd" type="Script" id=3]
-[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Do_Stop_Moving.gd" type="Script" id=4]
-[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Is_multi_target.gd" type="Script" id=5]
-[ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_parallel.gd" type="Script" id=6]
-[ext_resource path="res://Game/Wuxue/behavior_tree/sword/LockTarget.gd" type="Script" id=8]
-[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Is_Face_Target.gd" type="Script" id=9]
+[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Do_Stop_Moving.gd" type="Script" id=3]
+[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Is_multi_target.gd" type="Script" id=4]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_parallel.gd" type="Script" id=5]
+[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Is_Endangered.gd" type="Script" id=6]
+[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Is_Near_Target.gd" type="Script" id=7]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/decorators/bt_repeat_until.gd" type="Script" id=8]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_sequence.gd" type="Script" id=9]
 [ext_resource path="res://Game/Wuxue/behavior_tree/sword/Do_Face_Target.gd" type="Script" id=10]
-[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/fist/Do_Wandering.gd" type="Script" id=11]
-[ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=12]
-[ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_sequence.gd" type="Script" id=13]
-[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Is_Near_Target.gd" type="Script" id=14]
-[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Do_Move_Toward_Target.gd" type="Script" id=15]
-[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/fist/Check_Engaged.gd" type="Script" id=16]
-[ext_resource path="res://addons/behavior_tree/src/btnodes/decorators/bt_repeat_until.gd" type="Script" id=17]
-
+[ext_resource path="res://Game/Wuxue/behavior_tree/sword/LockTarget.gd" type="Script" id=11]
+[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Do_Move_Toward_Target.gd" type="Script" id=12]
+[ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/Check_Engaged.gd" type="Script" id=13]
+[ext_resource path="res://Game/Wuxue/behavior_tree/sword/Is_Face_Target.gd" type="Script" id=14]
+[ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/Do_Wandering.gd" type="Script" id=15]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=16]
 
 [node name="Node2D" type="Node"]
 script = ExtResource( 1 )
 
 [node name="BTSelector" type="Node" parent="."]
-script = ExtResource( 12 )
+script = ExtResource( 16 )
 
 [node name="Is_Endangered" type="Node" parent="BTSelector"]
-script = ExtResource( 3 )
-
-[node name="Attack_Parallel" type="Node" parent="BTSelector/Is_Endangered"]
 script = ExtResource( 6 )
 
-[node name="Is_multi_target" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel"]
+[node name="Attack_Parallel" type="Node" parent="BTSelector/Is_Endangered"]
 script = ExtResource( 5 )
 
+[node name="Is_multi_target" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel"]
+script = ExtResource( 4 )
+
 [node name="LockTarget" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel/Is_multi_target"]
-script = ExtResource( 8 )
+script = ExtResource( 11 )
 
 [node name="Is_Face_Target" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel"]
-script = ExtResource( 9 )
+script = ExtResource( 14 )
 reverse = true
 
 [node name="Do_Face_Target" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel/Is_Face_Target"]
 script = ExtResource( 10 )
 
 [node name="BTSelector2" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel"]
-script = ExtResource( 12 )
+script = ExtResource( 16 )
 
 [node name="BTSelector" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel/BTSelector2"]
-script = ExtResource( 12 )
+script = ExtResource( 16 )
 
 [node name="Is_Near_Target" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel/BTSelector2/BTSelector"]
-script = ExtResource( 14 )
+script = ExtResource( 7 )
 
 [node name="Do_Stop_Moving" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel/BTSelector2/BTSelector/Is_Near_Target"]
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 
 [node name="Do_Move_Toward_Target" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel/BTSelector2/BTSelector"]
-script = ExtResource( 15 )
+script = ExtResource( 12 )
 
 [node name="Do_Attack" type="Node" parent="BTSelector/Is_Endangered/Attack_Parallel/BTSelector2"]
 script = ExtResource( 2 )
 
 [node name="BTRepeatUntil" type="Node" parent="BTSelector"]
-script = ExtResource( 17 )
+script = ExtResource( 8 )
 until_what = 1
 frequency = 0.3
 
 [node name="BTSelector" type="Node" parent="BTSelector/BTRepeatUntil"]
-script = ExtResource( 12 )
-
-[node name="Check_Engaged" type="Node2D" parent="BTSelector/BTRepeatUntil/BTSelector"]
 script = ExtResource( 16 )
 
-[node name="BTSequence_Wandering" type="Node" parent="BTSelector/BTRepeatUntil/BTSelector"]
+[node name="Check_Engaged" type="Node2D" parent="BTSelector/BTRepeatUntil/BTSelector"]
 script = ExtResource( 13 )
 
+[node name="BTSequence_Wandering" type="Node" parent="BTSelector/BTRepeatUntil/BTSelector"]
+script = ExtResource( 9 )
+
 [node name="Wan" type="Node2D" parent="BTSelector/BTRepeatUntil/BTSelector/BTSequence_Wandering"]
-script = ExtResource( 11 )
+script = ExtResource( 15 )
 wait_time = 0.3
 
 [node name="Wan2" type="Node2D" parent="BTSelector/BTRepeatUntil/BTSelector/BTSequence_Wandering"]
-script = ExtResource( 11 )
+script = ExtResource( 15 )
 wait_time = 0.3

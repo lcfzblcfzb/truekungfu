@@ -74,7 +74,7 @@ func _calc_angle2endpos_relativily(start,end)->float:
 	#计算角度
 	var r = end.angle_to_point(start)
 	var R = r - attackRadiusBias
-	R =Tool.normalizeAngle(R)
+	R =Glob.normalizeAngle(R)
 	return R
 
 # 一共6位，每一位置代表的含义：  0:up_right; 0:mid_right; 0:bot_right; 0:bot_left; 0:mid_left; 0:up_left;
@@ -114,7 +114,7 @@ func _create_attack_action(action_list):
 	
 	for i in range(action_list.size()):
 		var k = action_list[i]
-		var base = FightBaseActionDataSource.get_by_base_id(k) as BaseAction
+		var base = FightBaseActionDataSource.get_by_id(k) as BaseAction
 		if i <2:
 			
 			param_dict[k]={create_time=OS.get_ticks_msec(),
@@ -132,7 +132,7 @@ func _create_group_actions(action_dict:Dictionary):
 	if action_dict==null||action_dict.size()<3:
 		return
 	
-	var pool = Tool.PoolDict.get(ActionInfo) as ObjPool
+	var pool = Glob.PoolDict.get(ActionInfo) as ObjPool
 	
 	var result = []
 	
@@ -159,7 +159,7 @@ func _physics_process(delta):
 			
 		pass
 	else:
-		var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	
+		var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	
 		emit_signal("NewFightMotion",newActionEvent)	
 		_prv_input = input_vector
 
@@ -226,46 +226,46 @@ func _input(event):
 			
 			var heavyAttackThreshold =500
 			
-			var wu_motion =Tool.WuMotion.Idle
+			var wu_motion =Glob.WuMotion.Idle
 			
 			#蓄力重攻击
 			
 			if moving_position_array.size()<=0:
 				#nothing happen
-				wu_motion = Tool.WuMotion.Idle
+				wu_motion = Glob.WuMotion.Idle
 				return
 			elif moving_position_array.size()==1:
 				var byte = moving_position_array.pop_back()
 				if _is_attack_up_position(byte):
 					#heavy_attack_up
 
-					wu_motion = Tool.WuMotion.Attack_Up
+					wu_motion = Glob.WuMotion.Attack_Up
 					
 				elif _is_attack_mid_position(byte):
 					#heavy_attack_mid
 
-					wu_motion = Tool.WuMotion.Attack_Mid
+					wu_motion = Glob.WuMotion.Attack_Mid
 					
 				elif _is_attack_bot_position(byte):
 					#heavy_attack_bot
-#						var a_list =_create_attack_action([Tool.FightMotion.Attack_Bot_Pre,Tool.FightMotion.Attack_Bot_In,Tool.FightMotion.Attack_Bot_After])
+#						var a_list =_create_attack_action([Glob.FightMotion.Attack_Bot_Pre,Glob.FightMotion.Attack_Bot_In,Glob.FightMotion.Attack_Bot_After])
 #						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 
-					wu_motion = Tool.WuMotion.Attack_Bot
+					wu_motion = Glob.WuMotion.Attack_Bot
 				elif _is_def_bot(byte):
 				
-#					var a_list =_create_attack_action([Tool.FightMotion.Def_Bot_Pre,Tool.FightMotion.Def_Bot_In,Tool.FightMotion.Def_Bot_After])
+#					var a_list =_create_attack_action([Glob.FightMotion.Def_Bot_Pre,Glob.FightMotion.Def_Bot_In,Glob.FightMotion.Def_Bot_After])
 #					regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-					wu_motion = Tool.WuMotion.Defend_Bot
+					wu_motion = Glob.WuMotion.Defend_Bot
 
 				elif _is_def_mid(byte):
 					
-					wu_motion = Tool.WuMotion.Defend_Mid
+					wu_motion = Glob.WuMotion.Defend_Mid
 				elif _is_def_up(byte):
 					
-					wu_motion = Tool.WuMotion.Defend_Up
+					wu_motion = Glob.WuMotion.Defend_Up
 				else:
-					wu_motion = Tool.WuMotion.Idle
+					wu_motion = Glob.WuMotion.Idle
 					pass	
 			else:
 				var startPos = moving_position_array.pop_front()
@@ -276,88 +276,88 @@ func _input(event):
 				
 				if _is_attack_up_position(resultByte):
 					#heavy_attack_up
-#						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U_Pre,Tool.FightMotion.HeavyAttack_U_In,Tool.FightMotion.HeavyAttack_U_After])
+#						var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_U_Pre,Glob.FightMotion.HeavyAttack_U_In,Glob.FightMotion.HeavyAttack_U_After])
 #
 #						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-					wu_motion = Tool.WuMotion.Attack_Up
+					wu_motion = Glob.WuMotion.Attack_Up
 					pass
 				elif _is_attack_u2m(resultByte):
 					#heavy_attack_up
-#						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U2M_Pre,Tool.FightMotion.HeavyAttack_U2M_In,Tool.FightMotion.HeavyAttack_U2M_After])
+#						var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_U2M_Pre,Glob.FightMotion.HeavyAttack_U2M_In,Glob.FightMotion.HeavyAttack_U2M_After])
 #
 #						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 					
-					wu_motion = Tool.WuMotion.Attack_U2M
+					wu_motion = Glob.WuMotion.Attack_U2M
 					pass
 				elif _is_attack_u2b(resultByte):
 					#h_a_u2b
 					
-#						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_U2B_Pre,Tool.FightMotion.HeavyAttack_U2B_In,Tool.FightMotion.HeavyAttack_U2B_After])
+#						var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_U2B_Pre,Glob.FightMotion.HeavyAttack_U2B_In,Glob.FightMotion.HeavyAttack_U2B_After])
 #
 #						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-					wu_motion = Tool.WuMotion.Attack_U2B
+					wu_motion = Glob.WuMotion.Attack_U2B
 					pass
 				elif _is_attack_m2u(resultByte):
 					#h_a_m2u
 					
-#						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M2U_Pre,Tool.FightMotion.HeavyAttack_M2U_In,Tool.FightMotion.HeavyAttack_M2U_After])
+#						var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_M2U_Pre,Glob.FightMotion.HeavyAttack_M2U_In,Glob.FightMotion.HeavyAttack_M2U_After])
 #
 #						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 					
-					wu_motion = Tool.WuMotion.Attack_M2U
+					wu_motion = Glob.WuMotion.Attack_M2U
 					pass
 				elif _is_attack_mid_position(resultByte):
 					#h_a_m
 					
-#						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M_Pre,Tool.FightMotion.HeavyAttack_M_In,Tool.FightMotion.HeavyAttack_M_After])
+#						var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_M_Pre,Glob.FightMotion.HeavyAttack_M_In,Glob.FightMotion.HeavyAttack_M_After])
 #
 #						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 
-					wu_motion = Tool.WuMotion.Attack_Mid
+					wu_motion = Glob.WuMotion.Attack_Mid
 					
 					pass
 				elif _is_attack_m2b(resultByte):
 						#h_a_m2b
 					
-#						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_M2B_After,Tool.FightMotion.HeavyAttack_M2B_In,Tool.FightMotion.HeavyAttack_M2B_After])
+#						var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_M2B_After,Glob.FightMotion.HeavyAttack_M2B_In,Glob.FightMotion.HeavyAttack_M2B_After])
 #
 #						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-					wu_motion = Tool.WuMotion.Attack_M2B
+					wu_motion = Glob.WuMotion.Attack_M2B
 					pass
 						
 				elif _is_attack_b2u(resultByte):
 						#h_a_b2u
 											
-#						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_B2U_Pre,Tool.FightMotion.HeavyAttack_B2U_In,Tool.FightMotion.HeavyAttack_B2U_After])
+#						var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_B2U_Pre,Glob.FightMotion.HeavyAttack_B2U_In,Glob.FightMotion.HeavyAttack_B2U_After])
 #
 #						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
 						
-					wu_motion = Tool.WuMotion.Attack_B2U
+					wu_motion = Glob.WuMotion.Attack_B2U
 					pass
 				elif _is_attack_b2m(resultByte):
 						#h_a_b2m
 						
-#						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_B2M_Pre,Tool.FightMotion.HeavyAttack_B2M_In,Tool.FightMotion.HeavyAttack_B2M_After])
+#						var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_B2M_Pre,Glob.FightMotion.HeavyAttack_B2M_In,Glob.FightMotion.HeavyAttack_B2M_After])
 #
 #						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-					wu_motion = Tool.WuMotion.Attack_B2M
+					wu_motion = Glob.WuMotion.Attack_B2M
 					pass
 				elif _is_attack_bot_position(resultByte):
 					#h_a_b
 					
-#						var a_list =_create_attack_action([Tool.FightMotion.HeavyAttack_B_Pre,Tool.FightMotion.HeavyAttack_B_In,Tool.FightMotion.HeavyAttack_B_After])
+#						var a_list =_create_attack_action([Glob.FightMotion.HeavyAttack_B_Pre,Glob.FightMotion.HeavyAttack_B_In,Glob.FightMotion.HeavyAttack_B_After])
 #
 #						regist_group_actions(a_list,global_id,ActionInfo.EXEMOD_GROUP_NEWEST)
-					wu_motion = Tool.WuMotion.Attack_Bot
+					wu_motion = Glob.WuMotion.Attack_Bot
 					pass
 				else:
 					#无效的指令了
-#						regist_action(Tool.FightMotion.Idle)
+#						regist_action(Glob.FightMotion.Idle)
 #						jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
-					wu_motion = Tool.WuMotion.Idle
+					wu_motion = Glob.WuMotion.Idle
 					pass
 
-			var newActionEvent = Tool.getPollObject(NewActionEvent,[wu_motion,attack_begin_time,OS.get_ticks_msec()])
+			var newActionEvent = Glob.getPollObject(NewActionEvent,[wu_motion,attack_begin_time,OS.get_ticks_msec()])
 			emit_signal("NewFightMotion",newActionEvent)
 	
 	#以上下左右的顺序 ，垂直方向上下对应用 10 和01  ；水平上左右对应用 10和01 表示
@@ -386,7 +386,7 @@ func _input(event):
 	
 	if event.is_action_pressed("jump") :
 		var input_vector = _gen_input_vector_by_bincode()
-		var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,false,true])	
+		var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,false,true])	
 		emit_signal("NewFightMotion",newActionEvent)	
 		
 	
@@ -406,7 +406,7 @@ func _input(event):
 #
 #			input_vector =  input_vector.normalized()
 #			print(event.is_echo())
-#			var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,event.is_echo()])
+#			var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,event.is_echo()])
 #			emit_signal("NewFightMotion",newActionEvent)	
 #
 #			if event.is_action_pressed("cancel"):
@@ -451,9 +451,9 @@ func _input(event):
 
 func _on_Timer_timeout():
 	show_heavy_attack_indicator()
-	var motionEvent =Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Holding,OS.get_ticks_msec(),OS.get_ticks_msec()])
+	var motionEvent =Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Holding,OS.get_ticks_msec(),OS.get_ticks_msec()])
 	emit_signal("NewFightMotion",motionEvent)
-#	regist_action(Tool.FightMotion.Holding,-1,ActionInfo.EXEMOD_NEWEST)
+#	regist_action(Glob.FightMotion.Holding,-1,ActionInfo.EXEMOD_NEWEST)
 #	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 
 #位置命名

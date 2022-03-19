@@ -1,0 +1,5 @@
+[gd_scene format=2]
+
+[node name="DuanJianDerived" type="Node2D"]
+
+[node name="sword_prototype" parent="." instance_placeholder="res://FrameWork/Gear/Weapon/SwordPrototype.tscn"]

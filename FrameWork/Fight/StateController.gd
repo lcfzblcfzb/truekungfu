@@ -13,7 +13,7 @@ export(String, FILE) var cfg_path
 func _ready():
 	
 	#从文件中读取JSON数据，并且赋值给对象同名属性上
-	var json =Tool.load_json_file(cfg_path) as Dictionary
+	var json =Glob.load_json_file(cfg_path) as Dictionary
 	
 	var pl = get_property_list()
 	for node in get_property_list():

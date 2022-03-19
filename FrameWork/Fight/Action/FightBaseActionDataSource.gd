@@ -1,13 +1,13 @@
-extends DataLoader
+extends ListDataMng
 
 var dict;
 
-func _ready():
-	
-	load_from_json_array_file("res://resource/config/BaseAction.tres",BaseAction)
 
+func _init():
+	file_path="res://resource/config/BaseAction.tres"
+	data_type=BaseAction
 #func load_from_file():
-#	var base_action_array = Tool.load_json_file("res://resource/config/BaseAction.tres")
+#	var base_action_array = Glob.load_json_file("res://resource/config/BaseAction.tres")
 #
 #	if base_action_array!=null:
 #		for action in base_action_array:
@@ -18,16 +18,6 @@ func _ready():
 #
 #	pass
 	
-#get 方法
-func get_by_base_id(base_id):
-	
-	for action in _datas:
-		
-		if action.id == base_id:
-			return action
-		pass
-	
-	return null
 
 func get_by_anim_name(anim)->String:
 	

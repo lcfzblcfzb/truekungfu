@@ -74,7 +74,7 @@ var _base_action_obj:BaseAction
 func get_base_action()->BaseAction:
 	
 	if _base_action_obj==null:
-		_base_action_obj = FightBaseActionDataSource.get_by_base_id(base_action)
+		_base_action_obj = FightBaseActionDataSource.get_by_id(base_action)
 	return _base_action_obj
 
 #保存动作的释放状态。

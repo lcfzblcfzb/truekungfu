@@ -11,35 +11,35 @@ static func _check_and_do_hangingclimb(event,fight_cpn)->bool:
 	var input_vector = event.move_direction
 	var lastMotion =action_mng.nearest_executed_action()
 	
-	if lastMotion and lastMotion.base_action == Tool.FightMotion.Hanging:
+	if lastMotion and lastMotion.base_action == Glob.FightMotion.Hanging:
 		
 		if event.is_jump:
 			var vec = Vector2(input_vector.x,-1)
 				#do jump up
-			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_INTERUPT])
+			var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_INTERUPT])
 			action_mng.regist_actioninfo(action)
 			return true
 		
 		if (input_vector.x<0 and fight_cpn.is_face_left() or input_vector.x>0 and not fight_cpn.is_face_left() )and !event.is_echo:
 			
-			var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.HangingClimb) as BaseAction
-			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.HangingClimb) as BaseAction
+			var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
 			action_mng.regist_actioninfo(action)
 			return true
-	elif lastMotion and lastMotion.base_action == Tool.FightMotion.HangingClimb and not event.is_echo:
+	elif lastMotion and lastMotion.base_action == Glob.FightMotion.HangingClimb and not event.is_echo:
 		
 		if event.is_jump:
 			var vec = Vector2(input_vector.x,-1)
 				#do jump up
-			var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_INTERUPT])
+			var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_INTERUPT])
 			action_mng.regist_actioninfo(action)
 			return true
 		pass 
 	
-	elif lastMotion and lastMotion.base_action == Tool.FightMotion.Walk and fight_cpn.is_at_hanging_corner() and event.is_jump:
+	elif lastMotion and lastMotion.base_action == Glob.FightMotion.Walk and fight_cpn.is_at_hanging_corner() and event.is_jump:
 		
-		var base = FightBaseActionDataSource.get_by_base_id(Tool.FightMotion.HangingClimb) as BaseAction
-		var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.HangingClimb) as BaseAction
+		var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
 		action_mng.regist_actioninfo(action)
 		return true
 		
@@ -54,13 +54,13 @@ static func _check_and_do_hanging(event,fight_cpn)->bool:
 	var input_vector = event.move_direction
 	var lastMotion =action_mng.nearest_executed_action()
 	
-	if lastMotion and lastMotion.base_action != Tool.FightMotion.Hanging and lastMotion.base_action != Tool.FightMotion.HangingClimb and lastMotion.base_action != Tool.FightMotion.JumpUp and  fight_cpn.is_at_hanging_corner() and not fight_cpn.is_on_genelized_floor():
+	if lastMotion and lastMotion.base_action != Glob.FightMotion.Hanging and lastMotion.base_action != Glob.FightMotion.HangingClimb and lastMotion.base_action != Glob.FightMotion.JumpUp and  fight_cpn.is_at_hanging_corner() and not fight_cpn.is_on_genelized_floor():
 		
-		var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Hanging,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_SEQ,false,true])
+		var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.Hanging,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_SEQ,false,true])
 		action_mng.regist_actioninfo(action)
 		return true
 		
-	elif lastMotion and lastMotion.base_action == Tool.FightMotion.Hanging:
+	elif lastMotion and lastMotion.base_action == Glob.FightMotion.Hanging:
 		#是HANGING 则进入下面的移动操作
 		return true
 		
@@ -71,7 +71,7 @@ static func normal_on_moveevent(event,fight_cpn):
 	
 	var action_mng = fight_cpn.actionMng
 	var input_vector = event.move_direction
-	var wu_motion = Tool.WuMotion.Idle
+	var wu_motion = Glob.WuMotion.Idle
 	var movable = fight_cpn.fightKinematicMovableObj as FightKinematicMovableObj
 	
 	if _check_and_do_hangingclimb(event,fight_cpn):
@@ -95,7 +95,7 @@ static func normal_on_moveevent(event,fight_cpn):
 				#如果只是平地起跳 input_vector=Vector2.ZERO的时候，也要保证 y=1；否则会被移动控制器忽略，使用上一个动作保存的方向
 				var vec = Vector2(input_vector.x,-1)
 				#do jump up
-				var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_SEQ])
+				var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_SEQ])
 				action_mng.regist_actioninfo(action)
 				
 			
@@ -105,7 +105,7 @@ static func normal_on_moveevent(event,fight_cpn):
 				if input_vector.y !=0 and fight_cpn.get("is_climbing") == true:
 					
 					#do climb
-					var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Climb,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS])
+					var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.Climb,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS])
 					action_mng.regist_actioninfo(action)
 				else:
 					
@@ -113,26 +113,26 @@ static func normal_on_moveevent(event,fight_cpn):
 
 					if is_run :
 						
-						var motion = Tool.FightMotion.Run
+						var motion = Glob.FightMotion.Run
 						
 						if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
-							motion = Tool.FightMotion.JumpUp
+							motion = Glob.FightMotion.JumpUp
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
-							motion = Tool.FightMotion.JumpDown
+							motion = Glob.FightMotion.JumpDown
 						
-						var action = Tool.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+						var action = Glob.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
 						action_mng.regist_actioninfo(action)
 						
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
 					else:
-						var motion = Tool.FightMotion.Walk
+						var motion = Glob.FightMotion.Walk
 						push_warning("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 						if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
-							motion = Tool.FightMotion.JumpUp
+							motion = Glob.FightMotion.JumpUp
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
-							motion = Tool.FightMotion.JumpDown
+							motion = Glob.FightMotion.JumpDown
 						
-						var action = Tool.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+						var action = Glob.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
 						action_mng.regist_actioninfo(action)
 						
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
@@ -142,26 +142,26 @@ static func normal_on_moveevent(event,fight_cpn):
 				if action_mng.action_array.size()>0:
 					
 					var lastMotion =action_mng.action_array.back()
-					var motion = Tool.FightMotion.Idle
+					var motion = Glob.FightMotion.Idle
 					if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
-						motion = Tool.FightMotion.JumpUp
+						motion = Glob.FightMotion.JumpUp
 					elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
-						motion = Tool.FightMotion.JumpDown
-					var action = Tool.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+						motion = Glob.FightMotion.JumpDown
+					var action = Glob.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
 					action_mng.regist_actioninfo(action)
 				else:
-					var action = Tool.getPollObject(ActionInfo,[Tool.FightMotion.Idle,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+					var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.Idle,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
 					action_mng.regist_actioninfo(action)
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
 	else:
 		var lastMotion =action_mng.last_action()
 		#这里是 攻击结束后，已经按下移动中的情况
 		#climb 是因为如果之前是climb ，而这里没有包括，则climb的动作会被walk替换
-		if lastMotion and (lastMotion.base_action != Tool.FightMotion.Run && lastMotion.base_action != Tool.FightMotion.Climb):
-			var motion = Tool.FightMotion.Walk
+		if lastMotion and (lastMotion.base_action != Glob.FightMotion.Run && lastMotion.base_action != Glob.FightMotion.Climb):
+			var motion = Glob.FightMotion.Walk
 			if movable.state == FightKinematicMovableObj.ActionState.JumpUp or movable.state == FightKinematicMovableObj.ActionState.JumpDown or movable.state == FightKinematicMovableObj.ActionState.Attack:
 				return
-			var action = Tool.getPollObject(ActionInfo,[motion, OS.get_ticks_msec(), [input_vector], -1, ActionInfo.EXEMOD_GENEROUS, false, true])
+			var action = Glob.getPollObject(ActionInfo,[motion, OS.get_ticks_msec(), [input_vector], -1, ActionInfo.EXEMOD_GENEROUS, false, true])
 			action_mng.regist_actioninfo(action)
 			pass
 	pass
@@ -183,7 +183,7 @@ static func is_trigger_run(input_vector,fight_cpn)->bool:
 		var tmp = action_array[index] as ActionInfo
 		#在极短时间内的几个run或者walk 都视为触发了run
 		if  tmp.action_create_time+run_action_min_interval_ms >= OS.get_ticks_msec():
-			if (tmp.base_action ==Tool.FightMotion.Walk ||tmp.base_action ==Tool.FightMotion.Run) && tmp.param[0] == input_vector:
+			if (tmp.base_action ==Glob.FightMotion.Walk ||tmp.base_action ==Glob.FightMotion.Run) && tmp.param[0] == input_vector:
 				return true
 		else:
 			return false;

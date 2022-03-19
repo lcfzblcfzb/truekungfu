@@ -8,7 +8,7 @@ func _init():
 	load_from_file()
 
 func load_from_file():
-	var base_action_array = Tool.load_json_file("res://config/BaseWuXueAction.tres")
+	var base_action_array = Glob.load_json_file("res://config/BaseWuXueAction.tres")
 	
 	if base_action_array!=null:
 		for action in base_action_array:
@@ -31,7 +31,7 @@ static func get_by_wuxue_and_action(wuxue,actionId)->BaseWuxueAction:
 	
 	baseWuxueAction.id=0;
 	baseWuxueAction.base_duration=0.3
-	baseWuxueAction.action_force_type =Tool.RandomTool.get_random([BaseWuXue.ActionForceType.CI,BaseWuXue.ActionForceType.GE,BaseWuXue.ActionForceType.LIAO,BaseWuXue.ActionForceType.SAO])
+	baseWuxueAction.action_force_type =Glob.RandomTool.get_random([WuXue.ActionForceType.CI,WuXue.ActionForceType.GE,WuXue.ActionForceType.LIAO,WuXue.ActionForceType.SAO])
 	baseWuxueAction.base_action_id = actionId
 	baseWuxueAction.wuxue_id = wuxue
 	return baseWuxueAction

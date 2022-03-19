@@ -1,4 +1,4 @@
-class_name BaseGear
+class_name Gear
 extends Node2D
 #被装备对象
 var _attach_charactor;
@@ -8,6 +8,8 @@ var _cached_anim_2_id = {}
 var fight_cpn
 
 var _animated_charactor
+
+var base_gear_id
 
 export(int) var state = StandarCharactor.CharactorState.Peace setget to_state
 

@@ -9,7 +9,7 @@ var INTER_NUM ="internum"
 
 var _original_margin:Rect2;
 	
-
+#todo 移除的时候要移除自身
 func _process(delta):
 	
 	start_check()

@@ -67,7 +67,7 @@ func _updateCurrentAction():
 func regist_action(a, duration=1, exemod=ActionInfo.EXEMOD_NEWEST,groupId =-1,param:Array=[] ):
 	#var action =ActionInfo.new(a,OS.get_ticks_msec(),param)
 	var input_array = [a ,OS.get_ticks_msec(),param,duration*1000,exemod,groupId]
-	var action =Tool.getPollObject(ActionInfo,input_array)
+	var action =Glob.getPollObject(ActionInfo,input_array)
 	regist_actioninfo (action)
 
 func debug_print():

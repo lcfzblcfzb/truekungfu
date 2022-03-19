@@ -59,7 +59,7 @@ func _calc_angle2endpos_relativily(start,end)->float:
 	#计算角度
 	var r = end.angle_to_point(start)
 	var R = r - attackRadiusBias
-	R =Tool.normalizeAngle(R)
+	R =Glob.normalizeAngle(R)
 	return R
 
 # 一共6位，每一位置代表的含义：  0:up_right; 0:mid_right; 0:bot_right; 0:bot_left; 0:mid_left; 0:up_left;
@@ -99,7 +99,7 @@ func _create_attack_action(action_list):
 	
 	for i in range(action_list.size()):
 		var k = action_list[i]
-		var base = FightBaseActionDataSource.get_by_base_id(k) as BaseAction
+		var base = FightBaseActionDataSource.get_by_id(k) as BaseAction
 		if i <2:
 			
 			param_dict[k]={create_time=OS.get_ticks_msec(),
@@ -117,7 +117,7 @@ func _create_group_actions(action_dict:Dictionary):
 	if action_dict==null||action_dict.size()<3:
 		return
 	
-	var pool = Tool.PoolDict.get(ActionInfo) as ObjPool
+	var pool = Glob.PoolDict.get(ActionInfo) as ObjPool
 	
 	var result = []
 	
@@ -143,7 +143,7 @@ func _physics_process(delta):
 	if _prv_input!=null and _prv_input ==Vector2.ZERO and _prv_input== input_vector:
 		pass
 	else:
-		var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	
+		var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	
 		emit_signal("NewFightMotion",newActionEvent)	
 		_prv_input = input_vector
 
@@ -175,14 +175,14 @@ func _input(event):
 	
 	if event.is_action_pressed("attack"):
 		attack_pressed = true
-		var newActionEvent = Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Attack,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Attack,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	if event.is_action_pressed("prepared"):
-		var newActionEvent = Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Prepared,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Prepared,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	if event.is_action_pressed("switch"):
 		
-		var newActionEvent = Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Switch,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Switch,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	
 	var is_action =event.is_action("ui_right")
@@ -212,7 +212,7 @@ func _input(event):
 	
 	if event.is_action_pressed("jump") :
 		var input_vector = _gen_input_vector_by_bincode()
-		var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,false,true])	
+		var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,false,true])	
 		emit_signal("NewFightMotion",newActionEvent)	
 	
 	if event.is_action_pressed("cancel"):
@@ -231,7 +231,7 @@ func _input(event):
 #
 #			input_vector =  input_vector.normalized()
 #			print(event.is_echo())
-#			var newActionEvent = Tool.getPollObject(MoveEvent,[input_vector,event.is_echo()])
+#			var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,event.is_echo()])
 #			emit_signal("NewFightMotion",newActionEvent)	
 #
 #			if event.is_action_pressed("cancel"):
@@ -277,9 +277,9 @@ func get_moving_vector()->Vector2:
 
 func _on_Timer_timeout():
 #	show_heavy_attack_indicator()
-	var motionEvent =Tool.getPollObject(NewActionEvent,[Tool.WuMotion.Holding,OS.get_ticks_msec(),OS.get_ticks_msec()])
+	var motionEvent =Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Holding,OS.get_ticks_msec(),OS.get_ticks_msec()])
 	emit_signal("NewFightMotion",motionEvent)
-#	regist_action(Tool.FightMotion.Holding,-1,ActionInfo.EXEMOD_NEWEST)
+#	regist_action(Glob.FightMotion.Holding,-1,ActionInfo.EXEMOD_NEWEST)
 #	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 
 #位置命名

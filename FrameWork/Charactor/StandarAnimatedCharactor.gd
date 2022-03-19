@@ -24,10 +24,10 @@ func _cache_animations():
 	
 	var base_charactor = BaseStandarCharactorsDMG.get_by_id(charactor_scene.charactor_type)
 	
-	for wuxue in WuxueMng.WuxueEnum:
+	for wuxue in Glob.WuxueEnum:
 		var animationplayer = _get_animationplayer_by_type(wuxue,base_charactor.skeletal_type)
 		
-		var _wuxue_id =WuxueMng.WuxueEnum[wuxue]
+		var _wuxue_id =Glob.WuxueEnum[wuxue]
 		var anim_dict = {}
 		for animation in animationplayer.get_animation_list():
 			anim_dict[animation] = animationplayer.get_animation(animation)
@@ -59,19 +59,19 @@ func choose_charactor(c,animation_node):
 		charactor_scene.queue_free()
 	
 	match c:
-		Tool.CharactorEnum.Rusheng:
+		Glob.CharactorEnum.Rusheng:
 			charactor_scene = rusheng_scn.instance()
 			charactor_scene.set("animation_node",animation_node)
 			charactor_scene.charactor_type = c
 			add_child(charactor_scene)
 			
-		Tool.CharactorEnum.Daoshi:
+		Glob.CharactorEnum.Daoshi:
 			charactor_scene = daoshi_scn.instance()
 			charactor_scene.set("animation_node",animation_node)
 			charactor_scene.charactor_type = c
 			add_child(charactor_scene)
 			
-		Tool.CharactorEnum.Fatguy:
+		Glob.CharactorEnum.Fatguy:
 			charactor_scene = fatguy_scn.instance()
 			charactor_scene.set("animation_node",animation_node)
 			charactor_scene.charactor_type = c
@@ -90,7 +90,7 @@ func _get_animationplayer_by_type(wuxue , skeletkal_type):
 
 # 1选择wuxue 对应的 animationplayer(charactor的）
 # 2选择wuxue 对应的装备（武器) 装备到charactor 身上
-func choose_coresponding_wuxue(wuxue:BaseWuXue):
+func choose_coresponding_wuxue(wuxue:WuXue):
 	
 	$AnimationTree.active = false
 	

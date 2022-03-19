@@ -6,7 +6,7 @@
 [ext_resource path="res://FrameWork/Fight/Action/FightActionMng.tscn" type="PackedScene" id=5]
 [ext_resource path="res://FrameWork/moving_obj/FightKinematicMovableObj.tscn" type="PackedScene" id=7]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
-[ext_resource path="res://FrameWork/Fight/Wu/weapon/Wu.tscn" type="PackedScene" id=12]
+[ext_resource path="res://FrameWork/Fight/Wu/wuxue/Wu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FrameWork/Verlex/scarf.tscn" type="PackedScene" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]

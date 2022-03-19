@@ -1,0 +1,24 @@
+[
+	{
+		"id":10,
+		"weapon_type":0,
+		"baseGearId":600
+		
+	},
+	{
+		"id":20,
+		"weapon_type":1,
+		"baseGearId":601
+		
+	},
+	
+	{
+		"id":30,
+		"weapon_type":2,
+		"baseGearId":602
+		
+	},
+	
+	
+	
+]

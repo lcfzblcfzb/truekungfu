@@ -9,7 +9,7 @@ export (NodePath)var fight_component_path
 var fight_component:FightComponent_human 
 
 #可选角色形象
-export (Tool.CharactorEnum) var chosed_characor = Tool.CharactorEnum.Daoshi
+export (Glob.CharactorEnum) var chosed_characor = Glob.CharactorEnum.Daoshi
 
 func _ready():
 	#根据设置的charactor 找到对应的角色类 并设置上
@@ -18,11 +18,11 @@ func _ready():
 	
 	var hurt_box = $StandarAnimatedCharactor.get_standar_charactor().get_hurt_box()
 	hurt_box.set("fight_cpn",fight_component)
-	if fight_component.camp == Tool.CampEnum.Bad:
+	if fight_component.camp == Glob.CampEnum.Bad:
 		#设置武器碰撞检测层
 		hurt_box.collision_layer =  	0b1000
 		hurt_box.collision_mask =	    0b0001
-	elif fight_component.camp == Tool.CampEnum.Good:
+	elif fight_component.camp == Glob.CampEnum.Good:
 		#设置武器碰撞检测层
 		hurt_box.collision_layer =   0b0010
 		hurt_box.collision_mask = 0b0100
@@ -30,7 +30,7 @@ func _ready():
 	$StandarAnimatedCharactor.fight_cpn = fight_component
 	change_face_direction(1)
 
-func choose_wuxue_animation_and_gear(wuxue:BaseWuXue):
+func choose_wuxue_animation_and_gear(wuxue:WuXue):
 	$StandarAnimatedCharactor.choose_coresponding_wuxue(wuxue)
 
 func change_state(state):

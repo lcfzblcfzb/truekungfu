@@ -1,5 +1,7 @@
-extends BaseGear
+extends Gear
 class_name Weapon
+
+var base_weapon_id
 
 var weapon_box:WeaponBox
 

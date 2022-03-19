@@ -32,7 +32,7 @@ func _input(event):
 		elif event.is_action_released("attack"):
 			endPos = event.global_position
 						
-			var screenPos =Tool.getCameraPosition(self)
+			var screenPos =Glob.getCameraPosition(self)
 			
 			var startVector = attackPos - screenPos
 			var moveVector = endPos - screenPos
@@ -41,7 +41,7 @@ func _input(event):
 			if attackDirection==0:
 				attackDirection =1;
 			#计算 endPos 与 父节点 所成的向量 的 角度值
-			endPosRotation =Tool.normalizeAngle(endPos.angle_to_point(screenPos))
+			endPosRotation =Glob.normalizeAngle(endPos.angle_to_point(screenPos))
 			onEndPosChange()
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
@@ -49,9 +49,9 @@ func _input(event):
 		var screenPos
 		
 		if jisu.get("sprite") != null:
-			screenPos =Tool.getCameraPosition(jisu.sprite)
+			screenPos =Glob.getCameraPosition(jisu.sprite)
 		else:
-			screenPos =Tool.getCameraPosition(jisu)
+			screenPos =Glob.getCameraPosition(jisu)
 		toMouseVector = (mouseMovingPos- screenPos).normalized()
 		onMouseMovingPosChange()
 		

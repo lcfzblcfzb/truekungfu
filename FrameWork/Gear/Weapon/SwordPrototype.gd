@@ -11,11 +11,11 @@ func _ready():
 	
 	weapon_box.monitoring=false
 	
-	if fight_cpn.camp == Tool.CampEnum.Bad:
+	if fight_cpn.camp == Glob.CampEnum.Bad:
 		#设置武器碰撞检测层
 		weapon_box.collision_layer =	 0b0100
 		weapon_box.collision_mask = 	 0b0010
-	elif fight_cpn.camp == Tool.CampEnum.Good:
+	elif fight_cpn.camp == Glob.CampEnum.Good:
 		#设置武器碰撞检测层
 		weapon_box.collision_layer = 0b0001
 		weapon_box.collision_mask =  0b1000
@@ -125,11 +125,11 @@ func set_unsync_to_source():
 	sword_left_remote.update_scale = false
 
 func on_actioninfo_start(action:ActionInfo):
-	if action.base_action == Tool.FightMotion.Prepared:
+	if action.base_action == Glob.FightMotion.Prepared:
 		$AnimationPlayer.play("prepared")
-	elif action.base_action == Tool.FightMotion.Unprepared:
+	elif action.base_action == Glob.FightMotion.Unprepared:
 		$AnimationPlayer.play("unprepared")
-	elif action.base_action == Tool.FightMotion.Attack:
+	elif action.base_action == Glob.FightMotion.Attack:
 		set_unsync_to_source()
 		print(action.action_duration_ms/1000.0)
 		$AnimationPlayer.play("attack",-1,1000/action.action_duration_ms)
@@ -139,6 +139,6 @@ func on_actioninfo_start(action:ActionInfo):
 	pass
 func on_actioninfo_end(action:ActionInfo):
 	
-	if action.base_action == Tool.FightMotion.Attack:
+	if action.base_action == Glob.FightMotion.Attack:
 		set_sync_to_source()
 		

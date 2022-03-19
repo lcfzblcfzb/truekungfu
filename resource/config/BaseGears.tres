@@ -1,0 +1,32 @@
+[
+	{
+		"id":600,
+		"name":"fist",
+		"desc":"fistfistfist",
+		"slot":6,
+		"baseOutfitId":-1,
+		"resourcePaths":[]
+		
+	},
+	{
+		"id":601,
+		"name":"DuanDao",
+		"desc":"DuanDaoDuanDao",
+		"slot":6,
+		"baseOutfitId":1000,
+		"resourcePaths":[]
+		
+	},
+	{
+		"id":602,
+		"name":"DuanJian",
+		"desc":"DuanJianDuanJianDuanJian",
+		"slot":6,
+		"baseOutfitId":1001,
+		"resourcePaths":[]
+		
+	}
+	
+	
+	
+]

@@ -1,17 +1,17 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://FrameWork/Fight/Wu/weapon/Fist.gd" type="Script" id=1]
-[ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=2]
-[ext_resource path="res://resource/animation/StandarCharactorTree.tres" type="AnimationNodeBlendTree" id=3]
+[ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/FistBehaviorTree.tscn" type="PackedScene" id=1]
+[ext_resource path="res://FrameWork/Fight/Wu/wuxue/Fist.gd" type="Script" id=2]
+[ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=3]
 [ext_resource path="res://FrameWork/Fight/FightComponnetAnimationTree.gd" type="Script" id=4]
-[ext_resource path="res://FrameWork/Fight/Wu/weapon/behavior_tree/fist/FistBehaviorTree.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resource/animation/StandarCharactorTree.tres" type="AnimationNodeBlendTree" id=5]
 
 [node name="WU_Fist" type="Node2D"]
 position = Vector2( 6, 0 )
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = ExtResource( 3 )
+tree_root = ExtResource( 5 )
 process_mode = 0
 parameters/TimeScale/scale = 1.0
 parameters/attack/blend_position = 0.0
@@ -30,9 +30,9 @@ parameters/unprepared_shot/active = false
 parameters/unprepared_tran/current = 0
 script = ExtResource( 4 )
 
-[node name="FistBehaviorTree" parent="." instance=ExtResource( 5 )]
+[node name="FistBehaviorTree" parent="." instance=ExtResource( 1 )]
 
 [node name="Blackboard" type="Node" parent="."]
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [editable path="FistBehaviorTree"]

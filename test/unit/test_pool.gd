@@ -13,7 +13,7 @@ func after_all():
 
 func test_pool():
 	
-	var pool =ObjPool.new(FightActionController.ActionInfo)
+	var pool =ObjPool.new(ActionInfo)
 	var instanceArray =[]
 	for i in 100:
 		
