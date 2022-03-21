@@ -58,6 +58,15 @@ enum GearEnum{
 	
 }
 
+#既是 base_weapon_id
+enum WeaponEnum{
+	
+	Fist =10,
+	DuanDao =20,
+	DuanJian =30,
+	
+}
+
 #武器类型（武器大类)
 enum WeaponType{
 	Fist=0,

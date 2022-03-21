@@ -109,15 +109,42 @@ func learn_wuxue(_wuxue_list:Array):
 #base_weapon_id :Glob.GearEnum
 func init_weapon(base_weapon_id):
 	
+	
+	
 	pass
 	
 #装备武器
-func equip_weapon(base_weapon_id):
+func equip_weapon(base_weapon):
 	
-	pass
+	var base_weapon_obj:BaseWeapon
+	if base_weapon is BaseWeapon:
+		base_weapon_obj = base_weapon
+	elif base_weapon is int:
+		base_weapon_obj = BaseWeaponDmg.get_by_id(base_weapon) as BaseWeapon
+	
+	if base_weapon_obj:
+		
+		if base_weapon.res_path:
+			var weapon_derived = load(base_weapon.res_path).instance()
+		else:
+			var weapon_derived = load("res://Game/Gear/Weapon/WeaponDerived.tscn").instance() as Node
+			var proto = BaseWeaponDmg.weapontype2prototype[base_weapon_obj.weaponType]
+			weapon_derived.add_child(proto)
+
+#选择武器使用
+func choose_weapon(id):
+	
+	pass			
 	
 #装备道具
 func equip_gear(base_gear_id):
+	
+	var base_gear = BaseGearDmg.get_by_id(base_gear_id) as BaseGear
+	
+	if base_gear.slot== Glob.GearSlot.Weapon:
+		
+		var base_weapon = BaseWeaponDmg.get_by_base_gear_id(base_gear_id)
+		equip_weapon(base_weapon)
 	
 	pass	
 #func test_switch():

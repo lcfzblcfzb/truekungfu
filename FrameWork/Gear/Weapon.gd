@@ -3,12 +3,14 @@ class_name Weapon
 
 var base_weapon_id
 
-var weapon_box:WeaponBox
+var weapon_box:WeaponBox setget ,getWeaponBox
 
 enum Direction{
 	UP,CENTER,DOWN
 }
 
+func getWeaponBox():
+	return weapon_box
 
 #防御
 func defence(d):

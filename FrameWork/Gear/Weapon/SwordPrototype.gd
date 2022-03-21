@@ -69,22 +69,7 @@ func on_remove_from_charactor(_charactor:StandarCharactor):
 	sheath_remote.queue_free()
 	sword_right_remote.queue_free()
 	sword_left_remote.queue_free()
-	if _cached_anim_2_id.size()>0:
 		
-		var anim_array = _animated_charactor.chosed_animation_player.get_animation_list()
-		
-		for anim in anim_array:
-
-			var prepared_animation = _animated_charactor.chosed_animation_player.get_animation(anim)
-			#1 在源animationplayer上 名称为 anim 的动画 上新增一个 type_animation 的 track,获得返回的track id
-			if _cached_anim_2_id.has(anim):
-
-				var _track_id = _cached_anim_2_id[anim]
-				prepared_animation.remove_track(_track_id)
-				print(prepared_animation.get_track_count())
-		_cached_anim_2_id.clear()
-		
-	_animated_charactor = null	
 	queue_free()
 	
 func set_sync_to_source():
