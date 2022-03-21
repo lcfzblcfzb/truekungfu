@@ -184,6 +184,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/behavior_tree/src/blackboard.gd"
 }, {
+"base": "PrototypeA",
+"class": "ClassB",
+"language": "GDScript",
+"path": "res://FrameWork/proto/ClassB.gd"
+}, {
 "base": "Reference",
 "class": "DTS",
 "language": "GDScript",
@@ -274,6 +279,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Gear/Gear.gd"
 }, {
+"base": "Gear",
+"class": "GearDerived",
+"language": "GDScript",
+"path": "res://Game/Gear/GearDerived.gd"
+}, {
 "base": "Area2D",
 "class": "HurtBox",
 "language": "GDScript",
@@ -333,6 +343,11 @@ _global_script_classes=[ {
 "class": "PlatformGestureActionController",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Controller/PlatformGestureController.gd"
+}, {
+"base": "Reference",
+"class": "PrototypeA",
+"language": "GDScript",
+"path": "res://FrameWork/proto/ProtoA.gd"
 }, {
 "base": "Node2D",
 "class": "StandarAnimatedCharactor",
@@ -430,6 +445,7 @@ _global_script_class_icons={
 "BaseWuxueAction": "",
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
+"ClassB": "",
 "DTS": "",
 "DataLoader": "",
 "DataMng": "",
@@ -448,6 +464,7 @@ _global_script_class_icons={
 "Fight_State_Controller": "",
 "Fist": "",
 "Gear": "",
+"GearDerived": "",
 "HurtBox": "",
 "Identified": "",
 "IntEntity": "",
@@ -460,6 +477,7 @@ _global_script_class_icons={
 "ObjPool": "",
 "Platform": "",
 "PlatformGestureActionController": "",
+"PrototypeA": "",
 "StandarAnimatedCharactor": "",
 "StandarCharactor": "",
 "Sword": "",

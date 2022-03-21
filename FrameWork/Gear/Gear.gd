@@ -4,34 +4,72 @@ extends Node2D
 var _attach_charactor;
 
 var animation_player:AnimationPlayer
-#var _cached_anim_2_id = {}
 
 var fight_cpn
 
-#var _animated_charactor
-
 var base_gear_id
+
+var _base_gear:BaseGear setget ,get_base_gear
+
+var __proto:Gear setget __set_proto 
+
+func __set_proto(p):
+	
+	var cyclic_flag = false
+	while true:
+		var pt = p
+		if pt.__proto:
+			if pt.__proto==p:
+				cyclic_flag = true
+				break;
+		else:
+			break
+	if cyclic_flag:
+		push_error("cyclic proto error")
+	else:
+		__proto = p
+
+func get_base_gear()->BaseGear:
+	
+	if __proto:
+		return __proto.get_base_gear()
+	
+	if !_base_gear:
+		_base_gear = BaseGearDmg.get_by_id(base_gear_id)
+	return _base_gear
 
 export(int) var state = StandarCharactor.CharactorState.Peace setget to_state
 
 func to_state(s):
+	if __proto:
+		__proto._on_to_state(s)
+	
 	_on_to_state(s)
 	state = s
 
 func _on_to_state(s):
+	if __proto:
+		__proto._on_to_state(s)
 	pass
 #装备的回调方法
 func on_add_to_charactor(_charactor):
+	if __proto:
+		__proto.on_add_to_charactor(_charactor)
 	pass
 
 func on_remove_from_charactor(_charactor):
+	if __proto:
+		__proto.on_remove_from_charactor(_charactor)	
 	pass
 
 func on_actioninfo_start(action:ActionInfo):
-	pass
+	if __proto:
+		__proto.on_actioninfo_start(action)	
+		
 #同上 是 end 方法的回调
 func on_actioninfo_end(action:ActionInfo):
-	pass
+	if __proto:
+		__proto.on_actioninfo_end(action)	
 
 #func repath_to_animation_charactor(animation_charactor):
 #

@@ -88,8 +88,7 @@ func _get_animationplayer_by_type(wuxue , skeletkal_type):
 			
 	return $CharactorAnimationPlayers/AnimationPlayer
 
-# 1选择wuxue 对应的 animationplayer(charactor的）
-# 2选择wuxue 对应的装备（武器) 装备到charactor 身上
+# 选择wuxue 对应的 animationplayer(charactor的）
 func choose_coresponding_wuxue(wuxue:WuXue):
 	
 	$AnimationTree.active = false
@@ -98,22 +97,10 @@ func choose_coresponding_wuxue(wuxue:WuXue):
 	if !base_charactor:
 		return
 	
-	#失效的方法： 在切换wuxue 的时候 会报错，动画不能准确切换
 	chosed_animation_player = _get_animationplayer_by_type(wuxue.get_wuxue_type(),base_charactor.skeletal_type)
-#	copy_2_animation_agent(wuxue.get_wuxue_type())
 	_check_dependency()
 	chosed_animation_player.emit_signal("caches_cleared")
 	
-	#武器 的 外形 在此初始化
-	if wuxue.weapon_path:
-		var weapon = load(wuxue.weapon_path).instance() as Weapon
-		weapon.fight_cpn = fight_cpn
-		
-		wuxue._gear_cache.append(weapon)
-		charactor_scene.add_gear(weapon)
-		
-		charactor_scene.state = StandarCharactor.CharactorState.Peace
-#		weapon.repath_to_animation_charactor(self)
 	$AnimationTree.set_deferred("active",true)
 		
 func get_coresponding_animation_tree():

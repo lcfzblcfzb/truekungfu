@@ -20,3 +20,38 @@ func test_get_override():
 	assert_eq(ie.id ,2)
 	ie.id = 1.6
 	assert_eq(ie.id ,2)
+
+
+func test_prototype():
+	
+	var pa = PrototypeA.new("a")
+	var pb = PrototypeA.new("b")
+	
+	var ca = ClassB.new("class_b")
+	
+	pa.methoA()
+	pa.methoB()
+	pb.methoA()
+	pb.methoB()
+	ca.methoA()
+	ca.methoB()	
+	
+	pb.__prototype = pa
+	
+	
+	pa.methoA()
+	pa.methoB()
+	pb.methoA()
+	pb.methoB()
+	ca.methoA()
+	ca.methoB()	
+	
+	ca.__prototype = pa
+	
+	
+	pa.methoA()
+	pa.methoB()
+	pb.methoA()
+	pb.methoB()
+	ca.methoA()
+	ca.methoB()	

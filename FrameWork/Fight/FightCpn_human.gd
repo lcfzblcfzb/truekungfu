@@ -28,10 +28,10 @@ var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGesture
 export (Array,Glob.WuxueEnum) var _learned_wuxue:Array=[Glob.WuxueEnum.Fist]
 
 #已装备的 道具
-var _equiped_gears = []
+# slot->[ baseGear ]
+var _equiped_gears_dict = {}
 #使用中的weapon
 var weapon_onuse :Weapon
-
 
 #是否处于可攀爬位置
 func is_at_hanging_corner()->bool:
@@ -44,15 +44,6 @@ func set_climbing(b):
 		fightKinematicMovableObj.climb_over()
 
 func _ready():
-	
-	#初始化 武器碰撞
-#	var col = CollisionShape2D.new()
-#	col.shape = wu.get_weapon_box()
-#	sprite_animation.weapon_box.add_child(col)
-#	if col.shape is CapsuleShape2D:
-#		col.position.x = col.shape.radius
-	#设置fight_cpn 到hitbox和hurtbox
-#	sprite_animation.weapon_box.fight_cpn = self
 	
 	if is_player:
 		fight_controller = player_controller_scene.instance()
@@ -80,12 +71,6 @@ func _ready():
 	#TODO 可以指定初始状态
 	if not is_on_floor():
 		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.JumpDown
-#	$Wu.switch_wu(Glob.WuxueEnum.Fist)
-#	sprite.texture = $Wu.get_texture()
-#	yield(get_tree().create_timer(2),"timeout")
-#	$Wu.switch_wu(Glob.WuxueEnum.Sword)
-#	sprite.texture = $Wu.get_texture()
-#	test_switch()
 	
 	$Energy.set_max_value(block_value)
 	$Energy.update_value(block_value)
@@ -133,20 +118,33 @@ func equip_weapon(base_weapon):
 
 #选择武器使用
 func choose_weapon(id):
+	#武器 的 外形 在此初始化
+	var weapon = _equiped_gears_dict.get(Glob.GearSlot.Weapon)[id] as Weapon
+	weapon.fight_cpn = self
 	
+#	wuxue._gear_cache.append(weapon)
+#	charactor_scene.add_gear(weapon)
+#	charactor_scene.state = StandarCharactor.CharactorState.Peace
 	pass			
 	
 #装备道具
 func equip_gear(base_gear_id):
-	
 	var base_gear = BaseGearDmg.get_by_id(base_gear_id) as BaseGear
+	var _gear = load(base_gear.res_path).instance() as Gear
+	_add_to_gear_dict(_gear)
 	
-	if base_gear.slot== Glob.GearSlot.Weapon:
-		
-		var base_weapon = BaseWeaponDmg.get_by_base_gear_id(base_gear_id)
-		equip_weapon(base_weapon)
+#向gear dict 添加装备的工具方法
+func _add_to_gear_dict(_gear:Gear):
+	if _equiped_gears_dict.has(_gear.slot):
+		_equiped_gears_dict.get(_gear.slot).append(_gear)
+	else:
+		_equiped_gears_dict[_gear.slot]=[_gear]
+
+func _remove_from_gear_dict(_gear:Gear):
+	if _equiped_gears_dict.has(_gear.slot):
+		_equiped_gears_dict.get(_gear.slot).erase(_gear)
 	
-	pass	
+
 #func test_switch():
 #
 #	var gongfu =[Glob.WuxueEnum.Fist,Glob.WuxueEnum.Sword]

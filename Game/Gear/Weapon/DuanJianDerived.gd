@@ -1,5 +1,5 @@
 extends WeaponDerived
 
 func _ready():
-	proxy_weapon = $sword_prototype
+	__set_proto($sword_prototype)
 

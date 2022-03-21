@@ -8,4 +8,4 @@ var name:String
 var desc:String
 #资源路径。数组的形式按顺序 保存 [];
 var resourcePaths:Array
-
+var res_path:String
