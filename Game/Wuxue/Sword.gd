@@ -50,7 +50,7 @@ func _do_wu_motion(wu_motion,is_heavy):
 		
 		Glob.WuMotion.Switch:
 			
-			fight_cpn.switch_weapon(Glob.WuxueEnum.Fist)
+			fight_cpn.switch_weapon(0,Glob.WuxueEnum.Fist)
 			pass
 		Glob.WuMotion.Attack_Up:
 			if is_heavy:

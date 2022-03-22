@@ -1,17 +1,41 @@
 class_name Gear
 extends Node2D
-#被装备对象
-var _attach_charactor;
 
-var animation_player:AnimationPlayer
+#dynamic
+var animation_player:AnimationPlayer setget ,get_animation_player
 
-var fight_cpn
-
+#static
 var base_gear_id
-
 var _base_gear:BaseGear setget ,get_base_gear
-
+var fight_cpn setget set_fight_cpn ,get_fight_cpn
+#proto
 var __proto:Gear setget __set_proto 
+
+export(int) var state = StandarCharactor.CharactorState.Peace setget  to_state,get_state
+
+func init(base_gear:BaseGear,fcpn):
+	if __proto:
+		__proto.init(base_gear,fcpn)
+	
+	self.fight_cpn = fcpn
+	self._base_gear = base_gear
+	self.base_gear_id = base_gear.id
+
+
+func set_fight_cpn(f):
+	
+	fight_cpn = f
+
+func get_fight_cpn():
+		
+	return fight_cpn
+
+func get_animation_player():
+	
+	if __proto:
+		return __proto.get_animation_player()
+	
+	return animation_player
 
 func __set_proto(p):
 	
@@ -30,36 +54,38 @@ func __set_proto(p):
 		__proto = p
 
 func get_base_gear()->BaseGear:
-	
-	if __proto:
-		return __proto.get_base_gear()
-	
 	if !_base_gear:
 		_base_gear = BaseGearDmg.get_by_id(base_gear_id)
 	return _base_gear
 
-export(int) var state = StandarCharactor.CharactorState.Peace setget to_state
+func get_state():
+	
+	if __proto:
+		return __proto.get_state()
+	
+	return state
 
 func to_state(s):
 	if __proto:
-		__proto._on_to_state(s)
-	
-	_on_to_state(s)
+		__proto.to_state(s)
+		return
+		
 	state = s
+	_on_to_state(s)
 
 func _on_to_state(s):
 	if __proto:
 		__proto._on_to_state(s)
 	pass
 #装备的回调方法
-func on_add_to_charactor(_charactor):
+func on_add_to_charactor():
 	if __proto:
-		__proto.on_add_to_charactor(_charactor)
+		__proto.on_add_to_charactor()
 	pass
 
-func on_remove_from_charactor(_charactor):
+func on_remove_from_charactor():
 	if __proto:
-		__proto.on_remove_from_charactor(_charactor)	
+		__proto.on_remove_from_charactor()	
 	pass
 
 func on_actioninfo_start(action:ActionInfo):

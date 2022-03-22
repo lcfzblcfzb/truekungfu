@@ -66,7 +66,7 @@ func get_weapon_box()->Shape2D:
 	return wuxue.weapon_box_path
 	
 # TODO 在ready的时候，设置wuxue 的fight_component
-func _init_wu(type= WuxueMng.WuxueEnum.Fist):
+func _init_wu(type= Glob.WuxueEnum.Fist):
 	
 	if wuxue:
 		wuxue.animation_tree.active = false
@@ -89,7 +89,7 @@ func _init_wu(type= WuxueMng.WuxueEnum.Fist):
 #切换武学
 #1清理上一个wuxue 的装备等等
 #2添加入
-func switch_wu(type= WuxueMng.WuxueEnum.Fist):
+func switch_wu(type= Glob.WuxueEnum.Fist):
 	if wuxue:
 		wuxue.animation_tree.active = false
 	

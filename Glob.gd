@@ -53,6 +53,7 @@ enum CharactorEnum{
 #装备枚举（base_id)
 enum GearEnum{
 	
+	Fist = 600,
 	DuanDao=601,
 	DuanJian=602,
 	

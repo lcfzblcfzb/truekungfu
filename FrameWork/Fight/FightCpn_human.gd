@@ -66,7 +66,11 @@ func _ready():
 	#初始化 武学
 	#TODO 根据配置设置角色形象
 #	sprite_animation.set_sprite_texture($Wu.get_texture())
-	sprite_animation.choose_wuxue_animation_and_gear($Wu.wuxue)
+#	sprite_animation.choose_wuxue_animation_and_gear($Wu.wuxue)
+	
+	equip_gear(Glob.GearEnum.Fist)
+	equip_gear(Glob.GearEnum.DuanJian)
+	choose_weapon_using_wuxue(0,Glob.WuxueEnum.Fist)
 	#初始状态检测
 	#TODO 可以指定初始状态
 	if not is_on_floor():
@@ -90,11 +94,19 @@ func learn_wuxue(_wuxue_list:Array):
 			continue
 		_learned_wuxue.append(_wuxue)	
 
+#通过weapon type 获得适配的 学会的wuxue 
+func get_learned_wuxue_by_weapon_type(type):
+	var result =[]
+	for _wuxue in _learned_wuxue:
+		var _base_wuxue = BaseWuxueDmg.get_by_id(_wuxue) as BaseWuxue
+		if _base_wuxue and _base_wuxue.weapon_type.has(type):
+			result.append(_base_wuxue)
+	
+	return result
+
 #初始化武器
 #base_weapon_id :Glob.GearEnum
 func init_weapon(base_weapon_id):
-	
-	
 	
 	pass
 	
@@ -109,42 +121,71 @@ func equip_weapon(base_weapon):
 	
 	if base_weapon_obj:
 		
-		if base_weapon.res_path:
-			var weapon_derived = load(base_weapon.res_path).instance()
+		if base_weapon.scene_path:
+			var weapon_derived = load(base_weapon.scene_path).instance()
 		else:
 			var weapon_derived = load("res://Game/Gear/Weapon/WeaponDerived.tscn").instance() as Node
 			var proto = BaseWeaponDmg.weapontype2prototype[base_weapon_obj.weaponType]
 			weapon_derived.add_child(proto)
 
+var weapon_in_use
+
 #选择武器使用
-func choose_weapon(id):
+func choose_weapon_using_wuxue(id,wuxue):
 	#武器 的 外形 在此初始化
 	var weapon = _equiped_gears_dict.get(Glob.GearSlot.Weapon)[id] as Weapon
-	weapon.fight_cpn = self
 	
-#	wuxue._gear_cache.append(weapon)
-#	charactor_scene.add_gear(weapon)
-#	charactor_scene.state = StandarCharactor.CharactorState.Peace
-	pass			
+	var weapon_type = weapon.get_base_weapon().weaponType
+	
+	if not _learned_wuxue.has(wuxue):
+		push_error("dont have leanrned wuxue to use")
+		return
+	weapon_in_use = weapon
+	_set_weapon_active(weapon)
+	wu.switch_wu(wuxue)
+
+#激活一个武器
+func _set_weapon_active(weapon):
+	
+	for _wp in _equiped_gears_dict.get(Glob.GearSlot.Weapon):
+		if _wp != weapon:
+			_wp.active = false
+	
+	weapon.active =true
 	
 #装备道具
 func equip_gear(base_gear_id):
 	var base_gear = BaseGearDmg.get_by_id(base_gear_id) as BaseGear
-	var _gear = load(base_gear.res_path).instance() as Gear
-	_add_to_gear_dict(_gear)
+	var _gear = load(base_gear.scene_path).instance() as Gear
+	
+	_add_to_gear_dict(_gear,base_gear)
 	
 #向gear dict 添加装备的工具方法
-func _add_to_gear_dict(_gear:Gear):
-	if _equiped_gears_dict.has(_gear.slot):
-		_equiped_gears_dict.get(_gear.slot).append(_gear)
+func _add_to_gear_dict(_gear:Gear,base_gear:BaseGear):
+	
+	var slot =  base_gear.slot
+	
+	if _equiped_gears_dict.has(slot):
+		_equiped_gears_dict.get(slot).append(_gear)
 	else:
-		_equiped_gears_dict[_gear.slot]=[_gear]
+		_equiped_gears_dict[slot]=[_gear]
+	
+	sprite_animation.get_standar_charactor().add_gear(_gear)
+	
+	_gear.init(base_gear,self)
+	_gear.on_add_to_charactor()
 
 func _remove_from_gear_dict(_gear:Gear):
-	if _equiped_gears_dict.has(_gear.slot):
-		_equiped_gears_dict.get(_gear.slot).erase(_gear)
 	
-
+	var slot =  _gear.get_base_gear().slot
+	
+	if _equiped_gears_dict.has(slot):
+		_equiped_gears_dict.get(slot).erase(_gear)
+		
+	sprite_animation.get_standar_charactor().remove_gear(_gear)
+	
+	_gear.on_remove_from_charactor()
+	
 #func test_switch():
 #
 #	var gongfu =[Glob.WuxueEnum.Fist,Glob.WuxueEnum.Sword]
@@ -185,9 +226,11 @@ func check_engaged():
 
 #切换武器
 #wuxue: Glob.WuxueEnum.Fist
-func switch_weapon(wuxue):
-	wu.switch_wu(wuxue)
-	sprite_animation.choose_wuxue_animation_and_gear(wu.wuxue)
+func switch_weapon(index,wuxue):
+	
+	choose_weapon_using_wuxue(index,wuxue)
+#	wu.switch_wu(wuxue)
+#	sprite_animation.choose_wuxue_animation_and_gear(wu.wuxue)
 
 #是否处于准备状态
 var is_prepared = false setget _set_prepared

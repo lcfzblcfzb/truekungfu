@@ -22,6 +22,7 @@ __meta__ = {
 "_edit_vertical_guides_": [ 201.675 ]
 }
 is_player = true
+_learned_wuxue = [ 1, 2 ]
 
 [node name="FightKinematicMovableObj" parent="." instance=ExtResource( 7 )]
 bodyPath = NodePath("..")

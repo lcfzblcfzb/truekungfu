@@ -32,8 +32,7 @@ func on_action_event(event:NewActionEvent):
 			pass
 				
 		Glob.WuMotion.Switch:
-			
-			fight_cpn.switch_weapon(Glob.WuxueEnum.Sword)
+			fight_cpn.switch_weapon(1,Glob.WuxueEnum.Sword)
 				
 		Glob.WuMotion.Prepared:
 			fight_cpn.is_prepared = true

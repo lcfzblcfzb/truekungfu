@@ -5,7 +5,8 @@
 		"desc":"fistfistfist",
 		"slot":6,
 		"baseOutfitId":-1,
-		"resourcePaths":[]
+		"resourcePaths":[],
+		"scene_path":"res://Game/Gear/Weapon/WeaponDerived.tscn"
 		
 	},
 	{
@@ -14,7 +15,8 @@
 		"desc":"DuanDaoDuanDao",
 		"slot":6,
 		"baseOutfitId":1000,
-		"resourcePaths":[]
+		"resourcePaths":[],
+		"scene_path":"res://Game/Gear/Weapon/WeaponDerived.tscn"
 		
 	},
 	{
@@ -23,7 +25,8 @@
 		"desc":"DuanJianDuanJianDuanJian",
 		"slot":6,
 		"baseOutfitId":1001,
-		"resourcePaths":[]
+		"resourcePaths":[],
+		"scene_path":"res://Game/Gear/Weapon/DuanJianDerived.tscn"
 		
 	}
 	

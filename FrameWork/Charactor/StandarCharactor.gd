@@ -59,16 +59,13 @@ func add_gear(gear):
 		return
 	_gears_array.append(gear)
 	add_child(gear)
-	gear._attach_charactor = self
-	gear.on_add_to_charactor(self)
+	
 	
 func remove_gear(gear):
 	var idx =_gears_array.find(gear)   
 	if idx>=0:
 		_gears_array.remove(idx)
 		remove_child(gear)
-		gear._attach_charactor = null
-		gear.on_remove_from_charactor(self)
 		
 
 #animationPlayer中 由call_method_track 调用的方法
