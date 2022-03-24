@@ -8,14 +8,12 @@ var animation_player:AnimationPlayer setget ,get_animation_player
 var base_gear_id
 var _base_gear:BaseGear setget ,get_base_gear
 var fight_cpn setget set_fight_cpn ,get_fight_cpn
-#proto
-var __proto:Gear setget __set_proto 
+
 
 export(int) var state = StandarCharactor.CharactorState.Peace setget  to_state,get_state
 
 func init(base_gear:BaseGear,fcpn):
-	if __proto:
-		__proto.init(base_gear,fcpn)
+
 	
 	self.fight_cpn = fcpn
 	self._base_gear = base_gear
@@ -32,26 +30,8 @@ func get_fight_cpn():
 
 func get_animation_player():
 	
-	if __proto:
-		return __proto.get_animation_player()
-	
 	return animation_player
 
-func __set_proto(p):
-	
-	var cyclic_flag = false
-	while true:
-		var pt = p
-		if pt.__proto:
-			if pt.__proto==p:
-				cyclic_flag = true
-				break;
-		else:
-			break
-	if cyclic_flag:
-		push_error("cyclic proto error")
-	else:
-		__proto = p
 
 func get_base_gear()->BaseGear:
 	if !_base_gear:
@@ -59,44 +39,27 @@ func get_base_gear()->BaseGear:
 	return _base_gear
 
 func get_state():
-	
-	if __proto:
-		return __proto.get_state()
-	
 	return state
 
 func to_state(s):
-	if __proto:
-		__proto.to_state(s)
-		return
 		
 	state = s
 	_on_to_state(s)
 
 func _on_to_state(s):
-	if __proto:
-		__proto._on_to_state(s)
 	pass
 #装备的回调方法
 func on_add_to_charactor():
-	if __proto:
-		__proto.on_add_to_charactor()
 	pass
 
 func on_remove_from_charactor():
-	if __proto:
-		__proto.on_remove_from_charactor()	
 	pass
 
 func on_actioninfo_start(action:ActionInfo):
-	if __proto:
-		__proto.on_actioninfo_start(action)	
-		
+	pass
 #同上 是 end 方法的回调
 func on_actioninfo_end(action:ActionInfo):
-	if __proto:
-		__proto.on_actioninfo_end(action)	
-
+	pass
 #func repath_to_animation_charactor(animation_charactor):
 #
 #	if animation_player==null:

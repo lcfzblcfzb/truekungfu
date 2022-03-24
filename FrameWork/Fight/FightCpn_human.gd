@@ -10,7 +10,7 @@ onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicM
 #需要传入controlableMovingObj的速度参数
 func getSpeed():
 	return $ActionHandler.getSpeed()
-	
+
 onready var sprite_animation = $SpriteAnimation
 onready var actionMng:FightActionMng = $FightActionMng
 onready var wu = $Wu
@@ -26,6 +26,9 @@ var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGesture
 
 #已经学会的 wuxue
 export (Array,Glob.WuxueEnum) var _learned_wuxue:Array=[Glob.WuxueEnum.Fist]
+
+#可选角色形象
+export (Glob.CharactorEnum) var chosed_characor = Glob.CharactorEnum.Daoshi
 
 #已装备的 道具
 # slot->[ baseGear ]
@@ -62,15 +65,15 @@ func _ready():
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
 		fight_controller.init_behaviour_tree(self,$Wu.get_behavior_tree())
 		fight_controller.call_deferred('active_tree')
-	
-	#初始化 武学
-	#TODO 根据配置设置角色形象
-#	sprite_animation.set_sprite_texture($Wu.get_texture())
-#	sprite_animation.choose_wuxue_animation_and_gear($Wu.wuxue)
-	
+	#选择队应角色形象
+	sprite_animation.choose_charactor(chosed_characor)	
+	#所有角色有一个默认的weapon-->fist
 	equip_gear(Glob.GearEnum.Fist)
+	#TODO 装备物品  测试用
 	equip_gear(Glob.GearEnum.DuanJian)
+	#用特定武学 选择一件武器
 	choose_weapon_using_wuxue(0,Glob.WuxueEnum.Fist)
+	
 	#初始状态检测
 	#TODO 可以指定初始状态
 	if not is_on_floor():
@@ -128,7 +131,7 @@ func equip_weapon(base_weapon):
 			var proto = BaseWeaponDmg.weapontype2prototype[base_weapon_obj.weaponType]
 			weapon_derived.add_child(proto)
 
-var weapon_in_use
+var weapon_in_use:Weapon
 
 #选择武器使用
 func choose_weapon_using_wuxue(id,wuxue):
@@ -143,6 +146,9 @@ func choose_weapon_using_wuxue(id,wuxue):
 	weapon_in_use = weapon
 	_set_weapon_active(weapon)
 	wu.switch_wu(wuxue)
+	
+	#选择符合的动画
+	sprite_animation.choose_wuxue_animation($Wu.wuxue)
 
 #激活一个武器
 func _set_weapon_active(weapon):
@@ -158,6 +164,10 @@ func equip_gear(base_gear_id):
 	var base_gear = BaseGearDmg.get_by_id(base_gear_id) as BaseGear
 	var _gear = load(base_gear.scene_path).instance() as Gear
 	
+	if base_gear.script_path:
+		var script =load(base_gear.script_path)
+		print(script)
+		_gear.set_script(script)
 	_add_to_gear_dict(_gear,base_gear)
 	
 #向gear dict 添加装备的工具方法
@@ -303,14 +313,15 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 #	print("action frame:",$SpriteAnimation/Sprite.frame)
 #	$FightAnimationTree.act(action,time)	
 	get_animation_tree().act(action,time)
+	
+	for _list in _equiped_gears_dict.values():
+		
+		for _gear  in _list:
+			
+			_gear.on_actioninfo_start(action)
 
 
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
-	var base =FightBaseActionDataSource.get_by_id(action.base_action) as BaseAction
-	#可以用type 来过滤
-	if base and "_in" in base.animation_name:
-		fightKinematicMovableObj.attackOver()
-		print("attack over time",OS.get_ticks_msec())
 		
 	if action.base_action == Glob.FightMotion.HangingClimb:
 		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
@@ -322,6 +333,12 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 		
 	if action.base_action ==Glob.FightMotion.Unprepared:
 		sprite_animation.set_state(StandarCharactor.CharactorState.Peace)
+	
+	for _list in _equiped_gears_dict.values():
+		
+		for _gear  in _list:
+			
+			_gear.on_actioninfo_end(action)
 		
 func test_dead_motion():
 	

@@ -5,14 +5,11 @@ static func get_wuxue_type():
 	return Glob.WuxueEnum.Fist
 
 func _ready():
-	wu_animation_res = "res://texture/animation/demo_motion_fist-Sheet.png"
 	
 	animation_tree = $AnimationTree
 	behaviourTree =  $FistBehaviorTree
 	blackboard = $Blackboard
 	behaviourTree.blackboard = blackboard
-	
-	weapon_box_path =load("res://resource/shape/weapon_shape_fist.tres")
 #	yield(get_tree().create_timer(3),"timeout")
 #	var animationPlayer = preload("res://FightAnimationPlayer.tscn").instance() as AnimationPlayer
 #	add_child(animationPlayer)

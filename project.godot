@@ -279,11 +279,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Gear/Gear.gd"
 }, {
-"base": "Gear",
-"class": "GearDerived",
-"language": "GDScript",
-"path": "res://Game/Gear/GearDerived.gd"
-}, {
 "base": "Area2D",
 "class": "HurtBox",
 "language": "GDScript",
@@ -389,11 +384,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/CollisionBox/WeaponBox.gd"
 }, {
-"base": "Weapon",
-"class": "WeaponDerived",
-"language": "GDScript",
-"path": "res://Game/Gear/Weapon/WeaponDerived.gd"
-}, {
 "base": "Node2D",
 "class": "WuXue",
 "language": "GDScript",
@@ -464,7 +454,6 @@ _global_script_class_icons={
 "Fight_State_Controller": "",
 "Fist": "",
 "Gear": "",
-"GearDerived": "",
 "HurtBox": "",
 "Identified": "",
 "IntEntity": "",
@@ -486,7 +475,6 @@ _global_script_class_icons={
 "VerletLoop": "",
 "Weapon": "",
 "WeaponBox": "",
-"WeaponDerived": "",
 "WuXue": "",
 "WuxueEventHandlerTools": "",
 "WuxueMngClass": ""

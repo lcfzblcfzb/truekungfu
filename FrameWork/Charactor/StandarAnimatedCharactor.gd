@@ -52,6 +52,7 @@ func _debug_animation_player(animationPlayer:AnimationPlayer):
 	for anim in animationPlayer.get_animation_list():
 		print("animation name"+anim+" ; animation node:"+ animationPlayer.get_animation(anim).resource_name)
 
+#Glob.CharactorEnum
 func choose_charactor(c,animation_node):
 	
 	if charactor_scene!= null :
@@ -89,7 +90,7 @@ func _get_animationplayer_by_type(wuxue , skeletkal_type):
 	return $CharactorAnimationPlayers/AnimationPlayer
 
 # 选择wuxue 对应的 animationplayer(charactor的）
-func choose_coresponding_wuxue(wuxue:WuXue):
+func choose_coresponding_animation(wuxue:WuXue):
 	
 	$AnimationTree.active = false
 	

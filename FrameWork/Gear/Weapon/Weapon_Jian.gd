@@ -12,6 +12,28 @@ var sheath_remote:RemoteTransform2D
 var sword_right_remote:RemoteTransform2D
 var sword_left_remote:RemoteTransform2D
 
+func _init():
+	
+	pass
+
+func init(base_gear:BaseGear,fcpn:FightComponent_human):
+	.init(base_gear,fcpn)
+	var size = base_gear.resourcePaths.size()
+	
+	if size>=2:
+		sword_right_hand.texture = load(base_gear.resourcePaths[0])
+		sword_sheath.texture = load(base_gear.resourcePaths[1])
+
+func on_active(a):
+	
+	if a:
+		sword_right_hand.visible = true
+		sword_sheath.visible = true
+	else:
+		sword_right_hand.visible = false
+		sword_sheath.visible = false
+		getWeaponBox().monitoring = false
+
 func init_state():
 	
 	getWeaponBox().monitoring=false
@@ -117,6 +139,7 @@ func set_unsync_to_source():
 
 func on_actioninfo_start(action:ActionInfo):
 	if action.base_action == Glob.FightMotion.Prepared:
+		
 		get_animation_player().play("prepared")
 	elif action.base_action == Glob.FightMotion.Unprepared:
 		get_animation_player().play("unprepared")
@@ -132,4 +155,4 @@ func on_actioninfo_end(action:ActionInfo):
 	
 	if action.base_action == Glob.FightMotion.Attack:
 		set_sync_to_source()
-		
+#		getWeaponBox().stop_monitoring()

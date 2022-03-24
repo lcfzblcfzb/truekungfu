@@ -55,3 +55,17 @@ func test_prototype():
 	pb.methoB()
 	ca.methoA()
 	ca.methoB()	
+
+func test_match():
+	var a= 5
+	match a:
+		
+		4:
+			print(4)
+			continue	
+		5:
+			print(5)
+			continue
+	
+	
+	pass

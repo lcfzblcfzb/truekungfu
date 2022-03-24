@@ -18,3 +18,6 @@ func _physics_process(delta):
 
 func start_monitoring():
 	monitoring = true
+
+func stop_monitoring():
+	set_deferred("monitoring",false)

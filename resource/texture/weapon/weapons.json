@@ -1,0 +1,97 @@
+{ "frames": {
+   "sword": {
+    "frame": { "x": 13, "y": 6, "w": 3, "h": 26 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 4, "w": 3, "h": 26 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   },
+   "jian_qiao": {
+    "frame": { "x": 40, "y": 23, "w": 2, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 3, "w": 2, "h": 24 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   },
+   "shi": {
+    "frame": { "x": 16, "y": 26, "w": 22, "h": 3 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 70, "y": 5, "w": 22, "h": 3 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   },
+   "gong": {
+    "frame": { "x": 0, "y": 0, "w": 9, "h": 34 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 55, "y": 4, "w": 9, "h": 34 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   },
+   "jian_dai": {
+    "frame": { "x": 13, "y": 0, "w": 23, "h": 6 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 71, "y": 14, "w": 23, "h": 6 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   },
+   "gun": {
+    "frame": { "x": 44, "y": 0, "w": 1, "h": 49 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 47, "y": 4, "w": 1, "h": 49 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   },
+   "dao": {
+    "frame": { "x": 36, "y": 0, "w": 4, "h": 26 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 18, "y": 5, "w": 4, "h": 26 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   },
+   "dao_qiao": {
+    "frame": { "x": 40, "y": 0, "w": 4, "h": 23 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 24, "y": 4, "w": 4, "h": 23 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   },
+   "qaing": {
+    "frame": { "x": 9, "y": 0, "w": 4, "h": 53 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 35, "y": 5, "w": 4, "h": 53 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.21-dev",
+  "format": "RGBA8888",
+  "size": { "w": 45, "h": 53 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "sword", "opacity": 255, "blendMode": "normal" },
+   { "name": "jian_qiao", "opacity": 255, "blendMode": "normal" },
+   { "name": "shi", "opacity": 255, "blendMode": "normal" },
+   { "name": "gong", "opacity": 255, "blendMode": "normal" },
+   { "name": "jian_dai", "opacity": 255, "blendMode": "normal" },
+   { "name": "gun", "opacity": 255, "blendMode": "normal" },
+   { "name": "dao", "opacity": 255, "blendMode": "normal" },
+   { "name": "dao_qiao", "opacity": 255, "blendMode": "normal" },
+   { "name": "qaing", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

@@ -6,14 +6,7 @@ var fight_cpn
 var animation_tree:AnimationTree
 var behaviourTree:BehaviorTree
 var blackboard:Blackboard
-var weapon_box_path:Shape2D
-#用来保存 该武学 生成 的装备
-var _gear_cache:Array =[]
 
-#指向类型是一个Weapon 类
-var weapon_path
-
-var wu_animation_res;
 #重攻击时间阈值.ms
 var heavyAttackThreshold = 300.0
 

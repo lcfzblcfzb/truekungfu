@@ -6,7 +6,7 @@
 		"slot":6,
 		"baseOutfitId":-1,
 		"resourcePaths":[],
-		"scene_path":"res://Game/Gear/Weapon/WeaponDerived.tscn"
+		"scene_path":"res://FrameWork/Gear/Weapon/Weapon_Fist.tscn"
 		
 	},
 	{
@@ -15,8 +15,9 @@
 		"desc":"DuanDaoDuanDao",
 		"slot":6,
 		"baseOutfitId":1000,
-		"resourcePaths":[],
-		"scene_path":"res://Game/Gear/Weapon/WeaponDerived.tscn"
+		"resourcePaths":["res://resource/weapon/dao.tres","res://resource/weapon/dao_qiao.tres"],
+		"scene_path":"res://FrameWork/Gear/Weapon/Weapon_Jian.tscn",
+		"animation_path":""
 		
 	},
 	{
@@ -25,9 +26,9 @@
 		"desc":"DuanJianDuanJianDuanJian",
 		"slot":6,
 		"baseOutfitId":1001,
-		"resourcePaths":[],
-		"scene_path":"res://Game/Gear/Weapon/DuanJianDerived.tscn"
-		
+		"resourcePaths":["res://resource/weapon/sword.tres","res://resource/weapon/jian_qiao.tres"],
+		"scene_path":"res://FrameWork/Gear/Weapon/Weapon_Jian.tscn",
+		"animation_path":""
 	}
 	
 	

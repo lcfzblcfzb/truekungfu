@@ -66,6 +66,7 @@ parameters/state_tran/current = 0
 position = Vector2( 293, 550 )
 camp = 1
 is_player = false
+_learned_wuxue = [ 1 ]
 
 [node name="SpriteAnimation" parent="fat_enermy" index="1"]
 chosed_characor = 200

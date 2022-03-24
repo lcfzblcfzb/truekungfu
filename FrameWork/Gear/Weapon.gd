@@ -19,17 +19,10 @@ func init(base_gear:BaseGear,fcpn):
 	base_weapon_id = _base_weapon_obj.id
 
 func set_active(a):
-	
-	if __proto:
-		__proto.set_active(a)
-		return
-	
+	on_active(a)
 	active =a
 	
 func get_active():
-	
-	if __proto:
-		return __proto.get_active()
 	
 	return active
 
@@ -40,10 +33,12 @@ func get_base_weapon()->BaseWeapon:
 
 func getWeaponBox():
 	
-	if __proto:
-		return __proto.getWeaponBox()
-	
 	return weapon_box
+
+func on_active(a):
+	
+	pass
+
 
 enum Direction{
 	UP,CENTER,DOWN

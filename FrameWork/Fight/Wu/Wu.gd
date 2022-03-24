@@ -103,17 +103,10 @@ func switch_wu(type= Glob.WuxueEnum.Fist):
 		#创建wuxue 
 		var newwuxue = get_or_create_wuxue(type) 
 		if newwuxue:
-			#装备的退换
-			#对应武学的装备 保存在各自身上，切换的时候之前的武学负责移除装备
-			for _gear in wuxue._gear_cache:
-				fight_component.sprite_animation.get_standar_charactor().remove_gear(_gear)
-			wuxue._gear_cache.clear()
-			
 			newwuxue.fight_cpn = fight_component
 			if newwuxue.get_parent() == null:
 				add_child(newwuxue)
 			wuxue = newwuxue
-#			wuxue.animation_player.root_node = wuxue.animation_player.get_path_to(fight_component.sprite_animation.get_node("hip"))
 		
 func on_player_event(new_motion:NewActionEvent):
 	wuxue.on_action_event(new_motion)
@@ -138,10 +131,6 @@ func _on_FightController_NewFightMotion(new_motion:BaseFightEvent):
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
 	
-	for _gear in wuxue._gear_cache:
-		_gear.on_actioninfo_start(action)
-		pass
-	
 	if action.base_action ==Glob.FightMotion.Attack:
 		pass
 	
@@ -152,9 +141,6 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	if action.base_action ==Glob.FightMotion.Attack:
 		pass
 	
-	for _gear in wuxue._gear_cache:
-		_gear.on_actioninfo_end(action)
-		pass
 
 #animation_player组件的回掉
 func _on_SpriteAnimation_AnimationCallMethod(param):

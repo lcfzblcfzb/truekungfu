@@ -126,7 +126,6 @@ static func normal_on_moveevent(event,fight_cpn):
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
 					else:
 						var motion = Glob.FightMotion.Walk
-						push_warning("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 						if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
 							motion = Glob.FightMotion.JumpUp
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:

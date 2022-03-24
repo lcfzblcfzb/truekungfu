@@ -4,11 +4,7 @@ extends WuXue
 static func get_wuxue_type():
 	return Glob.WuxueEnum.Sword
 
-func _init():
-	weapon_path = "res://FrameWork/Gear/Weapon/SwordPrototype.tscn"
-
 func _ready():
-	wu_animation_res = "res://texture/animation/demo_motion_template-Sheet_def.png"
 	animation_tree = $AnimationTree
 	behaviourTree =  $SwordBehaviorTree
 	blackboard = $Blackboard

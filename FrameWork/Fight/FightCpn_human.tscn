@@ -23,6 +23,7 @@ __meta__ = {
 }
 is_player = true
 _learned_wuxue = [ 1, 2 ]
+chosed_characor = 200
 
 [node name="FightKinematicMovableObj" parent="." instance=ExtResource( 7 )]
 bodyPath = NodePath("..")
