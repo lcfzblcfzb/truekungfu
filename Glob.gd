@@ -99,8 +99,8 @@ enum OutfitUseType{
 enum WuxueEnum{
 	
 	Nope=0,
-	Fist=1,
-	Sword=2
+	Sanjiaomao=1,
+	Taijijian=2
 	
 }
 
