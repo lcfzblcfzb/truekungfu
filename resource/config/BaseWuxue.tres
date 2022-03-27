@@ -1,14 +1,19 @@
 [
 	{
 		"id":1,
-		"name":"sanjiaomao",
+		"name":"Sanjiaomao",
 		"weapon_type":[0]
 		
 	},
 	{
 		"id":2,
-		"name":"taijijian",
-		"weapon_type":[2]
+		"name":"Taijijian",
+		"weapon_type":[2],
+		"attack_ci":[0,-0.2],
+		"attack_sao":[-1],
+		"attack_pi":[-1],
+		"block":[],
+		"dodge":[]
 	},
 	
 ]

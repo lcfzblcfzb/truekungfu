@@ -25,7 +25,7 @@ var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformG
 var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
 
 #已经学会的 wuxue
-export (Array,Glob.WuxueEnum) var _learned_wuxue:Array=[Glob.WuxueEnum.Fist]
+export (Array,Glob.WuxueEnum) var _learned_wuxue:Array=[Glob.WuxueEnum.Sanjiaomao]
 
 #可选角色形象
 export (Glob.CharactorEnum) var chosed_characor = Glob.CharactorEnum.Daoshi

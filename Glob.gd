@@ -150,6 +150,7 @@ enum WuMotion{
 	Hanging,
 	HangingClimb,
 	Attack,
+	Block,
 	Defend,
 	Prepared,
 	Unprepared,
