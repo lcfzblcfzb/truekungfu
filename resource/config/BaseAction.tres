@@ -691,5 +691,41 @@
 	"type": [
 	  1
 	]
+  },
+  {
+	"id": 171,
+	"name": "Rolling",
+	"animation_name": "rolling",
+	"duration": 1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 172,
+	"name": "Block",
+	"animation_name": "block",
+	"duration": 1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 173,
+	"name": "Attack_Pi",
+	"animation_name": "attack_Pi",
+	"duration": 1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 174,
+	"name": "Dodge",
+	"animation_name": "dodge",
+	"duration": 1,
+	"type": [
+	  1
+	]
   }
 ]

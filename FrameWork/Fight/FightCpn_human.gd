@@ -55,6 +55,7 @@ func _ready():
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
 		
 		var camera = Camera2D.new()
+		camera.zoom=Vector2(0.5,0.5)
 		add_child(camera)
 		camera.current = true
 		
@@ -72,7 +73,7 @@ func _ready():
 	#TODO 装备物品  测试用
 	equip_gear(Glob.GearEnum.DuanJian)
 	#用特定武学 选择一件武器
-	choose_weapon_using_wuxue(0,Glob.WuxueEnum.Fist)
+	choose_weapon_using_wuxue(0,Glob.WuxueEnum.Sanjiaomao)
 	
 	#初始状态检测
 	#TODO 可以指定初始状态
@@ -198,7 +199,7 @@ func _remove_from_gear_dict(_gear:Gear):
 	
 #func test_switch():
 #
-#	var gongfu =[Glob.WuxueEnum.Fist,Glob.WuxueEnum.Sword]
+#	var gongfu =[Glob.WuxueEnum.Sanjiaomao,Glob.WuxueEnum.Taijijian]
 #	var i=0;
 #
 #	while (true):
@@ -235,7 +236,7 @@ func check_engaged():
 		is_engaged = false
 
 #切换武器
-#wuxue: Glob.WuxueEnum.Fist
+#wuxue: Glob.WuxueEnum.Sanjiaomao
 func switch_weapon(index,wuxue):
 	
 	choose_weapon_using_wuxue(index,wuxue)

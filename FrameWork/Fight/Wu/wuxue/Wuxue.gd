@@ -3,12 +3,14 @@ extends Node2D
 
 var fight_cpn
 
-var animation_tree:AnimationTree
 var behaviourTree:BehaviorTree
 var blackboard:Blackboard
 
 #重攻击时间阈值.ms
 var heavyAttackThreshold = 300.0
+
+var animation_tree_root_node=preload("res://resource/animation/tree/StandarCharactorTree.tres")
+var animation_tree_script = preload("res://resource/animation/script/default_tree_handling_script.gd")
 
 #武器动作类型
 enum ActionForceType{

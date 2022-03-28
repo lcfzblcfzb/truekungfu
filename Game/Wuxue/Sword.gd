@@ -2,10 +2,9 @@ class_name Sword
 extends WuXue
 
 static func get_wuxue_type():
-	return Glob.WuxueEnum.Sword
+	return Glob.WuxueEnum.Taijijian
 
 func _ready():
-	animation_tree = $AnimationTree
 	behaviourTree =  $SwordBehaviorTree
 	blackboard = $Blackboard
 #	animation_player.root_node = animation_player.get_path_to(fight_cpn.sprite.get_parent())
@@ -16,6 +15,22 @@ func _do_wu_motion(wu_motion,is_heavy):
 	var global_id = fight_cpn.actionMng.next_group_id()
 	
 	match( wu_motion):
+		
+		
+		Glob.WuMotion.Block:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Block) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			pass
+		
+		Glob.WuMotion.Attack_Pi:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Attack_Pi) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			pass
+		
+		Glob.WuMotion.Rolling:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Rolling) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			pass
 		
 		Glob.WuMotion.Stunned:
 			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Stunned) as BaseAction
@@ -46,7 +61,7 @@ func _do_wu_motion(wu_motion,is_heavy):
 		
 		Glob.WuMotion.Switch:
 			
-			fight_cpn.switch_weapon(0,Glob.WuxueEnum.Fist)
+			fight_cpn.switch_weapon(0,Glob.WuxueEnum.Sanjiaomao)
 			pass
 		Glob.WuMotion.Attack_Up:
 			if is_heavy:
@@ -165,13 +180,13 @@ class SwordCourt:
 	
 	static func sword_sword(fighter0:FightComponent_human,fighter1:FightComponent_human,action_force_type0,action_force_type1):
 		
-		normal_judge(fighter0,fighter1,action_force_type0,action_force_type1)
+#		normal_judge(fighter0,fighter1,action_force_type0,action_force_type1)
 		
 		pass
 		
 	static func sword_fist(fighter0:FightComponent_human,fighter1:FightComponent_human,action_force_type0,action_force_type1):
 		
-		normal_judge(fighter0,fighter1,action_force_type0,action_force_type1)
+#		normal_judge(fighter0,fighter1,action_force_type0,action_force_type1)
 		pass
 	
 		

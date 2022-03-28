@@ -1,9 +1,13 @@
+#比较通用的 tree 处理，适配搭载 StandarCharactorTree 的 animation_tree 以及
+#在其基础上拓展的（保留原有的节点结构和命名方式不变）
+
 extends AnimationTree
 
 const MOVE =0 
 const HANGING =1
 const CLIMB =2
 const JUMP =3
+const ROLLING =4
 
 const STATE_PREPARED =0
 const STATE_UNPREPARED = 1
@@ -72,7 +76,37 @@ func travelTo(action:ActionInfo):
 			set(TRANSITION_UNPREPARED,HANGING)
 		
 		Glob.FightMotion.Attack:
-			set("parameters/attack_shot/active",true)
+			set("parameters/action_shot/active",true)
+			
+			set("parameters/action_tree/attack_tran/current",0)
+			
+			set("parameters/action_tree/action_tran/current",0)
+#			set("parameters/move_action_blend/blend_amount",1)
+			
+		Glob.FightMotion.Attack_Pi:
+			
+			set("parameters/action_shot/active",true)
+			
+			set("parameters/action_tree/attack_tran/current",2)
+			
+			set("parameters/action_tree/action_tran/current",0)
+			
+#			set("parameters/action_tran/current",0)
+#			set("parameters/attack_bs/blend_position",Vector2(0,-1))
+#			set("parameters/move_action_blend/blend_amount",1)
+		Glob.FightMotion.Block:
+			
+			set("parameters/action_shot/active",true)
+			
+			set("parameters/action_tree/attack_tran/current",0)
+			
+			set("parameters/action_tree/action_tran/current",1)
+#			set("parameters/action_tran/current",1)
+#			set("parameters/block_bs/blend_position",Vector2(0,0))
+#			set("parameters/move_action_blend/blend_amount",1)
+		Glob.FightMotion.Rolling:
+			set(TRANSITION_PREPARED,ROLLING)
+			set(TRANSITION_UNPREPARED,ROLLING)
 		
 		Glob.FightMotion.Prepared:
 			set("parameters/prepared_shot/active",true)

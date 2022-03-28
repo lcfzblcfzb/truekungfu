@@ -5,7 +5,7 @@ var daoshi_scn = preload("res://FrameWork/Charactor/standar_charactors/DaoshiSta
 var rusheng_scn = preload("res://FrameWork/Charactor/standar_charactors/RushengStandar.tscn")
 var fatguy_scn = preload("res://FrameWork/Charactor/standar_charactors/FatGuy.tscn")
 
-onready var charactor_scene:StandarCharactor = $hip
+onready var charactor_scene:StandarCharactor = $standar_charactor
 
 var chosed_animation_player:AnimationPlayer 
 
@@ -94,6 +94,9 @@ func choose_coresponding_animation(wuxue:WuXue):
 	
 	$AnimationTree.active = false
 	
+	$AnimationTree.set_script(wuxue.animation_tree_script)
+	$AnimationTree.tree_root = 	wuxue.animation_tree_root_node
+	
 	var base_charactor = BaseStandarCharactorsDMG.get_by_id(charactor_scene.charactor_type)
 	if !base_charactor:
 		return
@@ -108,7 +111,7 @@ func get_coresponding_animation_tree():
 	return $AnimationTree
 
 func _check_dependency():
-	chosed_animation_player.root_node = chosed_animation_player.get_path_to(charactor_scene)
+	chosed_animation_player.root_node = chosed_animation_player.get_path_to(charactor_scene.get_animation_root())
 	$AnimationTree.anim_player = $AnimationTree.get_path_to(chosed_animation_player)
 
 func set_state(s):

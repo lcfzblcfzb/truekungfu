@@ -52,12 +52,22 @@ tile_data = PoolIntArray( 1638434, 19, 0, 1769510, 47, 0, 1835046, 49, 0, 183504
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
 position = Vector2( 370, 556 )
 
+[node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
+parameters/action_shot/active = false
+parameters/action_tree/action_tran/current = 0
+parameters/action_tree/attack_tran/current = 0
+parameters/action_tree/block_tran/current = 0
+parameters/action_tree/dodge_tran/current = 0
+
 [editable path="Ladder"]
 [editable path="Platform"]
 [editable path="w"]
 [editable path="FIghtComponnet_Human"]
 [editable path="FIghtComponnet_Human/SpriteAnimation"]
 [editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor"]
-[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/hip"]
-[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/hip/hurt_box"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hurt_box"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/weapon_jian"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/weapon_jian/weaponBox"]
 [editable path="FIghtComponnet_Human/Wu"]

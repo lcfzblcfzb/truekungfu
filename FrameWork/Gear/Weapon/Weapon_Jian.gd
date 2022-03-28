@@ -59,14 +59,14 @@ func _on_to_state(s):
 		StandarCharactor.CharactorState.Peace:
 			sword_right_hand.z_index = 0
 			sword_sheath.z_index = 1
-			sheath_remote.transform = peace_transform
+#			sheath_remote.transform = peace_transform
 			sword_right_remote.remote_path = ""
-			sword_left_remote.transform = peace_transform
+#			sword_left_remote.transform = peace_transform
 			sword_left_remote.remote_path = sword_left_remote.get_path_to(sword_right_hand)
 		StandarCharactor.CharactorState.Engaged:
 			sword_right_hand.z_index = 12
-			sword_right_remote.transform = engaged_transform
-			sheath_remote.transform = sheath_engaged_transform
+#			sword_right_remote.transform = engaged_transform
+#			sheath_remote.transform = sheath_engaged_transform
 			sword_left_remote.remote_path = ""
 			sword_right_remote.remote_path = sword_right_remote.get_path_to(sword_right_hand)
 			
@@ -144,10 +144,11 @@ func on_actioninfo_start(action:ActionInfo):
 	elif action.base_action == Glob.FightMotion.Unprepared:
 		get_animation_player().play("unprepared")
 	elif action.base_action == Glob.FightMotion.Attack:
-		set_unsync_to_source()
-		print(action.action_duration_ms/1000.0)
-		get_animation_player().play("attack",-1,1000/action.action_duration_ms)
-		get_animation_player().advance(0)
+#		set_unsync_to_source()
+#		print(action.action_duration_ms/1000.0)
+#		get_animation_player().play("attack",-1,1000/action.action_duration_ms)
+#		get_animation_player().advance(0)
+		pass
 	else:
 		set_sync_to_source()
 	pass

@@ -1,6 +1,6 @@
 class_name StandarCharactor
 
-extends Sprite
+extends Node2D
 
 # Glob.CharactorEnum
 export (Glob.CharactorEnum) var charactor_type 
@@ -84,54 +84,57 @@ func add_to_body(slot_id:int, part , front = true):
 
 func get_hurt_box()->HurtBox:
 	return $hurt_box as HurtBox
-	
+
+func get_animation_root():
+	return $hip
+
 func get_body_part_by_id(slot_id):
 	
 	match slot_id:
 		CharactorBodySlotEnum.Body:
-			return $body
+			return $hip/body
 		CharactorBodySlotEnum.Head:
-			return $body/head
+			return $hip/body/head
 		CharactorBodySlotEnum.Hip:
 			return self
 			pass
 		CharactorBodySlotEnum.Left_Thigh:
-			return $left_thigh
+			return $hip/left_thigh
 			pass
 		CharactorBodySlotEnum.Left_Shank:
-			return $left_thigh/left_shank
+			return $hip/left_thigh/left_shank
 			pass
 		CharactorBodySlotEnum.Left_Foot:
-			return $left_thigh/left_shank/left_foot
+			return $hip/left_thigh/left_shank/left_foot
 			pass
 		CharactorBodySlotEnum.Right_Thigh:
-			return $right_thigh
+			return $hip/right_thigh
 			pass
 		CharactorBodySlotEnum.Right_Shank:
-			return $right_thigh/right_shank
+			return $hip/right_thigh/right_shank
 			pass
 		CharactorBodySlotEnum.Right_Foot:
-			return $right_thigh/right_shank/right_foot
+			return $hip/right_thigh/right_shank/right_foot
 			pass
 		CharactorBodySlotEnum.Left_Upper_Arm:
-			return $body/left_upper_arm
+			return $hip/body/left_upper_arm
 			pass
 		CharactorBodySlotEnum.Left_Fore_Arm:
-			return $body/left_upper_arm/left_fore_arm
+			return $hip/body/left_upper_arm/left_fore_arm
 			pass
 		CharactorBodySlotEnum.Left_Hand:
-			return $body/left_upper_arm/left_fore_arm/left_hand
+			return $hip/body/left_upper_arm/left_fore_arm/left_hand
 		CharactorBodySlotEnum.Left_Weapon:
-			return $body/left_upper_arm/left_fore_arm/left_hand/left_weapon
+			return $hip/body/left_upper_arm/left_fore_arm/left_hand/left_weapon
 			pass	
 		CharactorBodySlotEnum.Right_Upper_Arm:
-			return $body/right_upper_arm
+			return $hip/body/right_upper_arm
 			pass
 		CharactorBodySlotEnum.Right_Fore_Arm:
-			return $body/right_upper_arm/right_fore_arm
+			return $hip/body/right_upper_arm/right_fore_arm
 			pass
 		CharactorBodySlotEnum.Right_Hand:
-			return $body/right_upper_arm/right_fore_arm/right_hand
+			return $hip/body/right_upper_arm/right_fore_arm/right_hand
 			pass
 		CharactorBodySlotEnum.Right_Weapon:
-			return $body/right_upper_arm/right_fore_arm/right_hand/right_weapon		
+			return $hip/body/right_upper_arm/right_fore_arm/right_hand/right_weapon		

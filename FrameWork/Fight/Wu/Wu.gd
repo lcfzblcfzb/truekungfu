@@ -1,7 +1,7 @@
 extends Node2D
 class_name BaseWu
 
-var default_wuxue = Glob.WuxueEnum.Fist
+var default_wuxue = Glob.WuxueEnum.Sanjiaomao
 
 export( Glob.WuxueEnum) var chosed_wuxue  = default_wuxue
 
@@ -66,7 +66,7 @@ func get_weapon_box()->Shape2D:
 	return wuxue.weapon_box_path
 	
 # TODO 在ready的时候，设置wuxue 的fight_component
-func _init_wu(type= Glob.WuxueEnum.Fist):
+func _init_wu(type= Glob.WuxueEnum.Sanjiaomao):
 	
 	if wuxue:
 		wuxue.animation_tree.active = false
@@ -89,9 +89,7 @@ func _init_wu(type= Glob.WuxueEnum.Fist):
 #切换武学
 #1清理上一个wuxue 的装备等等
 #2添加入
-func switch_wu(type= Glob.WuxueEnum.Fist):
-	if wuxue:
-		wuxue.animation_tree.active = false
+func switch_wu(type= Glob.WuxueEnum.Sanjiaomao):
 	
 	if debug_wuxue and debug_wuxue.visible == true:
 		#如果存在debug_wuxue的情况 使用debug武学

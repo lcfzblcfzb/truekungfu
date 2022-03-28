@@ -2,11 +2,10 @@ class_name Fist
 extends WuXue
 
 static func get_wuxue_type():
-	return Glob.WuxueEnum.Fist
+	return Glob.WuxueEnum.Sanjiaomao
 
 func _ready():
 	
-	animation_tree = $AnimationTree
 	behaviourTree =  $FistBehaviorTree
 	blackboard = $Blackboard
 	behaviourTree.blackboard = blackboard
@@ -29,7 +28,7 @@ func on_action_event(event:NewActionEvent):
 			pass
 				
 		Glob.WuMotion.Switch:
-			fight_cpn.switch_weapon(1,Glob.WuxueEnum.Sword)
+			fight_cpn.switch_weapon(1,Glob.WuxueEnum.Taijijian)
 				
 		Glob.WuMotion.Prepared:
 			fight_cpn.is_prepared = true
