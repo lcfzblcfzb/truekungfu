@@ -22,10 +22,25 @@ func on_action_event(event:NewActionEvent):
 	var global_id = fight_cpn.actionMng.next_group_id()
 	match( event.wu_motion):
 		
+		Glob.WuMotion.Block:
+			if fight_cpn.is_prepared == false:
+				fight_cpn.is_prepared = true
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Block) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
+		
+		Glob.WuMotion.Attack_Pi:
+			if fight_cpn.is_prepared == false:
+				fight_cpn.is_prepared = true
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Attack_Pi) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
+		
+		Glob.WuMotion.Rolling:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Rolling) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
+		
 		Glob.WuMotion.Stunned:
 			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Stunned) as BaseAction
 			fight_cpn.actionMng.regist_action(Glob.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
-			pass
 				
 		Glob.WuMotion.Switch:
 			fight_cpn.switch_weapon(1,Glob.WuxueEnum.Taijijian)

@@ -47,7 +47,7 @@ func _ready():
 	if jisu==null:
 		jisu = get_node(fight_component)
 	
-
+#按下攻击的开始时间
 var attack_begin_time=0
 #是否按下"attack"
 var attack_pressed = false
@@ -175,9 +175,10 @@ func _input(event):
 	
 	if event.is_action_pressed("attack_ci"):
 		attack_pressed = true
-#		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Attack,attack_begin_time,OS.get_ticks_msec()])
-#		emit_signal("NewFightMotion",newActionEvent)
-	
+		attack_begin_time = OS.get_ticks_msec()
+		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Holding,attack_begin_time,OS.get_ticks_msec()])
+		emit_signal("NewFightMotion",newActionEvent)	
+		
 	if event.is_action_released("attack_ci"):
 		attack_pressed = false
 		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Attack,attack_begin_time,OS.get_ticks_msec()])
@@ -198,6 +199,7 @@ func _input(event):
 	if event.is_action_pressed("prepared"):
 		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Prepared,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
+	
 	if event.is_action_pressed("switch"):
 		
 		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Switch,attack_begin_time,OS.get_ticks_msec()])

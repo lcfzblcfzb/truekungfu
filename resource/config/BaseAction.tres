@@ -713,7 +713,7 @@
   {
 	"id": 173,
 	"name": "Attack_Pi",
-	"animation_name": "attack_Pi",
+	"animation_name": "attack_pi",
 	"duration": 1,
 	"type": [
 	  1
@@ -723,6 +723,15 @@
 	"id": 174,
 	"name": "Dodge",
 	"animation_name": "dodge",
+	"duration": 1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 175,
+	"name": "Attack_Sao",
+	"animation_name": "attack_sao",
 	"duration": 1,
 	"type": [
 	  1

@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.tscn" type="PackedScene" id=2]
 [ext_resource path="res://FrameWork/Scene/Ladder.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resource/tiles/platformer_mountain.tres" type="TileSet" id=4]
 [ext_resource path="res://FrameWork/Scene/Platform.tscn" type="PackedScene" id=19]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=3]
 
 [node name="Platformer" type="Node2D"]
 __meta__ = {
@@ -54,13 +60,15 @@ camp = 1
 is_player = false
 
 [node name="AnimationTree" parent="enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
-parameters/state_tran/current = 0
+parameters/action_tree/StateMachine/playback = SubResource( 1 )
+parameters/action_tree/holding_tran/current = 0
 
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
 position = Vector2( 88, 559 )
 
 [node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
-parameters/state_tran/current = 0
+parameters/action_tree/StateMachine/playback = SubResource( 2 )
+parameters/action_tree/holding_tran/current = 0
 
 [node name="fat_enermy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 293, 550 )
@@ -68,8 +76,9 @@ camp = 1
 is_player = false
 _learned_wuxue = [ 1 ]
 
-[node name="SpriteAnimation" parent="fat_enermy" index="1"]
-chosed_characor = 200
+[node name="AnimationTree" parent="fat_enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
+parameters/action_tree/StateMachine/playback = SubResource( 3 )
+parameters/action_tree/holding_tran/current = 0
 
 [editable path="Ladder"]
 [editable path="Platform"]
@@ -77,18 +86,27 @@ chosed_characor = 200
 [editable path="enermy"]
 [editable path="enermy/SpriteAnimation"]
 [editable path="enermy/SpriteAnimation/StandarAnimatedCharactor"]
-[editable path="enermy/SpriteAnimation/StandarAnimatedCharactor/hip"]
-[editable path="enermy/SpriteAnimation/StandarAnimatedCharactor/hip/hurt_box"]
+[editable path="enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor"]
+[editable path="enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hurt_box"]
+[editable path="enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip"]
+[editable path="enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/weapon_jian"]
+[editable path="enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/weapon_jian/weaponBox"]
 [editable path="enermy/Wu"]
 [editable path="FIghtComponnet_Human"]
 [editable path="FIghtComponnet_Human/SpriteAnimation"]
 [editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor"]
-[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/hip"]
-[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/hip/hurt_box"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hurt_box"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/weapon_jian"]
+[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/weapon_jian/weaponBox"]
 [editable path="FIghtComponnet_Human/Wu"]
 [editable path="fat_enermy"]
 [editable path="fat_enermy/SpriteAnimation"]
 [editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor"]
-[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor/hip"]
-[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor/hip/hurt_box"]
+[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor"]
+[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hurt_box"]
+[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip"]
+[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/weapon_jian"]
+[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/weapon_jian/weaponBox"]
 [editable path="fat_enermy/Wu"]
