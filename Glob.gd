@@ -208,6 +208,7 @@ enum FightMotion{
 	Block = 172,
 	Attack_Pi = 173,
 	Dodge = 174,
+	Attack_Sao=175,
 	
 	Attack_Up_Pre=100,
 	Attack_Up_In=101,

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://FrameWork/Fight/CornerDetect.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/UI/Energy.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
 [ext_resource path="res://FrameWork/Fight/Wu/wuxue/Wu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FrameWork/Verlex/scarf.tscn" type="PackedScene" id=15]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=72]
 
 [sub_resource type="Animation" id=71]
 resource_name = "rolling"
@@ -471,8 +473,59 @@ IDLE_2_RUN_ACC = 200
 position = Vector2( 2, -17 )
 fight_component_path = NodePath("..")
 
+[node name="AnimationTree" parent="SpriteAnimation/StandarAnimatedCharactor" index="0"]
+parameters/action_tree/StateMachine/playback = SubResource( 72 )
+
 [node name="AnimationPlayer_Taijijian_Normal" parent="SpriteAnimation/StandarAnimatedCharactor/CharactorAnimationPlayers" index="2"]
 anims/rolling = SubResource( 71 )
+
+[node name="hip" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor" index="1"]
+position = Vector2( 0, 0 )
+
+[node name="left_thigh" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="0"]
+rotation = 0.0
+
+[node name="left_shank" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/left_thigh" index="0"]
+rotation = 0.0
+
+[node name="left_foot" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/left_thigh/left_shank" index="0"]
+rotation = 0.0
+
+[node name="right_thigh" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="1"]
+rotation = 0.0
+
+[node name="right_shank" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/right_thigh" index="0"]
+rotation = 0.0
+
+[node name="right_foot" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/right_thigh/right_shank" index="0"]
+rotation = 0.0
+
+[node name="body" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="2"]
+rotation = 0.0
+
+[node name="left_upper_arm" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body" index="0"]
+rotation = 0.0
+
+[node name="left_fore_arm" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/left_upper_arm" index="0"]
+rotation = 0.0
+
+[node name="left_hand" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/left_upper_arm/left_fore_arm" index="0"]
+rotation = 0.0
+
+[node name="left_weapon" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand" index="0"]
+rotation = 0.0
+
+[node name="right_upper_arm" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body" index="1"]
+rotation = 0.0
+
+[node name="right_fore_arm" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/right_upper_arm" index="0"]
+rotation = 0.0
+
+[node name="right_hand" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/right_upper_arm/right_fore_arm" index="0"]
+rotation = 0.0
+
+[node name="right_weapon" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand" index="0"]
+rotation = 0.0
 
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 
@@ -506,6 +559,9 @@ position = Vector2( -31, -74 )
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="CornerDetect" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
 [connection signal="FaceDirectionChanged" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_FaceDirectionChanged"]
 [connection signal="State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_State_Changed"]
+[connection signal="AnimationCallMethod" from="SpriteAnimation" to="Wu" method="_on_SpriteAnimation_AnimationCallMethod"]
+[connection signal="Hit" from="SpriteAnimation" to="." method="_on_SpriteAnimation_Hit"]
+[connection signal="Hurt" from="SpriteAnimation" to="." method="_on_SpriteAnimation_Hurt"]
 [connection signal="ActionFinish" from="FightActionMng" to="." method="_on_FightActionMng_ActionFinish"]
 [connection signal="ActionFinish" from="FightActionMng" to="Wu" method="_on_FightActionMng_ActionFinish"]
 [connection signal="ActionStart" from="FightActionMng" to="." method="_on_FightActionMng_ActionStart"]

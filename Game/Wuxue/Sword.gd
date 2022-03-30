@@ -18,11 +18,13 @@ func _do_wu_motion(wu_motion,is_heavy):
 		
 		
 		Glob.WuMotion.Block:
+			fight_cpn.is_prepared = true			
 			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Block) as BaseAction
 			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
 		
 		Glob.WuMotion.Attack_Pi:
+			fight_cpn.is_prepared = true			
 			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Attack_Pi) as BaseAction
 			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
 			pass
@@ -38,26 +40,38 @@ func _do_wu_motion(wu_motion,is_heavy):
 			pass
 			
 		Glob.WuMotion.Prepared:
-			fight_cpn.is_prepared = true
-		
+			
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Prepared) as BaseAction
+			if base != null :
+				var action = Glob.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+				fight_cpn.actionMng.regist_actioninfo(action)
+			
 		Glob.WuMotion.Unprepared:
-			fight_cpn.is_prepared = false
-		
-		Glob.WuMotion.Hanging:
-			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Hanging) as BaseAction
-			fight_cpn.actionMng.regist_action(wu_motion,base.duration,ActionInfo.EXEMOD_INTERUPT)
-			pass
-		
-		Glob.WuMotion.HangingClimb:
-			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.HangingClimb) as BaseAction
-			fight_cpn.actionMng.regist_action(wu_motion,base.duration,ActionInfo.EXEMOD_INTERUPT)
-			pass
+			
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Unprepared) as BaseAction
+			if base != null :
+				var action = Glob.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+				fight_cpn.actionMng.regist_actioninfo(action)
 		
 		Glob.WuMotion.Attack:
-			if fight_cpn.is_prepared == false:
-				fight_cpn.is_prepared = true
-			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Attack) as BaseAction
-			fight_cpn.actionMng.regist_action(Glob.FightMotion.Attack,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			fight_cpn.is_prepared = true
+			fight_cpn.set_paused_unpreparing_timer(false)
+			var _a 
+			if is_heavy:
+				_a = Glob.FightMotion.Attack_Sao
+				pass
+			else:
+				_a = Glob.FightMotion.Attack
+				pass	
+			var base = FightBaseActionDataSource.get_by_id(_a) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id , base.duration,ActionInfo.EXEMOD_INTERUPT)
+		
+		
+		Glob.WuMotion.Holding:
+			fight_cpn.is_prepared = true
+			fight_cpn.set_paused_unpreparing_timer()
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Holding) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
 		
 		Glob.WuMotion.Switch:
 			

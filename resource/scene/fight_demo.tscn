@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.tscn" type="PackedScene" id=2]
 [ext_resource path="res://FrameWork/Scene/Ladder.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resource/tiles/platformer_mountain.tres" type="TileSet" id=4]
 [ext_resource path="res://FrameWork/Scene/Platform.tscn" type="PackedScene" id=19]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=3]
 
 [node name="Platformer" type="Node2D"]
 __meta__ = {
@@ -53,14 +59,26 @@ collision_layer = 256
 camp = 1
 is_player = false
 
+[node name="AnimationTree" parent="enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
+parameters/action_tree/StateMachine/playback = SubResource( 1 )
+parameters/action_tree/holding_tran/current = 0
+
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
 position = Vector2( 88, 559 )
+
+[node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
+parameters/action_tree/StateMachine/playback = SubResource( 2 )
+parameters/action_tree/holding_tran/current = 0
 
 [node name="fat_enermy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 293, 550 )
 camp = 1
 is_player = false
 _learned_wuxue = [ 1 ]
+
+[node name="AnimationTree" parent="fat_enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
+parameters/action_tree/StateMachine/playback = SubResource( 3 )
+parameters/action_tree/holding_tran/current = 0
 
 [editable path="Ladder"]
 [editable path="Platform"]

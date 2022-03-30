@@ -82,6 +82,14 @@ func travelTo(action:ActionInfo):
 			
 			set("parameters/action_tree/action_tran/current",0)
 #			set("parameters/move_action_blend/blend_amount",1)
+		
+		Glob.FightMotion.Attack_Sao:
+			
+			set("parameters/action_shot/active",true)
+			
+			set("parameters/action_tree/attack_tran/current",4)
+			
+			set("parameters/action_tree/action_tran/current",0)
 			
 		Glob.FightMotion.Attack_Pi:
 			
@@ -90,6 +98,15 @@ func travelTo(action:ActionInfo):
 			set("parameters/action_tree/attack_tran/current",2)
 			
 			set("parameters/action_tree/action_tran/current",0)
+		
+		
+		Glob.FightMotion.Holding:
+			
+			set("parameters/action_shot/active",true)
+			
+			set("parameters/action_tree/holding_tran/current",0)
+			
+			set("parameters/action_tree/action_tran/current",3)
 			
 #			set("parameters/action_tran/current",0)
 #			set("parameters/attack_bs/blend_position",Vector2(0,-1))

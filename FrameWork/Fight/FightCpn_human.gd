@@ -247,38 +247,41 @@ func switch_weapon(index,wuxue):
 var is_prepared = false setget _set_prepared
 
 func _set_prepared(p):
-	
-	if p and not is_prepared:
-		#是从false 变化到 true的情况； 出剑
-		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Prepared) as BaseAction
-		if base != null :
-			var action = Glob.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
-			actionMng.regist_actioninfo(action)
-	elif is_prepared and not p:
-		#是从true 变为false；收剑
-		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Unprepared) as BaseAction
-		if base != null :
-			var action = Glob.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
-			actionMng.regist_actioninfo(action)
-		pass
-	
 	is_prepared = p 
+	if p:
+		sprite_animation.set_state(StandarCharactor.CharactorState.Engaged)
+	else:
+		sprite_animation.set_state(StandarCharactor.CharactorState.Peace)
+	
 	if p:
 		_update_prepared_timer()
 #计算prepared状态的timer
 onready var _unpreparing_timer = $Timer
 #更新 PREPARED状态 计时器
 func _update_prepared_timer():
-	_unpreparing_timer.start(5)
-	
+	refresh_unpreparing_timer()
 	while true:
 		var func_return = yield(_unpreparing_timer,"timeout")
 		
 		if is_engaged:
-			_unpreparing_timer.start(5)
+			refresh_unpreparing_timer()
 		else:
-			self.is_prepared = false
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Unprepared) as BaseAction
+			if base != null :
+				var action = Glob.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+				actionMng.regist_actioninfo(action)
 			break
+
+#设置_unpreparing_timer 的paused 状态
+func set_paused_unpreparing_timer(_p=true):
+	if _p:
+		_unpreparing_timer.stop()
+	else:
+		_unpreparing_timer.start()
+
+#刷新_unpreparing_timer 时间
+func refresh_unpreparing_timer(sec=5):
+	_unpreparing_timer.start(sec)
 	
 export(float) var impact_strength=0;
 
@@ -331,10 +334,14 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	if action.base_action ==Glob.FightMotion.Prepared:
 		
 		sprite_animation.set_state(StandarCharactor.CharactorState.Engaged)
+		if not self.is_prepared:
+			self.is_prepared = true
 		
 	if action.base_action ==Glob.FightMotion.Unprepared:
 		sprite_animation.set_state(StandarCharactor.CharactorState.Peace)
-	
+		if self.is_prepared:
+			self.is_prepared = false
+			
 	for _list in _equiped_gears_dict.values():
 		
 		for _gear  in _list:
