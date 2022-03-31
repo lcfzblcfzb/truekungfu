@@ -104,6 +104,29 @@ enum WuxueEnum{
 	
 }
 
+#属性类型
+enum CharactorAttribute{
+	Block = 100,
+	BlockRegen =101,
+	Stamina =102,
+	StaminaRegen =103,
+	
+	WalkSpeed = 200,
+	RunSpeed =201,
+	JumpSpeed =202,
+	RollSpeed =203, 
+	
+	AttackCiDuration = 300,
+	AttackPiDuration =301,
+	AttackSaoDuration =302,
+	BlockDuration =303,
+}
+
+enum CharactorAttributeParameter{
+	
+}
+
+
 func test():
 	print("print test global")
 
