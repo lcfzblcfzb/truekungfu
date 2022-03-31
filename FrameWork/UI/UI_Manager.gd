@@ -8,11 +8,14 @@ var IS_MOVEAWAY ="is_moveaway"
 var INTER_NUM ="internum"
 
 var _original_margin:Rect2;
-	
+#保存失效的UI 并且时刻移除
+var _invalid_uis=[]
+
 #todo 移除的时候要移除自身
 func _process(delta):
 	
 	start_check()
+	remove_invalid()
 	pass
 
 #通过注册到管理器，实现血条不会重叠的效果
@@ -23,15 +26,27 @@ func regist_none_ovelap_UI(control):
 func start_check():
 	
 	for i in none_overlaping_array.size():
+		var _cur = none_overlaping_array[i]
 		
-		var _cur = none_overlaping_array[i] as Control
+		if not is_instance_valid(_cur):
+			_invalid_uis.append(_cur)
+			continue
+		_cur = _cur as Control
 		
 		for j in (none_overlaping_array.size()-i-1):
 			
 			if  j<0 :
 				break
 				
-			var _next = none_overlaping_array[i+j+1] as Control
+			var _next = none_overlaping_array[i+j+1] 
+			
+			
+			if not is_instance_valid(_next):
+				_invalid_uis.append(_next)
+				continue
+			
+			_next = _next as Control
+			
 			
 			if _check_if_overlap(_cur,_next):
 				#do over lap
@@ -87,7 +102,12 @@ func start_check():
 		
 		pass
 	
+func remove_invalid():
 	
+	for obj in _invalid_uis:
+		none_overlaping_array.erase(obj)
+	_invalid_uis.clear()	
+	pass	
 
 func _check_if_overlap(controlA:Control, controlB:Control):
 	

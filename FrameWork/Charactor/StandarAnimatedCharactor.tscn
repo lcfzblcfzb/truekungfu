@@ -1,11 +1,10 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=82 format=2]
 
 [ext_resource path="res://FrameWork/Charactor/standar_charactors/DaoshiStandar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resource/animation/tree/StandarCharactorTree.tres" type="AnimationNodeBlendTree" id=2]
 [ext_resource path="res://FrameWork/Charactor/StandarAnimatedCharactor.gd" type="Script" id=3]
 [ext_resource path="res://resource/animation/script/default_tree_handling_script.gd" type="Script" id=4]
 [ext_resource path="res://FrameWork/Charactor/WuxueAnimationPlayer.gd" type="Script" id=5]
-[ext_resource path="res://FrameWork/Gear/Weapon/Weapon_Jian.tscn" type="PackedScene" id=6]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=318]
 
@@ -18527,12 +18526,11 @@ anim_player = NodePath("../CharactorAnimationPlayers/AnimationPlayer_Taijijian_N
 parameters/TimeScale/scale = 1.0
 parameters/action_shot/active = false
 parameters/action_tran/current = 0
-parameters/action_tree/StateMachine/playback = SubResource( 318 )
 parameters/action_tree/action_tran/current = 0
 parameters/action_tree/attack_tran/current = 0
 parameters/action_tree/block_tran/current = 0
 parameters/action_tree/dodge_tran/current = 0
-parameters/action_tree/holding_tran/current = 0
+parameters/action_tree/holding_sm/playback = SubResource( 318 )
 parameters/attack_bs/blend_position = Vector2( 0, 0 )
 parameters/block_bs/blend_position = Vector2( 0, 0 )
 parameters/dodge_bs/blend_position = Vector2( 0, 0 )
@@ -18659,67 +18657,10 @@ skelekal_type = 1
 
 [node name="standar_charactor" parent="." instance=ExtResource( 1 )]
 
-[node name="hip" parent="standar_charactor" index="1"]
-position = Vector2( 6, 0 )
-
-[node name="left_thigh" parent="standar_charactor/hip" index="0"]
-rotation = -0.859449
-
-[node name="left_shank" parent="standar_charactor/hip/left_thigh" index="0"]
-rotation = 1.06746
-
-[node name="left_foot" parent="standar_charactor/hip/left_thigh/left_shank" index="0"]
-rotation = -0.0750469
-
-[node name="right_thigh" parent="standar_charactor/hip" index="1"]
-rotation = 0.0946714
-
-[node name="right_shank" parent="standar_charactor/hip/right_thigh" index="0"]
-rotation = 0.105113
-
-[node name="right_foot" parent="standar_charactor/hip/right_thigh/right_shank" index="0"]
-rotation = -0.210134
-
-[node name="body" parent="standar_charactor/hip" index="2"]
-rotation = 0.107671
-
-[node name="left_upper_arm" parent="standar_charactor/hip/body" index="0"]
-rotation = 1.34036
-
-[node name="left_fore_arm" parent="standar_charactor/hip/body/left_upper_arm" index="0"]
-rotation = -1.81614
-
-[node name="left_hand" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm" index="0"]
-rotation = 0.46849
-
-[node name="left_weapon" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand" index="0"]
-rotation = -2.0944
-
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand/left_weapon" index="0"]
-remote_path = NodePath("../../../../../../../weapon_jian/sword_sheath")
-
-[node name="right_upper_arm" parent="standar_charactor/hip/body" index="1"]
-rotation = -2.17
-
-[node name="right_fore_arm" parent="standar_charactor/hip/body/right_upper_arm" index="0"]
-rotation = 0.443638
-
-[node name="right_hand" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm" index="0"]
-rotation = 1.7528
-
-[node name="right_weapon" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand" index="0"]
-rotation = 1.39195
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand/right_weapon" index="0"]
-remote_path = NodePath("../../../../../../../weapon_jian/sword_right_hand")
-
-[node name="weapon_jian" parent="standar_charactor" instance=ExtResource( 6 )]
-
-[node name="sword_sheath" parent="standar_charactor/weapon_jian" index="2"]
-z_as_relative = true
 
 [editable path="standar_charactor"]
 [editable path="standar_charactor/hurt_box"]
 [editable path="standar_charactor/hip"]
-[editable path="standar_charactor/weapon_jian"]
-[editable path="standar_charactor/weapon_jian/weaponBox"]

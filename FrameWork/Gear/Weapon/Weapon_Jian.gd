@@ -138,22 +138,25 @@ func set_unsync_to_source():
 	sword_left_remote.update_scale = false
 
 func on_actioninfo_start(action:ActionInfo):
-	if action.base_action == Glob.FightMotion.Prepared:
+	
+	if active:
 		
-		get_animation_player().play("prepared")
-	elif action.base_action == Glob.FightMotion.Unprepared:
-		get_animation_player().play("unprepared")
-	elif action.base_action == Glob.FightMotion.Attack:
-#		set_unsync_to_source()
-#		print(action.action_duration_ms/1000.0)
-		get_animation_player().play("attack",-1,1000/action.action_duration_ms)
-		get_animation_player().advance(0)
-		pass
-	else:
-		set_sync_to_source()
+		if action.base_action == Glob.FightMotion.Prepared:
+			
+			get_animation_player().play("prepared")
+		elif action.base_action == Glob.FightMotion.Unprepared:
+			get_animation_player().play("unprepared")
+		elif action.base_action == Glob.FightMotion.Attack:
+	#		set_unsync_to_source()
+	#		print(action.action_duration_ms/1000.0)
+			get_animation_player().play("attack",-1,1000/action.action_duration_ms)
+			get_animation_player().advance(0)
+			pass
+		else:
+			set_sync_to_source()
 	pass
 func on_actioninfo_end(action:ActionInfo):
-	
-	if action.base_action == Glob.FightMotion.Attack:
-		set_sync_to_source()
+	if active:
+		if action.base_action == Glob.FightMotion.Attack:
+			set_sync_to_source()
 #		getWeaponBox().stop_monitoring()

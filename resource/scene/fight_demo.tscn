@@ -60,15 +60,13 @@ camp = 1
 is_player = false
 
 [node name="AnimationTree" parent="enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
-parameters/action_tree/StateMachine/playback = SubResource( 1 )
-parameters/action_tree/holding_tran/current = 0
+parameters/action_tree/holding_sm/playback = SubResource( 1 )
 
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
 position = Vector2( 88, 559 )
 
 [node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
-parameters/action_tree/StateMachine/playback = SubResource( 2 )
-parameters/action_tree/holding_tran/current = 0
+parameters/action_tree/holding_sm/playback = SubResource( 2 )
 
 [node name="fat_enermy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 293, 550 )
@@ -77,8 +75,7 @@ is_player = false
 _learned_wuxue = [ 1 ]
 
 [node name="AnimationTree" parent="fat_enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
-parameters/action_tree/StateMachine/playback = SubResource( 3 )
-parameters/action_tree/holding_tran/current = 0
+parameters/action_tree/holding_sm/playback = SubResource( 3 )
 
 [editable path="Ladder"]
 [editable path="Platform"]
