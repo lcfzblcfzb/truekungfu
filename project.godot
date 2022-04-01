@@ -339,7 +339,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/event/NewActionEvent.gd"
 }, {
-"base": "Reference",
+"base": "KinematicBody2D",
 "class": "NpcOf2Direction",
 "language": "GDScript",
 "path": "res://FrameWork/Charactor/NpcOf2Direction.gd"
