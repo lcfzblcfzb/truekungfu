@@ -18,7 +18,14 @@ func getPollObject(type:GDScript,param=null):
 		var newPool =ObjPool.new(type)
 		PoolDict[type] = newPool
 		return newPool.instance(param)
-		
+
+enum ActionHandlingType{
+	# 关于角色移动的分类
+	Movement=1,
+	
+	#关于角色 各种动作的分类（除了移动）
+	Action=2,
+}	
 
 #TODO 动态创建 ObjPool发
 #通过get 方法 检测一遍 如果没找到就NEW 一个
@@ -106,26 +113,23 @@ enum WuxueEnum{
 
 #属性类型
 enum CharactorAttribute{
-	Block = 100,
-	BlockRegen =101,
-	Stamina =102,
-	StaminaRegen =103,
+	Block = 100,#number
+	BlockRegen =101,# number/second; 通过 attributeMng get 的是 number/frame_time
+	Stamina =102,#number
+	StaminaRegen =103,# number/second ; 通过 attributeMng get 的是 number/frame_time
 	
-	WalkSpeed = 200,
-	RunSpeed =201,
-	JumpSpeed =202,
-	RollSpeed =203, 
+	WalkSpeed = 200,#pix/second
+	RunSpeed =201,#pix/second
+	JumpSpeed =202,#pix/second
+	RollSpeed =203, #pix/second
+	ClimbSpeed = 204,
+	AttackMoveSpeed = 205,
 	
-	AttackCiDuration = 300,
-	AttackPiDuration =301,
-	AttackSaoDuration =302,
-	BlockDuration =303,
+	AttackCiDuration = 300,#second
+	AttackPiDuration =301,#second
+	AttackSaoDuration =302,#second
+	BlockDuration =303,#second
 }
-
-enum CharactorAttributeParameter{
-	
-}
-
 
 func test():
 	print("print test global")

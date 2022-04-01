@@ -2,14 +2,9 @@ class_name BaseAction
 
 extends IntEntity
 
-#func _init(param:Dictionary):
-#
-#	id= param.get("id") as int
-#	name= param.get("name")
-#	animation_name= param.get("animation_name")
-#	type= param.get("type")
-#	duration= param.get("duration")
-
+#用以区分处理时候的分类-》同一类型的action 按顺序执行，不同类型的action 是同步执行
+#取自 Glob.ActionHandlingType
+var handle_type=Glob.ActionHandlingType.Action;
 
 var name;
 var animation_name;

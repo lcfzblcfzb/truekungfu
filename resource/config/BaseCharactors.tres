@@ -2,16 +2,38 @@
 	{
 		"id":100,
 		"name":"Daoshi",
-		"skeletal_type":0
+		"skeletal_type":0,
+		"attribute":{
+			"Block":100,
+			"BlockRegen":10,
+			"Stamina":100,
+			"StaminaRegen":30,
+
+			"WalkSpeed":110,
+			"RunSpeed":200,
+			"JumpSpeed":250,
+			"RollSpeed":200,
+
+			"AttackCiDuration":0.3,
+			"AttackPiDuration":0.5,
+			"AttackSaoDuration":0.5,
+			"BlockDuration":0.5,
+		}
 	},
 	{
 		"id":101,
 		"name":"Rusheng",
-		"skeletal_type":0
+		"skeletal_type":0,
+		"attribute":{
+			
+		}
 	},
 	{
 		"id":200,
 		"name":"Fatguy",
-		"skeletal_type":1
+		"skeletal_type":1,
+		"attribute":{
+
+		}
 	}
 ]

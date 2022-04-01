@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/event/AIEvent.gd"
 }, {
+"base": "Reference",
+"class": "ActionHandler",
+"language": "GDScript",
+"path": "res://FrameWork/Fight/Action/ActionHandler.gd"
+}, {
 "base": "",
 "class": "ActionInfo",
 "language": "GDScript",
@@ -28,6 +33,11 @@ _global_script_classes=[ {
 "class": "AiFightGestureController",
 "language": "GDScript",
 "path": "res://FrameWork/Fight/Controller/AiFightGestureController.gd"
+}, {
+"base": "Node2D",
+"class": "AttribugeMng",
+"language": "GDScript",
+"path": "res://FrameWork/Attribute/AttributeMng.gd"
 }, {
 "base": "VirtualAttribute",
 "class": "Attribute",
@@ -329,7 +339,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/event/NewActionEvent.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Reference",
 "class": "NpcOf2Direction",
 "language": "GDScript",
 "path": "res://FrameWork/Charactor/NpcOf2Direction.gd"
@@ -417,8 +427,10 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AIDetector": "",
 "AIEvent": "",
+"ActionHandler": "",
 "ActionInfo": "",
 "AiFightGestureController": "",
+"AttribugeMng": "",
 "Attribute": "",
 "AttributeFactor": "",
 "BTAlways": "res://addons/behavior_tree/icons/btalways.svg",

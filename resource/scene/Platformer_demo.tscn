@@ -55,7 +55,7 @@ tile_data = PoolIntArray( 1638434, 19, 0, 1769510, 47, 0, 1835046, 49, 0, 183504
 position = Vector2( 370, 556 )
 
 [node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
-parameters/action_tree/StateMachine/playback = SubResource( 1 )
+parameters/action_tree/holding_sm/playback = SubResource( 1 )
 
 [editable path="Ladder"]
 [editable path="Platform"]
@@ -66,6 +66,4 @@ parameters/action_tree/StateMachine/playback = SubResource( 1 )
 [editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor"]
 [editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hurt_box"]
 [editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip"]
-[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/weapon_jian"]
-[editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/weapon_jian/weaponBox"]
 [editable path="FIghtComponnet_Human/Wu"]

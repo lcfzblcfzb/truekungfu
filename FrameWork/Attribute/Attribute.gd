@@ -1,14 +1,15 @@
 class_name Attribute
 extends VirtualAttribute
 
-var base
-var bonus
-var bonus_rate
-var base_rate
-var all_rate
+var base =0 
+var bonus =0
+var bonus_rate =1
+var base_rate =0
+var all_rate =1
 
-func _init(_base):
+func _init(_base,type).(type):
 	base=_base
+	_recalc_value()
 
 func _recalc_value():
 	
@@ -33,8 +34,11 @@ func _recalc_value():
 			pass
 		pass
 	
-	
 	_value = base+ base * base_rate * all_rate + bonus * bonus_rate * all_rate
+	
+	if type == Glob.CharactorAttribute.BlockRegen or type == Glob.CharactorAttribute.StaminaRegen:
+		_value = _value / Engine.iterations_per_second
+	
 	_is_dirty = false
 
 

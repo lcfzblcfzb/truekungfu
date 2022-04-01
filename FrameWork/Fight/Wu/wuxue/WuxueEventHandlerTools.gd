@@ -9,7 +9,7 @@ static func _check_and_do_hangingclimb(event,fight_cpn)->bool:
 	
 	var action_mng = fight_cpn.actionMng
 	var input_vector = event.move_direction
-	var lastMotion =action_mng.nearest_executed_action()
+	var lastMotion =action_mng.nearest_executed_action(Glob.ActionHandlingType.Movement)
 	
 	if lastMotion and lastMotion.base_action == Glob.FightMotion.Hanging:
 		
@@ -34,7 +34,6 @@ static func _check_and_do_hangingclimb(event,fight_cpn)->bool:
 			var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_INTERUPT])
 			action_mng.regist_actioninfo(action)
 			return true
-		pass 
 	
 	elif lastMotion and lastMotion.base_action == Glob.FightMotion.Walk and fight_cpn.is_at_hanging_corner() and event.is_jump:
 		
@@ -43,16 +42,14 @@ static func _check_and_do_hangingclimb(event,fight_cpn)->bool:
 		action_mng.regist_actioninfo(action)
 		return true
 		
-		pass
 	return false
-	pass
 	
 #检测是否进入hanging状态
 static func _check_and_do_hanging(event,fight_cpn)->bool:
 	
 	var action_mng = fight_cpn.actionMng
 	var input_vector = event.move_direction
-	var lastMotion =action_mng.nearest_executed_action()
+	var lastMotion =action_mng.nearest_executed_action(Glob.ActionHandlingType.Movement)
 	
 	if lastMotion and lastMotion.base_action != Glob.FightMotion.Hanging and lastMotion.base_action != Glob.FightMotion.HangingClimb and lastMotion.base_action != Glob.FightMotion.JumpUp and  fight_cpn.is_at_hanging_corner() and not fight_cpn.is_on_genelized_floor():
 		
@@ -65,7 +62,6 @@ static func _check_and_do_hanging(event,fight_cpn)->bool:
 		return true
 		
 	return false
-	pass
 
 static func normal_on_moveevent(event,fight_cpn):
 	
@@ -95,9 +91,9 @@ static func normal_on_moveevent(event,fight_cpn):
 				#如果只是平地起跳 input_vector=Vector2.ZERO的时候，也要保证 y=1；否则会被移动控制器忽略，使用上一个动作保存的方向
 				var vec = Vector2(input_vector.x,-1)
 				#do jump up
-				var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_SEQ])
+				var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_SEQ,false,true])
 				action_mng.regist_actioninfo(action)
-				
+
 			
 		else:
 			if input_vector != Vector2.ZERO:
@@ -136,11 +132,8 @@ static func normal_on_moveevent(event,fight_cpn):
 						
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 			else:
-
-
-				if action_mng.action_array.size()>0:
-					
-					var lastMotion =action_mng.action_array.back()
+				var lastMotion =action_mng.last_action(Glob.ActionHandlingType.Movement)
+				if lastMotion:
 					var motion = Glob.FightMotion.Idle
 					if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
 						motion = Glob.FightMotion.JumpUp
@@ -153,18 +146,15 @@ static func normal_on_moveevent(event,fight_cpn):
 					action_mng.regist_actioninfo(action)
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Idle)
 	else:
-		var lastMotion =action_mng.last_action()
+		var lastMotion =action_mng.last_action(Glob.ActionHandlingType.Movement)
 		#这里是 攻击结束后，已经按下移动中的情况
 		#climb 是因为如果之前是climb ，而这里没有包括，则climb的动作会被walk替换
 		if lastMotion and (lastMotion.base_action != Glob.FightMotion.Run && lastMotion.base_action != Glob.FightMotion.Climb):
 			var motion = Glob.FightMotion.Walk
 			if movable.state == FightKinematicMovableObj.ActionState.JumpUp or movable.state == FightKinematicMovableObj.ActionState.JumpDown or movable.state == FightKinematicMovableObj.ActionState.Attack:
 				return
-			var action = Glob.getPollObject(ActionInfo,[motion, OS.get_ticks_msec(), [input_vector], -1, ActionInfo.EXEMOD_GENEROUS, false, true])
+			var action = Glob.getPollObject(ActionInfo,[motion, OS.get_ticks_msec(), [input_vector], -1, ActionInfo.EXEMOD_GENEROUS, false, false])
 			action_mng.regist_actioninfo(action)
-			pass
-	pass
-
 
 #判定是否是run
 #进行一个run 判定
@@ -172,7 +162,7 @@ static func normal_on_moveevent(event,fight_cpn):
 static func is_trigger_run(input_vector,fight_cpn)->bool:
 	 
 	var action_mng = fight_cpn.actionMng
-	var action_array =action_mng.action_array
+	var action_array =action_mng.get_action_array(Glob.ActionHandlingType.Movement)
 	var index =action_array.size()
 	
 	while true:

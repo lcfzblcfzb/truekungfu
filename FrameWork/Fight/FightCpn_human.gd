@@ -15,6 +15,7 @@ onready var sprite_animation = $SpriteAnimation
 onready var actionMng:FightActionMng = $FightActionMng
 onready var wu = $Wu
 onready var corner_detector = $CornerDetect
+onready var attribute_mng = $AttributeMng
 
 #动作控制器。是玩家输入或者是 AI 控制器
 var fight_controller :BaseFightActionController
@@ -30,11 +31,14 @@ export (Array,Glob.WuxueEnum) var _learned_wuxue:Array=[Glob.WuxueEnum.Sanjiaoma
 #可选角色形象
 export (Glob.CharactorEnum) var chosed_characor = Glob.CharactorEnum.Daoshi
 
+#初始的装备
+export (Array,Glob.GearEnum) var initial_gears =[]
+
 #已装备的 道具
 # slot->[ baseGear ]
 var _equiped_gears_dict = {}
 #使用中的weapon
-var weapon_onuse :Weapon
+var weapon_in_use:Weapon
 
 #是否处于可攀爬位置
 func is_at_hanging_corner()->bool:
@@ -68,12 +72,15 @@ func _ready():
 		fight_controller.call_deferred('active_tree')
 	#选择队应角色形象
 	sprite_animation.choose_charactor(chosed_characor)	
-	#所有角色有一个默认的weapon-->fist
-	equip_gear(Glob.GearEnum.Fist)
-	#TODO 装备物品  测试用
-	equip_gear(Glob.GearEnum.DuanJian)
+	
+	#初始化 预设武器
+	init_weapon()
+	
 	#用特定武学 选择一件武器
 	choose_weapon_using_wuxue(0,Glob.WuxueEnum.Sanjiaomao)
+	var baseCharactor = BaseStandarCharactorsDMG.get_by_id(chosed_characor)
+	#初始化属性
+	attribute_mng.init(baseCharactor)
 	
 	#初始状态检测
 	#TODO 可以指定初始状态
@@ -82,7 +89,7 @@ func _ready():
 	
 	$Energy.set_max_value(block_value)
 	$Energy.update_value(block_value)
-	
+	#UI 现实血量
 	UiManager.regist_none_ovelap_UI($Energy.get_texture_progress())
 	pass 
 
@@ -109,31 +116,14 @@ func get_learned_wuxue_by_weapon_type(type):
 	return result
 
 #初始化武器
-#base_weapon_id :Glob.GearEnum
-func init_weapon(base_weapon_id):
+func init_weapon():
+	#所有角色有一个默认的weapon-->fist
+	equip_gear(Glob.GearEnum.Fist)
+	for gear in initial_gears:
+		#装备物品
+		equip_gear(gear)
+		pass
 	
-	pass
-	
-#装备武器
-func equip_weapon(base_weapon):
-	
-	var base_weapon_obj:BaseWeapon
-	if base_weapon is BaseWeapon:
-		base_weapon_obj = base_weapon
-	elif base_weapon is int:
-		base_weapon_obj = BaseWeaponDmg.get_by_id(base_weapon) as BaseWeapon
-	
-	if base_weapon_obj:
-		
-		if base_weapon.scene_path:
-			var weapon_derived = load(base_weapon.scene_path).instance()
-		else:
-			var weapon_derived = load("res://Game/Gear/Weapon/WeaponDerived.tscn").instance() as Node
-			var proto = BaseWeaponDmg.weapontype2prototype[base_weapon_obj.weaponType]
-			weapon_derived.add_child(proto)
-
-var weapon_in_use:Weapon
-
 #选择武器使用
 func choose_weapon_using_wuxue(id,wuxue):
 	#武器 的 外形 在此初始化
@@ -309,7 +299,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 		return
 	
 	#动画播放时长
-	var time = base.duration
+	var time = action.action_duration_ms / 1000
 	if time<=0 || time ==null:
 		time=1
 	

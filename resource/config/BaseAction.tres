@@ -4,6 +4,7 @@
 	"name": "a_u_pre",
 	"animation_name": "a_u_pre",
 	"duration": 1,
+	"handle_type":2,
 	"type": [
 	  2,
 	  3
@@ -14,6 +15,7 @@
 	"name": "a_u_in",
 	"animation_name": "a_u_in",
 	"duration": 1,
+	"handle_type":2,
 	"type": [
 	  2,
 	  3
@@ -544,6 +546,7 @@
 	"name": "idle",
 	"animation_name": "idle",
 	"duration": -1,
+	"handle_type":1,
 	"type": [
 	  1
 	]
@@ -553,6 +556,7 @@
 	"name": "walk",
 	"animation_name": "walk",
 	"duration": -1,
+	"handle_type":1,
 	"type": [
 	  1
 	]
@@ -562,6 +566,7 @@
 	"name": "run",
 	"animation_name": "run",
 	"duration": -1,
+	"handle_type":1,
 	"type": [
 	  1
 	]
@@ -571,6 +576,7 @@
 	"name": "holding",
 	"animation_name": "holding",
 	"duration": -1,
+	"handle_type":2,
 	"type": [
 	  1
 	]
@@ -580,6 +586,7 @@
 	"name": "idle2run",
 	"animation_name": "idle2run",
 	"duration": 0.1,
+	"handle_type":1,
 	"type": [
 	  1
 	]
@@ -589,6 +596,7 @@
 	"name": "run2idle",
 	"animation_name": "run2idle",
 	"duration": 0.1,
+	"handle_type":1,
 	"type": [
 	  1
 	]
@@ -597,7 +605,7 @@
 	"id": 160,
 	"name": "stunned",
 	"animation_name": "stunned",
-	"duration": 1,
+	"duration": 2,
 	"type": [
 	  2
 	]
@@ -607,6 +615,7 @@
 	"name": "jump_up",
 	"animation_name": "jump_up",
 	"duration": -1,
+	"handle_type":1,
 	"type": [
 	  1
 	]
@@ -616,6 +625,7 @@
 	"name": "jump_down",
 	"animation_name": "jump_down",
 	"duration": -1,
+	"handle_type":1,
 	"type": [
 	  1
 	]
@@ -625,6 +635,7 @@
 	"name": "Climb",
 	"animation_name": "climb",
 	"duration": 1,
+	"handle_type":1,
 	"type": [
 	  1
 	]
@@ -634,6 +645,7 @@
 	"name": "Hanging",
 	"animation_name": "hanging",
 	"duration": -1,
+	"handle_type":1,
 	"type": [
 	  1
 	]
@@ -643,6 +655,7 @@
 	"name": "HangingClimb",
 	"animation_name": "hangingclimb",
 	"duration": 1,
+	"handle_type":1,
 	"type": [
 	  1
 	]
@@ -652,6 +665,7 @@
 	"name": "Attack",
 	"animation_name": "attack",
 	"duration": 0.3,
+	"handle_type":2,
 	"type": [
 	  1
 	]
@@ -661,6 +675,7 @@
 	"name": "Defend",
 	"animation_name": "defend",
 	"duration": 1,
+	"handle_type":2,
 	"type": [
 	  1
 	]
@@ -670,6 +685,7 @@
 	"name": "Prepared",
 	"animation_name": "prepared",
 	"duration": 1,
+	"handle_type":2,
 	"type": [
 	  1
 	]
@@ -679,6 +695,7 @@
 	"name": "Unprepared",
 	"animation_name": "unprepared",
 	"duration": 1,
+	"handle_type":2,
 	"type": [
 	  1
 	]
@@ -688,6 +705,7 @@
 	"name": "PreAttack",
 	"animation_name": "preAttack",
 	"duration": 1,
+	"handle_type":2,
 	"type": [
 	  1
 	]
@@ -697,6 +715,7 @@
 	"name": "Rolling",
 	"animation_name": "rolling",
 	"duration": 1,
+	"handle_type":1,
 	"type": [
 	  1
 	]

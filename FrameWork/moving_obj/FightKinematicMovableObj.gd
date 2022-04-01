@@ -29,7 +29,7 @@ export(int, 0, 1000) var IDLE_ACC = 1900
 export(int, 0, 1000) var WALK_ACC = 900
 export(int, 0, 1000) var WALK_VELOCITY = 110
 export(int, 0, 1000) var RUN_ACC = 500
-export(int, 0, 1000) var RUN_VELOCTIY = 300
+export(int, 0, 1000) var RUN_VELOCTIY = 200
 export(int, 0, 1000) var RUN_2_IDLE_ACC = 700
 export(int, 0, 1000) var RUN_2_IDLE_VELOCITY = 100
 export(int, 0, 1000) var IDLE_2_RUN_ACC = 100
@@ -58,16 +58,18 @@ func changeState(s):
 				isMoving = true
 				h_acceleration = IDLE_ACC
 				h_velocityToward = 0
+				self.faceDirection.y = 1
 				pass
 			ActionState.Walk:
 				isMoving = true
 				h_acceleration = WALK_ACC
-				h_velocityToward = WALK_VELOCITY
+				h_velocityToward = _get_attribute_mng().get_value(Glob.CharactorAttribute.WalkSpeed)
+				self.faceDirection.y = 1
 				pass
 			ActionState.Run:
 				isMoving = true 
 				h_acceleration = RUN_ACC
-				h_velocityToward = RUN_VELOCTIY
+				h_velocityToward = _get_attribute_mng().get_value(Glob.CharactorAttribute.RunSpeed)
 				pass
 			ActionState.Run2Idle:
 				isMoving = true
@@ -95,7 +97,7 @@ func changeState(s):
 				v_velocityToward = 0
 				h_acceleration = WALK_ACC
 				h_velocityToward = WALK_VELOCITY
-				velocity.y = -JUMP_VELOCITY
+				velocity.y = -_get_attribute_mng().get_value(Glob.CharactorAttribute.JumpSpeed)
 				self.faceDirection.y = -1
 				
 			ActionState.JumpDown:
@@ -141,6 +143,9 @@ func changeState(s):
 		state =s	
 		emit_signal("State_Changed",s)
 	pass
+
+func _get_attribute_mng()->AttribugeMng:
+	return body.attribute_mng
 
 func _physics_process(delta):
 	#检测跳跃状态

@@ -230,11 +230,6 @@ func _input(event):
 	elif event.is_action_released("right") :
 		_horizon_key_pressed = _horizon_key_pressed & 0b10 
 	
-	if event.is_action_pressed("jump") :
-		var input_vector = _gen_input_vector_by_bincode()
-		var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,false,true])	
-		emit_signal("NewFightMotion",newActionEvent)	
-	
 	if event.is_action_pressed("cancel"):
 
 #		jisu.state = FightKinematicMovableObj.ActionState.Idle

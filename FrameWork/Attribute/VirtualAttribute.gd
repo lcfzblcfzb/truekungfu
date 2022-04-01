@@ -1,12 +1,16 @@
 class_name VirtualAttribute
 
 #Glob.CharactorAttribute
-var type setget _private_set,_private_get
-#arry 保存factor
+var type setget _private_set
+
 var _factor_array=[] setget _private_set,_private_get
 
 var _is_dirty = true
 var _value =0
+
+
+func _init(_type):
+	type = _type
 
 func get_value():
 	
