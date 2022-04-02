@@ -13,10 +13,11 @@
 [ext_resource path="res://resource/standar_charactor/rusheng002/left_upper_arm.tres" type="Texture" id=11]
 [ext_resource path="res://resource/standar_charactor/rusheng002/left_foot.tres" type="Texture" id=12]
 [ext_resource path="res://resource/standar_charactor/rusheng002/right_hand.tres" type="Texture" id=13]
-[ext_resource path="res://FrameWork/Charactor/StandarCharactor.gd" type="Script" id=14]
+[ext_resource path="res://FrameWork/Charactor/standar_charactors/StandarCharactor.gd" type="Script" id=14]
 [ext_resource path="res://resource/standar_charactor/rusheng002/right_shank.tres" type="Texture" id=15]
 [ext_resource path="res://resource/standar_charactor/rusheng002/hip.tres" type="Texture" id=16]
 [ext_resource path="res://StandarCharactorAnimationTree.tscn" type="PackedScene" id=18]
+
 
 [sub_resource type="Animation" id=3]
 length = 0.001

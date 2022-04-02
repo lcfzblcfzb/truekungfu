@@ -38,6 +38,39 @@ enum EventType{
 	
 }
 
+#standar animated charactor 上的 animationplayer 中 调用的方法
+#主要用来改变weapon_box 和 hurt_box 状态的
+enum AnimationMethodType{
+	AttackCiStart=100,
+	AttackCiEnd=101,
+	AttackPiStart=102,
+	AttackPiEnd=103,
+	AttackSaoStart=104,
+	AttackSaoEnd=105,
+	
+	BlockStart =200,
+	BlockEnd =201,
+	RollStart =202,
+	RollEnd =203,
+	DodgeStart =204,
+	DodgeEnd =205,
+}
+
+
+#伤害 类型。
+enum DamageType{
+	Ci = 1,# 只可以被格挡 或 闪避 对应
+	Pi = 2,# 可以被格挡 或 翻滚 对应
+	Sao = 3# 只可以被格挡 
+}
+
+#防御类型
+enum CounterDamageType{
+	Block =1, #格挡
+	Dodge =2,# 闪避
+	Rolling =3#翻滚
+}
+
 #角色骨骼类型-- 用户统一动画的制作。同种类型的骨骼可以适配同一套动画
 enum ChatactorSkeletalType{
 	Normal=0,#普通正常成年男子体型
@@ -129,6 +162,15 @@ enum CharactorAttribute{
 	AttackPiDuration =301,#second
 	AttackSaoDuration =302,#second
 	BlockDuration =303,#second
+	
+	BlockStamina = 400,#number
+	RollStamina =401,#number
+	RunStamina =402,#value per second
+	JumpStamina =403,#number
+	AttackCiStamina =404,#number
+	AttackPiStamina =405,#number
+	AttackSaoStamina =406,#number
+	
 }
 
 func test():
@@ -226,7 +268,7 @@ enum FightMotion{
 	Climb = 163,
 	Hanging = 164,
 	HangingClimb = 165,
-	Attack = 166,
+	Attack_Ci = 166,
 	Defend = 167,
 	Prepared = 168,
 	Unprepared = 169,
@@ -236,6 +278,7 @@ enum FightMotion{
 	Attack_Pi = 173,
 	Dodge = 174,
 	Attack_Sao=175,
+	Canceled  = 176,
 	
 	Attack_Up_Pre=100,
 	Attack_Up_In=101,

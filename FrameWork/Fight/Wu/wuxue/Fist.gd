@@ -63,8 +63,8 @@ func on_action_event(event:NewActionEvent):
 		Glob.WuMotion.Attack:
 			if fight_cpn.is_prepared == false:
 				fight_cpn.is_prepared = true
-			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Attack) as BaseAction
-			fight_cpn.actionMng.regist_action(Glob.FightMotion.Attack,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Attack_Ci) as BaseAction
+			fight_cpn.actionMng.regist_action(Glob.FightMotion.Attack_Ci,base.duration,ActionInfo.EXEMOD_INTERUPT)
 		
 		# Glob.WuMotion.Attack_Up:
 		# 	if is_heavy:

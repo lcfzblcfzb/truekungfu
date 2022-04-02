@@ -37,6 +37,46 @@ enum CharactorBodySlotEnum{
 	Head = 70
 }
 
+#改变hurt_box 的反伤类型
+#改变weapon_box 的伤害类型
+#Glob.CounterDamageType
+func change_gear_state(_code):
+	var active_weapon = _get_active_weapon()
+	match _code:
+		Glob.AnimationMethodType.BlockStart:
+			$hurt_box.counter_attack_type = Glob.CounterDamageType.Block
+		Glob.AnimationMethodType.BlockEnd:
+			$hurt_box.counter_attack_type = Glob.CounterDamageType.Block
+		Glob.AnimationMethodType.DodgeStart:
+			$hurt_box.counter_attack_type = Glob.CounterDamageType.Dodge
+		Glob.AnimationMethodType.DodgeEnd:
+			$hurt_box.counter_attack_type = Glob.CounterDamageType.Block
+		Glob.AnimationMethodType.RollStart:
+			$hurt_box.counter_attack_type = Glob.CounterDamageType.Rolling
+		Glob.AnimationMethodType.RollEnd:
+			$hurt_box.counter_attack_type = Glob.CounterDamageType.Block
+			
+		Glob.AnimationMethodType.AttackCiStart:
+			active_weapon.weapon_box.damage_type = Glob.DamageType.Ci
+		Glob.AnimationMethodType.AttackCiEnd:
+			active_weapon.weapon_box.damage_type = -1
+		Glob.AnimationMethodType.AttackPiStart:
+			active_weapon.weapon_box.damage_type = Glob.DamageType.Pi
+		Glob.AnimationMethodType.AttackPiEnd:
+			active_weapon.weapon_box.damage_type = -1
+		Glob.AnimationMethodType.AttackSaoStart:
+			active_weapon.weapon_box.damage_type = Glob.DamageType.Sao
+		Glob.AnimationMethodType.AttackSaoEnd:
+			active_weapon.weapon_box.damage_type = -1
+#处于active 状态下 的weapon	
+func _get_active_weapon()->Weapon:
+	
+	for g in _gears_array:
+		if g is Weapon and g.active:
+			return g
+	
+	return null
+
 #可以理解为关键帧
 export(int) var state setget set_state;
 
@@ -47,6 +87,7 @@ func set_state(s):
 		part.to_state(s)
 	pass
 
+#用来设定一个固定状态，使所有部件保持某个位置
 enum CharactorState{
 	Peace=1,
 	Engaged=2
@@ -68,10 +109,6 @@ func remove_gear(gear):
 		remove_child(gear)
 		
 
-#animationPlayer中 由call_method_track 调用的方法
-#做一个代理调用方法
-func animation_call_method(args1):
-	animation_node.emit_signal("AnimationCallMethod",args1)
 
 #加一个部位
 func add_to_body(slot_id:int, part , front = true):
@@ -96,7 +133,7 @@ func get_body_part_by_id(slot_id):
 		CharactorBodySlotEnum.Head:
 			return $hip/body/head
 		CharactorBodySlotEnum.Hip:
-			return self
+			return $hip
 			pass
 		CharactorBodySlotEnum.Left_Thigh:
 			return $hip/left_thigh

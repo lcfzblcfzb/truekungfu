@@ -18,6 +18,14 @@
 			"AttackPiDuration":0.5,
 			"AttackSaoDuration":0.5,
 			"BlockDuration":0.5,
+
+			"BlockStamina" : 20,
+			"RollStamina" :40,
+			"RunStamina ":15,
+			"JumpStamina" :20,
+			"AttackCiStamina" :20,
+			"AttackPiStamina" :30,
+			"AttackSaoStamina" :40,
 		}
 	},
 	{

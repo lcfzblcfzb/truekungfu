@@ -75,7 +75,7 @@ func travelTo(action:ActionInfo):
 			set(TRANSITION_PREPARED,HANGING)
 			set(TRANSITION_UNPREPARED,HANGING)
 		
-		Glob.FightMotion.Attack:
+		Glob.FightMotion.Attack_Ci:
 			set("parameters/action_shot/active",true)
 			
 			set("parameters/action_tree/attack_tran/current",0)
@@ -118,6 +118,12 @@ func travelTo(action:ActionInfo):
 			set("parameters/action_tree/attack_tran/current",0)
 			
 			set("parameters/action_tree/action_tran/current",1)
+			
+		Glob.FightMotion.Canceled:
+			
+			set("parameters/action_shot/active",true)
+			
+			set("parameters/action_tree/action_tran/current",4)
 #			set("parameters/action_tran/current",1)
 #			set("parameters/block_bs/blend_position",Vector2(0,0))
 #			set("parameters/move_action_blend/blend_amount",1)

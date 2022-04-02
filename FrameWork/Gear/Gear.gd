@@ -10,7 +10,7 @@ var _base_gear:BaseGear setget ,get_base_gear
 var fight_cpn setget set_fight_cpn ,get_fight_cpn
 
 
-export(int) var state = StandarCharactor.CharactorState.Peace setget  to_state,get_state
+export(int) var state setget  to_state,get_state
 
 func init(base_gear:BaseGear,fcpn):
 

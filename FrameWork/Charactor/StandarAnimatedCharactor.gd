@@ -14,11 +14,21 @@ var _wuxue_2_animations_map={}
 
 var fight_cpn
 
+var appearance_node
+
 func _ready():
 	chosed_animation_player= $CharactorAnimationPlayers/AnimationPlayer
 #	_cache_animations()
 	_check_dependency()
 	$AnimationTree.active = true
+
+
+#animationPlayer中 由call_method_track 调用的方法
+#做一个代理调用方法
+func animation_call_method(args1):
+	appearance_node.emit_signal("AnimationCallMethod",args1)	
+	charactor_scene.change_gear_state(args1)
+
 #将动画resource取出缓存起来
 func _cache_animations():
 	
@@ -58,6 +68,8 @@ func choose_charactor(c,animation_node):
 	if charactor_scene!= null :
 		remove_child(charactor_scene)
 		charactor_scene.queue_free()
+	
+	appearance_node = animation_node
 	
 	match c:
 		Glob.CharactorEnum.Rusheng:

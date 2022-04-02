@@ -662,8 +662,8 @@
   },
   {
 	"id": 166,
-	"name": "Attack",
-	"animation_name": "attack",
+	"name": "Attack_Ci",
+	"animation_name": "attack_ci",
 	"duration": 0.3,
 	"handle_type":2,
 	"type": [
@@ -725,6 +725,7 @@
 	"name": "Block",
 	"animation_name": "block",
 	"duration": 1,
+	"handle_type":2,
 	"type": [
 	  1
 	]
@@ -734,6 +735,7 @@
 	"name": "Attack_Pi",
 	"animation_name": "attack_pi",
 	"duration": 1,
+	"handle_type":2,
 	"type": [
 	  1
 	]
@@ -743,6 +745,7 @@
 	"name": "Dodge",
 	"animation_name": "dodge",
 	"duration": 1,
+	"handle_type":2,
 	"type": [
 	  1
 	]
@@ -752,6 +755,17 @@
 	"name": "Attack_Sao",
 	"animation_name": "attack_sao",
 	"duration": 1,
+	"handle_type":2,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 176,
+	"name": "Canceled",
+	"animation_name": "canceled",
+	"duration": 1,
+	"handle_type":2,
 	"type": [
 	  1
 	]

@@ -1,22 +1,7 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://FrameWork/Charactor/StandarCharactor.gd" type="Script" id=1]
-[ext_resource path="res://FrameWork/Charactor/StandarCharactor.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resource/standar_charactor/fat/hip.tres" type="Texture" id=3]
-[ext_resource path="res://resource/standar_charactor/fat/left_thigh.tres" type="Texture" id=4]
-[ext_resource path="res://resource/standar_charactor/fat/left_foot.tres" type="Texture" id=5]
-[ext_resource path="res://resource/standar_charactor/fat/right_shank.tres" type="Texture" id=6]
-[ext_resource path="res://resource/standar_charactor/fat/body.tres" type="Texture" id=7]
-[ext_resource path="res://resource/standar_charactor/fat/left_upper_arm.tres" type="Texture" id=8]
-[ext_resource path="res://resource/standar_charactor/fat/left_fore_arm.tres" type="Texture" id=9]
-[ext_resource path="res://resource/standar_charactor/fat/left_hand.tres" type="Texture" id=10]
-[ext_resource path="res://resource/standar_charactor/fat/right_thigh.tres" type="Texture" id=11]
-[ext_resource path="res://resource/standar_charactor/fat/left_shank.tres" type="Texture" id=12]
-[ext_resource path="res://resource/standar_charactor/fat/right_foot.tres" type="Texture" id=13]
-[ext_resource path="res://resource/standar_charactor/fat/right_upper_arm.tres" type="Texture" id=14]
-[ext_resource path="res://resource/standar_charactor/fat/right_fore_arm.tres" type="Texture" id=15]
-[ext_resource path="res://resource/standar_charactor/fat/right_hand.tres" type="Texture" id=16]
-[ext_resource path="res://resource/standar_charactor/fat/head.tres" type="Texture" id=17]
+[ext_resource path="res://FrameWork/Charactor/standar_charactors/StandarCharactor.gd" type="Script" id=1]
+[ext_resource path="res://FrameWork/Charactor/standar_charactors/charactor/Fat.tscn" type="PackedScene" id=2]
 [ext_resource path="res://FrameWork/CollisionBox/HurtBox.tscn" type="PackedScene" id=18]
 
 [node name="standar_charactor" type="Node2D"]
@@ -25,64 +10,5 @@ script = ExtResource( 1 )
 [node name="hurtbox" parent="." instance=ExtResource( 18 )]
 
 [node name="hip" parent="." instance=ExtResource( 2 )]
-texture = ExtResource( 3 )
-texture_folder = "res://resource/standar_charactor/fat"
-
-[node name="left_thigh" parent="hip" index="0"]
-position = Vector2( 2, 0 )
-texture = ExtResource( 4 )
-
-[node name="left_shank" parent="hip/left_thigh" index="0"]
-position = Vector2( 1, 8 )
-texture = ExtResource( 12 )
-
-[node name="left_foot" parent="hip/left_thigh/left_shank" index="0"]
-position = Vector2( 0, 4 )
-texture = ExtResource( 5 )
-
-[node name="right_thigh" parent="hip" index="1"]
-position = Vector2( -5, 3 )
-texture = ExtResource( 11 )
-
-[node name="right_shank" parent="hip/right_thigh" index="0"]
-position = Vector2( 2, 7 )
-texture = ExtResource( 6 )
-
-[node name="right_foot" parent="hip/right_thigh/right_shank" index="0"]
-position = Vector2( -1, 3 )
-texture = ExtResource( 13 )
-
-[node name="body" parent="hip" index="2"]
-position = Vector2( -4, -13 )
-texture = ExtResource( 7 )
-
-[node name="left_upper_arm" parent="hip/body" index="0"]
-position = Vector2( 9, -14 )
-texture = ExtResource( 8 )
-
-[node name="left_fore_arm" parent="hip/body/left_upper_arm" index="0"]
-position = Vector2( 5, 10 )
-texture = ExtResource( 9 )
-
-[node name="left_hand" parent="hip/body/left_upper_arm/left_fore_arm" index="0"]
-position = Vector2( 1, 9 )
-texture = ExtResource( 10 )
-
-[node name="right_upper_arm" parent="hip/body" index="1"]
-position = Vector2( -4, -13 )
-texture = ExtResource( 14 )
-
-[node name="right_fore_arm" parent="hip/body/right_upper_arm" index="0"]
-position = Vector2( -5, 9 )
-texture = ExtResource( 15 )
-
-[node name="right_hand" parent="hip/body/right_upper_arm/right_fore_arm" index="0"]
-position = Vector2( 4, 12 )
-texture = ExtResource( 16 )
-
-[node name="head" parent="hip/body" index="2"]
-position = Vector2( -2, -19 )
-texture = ExtResource( 17 )
 
 [editable path="hurtbox"]
-[editable path="hip"]

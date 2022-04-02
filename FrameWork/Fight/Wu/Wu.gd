@@ -129,14 +129,14 @@ func _on_FightController_NewFightMotion(new_motion:BaseFightEvent):
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
 	
-	if action.base_action ==Glob.FightMotion.Attack:
+	if action.base_action ==Glob.FightMotion.Attack_Ci:
 		pass
 	
 
 
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	
-	if action.base_action ==Glob.FightMotion.Attack:
+	if action.base_action ==Glob.FightMotion.Attack_Ci:
 		pass
 	
 

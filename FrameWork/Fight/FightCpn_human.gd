@@ -2,6 +2,7 @@ extends BasePlatformerRole
 
 class_name FightComponent_human
 
+var stamina_value
 var block_value=5
 var health_point=1
 
@@ -50,6 +51,30 @@ func set_climbing(b):
 	if not b:
 		fightKinematicMovableObj.climb_over()
 
+func has_enough_stamina(_needed=0):
+	return stamina_value>_needed
+
+func cost_stamina(_v):
+	if has_enough_stamina(_v):
+		stamina_value =clamp( stamina_value- _v ,0,attribute_mng.get_value(Glob.CharactorAttribute.Stamina))
+		$Stamina.update_value(stamina_value)
+		return true
+	
+	return false
+
+
+func _physics_process(delta):
+	
+	if stamina_value < attribute_mng.get_value(Glob.CharactorAttribute.Stamina):
+		
+		stamina_value =clamp(stamina_value + attribute_mng.get_value(Glob.CharactorAttribute.StaminaRegen),0 , attribute_mng.get_value(Glob.CharactorAttribute.Stamina))
+		$Stamina.update_value(stamina_value)
+	
+	if block_value < attribute_mng.get_value(Glob.CharactorAttribute.Block):
+		
+		block_value =clamp(block_value + attribute_mng.get_value(Glob.CharactorAttribute.BlockRegen),0,attribute_mng.get_value(Glob.CharactorAttribute.Block))
+		$Block.update_value(block_value)
+
 func _ready():
 	
 	if is_player:
@@ -87,10 +112,16 @@ func _ready():
 	if not is_on_floor():
 		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.JumpDown
 	
-	$Energy.set_max_value(block_value)
-	$Energy.update_value(block_value)
+	block_value = attribute_mng.get_value(Glob.CharactorAttribute.Block)
+	stamina_value = attribute_mng.get_value(Glob.CharactorAttribute.Stamina)
+	
+	$Block.set_max_value(block_value)
+	$Block.update_value(block_value)
 	#UI 现实血量
-	UiManager.regist_none_ovelap_UI($Energy.get_texture_progress())
+	UiManager.regist_none_ovelap_UI($Block.get_texture_progress())
+	
+	$Stamina.set_max_value(attribute_mng.get_value(Glob.CharactorAttribute.Stamina))
+	$Stamina.update_value(stamina_value)
 	pass 
 
 #初始化 武学
@@ -423,8 +454,8 @@ func _on_SpriteAnimation_Hit(areas):
 
 func _on_SpriteAnimation_Hurt(area):
 	if block_value>0:
-		block_value = block_value -1
-		$Energy.update_value(block_value)
+		block_value = block_value -30
+		$Block.update_value(block_value)
 		print("Im hurt")
 	elif health_point >0:
 		health_point = health_point -1

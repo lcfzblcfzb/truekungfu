@@ -146,17 +146,32 @@ func on_actioninfo_start(action:ActionInfo):
 			get_animation_player().play("prepared")
 		elif action.base_action == Glob.FightMotion.Unprepared:
 			get_animation_player().play("unprepared")
-		elif action.base_action == Glob.FightMotion.Attack:
+		elif action.base_action == Glob.FightMotion.Attack_Ci:
 	#		set_unsync_to_source()
 	#		print(action.action_duration_ms/1000.0)
+			getWeaponBox().damage_type = Glob.DamageType.Ci
 			get_animation_player().play("attack",-1,1000/action.action_duration_ms)
 			get_animation_player().advance(0)
-			pass
+		
+		elif action.base_action == Glob.FightMotion.Attack_Sao:
+	#		set_unsync_to_source()
+	#		print(action.action_duration_ms/1000.0)
+			getWeaponBox().damage_type = Glob.DamageType.Sao
+			get_animation_player().play("attack",-1,1000/action.action_duration_ms)
+			get_animation_player().advance(0)
+			
+		elif action.base_action == Glob.FightMotion.Attack_Pi:
+	#		set_unsync_to_source()
+	#		print(action.action_duration_ms/1000.0)
+			getWeaponBox().damage_type = Glob.DamageType.Pi
+			get_animation_player().play("attack",-1,1000/action.action_duration_ms)
+			get_animation_player().advance(0)
+		
 		else:
 			set_sync_to_source()
 	pass
 func on_actioninfo_end(action:ActionInfo):
 	if active:
-		if action.base_action == Glob.FightMotion.Attack:
+		if action.base_action == Glob.FightMotion.Attack_Ci:
 			set_sync_to_source()
 #		getWeaponBox().stop_monitoring()

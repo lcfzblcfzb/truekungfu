@@ -337,7 +337,7 @@ func _process_action(action:ActionInfo):
 			change_movable_state(input_vector,ActionState.Hanging)
 		Glob.FightMotion.HangingClimb:
 			change_movable_state(input_vector,ActionState.HangingClimb)		
-		Glob.FightMotion.Attack:
+		Glob.FightMotion.Attack_Ci:
 			change_movable_state(Vector2(faceDirection.x,0),ActionState.Attack)
 		_:
 			var baseObj = FightBaseActionDataSource.get_by_id(action.base_action) as BaseAction

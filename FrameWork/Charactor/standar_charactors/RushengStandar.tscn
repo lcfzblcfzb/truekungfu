@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://FrameWork/Charactor/StandarCharactor.tscn" type="PackedScene" id=1]
-[ext_resource path="res://resource/standar_charactor/rusheng002/hip.tres" type="Texture" id=2]
+[ext_resource path="res://FrameWork/Charactor/standar_charactors/charactor/Rusheng.tscn" type="PackedScene" id=1]
 [ext_resource path="res://FrameWork/CollisionBox/HurtBox.tscn" type="PackedScene" id=18]
 
 [node name="standar_charactor" type="Node2D"]
@@ -9,7 +8,5 @@
 [node name="hurtbox" parent="." instance=ExtResource( 18 )]
 
 [node name="hip" parent="." instance=ExtResource( 1 )]
-texture = ExtResource( 2 )
-texture_folder = "res://resource/standar_charactor/rusheng002"
 
 [editable path="hurtbox"]
