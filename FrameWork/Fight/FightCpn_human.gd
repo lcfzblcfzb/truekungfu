@@ -304,15 +304,9 @@ func set_paused_unpreparing_timer(_p=true):
 func refresh_unpreparing_timer(sec=5):
 	_unpreparing_timer.start(sec)
 	
-export(float) var impact_strength=0;
-
 #当前角色朝向
 func is_face_left():
 	return fightKinematicMovableObj.charactor_face_direction.x<0
-
-var prv_face_direction = Vector2.ZERO
-
-var prv_animin =""
 
 func get_animation_tree():
 	return $SpriteAnimation.get_coresponding_animation_tree()

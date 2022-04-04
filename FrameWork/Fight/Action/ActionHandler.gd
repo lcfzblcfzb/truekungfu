@@ -1,5 +1,6 @@
 class_name ActionHandler
-	
+
+#Glob.ActionHandlingType
 var handling_type
 
 var action_mng
@@ -166,7 +167,7 @@ func _check_execution_prority_and_add(action):
 		else:
 			_check_newest_on_add(action,prv_action)
 			#检测是否当前的action是generous
-			_check_generous_on_add()
+			_check_generous_on_add(action)
 	else:
 		action_array.append(action)
 
@@ -215,37 +216,38 @@ func _add_to_group(action:ActionInfo,prvAction):
 #blind 函数：默认 prv_action.group_id>0; prv_action.group_exe_mod = NEWEST
 #action 是新增的参数；且紧接的是exemod==newest 模式的动作
 func _blind_replace_newest(action,prv_group_id):
-
+	
+	action_array.append(action)
+	
+	#从后往前 遍历 找到最后一个 该group_id的action 并且设置状态 passed
+	var i = self.current_index-1
 	while true:
-		var prv_action = action_array.back() as ActionInfo
+		var prv_action = action_array[i] as ActionInfo
 		if prv_action ==null:
 			break
 		if prv_action.group_id != prv_group_id:
 			break
+			
+		prv_action.state = ActionInfo.STATE_PASSED
+		action_mng.action_finish(prv_action)
+		i=i-1
 
-		action_array.pop_back()
-		prv_action.dead()
-
-	action_array.append(action)
 
 #新的action输入
 # ATTENTION:若是在add_to_group 中调用，则是表示已经处理完group_exe_mod 优先级，现在开始处理group内 的单个action 的优先级
 func _add_to_action_array(action:ActionInfo):
 
 	var back_action = action_array.back() as ActionInfo
-
-	if back_action.execution_mod == ActionInfo.EXEMOD_NEWEST:
+	
+	action_array.append(action)
+	
+	#这里 的第二个判断是因为generous类型的在下一个步骤处理
+	if back_action.execution_mod == ActionInfo.EXEMOD_NEWEST and action.execution_mod != ActionInfo.EXEMOD_GENEROUS:
 		
 		if back_action.state == ActionInfo.STATE_INITED:
 			back_action.state =ActionInfo.STATE_PASSED
 			action_mng.action_finish(back_action)
-			#TODO  存在隐患。这里直接将back_action设置为dead
-			action_array.pop_back()
-			back_action.dead()
 			
-		action_array.append(action)
-	else:
-		action_array.append(action)
 
 #检测下action_array 是否太大，并进行处理
 func _resize_action_array():
@@ -276,7 +278,7 @@ func is_generous_type(action:ActionInfo):
 	return false
 
 #分别在进入运行态（STATE_ING） 的时候 和 有新动作添加的时候做一个检测
-func _check_generous_on_add():
+func _check_generous_on_add(action :ActionInfo):
 	
 	#group_exe_mod = generous类型
 	if _current_action.group_id>0 && _current_action.group_exe_mod ==ActionInfo.EXEMOD_GENEROUS:
@@ -321,7 +323,17 @@ func _check_generous_on_add():
 				pass
 			pass
 		pass
-	pass
+	
+	elif action.execution_mod == ActionInfo.EXEMOD_GENEROUS:
+		
+		if action_array.size()>=2:
+			
+			var prv_action =action_array[action_array.size()-2] as ActionInfo
+			# 前一个是group 的情况需要仔细考量
+			if prv_action.execution_mod == ActionInfo.EXEMOD_NEWEST and prv_action.state ==ActionInfo.STATE_INITED and prv_action.base_action in action.not_generous_type:
+				prv_action.state = ActionInfo.STATE_PASSED
+				action_mng.action_finish(prv_action)
+				
 
 #在运行的时刻，检测generous
 #ATTENTION! 此时需要检测 连续的generous的情形
@@ -411,8 +423,15 @@ func _check_loop_on_process():
 					break
 
 func on_tick(delta):
-
+	
+	while true:
+		if _current_action and _current_action.state == ActionInfo.STATE_PASSED:
+			self.current_index+=1
+		else:
+			break
+		
 	if _current_action !=null:
+		
 		if _current_action.state == ActionInfo.STATE_INITED:
 			#generous类型的 设定之一：运行时刻 检测
 			_check_generous_on_process()
@@ -454,17 +473,14 @@ func on_tick(delta):
 
 #一个interupt类型的action 加入队列
 func _blind_append_interupt(action:ActionInfo):
+	
+	action_array.append(action)
+	self.current_index = action_array.size()-1
+	
 	if _current_action!=null:
 		_current_action.state =ActionInfo.STATE_INTERUPTED
 		action_mng.action_finish(_current_action)
 	
-	self.current_index = action_array.size()-1
 	
-	var sliced_actions = action_array.slice(current_index,action_array.size())
-	action_array.resize(current_index)
-	action_array.append(action)
-	#回归下对象池
-	for sa in sliced_actions:
-		sa.dead()
 
 	

@@ -19,6 +19,7 @@ func getPollObject(type:GDScript,param=null):
 		PoolDict[type] = newPool
 		return newPool.instance(param)
 
+#ActionHandler 的处理类型。用来区分不同的action handler
 enum ActionHandlingType{
 	# 关于角色移动的分类
 	Movement=1,
@@ -66,9 +67,10 @@ enum DamageType{
 
 #防御类型
 enum CounterDamageType{
-	Block =1, #格挡
-	Dodge =2,# 闪避
-	Rolling =3#翻滚
+	AutoBlock=1,
+	Block =2, #格挡
+	Dodge =3,# 闪避
+	Rolling =4#翻滚
 }
 
 #角色骨骼类型-- 用户统一动画的制作。同种类型的骨骼可以适配同一套动画

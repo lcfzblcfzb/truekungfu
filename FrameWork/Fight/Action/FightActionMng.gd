@@ -42,6 +42,11 @@ func regist_group_actions(actions:Array,groupId,group_exe_mod=ActionInfo.EXEMOD_
 		pass
 	pass
 
+func get_current_action(handling_type):
+	return get_handler_by_handling_type(handling_type)._current_action
+
+func get_current_index(handling_type):
+	return get_handler_by_handling_type(handling_type).current_index
 
 func get_action_array(handling_type):
 	return get_handler_by_handling_type(handling_type).get_action_array()	

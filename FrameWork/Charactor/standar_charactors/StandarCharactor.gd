@@ -46,15 +46,15 @@ func change_gear_state(_code):
 		Glob.AnimationMethodType.BlockStart:
 			$hurt_box.counter_attack_type = Glob.CounterDamageType.Block
 		Glob.AnimationMethodType.BlockEnd:
-			$hurt_box.counter_attack_type = Glob.CounterDamageType.Block
+			$hurt_box.counter_attack_type = Glob.CounterDamageType.AutoBlock
 		Glob.AnimationMethodType.DodgeStart:
 			$hurt_box.counter_attack_type = Glob.CounterDamageType.Dodge
 		Glob.AnimationMethodType.DodgeEnd:
-			$hurt_box.counter_attack_type = Glob.CounterDamageType.Block
+			$hurt_box.counter_attack_type = Glob.CounterDamageType.AutoBlock
 		Glob.AnimationMethodType.RollStart:
 			$hurt_box.counter_attack_type = Glob.CounterDamageType.Rolling
 		Glob.AnimationMethodType.RollEnd:
-			$hurt_box.counter_attack_type = Glob.CounterDamageType.Block
+			$hurt_box.counter_attack_type = Glob.CounterDamageType.AutoBlock
 			
 		Glob.AnimationMethodType.AttackCiStart:
 			active_weapon.weapon_box.damage_type = Glob.DamageType.Ci

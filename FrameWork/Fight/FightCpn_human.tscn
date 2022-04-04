@@ -482,12 +482,8 @@ parameters/action_tree/holding_sm/playback = SubResource( 72 )
 [node name="AnimationPlayer_Taijijian_Normal" parent="SpriteAnimation/StandarAnimatedCharactor/CharactorAnimationPlayers" index="2"]
 anims/rolling = SubResource( 71 )
 
-[node name="CollisionShape2D" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hurt_box" index="0"]
-position = Vector2( 2.00003, 12 )
-
 [node name="hip" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor" index="1"]
 position = Vector2( 6, 0 )
-rotation = 0.0
 
 [node name="left_thigh" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="0"]
 rotation = -0.859449

@@ -19820,13 +19820,7 @@ skelekal_type = 1
 [node name="standar_charactor" parent="." instance=ExtResource( 1 )]
 
 [node name="CollisionShape2D" parent="standar_charactor/hurt_box" index="0"]
-position = Vector2( 2, 0.999995 )
-
-[node name="hip" parent="standar_charactor" index="1"]
-rotation = 6.28319
-
-[node name="left_upper_arm" parent="standar_charactor/hip/body" index="0"]
-rotation = -6.28319
+position = Vector2( 2.00003, 12 )
 
 [node name="left_weapon" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand" index="0"]
 rotation = -2.0944
@@ -19834,7 +19828,7 @@ rotation = -2.0944
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand/left_weapon" index="0"]
 
 [node name="right_weapon" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand" index="0"]
-rotation = 2.26893
+rotation = 2.0944
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand/right_weapon" index="0"]
 
