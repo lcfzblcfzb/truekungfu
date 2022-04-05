@@ -67,6 +67,9 @@ position = Vector2( 370, 556 )
 [node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
 parameters/action_tree/holding_sm/playback = SubResource( 1 )
 
+[node name="body" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="2"]
+position = Vector2( -2, -2 )
+
 [node name="hurtbox" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1404, 501 )
 
@@ -84,7 +87,6 @@ shape = SubResource( 3 )
 
 [node name="hurtbox3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1184, 506 )
-counter_attack_type = 2
 
 [node name="CollisionShape2D" parent="hurtbox3" index="0"]
 position = Vector2( 11.5, -18.5 )

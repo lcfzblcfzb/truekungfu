@@ -474,12 +474,13 @@ func on_tick(delta):
 #一个interupt类型的action 加入队列
 func _blind_append_interupt(action:ActionInfo):
 	
+	var _prv_action =_current_action
 	action_array.append(action)
 	self.current_index = action_array.size()-1
 	
-	if _current_action!=null:
-		_current_action.state =ActionInfo.STATE_INTERUPTED
-		action_mng.action_finish(_current_action)
+	if _prv_action!=null:
+		_prv_action.state =ActionInfo.STATE_INTERUPTED
+		action_mng.action_finish(_prv_action)
 	
 	
 
