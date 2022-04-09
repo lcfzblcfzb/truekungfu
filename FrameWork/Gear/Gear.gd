@@ -12,8 +12,8 @@ var fight_cpn setget set_fight_cpn ,get_fight_cpn
 
 export(int) var state setget  to_state,get_state
 
+#init after ready func
 func init(base_gear:BaseGear,fcpn):
-
 	
 	self.fight_cpn = fcpn
 	self._base_gear = base_gear

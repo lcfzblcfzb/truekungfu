@@ -74,8 +74,6 @@ func on_add_to_charactor():
 	
 	init_state()
 	
-	getWeaponBox().fight_cpn = get_fight_cpn()
-	
 	var _charactor = get_fight_cpn().sprite_animation.get_standar_charactor()
 	sheath_remote = RemoteTransform2D.new()
 	_charactor.add_to_body(StandarCharactor.CharactorBodySlotEnum.Left_Weapon , sheath_remote )
@@ -146,26 +144,26 @@ func on_actioninfo_start(action:ActionInfo):
 			get_animation_player().play("prepared")
 		elif action.base_action == Glob.FightMotion.Unprepared:
 			get_animation_player().play("unprepared")
-		elif action.base_action == Glob.FightMotion.Attack_Ci:
-	#		set_unsync_to_source()
-	#		print(action.action_duration_ms/1000.0)
-			getWeaponBox().damage_type = Glob.DamageType.Ci
-			get_animation_player().play("attack",-1,1000/action.action_duration_ms)
-			get_animation_player().advance(0)
-		
-		elif action.base_action == Glob.FightMotion.Attack_Sao:
-	#		set_unsync_to_source()
-	#		print(action.action_duration_ms/1000.0)
-			getWeaponBox().damage_type = Glob.DamageType.Sao
-			get_animation_player().play("attack",-1,1000/action.action_duration_ms)
-			get_animation_player().advance(0)
-			
-		elif action.base_action == Glob.FightMotion.Attack_Pi:
-	#		set_unsync_to_source()
-	#		print(action.action_duration_ms/1000.0)
-			getWeaponBox().damage_type = Glob.DamageType.Pi
-			get_animation_player().play("attack",-1,1000/action.action_duration_ms)
-			get_animation_player().advance(0)
+#		elif action.base_action == Glob.FightMotion.Attack_Ci:
+#	#		set_unsync_to_source()
+#	#		print(action.action_duration_ms/1000.0)
+#			getWeaponBox().damage_type = Glob.DamageType.Ci
+#			get_animation_player().play("attack",-1,1000/action.action_duration_ms)
+#			get_animation_player().advance(0)
+#
+#		elif action.base_action == Glob.FightMotion.Attack_Sao:
+#	#		set_unsync_to_source()
+#	#		print(action.action_duration_ms/1000.0)
+#			getWeaponBox().damage_type = Glob.DamageType.Sao
+#			get_animation_player().play("attack",-1,1000/action.action_duration_ms)
+#			get_animation_player().advance(0)
+#
+#		elif action.base_action == Glob.FightMotion.Attack_Pi:
+#	#		set_unsync_to_source()
+#	#		print(action.action_duration_ms/1000.0)
+#			getWeaponBox().damage_type = Glob.DamageType.Pi
+#			get_animation_player().play("attack",-1,1000/action.action_duration_ms)
+#			get_animation_player().advance(0)
 		
 		else:
 			set_sync_to_source()

@@ -58,16 +58,22 @@ func change_gear_state(_code):
 			
 		Glob.AnimationMethodType.AttackCiStart:
 			active_weapon.weapon_box.damage_type = Glob.DamageType.Ci
+			active_weapon.weapon_box.start_monitoring()
 		Glob.AnimationMethodType.AttackCiEnd:
 			active_weapon.weapon_box.damage_type = -1
+			active_weapon.weapon_box.stop_monitoring()
 		Glob.AnimationMethodType.AttackPiStart:
 			active_weapon.weapon_box.damage_type = Glob.DamageType.Pi
+			active_weapon.weapon_box.start_monitoring()
 		Glob.AnimationMethodType.AttackPiEnd:
 			active_weapon.weapon_box.damage_type = -1
+			active_weapon.weapon_box.stop_monitoring()
 		Glob.AnimationMethodType.AttackSaoStart:
 			active_weapon.weapon_box.damage_type = Glob.DamageType.Sao
+			active_weapon.weapon_box.start_monitoring()
 		Glob.AnimationMethodType.AttackSaoEnd:
 			active_weapon.weapon_box.damage_type = -1
+			active_weapon.weapon_box.stop_monitoring()
 #处于active 状态下 的weapon	
 func _get_active_weapon()->Weapon:
 	

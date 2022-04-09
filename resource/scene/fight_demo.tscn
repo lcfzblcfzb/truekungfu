@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.tscn" type="PackedScene" id=2]
 [ext_resource path="res://FrameWork/Scene/Ladder.tscn" type="PackedScene" id=3]
@@ -8,8 +8,6 @@
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=2]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=3]
 
 [sub_resource type="DynamicFontData" id=4]
 font_path = "res://resource/font/站酷仓耳渔阳体-W05.ttf"
@@ -74,15 +72,6 @@ position = Vector2( 88, 559 )
 [node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
 parameters/action_tree/holding_sm/playback = SubResource( 2 )
 
-[node name="fat_enermy" parent="." instance=ExtResource( 2 )]
-position = Vector2( 293, 550 )
-camp = 1
-is_player = false
-_learned_wuxue = [ 1 ]
-
-[node name="AnimationTree" parent="fat_enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
-parameters/action_tree/holding_sm/playback = SubResource( 3 )
-
 [node name="Label" type="Label" parent="."]
 margin_left = 17.0
 margin_top = 22.0
@@ -108,10 +97,3 @@ text = "bbbqq长风"
 [editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hurt_box"]
 [editable path="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip"]
 [editable path="FIghtComponnet_Human/Wu"]
-[editable path="fat_enermy"]
-[editable path="fat_enermy/SpriteAnimation"]
-[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor"]
-[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor"]
-[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hurt_box"]
-[editable path="fat_enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip"]
-[editable path="fat_enermy/Wu"]

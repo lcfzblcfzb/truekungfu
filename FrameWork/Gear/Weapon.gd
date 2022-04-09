@@ -6,8 +6,7 @@ class_name Weapon
 var base_weapon_id
 var _base_weapon_obj:BaseWeapon
 
-#dynamic
-
+#dynamic；虚拟参数，由子类的get 方法实现
 var weapon_box:WeaponBox setget ,getWeaponBox
 #是否 是正在使用的武器
 var active = false setget set_active,get_active
@@ -17,6 +16,8 @@ func init(base_gear:BaseGear,fcpn):
 	
 	_base_weapon_obj = BaseWeaponDmg.get_by_base_gear_id(base_gear.id)
 	base_weapon_id = _base_weapon_obj.id
+	
+	getWeaponBox().fight_cpn = get_fight_cpn()
 
 func set_active(a):
 	on_active(a)
@@ -31,6 +32,7 @@ func get_base_weapon()->BaseWeapon:
 		_base_weapon_obj = BaseWeaponDmg.get_by_id(base_weapon_id)
 	return _base_weapon_obj
 
+#虚拟方法 需要继承类自己实现获取weapon_box的方法
 func getWeaponBox():
 	
 	return weapon_box

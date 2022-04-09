@@ -63,6 +63,110 @@ static func _check_and_do_hanging(event,fight_cpn)->bool:
 		
 	return false
 
+
+#普通的 action 事件
+#Glob.FightMotion
+static func normal_on_ai_event(fight_motion ,fight_cpn):
+	
+	pass
+
+#普通的 action 事件
+# Glob.WuMotion
+static func normal_on_action_event(wu_motion,is_heavy ,fight_cpn):
+	var attribute_mng = fight_cpn.attribute_mng as AttribugeMng
+	
+	match( wu_motion):
+		
+		
+		Glob.WuMotion.Block:
+			
+			if not fight_cpn.cost_stamina(fight_cpn.attribute_mng.get_value(Glob.CharactorAttribute.BlockStamina)):
+				return
+				
+			fight_cpn.is_prepared = true			
+#			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Block) as BaseAction
+			fight_cpn.actionMng.regist_action(Glob.FightMotion.Block,attribute_mng.get_value(Glob.CharactorAttribute.BlockDuration),ActionInfo.EXEMOD_INTERUPT)
+			pass
+		
+		Glob.WuMotion.Attack_Pi:
+			
+			if not fight_cpn.cost_stamina(fight_cpn.attribute_mng.get_value(Glob.CharactorAttribute.AttackPiStamina)):
+				return
+			
+			fight_cpn.is_prepared = true			
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Attack_Pi) as BaseAction
+			fight_cpn.actionMng.regist_action(Glob.FightMotion.Attack_Pi,attribute_mng.get_value(Glob.CharactorAttribute.AttackPiDuration),ActionInfo.EXEMOD_INTERUPT)
+			pass
+		
+		Glob.WuMotion.Rolling:
+			
+			
+			if not fight_cpn.cost_stamina(fight_cpn.attribute_mng.get_value(Glob.CharactorAttribute.RollStamina)):
+				return
+			
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Rolling) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			pass
+		
+		Glob.WuMotion.Stunned:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Stunned) as BaseAction
+			fight_cpn.actionMng.regist_action(Glob.FightMotion.Stunned,base.duration,ActionInfo.EXEMOD_INTERUPT)
+			pass
+			
+		Glob.WuMotion.Prepared:
+			
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Prepared) as BaseAction
+			if base != null :
+				var action = Glob.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+				fight_cpn.actionMng.regist_actioninfo(action)
+			
+		Glob.WuMotion.Unprepared:
+			
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Unprepared) as BaseAction
+			if base != null :
+				var action = Glob.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+				fight_cpn.actionMng.regist_actioninfo(action)
+		
+		Glob.WuMotion.Attack:
+			
+			
+			fight_cpn.is_prepared = true
+			fight_cpn.set_paused_unpreparing_timer(false)
+			var _a 
+			var _duration
+			var _cost_stamina
+			if is_heavy:
+				_a = Glob.FightMotion.Attack_Sao
+				_duration = attribute_mng.get_value(Glob.CharactorAttribute.AttackSaoDuration)
+				_cost_stamina =fight_cpn.attribute_mng.get_value(Glob.CharactorAttribute.AttackSaoStamina)
+			else:
+				_a = Glob.FightMotion.Attack_Ci
+				_duration = attribute_mng.get_value(Glob.CharactorAttribute.AttackCiDuration)
+				_cost_stamina =fight_cpn.attribute_mng.get_value(Glob.CharactorAttribute.AttackCiStamina)
+			
+			if not fight_cpn.cost_stamina(_cost_stamina):
+				#耐力不足的时候 返回IDLE
+				var action = Glob.getPollObject(ActionInfo,[Glob.FightMotion.Canceled,OS.get_ticks_msec(),[],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+				fight_cpn.actionMng.regist_actioninfo(action)
+				
+				return
+			var base = FightBaseActionDataSource.get_by_id(_a) as BaseAction
+			fight_cpn.actionMng.regist_action(_a , _duration,ActionInfo.EXEMOD_INTERUPT)
+		
+		
+		Glob.WuMotion.Holding:
+			
+			fight_cpn.is_prepared = true
+			fight_cpn.set_paused_unpreparing_timer()
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Holding) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_GENEROUS)
+		
+		Glob.WuMotion.Switch:
+			
+			fight_cpn.switch_weapon(0,Glob.WuxueEnum.Sanjiaomao)
+			pass
+
+
 static func normal_on_moveevent(event,fight_cpn):
 	
 	var action_mng = fight_cpn.actionMng

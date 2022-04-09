@@ -5,6 +5,7 @@ extends Area2D
 #Glob.DamageType
 var damage_type
 
+#在Weapon 类的 init() 方法中初始化
 var fight_cpn
 
 func _physics_process(delta):
