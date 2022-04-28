@@ -37,15 +37,7 @@ func on_active(a):
 func init_state():
 	
 	getWeaponBox().monitoring=false
-	
-	if get_fight_cpn().camp == Glob.CampEnum.Bad:
-		#设置武器碰撞检测层
-		getWeaponBox().collision_layer =	 0b0100
-		getWeaponBox().collision_mask = 	 0b0010
-	elif get_fight_cpn().camp == Glob.CampEnum.Good:
-		#设置武器碰撞检测层
-		getWeaponBox().collision_layer	= 0b0001
-		getWeaponBox().collision_mask 	=  0b1000
+
 
 func get_animation_player():
 	return $AnimationPlayer

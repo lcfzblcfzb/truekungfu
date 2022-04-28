@@ -18,6 +18,15 @@ func init(base_gear:BaseGear,fcpn):
 	base_weapon_id = _base_weapon_obj.id
 	
 	getWeaponBox().fight_cpn = get_fight_cpn()
+	
+	if get_fight_cpn().camp == Glob.CampEnum.Bad:
+		#设置武器碰撞检测层
+		getWeaponBox().collision_layer =	 0b0100
+		getWeaponBox().collision_mask = 	 0b0010
+	elif get_fight_cpn().camp == Glob.CampEnum.Good:
+		#设置武器碰撞检测层
+		getWeaponBox().collision_layer	= 0b0001
+		getWeaponBox().collision_mask 	=  0b1000
 
 func set_active(a):
 	on_active(a)

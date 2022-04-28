@@ -22265,6 +22265,7 @@ anim_player = NodePath("../CharactorAnimationPlayers/AnimationPlayer_Taijijian_N
 parameters/TimeScale/scale = 1.0
 parameters/action_shot/active = false
 parameters/action_tran/current = 0
+parameters/action_tree/BlendSpace1D/blend_position = 0
 parameters/action_tree/action_tran/current = 0
 parameters/action_tree/attack_tran/current = 0
 parameters/action_tree/block_tran/current = 0
@@ -22400,15 +22401,9 @@ skelekal_type = 1
 [node name="standar_charactor" parent="." instance=ExtResource( 1 )]
 
 [node name="CollisionShape2D" parent="standar_charactor/hurt_box" index="0"]
-position = Vector2( 2, 0.999995 )
-
-[node name="left_weapon" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand" index="0"]
-rotation = -2.0944
+position = Vector2( 2.00003, 12 )
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand/left_weapon" index="0"]
-
-[node name="right_weapon" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand" index="0"]
-rotation = 2.0944
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand/right_weapon" index="0"]
 
