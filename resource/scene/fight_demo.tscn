@@ -66,11 +66,17 @@ is_player = false
 [node name="AnimationTree" parent="enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
 parameters/action_tree/holding_sm/playback = SubResource( 1 )
 
+[node name="body" parent="enermy/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="2"]
+position = Vector2( -2, -3 )
+
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
 position = Vector2( 88, 559 )
 
 [node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
 parameters/action_tree/holding_sm/playback = SubResource( 2 )
+
+[node name="body" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="2"]
+position = Vector2( -2, -3 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 17.0
