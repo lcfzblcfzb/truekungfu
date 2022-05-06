@@ -24,7 +24,6 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	
 	if distance< 30:
 		fight_componnent.fight_controller.emit_new_fight_motion_event(Glob.getPollObject(MoveEvent,[Vector2.ZERO,false,false]))
-		blackboard.set_data("state",2)
 		return succeed()
 	
 	return fail()

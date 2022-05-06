@@ -217,12 +217,12 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "DataLoader",
 "language": "GDScript",
-"path": "res://FrameWork/Data/DataLoader.gd"
+"path": "res://addons/DataLoader/Data/DataLoader.gd"
 }, {
 "base": "Node",
 "class": "DataMng",
 "language": "GDScript",
-"path": "res://FrameWork/Data/DataManager/DataMng.gd"
+"path": "res://addons/DataLoader/Data/DataManager/DataMng.gd"
 }, {
 "base": "Node",
 "class": "Dialogic",
@@ -307,12 +307,12 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "Identified",
 "language": "GDScript",
-"path": "res://FrameWork/Data/Entity/Identified.gd"
+"path": "res://addons/DataLoader/Data/Entity/Identified.gd"
 }, {
 "base": "Identified",
 "class": "IntEntity",
 "language": "GDScript",
-"path": "res://FrameWork/Data/Entity/IntEntity.gd"
+"path": "res://addons/DataLoader/Data/Entity/IntEntity.gd"
 }, {
 "base": "Node2D",
 "class": "KinematicMovableObj",
@@ -327,7 +327,7 @@ _global_script_classes=[ {
 "base": "DataMng",
 "class": "ListDataMng",
 "language": "GDScript",
-"path": "res://FrameWork/Data/DataManager/ListDataMng.gd"
+"path": "res://addons/DataLoader/Data/DataManager/ListDataMng.gd"
 }, {
 "base": "BaseFightEvent",
 "class": "MoveEvent",
@@ -535,7 +535,7 @@ window/stretch/mode="2d"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/AtlasTextureCreator/plugin.cfg", "res://addons/Trail/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/sprite_trail/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/AtlasTextureCreator/plugin.cfg", "res://addons/DataLoader/plugin.cfg", "res://addons/Trail/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/sprite_trail/plugin.cfg" )
 
 [global]
 

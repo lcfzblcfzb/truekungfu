@@ -11,7 +11,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 		
 		#TODO 根据情况set
 		var decision =randi() % 2  +1
-			#1 for dange; 2 for safe
+			#1 for dange; 2 for safe ;3 for attacking
 		blackboard.set_data("state",1)
 	
 	return succeed()

@@ -39,6 +39,10 @@ func _physics_process(delta):
 					var fight_cpn = area.fight_cpn
 					fight_cpn.sprite_animation.emit_signal("Hurt",self)	
 					hitted.append(area)
+				elif area.counter_attack_type ==Glob.CounterDamageType.AutoBlock:
+					var fight_cpn = area.fight_cpn
+					fight_cpn.sprite_animation.emit_signal("Hurt",self)	
+					hitted.append(area)
 			
 			if hitted.size()>0:		
 				#TODO 有点怪 通过sprite_animation 发出信号 最终还是fight_cpn 处理了；；

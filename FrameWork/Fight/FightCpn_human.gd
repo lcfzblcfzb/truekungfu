@@ -333,6 +333,14 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 #	$FightAnimationTree.act(action,time)	
 	get_animation_tree().act(action,time)
 	
+	
+	if action.base_action ==Glob.FightMotion.Block:
+		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.Block
+	elif  action.base_action ==Glob.FightMotion.Dodge:
+		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.Dodge
+	elif  action.base_action ==Glob.FightMotion.Rolling:
+		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.Rolling
+	
 	for _list in _equiped_gears_dict.values():
 		
 		for _gear  in _list:
@@ -356,7 +364,14 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 		sprite_animation.set_state(StandarCharactor.CharactorState.Peace)
 		if self.is_prepared:
 			self.is_prepared = false
-			
+	
+	if action.base_action ==Glob.FightMotion.Block:
+		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.AutoBlock
+	elif  action.base_action ==Glob.FightMotion.Dodge:
+		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.AutoBlock
+	elif  action.base_action ==Glob.FightMotion.Rolling:
+		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.AutoBlock
+	
 	for _list in _equiped_gears_dict.values():
 		
 		for _gear  in _list:

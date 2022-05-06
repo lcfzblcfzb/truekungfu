@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=1]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://addons/behavior_tree/src/btnodes/decorators/bt_repeat_until.gd" type="Script" id=13]
 [ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/Is_Move_Danger.gd" type="Script" id=14]
 [ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/Is_Move_safe.gd" type="Script" id=15]
+[ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/Do_Attack.gd" type="Script" id=16]
 
 [node name="BT" type="Node"]
 script = ExtResource( 1 )
@@ -75,8 +76,14 @@ script = ExtResource( 13 )
 until_what = 1
 frequency = 0.2
 
-[node name="Do_Move_Danger" type="Node2D" parent="BTSelector/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil"]
+[node name="BTSequence" type="Node" parent="BTSelector/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil"]
+script = ExtResource( 3 )
+
+[node name="Do_Move_Danger" type="Node2D" parent="BTSelector/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil/BTSequence"]
 script = ExtResource( 11 )
+
+[node name="Do_Attack" type="Node2D" parent="BTSelector/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil/BTSequence"]
+script = ExtResource( 16 )
 
 [node name="Is_Move_safe" type="Node2D" parent="BTSelector/Engaged/Engaged"]
 script = ExtResource( 15 )
