@@ -20,6 +20,20 @@ enum ActionForceType{
 	LIAO,	#撩
 }
 
+#在学会时候的回调
+func on_learned():
+	pass
+	
+#在使用的时候的回调
+func on_switch_on():
+	pass
+#在忘记时候的回调
+func on_forget():
+	pass
+#在不使用时候的回调
+func on_switch_off():
+	pass
+
 #virtual method
 # 用来获得对应的wuxue_type
 static func get_wuxue_type()->int:

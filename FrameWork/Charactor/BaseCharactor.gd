@@ -1,7 +1,7 @@
 class_name BaseCharactor
 
 # 采用 Glob.CharactorEnum
-var id
+var id:int
 
 var name
 #骨骼类型   Glob.ChatactorSkeletalType

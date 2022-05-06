@@ -85,6 +85,7 @@ func _init_wu(type= Glob.WuxueEnum.Sanjiaomao):
 			if newwuxue.get_parent() == null:
 				add_child(newwuxue)
 			wuxue = newwuxue
+			newwuxue.on_learned()
 
 #切换武学
 #1清理上一个wuxue 的装备等等
@@ -94,7 +95,6 @@ func switch_wu(type= Glob.WuxueEnum.Sanjiaomao):
 	if debug_wuxue and debug_wuxue.visible == true:
 		#如果存在debug_wuxue的情况 使用debug武学
 		wuxue = debug_wuxue
-		fight_component.sprite.texture = get_texture()
 		debug_wuxue.fight_cpn =fight_component
 		pass
 	else :
@@ -104,7 +104,9 @@ func switch_wu(type= Glob.WuxueEnum.Sanjiaomao):
 			newwuxue.fight_cpn = fight_component
 			if newwuxue.get_parent() == null:
 				add_child(newwuxue)
+			wuxue.on_switch_off()
 			wuxue = newwuxue
+			wuxue.on_switch_on()
 		
 func on_player_event(new_motion:NewActionEvent):
 	wuxue.on_action_event(new_motion)

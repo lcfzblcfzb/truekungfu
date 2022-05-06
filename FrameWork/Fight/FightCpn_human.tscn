@@ -476,21 +476,11 @@ position = Vector2( 2, -17 )
 fight_component_path = NodePath("..")
 
 [node name="AnimationTree" parent="SpriteAnimation/StandarAnimatedCharactor" index="0"]
-active = true
 process_mode = 0
 parameters/action_tree/holding_sm/playback = SubResource( 72 )
 
 [node name="AnimationPlayer_Taijijian_Normal" parent="SpriteAnimation/StandarAnimatedCharactor/CharactorAnimationPlayers" index="2"]
 anims/rolling = SubResource( 71 )
-
-[node name="body" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="2"]
-position = Vector2( -2, -2 )
-
-[node name="left_weapon" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand" index="0"]
-rotation = -2.0944
-
-[node name="right_weapon" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand" index="0"]
-rotation = 2.26893
 
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 

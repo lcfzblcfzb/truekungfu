@@ -6467,7 +6467,7 @@ tracks/34/loop_wrap = true
 tracks/34/imported = false
 tracks/34/enabled = true
 tracks/34/keys = {
-"times": PoolRealArray( 0.3, 0.5 ),
+"times": PoolRealArray( 0.2, 0.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ 200 ],
@@ -22265,8 +22265,7 @@ anim_player = NodePath("../CharactorAnimationPlayers/AnimationPlayer_Taijijian_N
 parameters/TimeScale/scale = 1.0
 parameters/action_shot/active = false
 parameters/action_tran/current = 0
-parameters/action_tree/BlendSpace1D/blend_position = 0
-parameters/action_tree/action_tran/current = 0
+parameters/action_tree/action_tran/current = 1
 parameters/action_tree/attack_tran/current = 0
 parameters/action_tree/block_tran/current = 0
 parameters/action_tree/dodge_tran/current = 0
@@ -22403,7 +22402,50 @@ skelekal_type = 1
 [node name="CollisionShape2D" parent="standar_charactor/hurt_box" index="0"]
 position = Vector2( 2.00003, 12 )
 
+[node name="hip" parent="standar_charactor" index="1"]
+position = Vector2( 0.124857, 2.24746 )
+rotation = -0.11438
+
+[node name="left_thigh" parent="standar_charactor/hip" index="0"]
+rotation = -0.347244
+
+[node name="left_shank" parent="standar_charactor/hip/left_thigh" index="0"]
+rotation = 0.682627
+
+[node name="left_foot" parent="standar_charactor/hip/left_thigh/left_shank" index="0"]
+rotation = -0.100089
+
+[node name="right_thigh" parent="standar_charactor/hip" index="1"]
+rotation = -0.00143739
+
+[node name="right_shank" parent="standar_charactor/hip/right_thigh" index="0"]
+rotation = 0.685684
+
+[node name="right_foot" parent="standar_charactor/hip/right_thigh/right_shank" index="0"]
+rotation = -0.470325
+
+[node name="body" parent="standar_charactor/hip" index="2"]
+rotation = 0.0983634
+
+[node name="left_upper_arm" parent="standar_charactor/hip/body" index="0"]
+rotation = 0.642315
+
+[node name="left_fore_arm" parent="standar_charactor/hip/body/left_upper_arm" index="0"]
+rotation = -1.17249
+
+[node name="left_weapon" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand" index="0"]
+rotation = -1.51262
+
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand/left_weapon" index="0"]
+
+[node name="right_upper_arm" parent="standar_charactor/hip/body" index="1"]
+rotation = -1.70512
+
+[node name="right_fore_arm" parent="standar_charactor/hip/body/right_upper_arm" index="0"]
+rotation = -0.440459
+
+[node name="right_weapon" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand" index="0"]
+rotation = 4.80431
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand/right_weapon" index="0"]
 
