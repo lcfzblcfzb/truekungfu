@@ -173,6 +173,11 @@ enum CharactorAttribute{
 	AttackPiStamina =405,#number
 	AttackSaoStamina =406,#number
 	
+	AttackCiDamage = 500,
+	AttackSaoDamage = 501,
+	AttackPiDamage = 502,
+	BlockReduceDamage= 503
+	
 }
 
 func test():

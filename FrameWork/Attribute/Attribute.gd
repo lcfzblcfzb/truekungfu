@@ -18,6 +18,9 @@ func _recalc_value():
 			fac = fac as AttributeFactor
 			
 			match fac.type:
+				AttributeFactor.Type.Base:
+					base = fac.value
+					pass
 				AttributeFactor.Type.Bonus:
 					bonus+= fac.value
 					pass

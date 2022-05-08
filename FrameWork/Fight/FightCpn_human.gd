@@ -27,7 +27,7 @@ var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformG
 var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
 
 #已经学会的 wuxue
-export (Array,Glob.WuxueEnum) var _learned_wuxue:Array=[Glob.WuxueEnum.Sanjiaomao]
+export (Array,Glob.WuxueEnum) var _learned_wuxue:Array=[]
 
 #可选角色形象
 export (Glob.CharactorEnum) var chosed_characor = Glob.CharactorEnum.Daoshi
@@ -97,15 +97,16 @@ func _ready():
 		fight_controller.call_deferred('active_tree')
 	#选择队应角色形象
 	sprite_animation.choose_charactor(chosed_characor)	
-	
+	#初始化属性
+	var baseCharactor = BaseStandarCharactorsDMG.get_by_id(chosed_characor)
+	attribute_mng.init(baseCharactor)
+	#默认学会一个武学
+	init_wuxue([Glob.WuxueEnum.Sanjiaomao])
 	#初始化 预设武器
 	init_weapon()
-	
 	#用特定武学 选择一件武器
 	choose_weapon_using_wuxue(0,Glob.WuxueEnum.Sanjiaomao)
-	var baseCharactor = BaseStandarCharactorsDMG.get_by_id(chosed_characor)
-	#初始化属性
-	attribute_mng.init(baseCharactor)
+
 	
 	#初始状态检测
 	#TODO 可以指定初始状态
@@ -333,7 +334,6 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 #	$FightAnimationTree.act(action,time)	
 	get_animation_tree().act(action,time)
 	
-	
 	if action.base_action ==Glob.FightMotion.Block:
 		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.Block
 	elif  action.base_action ==Glob.FightMotion.Dodge:
@@ -461,9 +461,9 @@ func _on_SpriteAnimation_Hit(areas):
 	pass # Replace with function body.
 
 
-func _on_SpriteAnimation_Hurt(area):
+func _on_SpriteAnimation_Hurt(area,dmg):
 	if block_value>0:
-		block_value = block_value -30
+		block_value = block_value -dmg
 		$Block.update_value(block_value)
 		print("Im hurt")
 	elif health_point >0:

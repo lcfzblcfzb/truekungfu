@@ -6,7 +6,7 @@ var type setget _private_set
 var _factor_array=[] setget _private_set,_private_get
 
 var _is_dirty = true
-var _value =0
+var _value :float=0.0
 
 
 func _init(_type):
@@ -35,6 +35,14 @@ func remove_factor(factor):
 	_is_dirty = true
 	_factor_array.erase(factor)
 	factor.dead()
+
+func find_factor_by_applyer(applyer)->AttributeFactor:
+
+	for fac in _factor_array:
+		if fac.applyer == applyer:
+			return fac	
+	return null	
+
 	
 func _private_set(s):
 	push_warning("trying to set private property")
