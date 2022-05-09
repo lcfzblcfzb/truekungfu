@@ -51,6 +51,15 @@ func act(action:ActionInfo,timescale):
 func travelTo(action:ActionInfo):
 	
 	match action.base_action:
+		
+		
+		Glob.FightMotion.Dodge:
+			set("parameters/action_shot/active",true)
+			
+			set("parameters/action_tree/dodge_tran/current",0)
+			
+			set("parameters/action_tree/action_tran/current",2)
+		
 		Glob.FightMotion.Idle:
 			set(TRANSITION_PREPARED,MOVE)
 			set(TRANSITION_UNPREPARED,MOVE)
@@ -111,14 +120,27 @@ func travelTo(action:ActionInfo):
 #			set("parameters/action_tran/current",0)
 #			set("parameters/attack_bs/blend_position",Vector2(0,-1))
 #			set("parameters/move_action_blend/blend_amount",1)
-		Glob.FightMotion.Block:
+		Glob.FightMotion.Blocking:
 			
 			set("parameters/action_shot/active",true)
 			
-			set("parameters/action_tree/attack_tran/current",0)
+			set("parameters/action_tree/block_tran/current",1)
 			
 			set("parameters/action_tree/action_tran/current",1)
+		Glob.FightMotion.Pre_Block:
 			
+			set("parameters/action_shot/active",true)
+			
+			set("parameters/action_tree/block_tran/current",0)
+			
+			set("parameters/action_tree/action_tran/current",1)	
+		Glob.FightMotion.Post_Block:
+			
+			set("parameters/action_shot/active",true)
+			
+			set("parameters/action_tree/block_tran/current",2)
+			
+			set("parameters/action_tree/action_tran/current",1)	
 		Glob.FightMotion.Canceled:
 			
 			set("parameters/action_shot/active",true)

@@ -233,6 +233,8 @@ enum WuMotion{
 	Unprepared,
 	Switch,
 	Rolling,
+	Cancel,
+	PostBlock,
 	
 	Attack_Up,
 	Attack_Mid,
@@ -281,11 +283,13 @@ enum FightMotion{
 	Unprepared = 169,
 	PreAttack = 170,
 	Rolling = 171,
-	Block = 172,
+	Blocking = 172,
 	Attack_Pi = 173,
 	Dodge = 174,
 	Attack_Sao=175,
 	Canceled  = 176,
+	Pre_Block = 177,
+	Post_Block= 178,
 	
 	Attack_Up_Pre=100,
 	Attack_Up_In=101,

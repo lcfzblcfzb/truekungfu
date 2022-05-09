@@ -14,26 +14,6 @@ const STATE_PASSED=40
 #是否循环播放
 var is_loop = false
  
-func _init(pool,params_array:Array).(pool):
-	base_action=params_array[0]
-	action_create_time = params_array[1]
-	param =params_array[2]
-	action_duration_ms = params_array[3]
-	state = STATE_INITED
-	if action_duration_ms <0:
-		is_loop = true
-	execution_mod = params_array[4]
-	if params_array.size()>5:
-		repeatation_allowed = params_array[5]
-	else:
-		repeatation_allowed = true
-		
-	if params_array.size()>6:
-		loop_break = params_array[6]
-	else:
-		loop_break = false
-	
-pass
 #最普通的action方式，如果前一个action(未进行中) 也是newest ，则会被覆盖
 const EXEMOD_NEWEST =0
 #按顺序排队执行
@@ -71,12 +51,6 @@ var param;#如果是 run/move 指令，保存方向向量
 
 var _base_action_obj:BaseAction
 
-func get_base_action()->BaseAction:
-	
-	if _base_action_obj==null:
-		_base_action_obj = FightBaseActionDataSource.get_by_id(base_action)
-	return _base_action_obj
-
 #保存动作的释放状态。
 #-1: NULL(未初始化，空的状态)
 #0: 初始化 未开始
@@ -84,6 +58,39 @@ func get_base_action()->BaseAction:
 #20:结束
 var state = STATE_NULL setget _set_state
 
+
+func _init(pool,params_array:Array).(pool):
+	base_action=params_array[0]
+	action_create_time = params_array[1]
+	param =params_array[2]
+	action_duration_ms = params_array[3]
+	state = STATE_INITED
+	if action_duration_ms <0:
+		is_loop = true
+	execution_mod = params_array[4]
+	if params_array.size()>5:
+		repeatation_allowed = params_array[5]
+	else:
+		repeatation_allowed = true
+		
+	if params_array.size()>6:
+		loop_break = params_array[6]
+	else:
+		loop_break = false
+	
+func get_base_action()->BaseAction:
+	
+	if _base_action_obj==null:
+		_base_action_obj = FightBaseActionDataSource.get_by_id(base_action)
+	return _base_action_obj
+
+#通过baseAction 构造 actioninfo
+static func create_by_base(base:BaseAction,mod,repeat_allowed,loop_break):
+	if  base!=null:
+		#无法直接使用ActionInfo，所以用了一个Load代替
+		return Glob.getPollObject(load("res://FrameWork/Fight/Action/ActionInfo.gd"),[base.id,OS.get_ticks_msec(),[],base.get_duration(),mod,repeat_allowed,loop_break])
+	return null
+	
 #进行一个简单的提示，并不强制要求 严格的状态机切换
 func _set_state(s_to):
 	

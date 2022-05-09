@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeBlendTree" load_steps=71 format=2]
+[gd_resource type="AnimationNodeBlendTree" load_steps=72 format=2]
 
 [sub_resource type="AnimationNodeAnimation" id=70]
 animation = "rolling"
@@ -29,6 +29,9 @@ animation = "dodge"
 [sub_resource type="AnimationNodeAnimation" id=95]
 animation = "idle"
 
+[sub_resource type="AnimationNodeAnimation" id=96]
+animation = "post_block"
+
 [sub_resource type="AnimationNodeAnimation" id=78]
 animation = "attack_ci_jie"
 
@@ -45,10 +48,10 @@ animation = "attack_pi"
 animation = "attack_sao"
 
 [sub_resource type="AnimationNodeAnimation" id=83]
-animation = "block"
+animation = "pre_block"
 
 [sub_resource type="AnimationNodeAnimation" id=84]
-animation = "block_beng"
+animation = "blocking"
 
 [sub_resource type="AnimationNodeAnimation" id=85]
 animation = "dodge"
@@ -86,11 +89,14 @@ input_5/name = "sao2"
 input_5/auto_advance = false
 
 [sub_resource type="AnimationNodeTransition" id=75]
-input_count = 2
-input_0/name = "block1"
+input_count = 3
+xfade_time = 0.3
+input_0/name = "pre_block"
 input_0/auto_advance = false
-input_1/name = "block2"
+input_1/name = "blocking"
 input_1/auto_advance = false
+input_2/name = "post_block"
+input_2/auto_advance = false
 
 [sub_resource type="AnimationNodeTransition" id=76]
 input_count = 2
@@ -117,13 +123,15 @@ transitions = [ "pre_holding", "holding", SubResource( 93 ) ]
 start_node = "pre_holding"
 
 [sub_resource type="AnimationNodeBlendTree" id=73]
-graph_offset = Vector2( -644.674, -6.08484 )
+graph_offset = Vector2( -439.571, -119.085 )
 nodes/Animation/node = SubResource( 86 )
 nodes/Animation/position = Vector2( -480, -420 )
 "nodes/Animation 10/node" = SubResource( 77 )
 "nodes/Animation 10/position" = Vector2( -800, 220 )
 "nodes/Animation 11/node" = SubResource( 95 )
 "nodes/Animation 11/position" = Vector2( -86.087, 440.961 )
+"nodes/Animation 12/node" = SubResource( 96 )
+"nodes/Animation 12/position" = Vector2( -600, 140 )
 "nodes/Animation 2/node" = SubResource( 78 )
 "nodes/Animation 2/position" = Vector2( -680, -420 )
 "nodes/Animation 3/node" = SubResource( 79 )
@@ -135,9 +143,9 @@ nodes/Animation/position = Vector2( -480, -420 )
 "nodes/Animation 6/node" = SubResource( 82 )
 "nodes/Animation 6/position" = Vector2( -829.378, -79.9696 )
 "nodes/Animation 7/node" = SubResource( 83 )
-"nodes/Animation 7/position" = Vector2( -580, 60 )
+"nodes/Animation 7/position" = Vector2( -600, 20 )
 "nodes/Animation 8/node" = SubResource( 84 )
-"nodes/Animation 8/position" = Vector2( -800, 60 )
+"nodes/Animation 8/position" = Vector2( -780, 80 )
 "nodes/Animation 9/node" = SubResource( 85 )
 "nodes/Animation 9/position" = Vector2( -576.378, 233.03 )
 nodes/action_tran/node = SubResource( 72 )
@@ -151,7 +159,7 @@ nodes/dodge_tran/position = Vector2( -320, 200 )
 nodes/holding_sm/node = SubResource( 94 )
 nodes/holding_sm/position = Vector2( -140, 280 )
 nodes/output/position = Vector2( 300, 160 )
-node_connections = [ "output", 0, "action_tran", "action_tran", 0, "attack_tran", "action_tran", 1, "block_tran", "action_tran", 2, "dodge_tran", "action_tran", 3, "holding_sm", "action_tran", 4, "Animation 11", "dodge_tran", 0, "Animation 9", "dodge_tran", 1, "Animation 10", "attack_tran", 0, "Animation", "attack_tran", 1, "Animation 2", "attack_tran", 2, "Animation 3", "attack_tran", 3, "Animation 5", "attack_tran", 4, "Animation 4", "attack_tran", 5, "Animation 6", "block_tran", 0, "Animation 7", "block_tran", 1, "Animation 8" ]
+node_connections = [ "output", 0, "action_tran", "block_tran", 0, "Animation 7", "block_tran", 1, "Animation 8", "block_tran", 2, "Animation 12", "action_tran", 0, "attack_tran", "action_tran", 1, "block_tran", "action_tran", 2, "dodge_tran", "action_tran", 3, "holding_sm", "action_tran", 4, "Animation 11", "dodge_tran", 0, "Animation 9", "dodge_tran", 1, "Animation 10", "attack_tran", 0, "Animation", "attack_tran", 1, "Animation 2", "attack_tran", 2, "Animation 3", "attack_tran", 3, "Animation 5", "attack_tran", 4, "Animation 4", "attack_tran", 5, "Animation 6" ]
 
 [sub_resource type="AnimationNodeAnimation" id=57]
 animation = "attack_pi"
@@ -349,7 +357,7 @@ input_4/auto_advance = false
 
 [resource]
 resource_name = "通用的tree root"
-graph_offset = Vector2( 0, -21 )
+graph_offset = Vector2( 31.3, -1024.7 )
 nodes/Animation/node = SubResource( 69 )
 nodes/Animation/position = Vector2( -480, -1040 )
 "nodes/Animation 2/node" = SubResource( 70 )
@@ -415,4 +423,4 @@ nodes/unprepared_shot/node = SubResource( 51 )
 nodes/unprepared_shot/position = Vector2( 740, -840 )
 nodes/unprepared_tran/node = SubResource( 13 )
 nodes/unprepared_tran/position = Vector2( -300, -580 )
-node_connections = [ "output", 0, "TimeScale", "action_tran", 0, "attack_bs", "action_tran", 1, "block_bs", "action_tran", 2, "dodge_bs", "action_shot", 0, "state_tran", "action_shot", 1, "action_tree", "TimeScale", 0, "unprepared_shot", "prepared_shot", 0, "action_shot", "prepared_shot", 1, "prepared", "unprepared_shot", 0, "prepared_shot", "unprepared_shot", 1, "unprepared", "unprepared_tran", 0, "move", "unprepared_tran", 1, "hangingclimbshot", "unprepared_tran", 2, "climb", "unprepared_tran", 3, "jump_blend", "unprepared_tran", 4, "Animation 2", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "prepared_tran", 0, "move_prepared", "prepared_tran", 1, "hangingclimbshot_prepared", "prepared_tran", 2, "climb_prepared", "prepared_tran", 3, "jump_blend_prepraed", "prepared_tran", 4, "Animation", "jump_blend_prepraed", 0, "jumpup_prepared", "jump_blend_prepraed", 1, "jumpdown_prepared", "state_tran", 0, "prepared_tran", "state_tran", 1, "unprepared_tran", "hangingclimbshot_prepared", 0, "hanging_prepared", "hangingclimbshot_prepared", 1, "hangingclimb_prepared", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown" ]
+node_connections = [ "output", 0, "TimeScale", "action_tran", 0, "attack_bs", "action_tran", 1, "block_bs", "action_tran", 2, "dodge_bs", "unprepared_tran", 0, "move", "unprepared_tran", 1, "hangingclimbshot", "unprepared_tran", 2, "climb", "unprepared_tran", 3, "jump_blend", "unprepared_tran", 4, "Animation 2", "hangingclimbshot_prepared", 0, "hanging_prepared", "hangingclimbshot_prepared", 1, "hangingclimb_prepared", "prepared_shot", 0, "action_shot", "prepared_shot", 1, "prepared", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "action_shot", 0, "state_tran", "action_shot", 1, "action_tree", "prepared_tran", 0, "move_prepared", "prepared_tran", 1, "hangingclimbshot_prepared", "prepared_tran", 2, "climb_prepared", "prepared_tran", 3, "jump_blend_prepraed", "prepared_tran", 4, "Animation", "state_tran", 0, "prepared_tran", "state_tran", 1, "unprepared_tran", "jump_blend_prepraed", 0, "jumpup_prepared", "jump_blend_prepraed", 1, "jumpdown_prepared", "unprepared_shot", 0, "prepared_shot", "unprepared_shot", 1, "unprepared", "TimeScale", 0, "unprepared_shot", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb" ]

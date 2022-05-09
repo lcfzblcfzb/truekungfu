@@ -74,9 +74,11 @@ static func normal_on_ai_event(fight_motion ,fight_cpn):
 # Glob.WuMotion
 static func normal_on_action_event(wu_motion,is_heavy ,fight_cpn):
 	var attribute_mng = fight_cpn.attribute_mng as AttribugeMng
-	
+	var actoin_mng = fight_cpn.actionMng as FightActionMng
 	match( wu_motion):
-		
+		Glob.WuMotion.Cancel:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Canceled) as BaseAction
+			fight_cpn.actionMng.regist_action(base.id,base.duration,ActionInfo.EXEMOD_INTERUPT)
 		
 		Glob.WuMotion.Block:
 			
@@ -84,9 +86,20 @@ static func normal_on_action_event(wu_motion,is_heavy ,fight_cpn):
 				return
 				
 			fight_cpn.is_prepared = true			
-#			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Block) as BaseAction
-			fight_cpn.actionMng.regist_action(Glob.FightMotion.Block,attribute_mng.get_value(Glob.CharactorAttribute.BlockDuration),ActionInfo.EXEMOD_INTERUPT)
-			pass
+#			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Blocking) as BaseAction
+			actoin_mng.regist_action(Glob.FightMotion.Blocking,attribute_mng.get_value(Glob.CharactorAttribute.BlockDuration),ActionInfo.EXEMOD_INTERUPT)
+			
+			var dodge_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Pre_Block)
+			var dodge = ActionInfo.create_by_base(dodge_base,ActionInfo.EXEMOD_SEQ,false,false)
+			
+			var block_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Blocking)
+			var block =  ActionInfo.create_by_base(block_base,ActionInfo.EXEMOD_SEQ,false,false)
+			
+			actoin_mng.regist_group_actions([dodge,block],actoin_mng.next_group_id(dodge_base.handle_type),ActionInfo.EXEMOD_INTERUPT)
+		Glob.WuMotion.PostBlock:
+			var post_block_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Post_Block)
+			var pose_block_action =  ActionInfo.create_by_base(post_block_base,ActionInfo.EXEMOD_GENEROUS,false,true)
+			actoin_mng.regist_actioninfo(pose_block_action)
 		
 		Glob.WuMotion.Attack_Pi:
 			

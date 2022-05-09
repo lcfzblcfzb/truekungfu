@@ -477,10 +477,57 @@ fight_component_path = NodePath("..")
 
 [node name="AnimationTree" parent="SpriteAnimation/StandarAnimatedCharactor" index="0"]
 process_mode = 0
+parameters/action_tree/action_tran/current = 0
 parameters/action_tree/holding_sm/playback = SubResource( 72 )
 
 [node name="AnimationPlayer_Taijijian_Normal" parent="SpriteAnimation/StandarAnimatedCharactor/CharactorAnimationPlayers" index="2"]
 anims/rolling = SubResource( 71 )
+
+[node name="hip" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor" index="1"]
+position = Vector2( 0, 0 )
+rotation = 0.0
+
+[node name="left_thigh" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="0"]
+rotation = 0.0
+
+[node name="left_shank" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/left_thigh" index="0"]
+rotation = 0.0
+
+[node name="left_foot" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/left_thigh/left_shank" index="0"]
+rotation = 0.0
+
+[node name="right_thigh" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="1"]
+rotation = 0.0
+
+[node name="right_shank" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/right_thigh" index="0"]
+rotation = 0.0
+
+[node name="right_foot" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/right_thigh/right_shank" index="0"]
+rotation = 0.0
+
+[node name="body" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="2"]
+rotation = 0.0
+
+[node name="left_upper_arm" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body" index="0"]
+rotation = 0.0
+
+[node name="left_fore_arm" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/left_upper_arm" index="0"]
+rotation = 0.0
+
+[node name="left_weapon" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand" index="0"]
+rotation = 2.56501
+
+[node name="right_upper_arm" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body" index="1"]
+rotation = 0.0
+
+[node name="right_fore_arm" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/right_upper_arm" index="0"]
+rotation = 0.0
+
+[node name="right_hand" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/right_upper_arm/right_fore_arm" index="0"]
+rotation = 0.0
+
+[node name="right_weapon" parent="SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand" index="0"]
+rotation = 3.23575
 
 [node name="FightActionMng" parent="." instance=ExtResource( 5 )]
 

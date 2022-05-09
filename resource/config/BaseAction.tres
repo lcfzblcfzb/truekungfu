@@ -722,9 +722,9 @@
   },
   {
 	"id": 172,
-	"name": "Block",
-	"animation_name": "block",
-	"duration": 1,
+	"name": "Blocking",
+	"animation_name": "blocking",
+	"duration": -1,
 	"handle_type":2,
 	"type": [
 	  1
@@ -764,6 +764,26 @@
 	"id": 176,
 	"name": "Canceled",
 	"animation_name": "canceled",
+	"duration": 1,
+	"handle_type":2,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 177,
+	"name": "Pre_Block",
+	"animation_name": "pre_block",
+	"duration": 1,
+	"handle_type":2,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 178,
+	"name": "Post_Block",
+	"animation_name": "post_block",
 	"duration": 1,
 	"handle_type":2,
 	"type": [

@@ -192,6 +192,11 @@ func _input(event):
 		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Block,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)	
 		
+	if event.is_action_released("block"):
+		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.PostBlock,attack_begin_time,OS.get_ticks_msec()])
+		emit_signal("NewFightMotion",newActionEvent)
+		pass
+		
 	if event.is_action_pressed("roll"):
 		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Rolling,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)	
