@@ -302,7 +302,7 @@ func set_paused_unpreparing_timer(_p=true):
 		_unpreparing_timer.start()
 
 #刷新_unpreparing_timer 时间
-func refresh_unpreparing_timer(sec=5):
+func refresh_unpreparing_timer(sec=50):
 	_unpreparing_timer.start(sec)
 	
 #当前角色朝向
@@ -349,6 +349,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 
 
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
+	
 		
 	if action.base_action == Glob.FightMotion.HangingClimb:
 		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
@@ -377,6 +378,8 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 		for _gear  in _list:
 			
 			_gear.on_actioninfo_end(action)
+	
+	get_animation_tree().set_time_scale()
 		
 func test_dead_motion():
 	

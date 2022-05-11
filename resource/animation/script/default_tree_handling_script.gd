@@ -35,6 +35,9 @@ func _process(delta):
 	if current_node!=prv_node:
 		emitSignal(current_node)
 		prv_node = current_node
+
+func set_time_scale(time_scale = 1):
+	set_deferred("parameters/TimeScale/scale",time_scale)
 		
 #动作动作
 func act(action:ActionInfo,timescale):

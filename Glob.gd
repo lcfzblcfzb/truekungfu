@@ -1,7 +1,5 @@
 extends Node
 
-func _ready():
-	pass
 
 var dPi = 2*PI
 var hPi = PI/2
@@ -51,10 +49,12 @@ enum AnimationMethodType{
 	
 	BlockStart =200,
 	BlockEnd =201,
-	RollStart =202,
-	RollEnd =203,
-	DodgeStart =204,
-	DodgeEnd =205,
+	
+	RollStart =301,
+	RollEnd =302,
+	
+	DodgeStart =401,
+	DodgeEnd =402,
 }
 
 
@@ -146,6 +146,15 @@ enum WuxueEnum{
 	
 }
 
+
+# key-> type_name, value: {  "min_idx"-> the type's starting index , "max_idx"->the type's ending index}
+const AttributeType={
+	"DurationMs":{
+		"min_idx":300,
+		"max_idx":399
+	}
+}
+
 #属性类型
 enum CharactorAttribute{
 	Block = 100,#number
@@ -163,7 +172,13 @@ enum CharactorAttribute{
 	AttackCiDuration = 300,#second
 	AttackPiDuration =301,#second
 	AttackSaoDuration =302,#second
-	BlockDuration =303,#second
+	PreBlockDuration =303,#second
+	PostBlockDuration = 304,
+	CancelDuration = 305,
+	RollingDuration = 306,
+	PrepareDuration = 307,
+	UnPrepareDuration = 308,
+	HoldingDuration = 309,
 	
 	BlockStamina = 400,#number
 	RollStamina =401,#number

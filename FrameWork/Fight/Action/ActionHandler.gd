@@ -442,7 +442,7 @@ func on_tick(delta):
 				_current_action.state = ActionInfo.STATE_ING
 				_current_action.action_begin_time = OS.get_ticks_msec()
 				_current_action.action_pass_time =0
-				print("action start....",_current_action.base_action)
+				push_warning("action start.... %d" % _current_action.base_action)
 	#			debug_print()
 				action_mng.action_start(_current_action)
 			
@@ -481,7 +481,6 @@ func _blind_append_interupt(action:ActionInfo):
 	if _prv_action!=null:
 		_prv_action.state =ActionInfo.STATE_INTERUPTED
 		action_mng.action_finish(_prv_action)
-	
 	
 
 	

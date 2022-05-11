@@ -5,7 +5,7 @@
 [ext_resource path="res://FrameWork/CollisionBox/HurtBox.tscn" type="PackedScene" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4, 12 )
+extents = Vector2( 4, 8 )
 
 [node name="standar_charactor" type="Node2D"]
 script = ExtResource( 1 )

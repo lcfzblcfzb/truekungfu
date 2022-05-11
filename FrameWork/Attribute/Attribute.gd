@@ -36,11 +36,12 @@ func _recalc_value():
 			
 			pass
 		pass
-	
 	_value = base+ base * base_rate * all_rate + bonus * bonus_rate * all_rate
 	
 	if type == Glob.CharactorAttribute.BlockRegen or type == Glob.CharactorAttribute.StaminaRegen:
 		_value = _value / Engine.iterations_per_second
+	elif type in range(Glob.AttributeType.get("DurationMs").get("min_idx"),Glob.AttributeType.get("DurationMs").get("max_idx")+1):
+		_value = _value * 1000
 	
 	_is_dirty = false
 
