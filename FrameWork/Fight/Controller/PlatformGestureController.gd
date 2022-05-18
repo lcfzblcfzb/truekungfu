@@ -131,7 +131,7 @@ func _create_group_actions(action_dict:Dictionary):
 
 
 var _prv_input =null
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	#根据按键重新构造input_vector
 	var input_vector = _gen_input_vector_by_bincode()
@@ -210,7 +210,6 @@ func _input(event):
 		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Switch,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	
-	var is_action =event.is_action("ui_right")
 	#以上下左右的顺序 ，垂直方向上下对应用 10 和01  ；水平上左右对应用 10和01 表示
 	if event.is_action_pressed("up"):
 		_vertical_key_pressed =_vertical_key_pressed | 0b10
@@ -263,7 +262,6 @@ func _input(event):
 	if(event is InputEventMouseMotion):
 		#relativePos = event.relative;
 		mouseMovingPos = event.global_position
-		var screenPos
 		
 		#攻击按下
 		#才开始记录	

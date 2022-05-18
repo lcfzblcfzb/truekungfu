@@ -46,7 +46,7 @@ func to_state(s):
 	state = s
 	_on_to_state(s)
 
-func _on_to_state(s):
+func _on_to_state(_s):
 	pass
 #装备的回调方法
 func on_add_to_charactor():
@@ -55,10 +55,10 @@ func on_add_to_charactor():
 func on_remove_from_charactor():
 	pass
 
-func on_actioninfo_start(action:ActionInfo):
+func on_actioninfo_start(_action:ActionInfo):
 	pass
 #同上 是 end 方法的回调
-func on_actioninfo_end(action:ActionInfo):
+func on_actioninfo_end(_action:ActionInfo):
 	pass
 #func repath_to_animation_charactor(animation_charactor):
 #

@@ -59,3 +59,5 @@ func set_state(s):
 
 func get_standar_charactor()->StandarAnimatedCharactor:
 	return $StandarAnimatedCharactor.get_standar_charactor()
+
+

@@ -18,7 +18,7 @@ func findCampMembers(camp,duplicate=false):
 		return result
 
 #找到所有对立阵营;  duplicate：是否要将结果存在新的数组中，不影响原始数组。选择true 则比较安全保险，以防数组被滥用。选择false表示已经知晓了影响，要注意对于返回的数组中元素的增删改操作都会影响CharactorMng中的campDict内容
-func findOpposeMember(camp,duplicate=false)->Array:
+func findOpposeMember(camp,_duplicate=false)->Array:
 	if camp ==Glob.CampEnum.Good:
 		return campDict[Glob.CampEnum.Bad]
 	elif camp ==Glob.CampEnum.Bad:

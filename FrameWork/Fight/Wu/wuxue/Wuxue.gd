@@ -1,7 +1,7 @@
 class_name WuXue
 extends Node2D
 
-var fight_cpn
+var fight_cpn setget set_fight_cpn
 
 var behaviourTree:BehaviorTree
 var blackboard:Blackboard
@@ -20,6 +20,9 @@ enum ActionForceType{
 	LIAO,	#撩
 }
 
+func set_fight_cpn(cpn):
+	fight_cpn= cpn
+	
 #在学会时候的回调
 func on_learned():
 	pass

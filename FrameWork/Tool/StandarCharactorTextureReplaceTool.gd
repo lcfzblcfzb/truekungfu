@@ -2,7 +2,6 @@ tool
 extends Sprite
 
 export(String, DIR) var texture_folder :String setget set_texture_folder
-# Called when the node enters the scene tree for the first time.
 export(bool) var modifying =false
 
 func _ready():
@@ -10,14 +9,14 @@ func _ready():
 		casacade_set_texture(self)	
 		
 	
-#	cascade_set_null(self)
+#	cascade_set_null(self)6
 	pass # Replace with function body.
 
 func set_texture_folder(t):
 	
 	texture_folder = t
-	
-	casacade_set_texture(self)
+	if self.name !="":
+		casacade_set_texture(self)
 
 func casacade_set_texture(node:Sprite):
 	var fn = texture_folder+"/"+node.name+".tres"

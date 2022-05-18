@@ -95,10 +95,10 @@ static func normal_on_action_event(wu_motion,is_heavy ,fight_cpn):
 			var block_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Blocking)
 			var block =  ActionInfo.create_by_base(block_base,block_base.get_duration(),ActionInfo.EXEMOD_SEQ,false,false)
 			
-			actoin_mng.regist_group_actions([dodge,block],actoin_mng.next_group_id(dodge_base.handle_type),ActionInfo.EXEMOD_INTERUPT)
+			actoin_mng.regist_group_actions([dodge,block],actoin_mng.next_group_id(dodge_base.handle_type),ActionInfo.EXEMOD_GENEROUS)
 		Glob.WuMotion.PostBlock:
 			var post_block_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Post_Block)
-			var pose_block_action =  ActionInfo.create_by_base(post_block_base,attribute_mng.get_value(Glob.CharactorAttribute.PostBlockDuration),ActionInfo.EXEMOD_INTERUPT,false,true)
+			var pose_block_action =  ActionInfo.create_by_base(post_block_base,attribute_mng.get_value(Glob.CharactorAttribute.PostBlockDuration),ActionInfo.EXEMOD_GENEROUS,false,true)
 			actoin_mng.regist_actioninfo(pose_block_action)
 		
 		Glob.WuMotion.Attack_Pi:
@@ -108,16 +108,21 @@ static func normal_on_action_event(wu_motion,is_heavy ,fight_cpn):
 			
 			fight_cpn.is_prepared = true			
 			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Attack_Pi) as BaseAction
-			fight_cpn.actionMng.regist_action(Glob.FightMotion.Attack_Pi,attribute_mng.get_value(Glob.CharactorAttribute.AttackPiDuration),ActionInfo.EXEMOD_INTERUPT)
+			fight_cpn.actionMng.regist_action(Glob.FightMotion.Attack_Pi,attribute_mng.get_value(Glob.CharactorAttribute.AttackPiDuration),ActionInfo.EXEMOD_GENEROUS)
 			pass
 		
 		Glob.WuMotion.Rolling:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Rolling) as BaseAction
+			
+			var current_action = fight_cpn.actionMng.get_current_action(base.handle_type) as ActionInfo
+			
+			if current_action.base_action == Glob.FightMotion.Rolling:
+				return
 			
 			if not fight_cpn.cost_stamina(fight_cpn.attribute_mng.get_value(Glob.CharactorAttribute.RollStamina)):
 				return
 			
-			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Rolling) as BaseAction
-			fight_cpn.actionMng.regist_action(base.id,attribute_mng.get_value(Glob.CharactorAttribute.RollingDuration),ActionInfo.EXEMOD_INTERUPT)
+			fight_cpn.actionMng.regist_action(base.id,attribute_mng.get_value(Glob.CharactorAttribute.RollingDuration),ActionInfo.EXEMOD_NEWEST)
 			pass
 		
 		Glob.WuMotion.Stunned:
@@ -140,7 +145,6 @@ static func normal_on_action_event(wu_motion,is_heavy ,fight_cpn):
 				fight_cpn.actionMng.regist_actioninfo(action)
 		
 		Glob.WuMotion.Attack:
-			
 			
 			fight_cpn.is_prepared = true
 			fight_cpn.set_paused_unpreparing_timer(false)

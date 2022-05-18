@@ -14,7 +14,6 @@ func init_behaviour_tree(fight_component,tree):
 	behavior_tree = tree
 	fight_cpn = fight_component
 	behavior_tree.agent = fight_cpn
-	add_child(tree)
 
 func switch_tree(tree):
 	assert(tree!=null,"error,behaviortree is suppose to be not null")	
@@ -23,7 +22,6 @@ func switch_tree(tree):
 		behavior_tree.is_active = false
 		remove_child(behavior_tree)
 	behavior_tree = tree
-	add_child(tree)
 
 func active_tree():
 	behavior_tree.is_active= true

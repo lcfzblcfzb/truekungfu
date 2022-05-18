@@ -1,14 +1,19 @@
 class_name Fist
 extends WuXue
 
+const FistBehaviorTree =preload("res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/FistNormalBehaveTree.tscn")
+
 static func get_wuxue_type():
 	return Glob.WuxueEnum.Sanjiaomao
 
 func _ready():
 	
-	behaviourTree =  $BT
+	behaviourTree =  FistBehaviorTree.instance()
+	behaviourTree._agent = fight_cpn.get_path()
 	blackboard = $Blackboard
-	behaviourTree.blackboard = blackboard
+	behaviourTree._blackboard = blackboard.get_path()
+	
+	add_child(behaviourTree)
 #	yield(get_tree().create_timer(3),"timeout")
 #	var animationPlayer = preload("res://FightAnimationPlayer.tscn").instance() as AnimationPlayer
 #	add_child(animationPlayer)

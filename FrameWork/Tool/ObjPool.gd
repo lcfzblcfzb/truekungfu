@@ -35,7 +35,7 @@ func returnToPool(o):
 class IPoolAble:
 	#对象池
 	var pool :ObjPool
-	func _init(p,param:=null):
+	func _init(p):
 		pool = p
 		pass
 	

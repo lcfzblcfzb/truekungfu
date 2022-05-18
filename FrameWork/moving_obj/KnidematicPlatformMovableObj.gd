@@ -106,11 +106,11 @@ pass
 #		body = kidBody
 	
 	
-func onProcess(delta=0):
+func onProcess(_delta=0):
 	pass
 	
 #_physiceProcess 回调
-func onPhysicsProcess(delta):
+func onPhysicsProcess(_delta):
 	pass
 	#PlayState.ATTACK:
 	#	player_attack(delta)

@@ -342,11 +342,11 @@ func _check_generous_on_process():
 	if current_index>=action_array.size()-1 || !is_generous_type(_current_action):
 		return
 
-	var foundIndex = current_index;
+	var foundIndex = -1;
 	
 	#在循环中记录 找到的 GENEROUS类型的 group_id和第一个成员所处的Index,
-	var found_group_id = -1
-	var found_group_index = -1
+	var found_group_id = -1 if _current_action.group_id<0 else _current_action.group_id
+	var found_group_index = -1 if _current_action.group_id<0 else current_index
 	#找出执行generous行为的最后一个index
 	for i in range(current_index+1,action_array.size()):
 		

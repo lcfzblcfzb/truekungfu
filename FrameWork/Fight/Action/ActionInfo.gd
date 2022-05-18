@@ -85,10 +85,10 @@ func get_base_action()->BaseAction:
 	return _base_action_obj
 
 #通过baseAction 构造 actioninfo
-static func create_by_base(base:BaseAction,durantion,mod,repeat_allowed,loop_break):
+static func create_by_base(base:BaseAction,durantion,mod,repeat_allowed,p_loop_break):
 	if  base!=null:
 		#无法直接使用ActionInfo，所以用了一个Load代替
-		return Glob.getPollObject(load("res://FrameWork/Fight/Action/ActionInfo.gd"),[base.id,OS.get_ticks_msec(),[],durantion,mod,repeat_allowed,loop_break])
+		return Glob.getPollObject(load("res://FrameWork/Fight/Action/ActionInfo.gd"),[base.id,OS.get_ticks_msec(),[],durantion,mod,repeat_allowed,p_loop_break])
 	return null
 	
 #进行一个简单的提示，并不强制要求 严格的状态机切换
