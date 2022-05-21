@@ -22,7 +22,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	
 	var distance = abs(fight_componnent.global_position.x - target.global_position.x)
 	
-	if distance< 30:
+	if distance< 35:
 		fight_componnent.fight_controller.emit_new_fight_motion_event(Glob.getPollObject(MoveEvent,[Vector2.ZERO,false,false]))
 		return succeed()
 	

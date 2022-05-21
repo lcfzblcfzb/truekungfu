@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=1]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=2]
@@ -16,6 +16,9 @@
 [ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/Is_Move_Danger.gd" type="Script" id=14]
 [ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/Is_Move_safe.gd" type="Script" id=15]
 [ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/Do_Attack.gd" type="Script" id=16]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/decorators/bt_guard.gd" type="Script" id=17]
+[ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/Is_Wiggle.gd" type="Script" id=18]
+[ext_resource path="res://FrameWork/Fight/Wu/wuxue/behavior_tree/fist/Do_Wiggle.gd" type="Script" id=19]
 
 [node name="BT" type="Node"]
 script = ExtResource( 1 )
@@ -24,74 +27,88 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Peace" type="Node" parent="BTSelector"]
-script = ExtResource( 3 )
+script = ExtResource( 13 )
+frequency = 0.1
 
-[node name="Is_Engaged" type="Node2D" parent="BTSelector/Peace"]
+[node name="BTGuard" type="Node" parent="BTSelector/Peace"]
+script = ExtResource( 17 )
+_locker = NodePath("Is_Engaged")
+lock_if = 1
+_unlocker = NodePath("../../Is_Engaged")
+
+[node name="Is_Engaged" type="Node2D" parent="BTSelector/Peace/BTGuard"]
 script = ExtResource( 4 )
 reverse = true
 
-[node name="BTRepeat" type="Node" parent="BTSelector/Peace/Is_Engaged"]
+[node name="BTRepeat" type="Node" parent="BTSelector/Peace/BTGuard/Is_Engaged"]
 script = ExtResource( 12 )
 times_to_repeat = 2
 frequency = 1.0
 
-[node name="Do_Peace" type="Node2D" parent="BTSelector/Peace/Is_Engaged/BTRepeat"]
+[node name="Do_Peace" type="Node2D" parent="BTSelector/Peace/BTGuard/Is_Engaged/BTRepeat"]
 script = ExtResource( 5 )
 
-[node name="Is_Engaged2" type="Node2D" parent="BTSelector/Peace"]
+[node name="Is_Engaged" type="Node2D" parent="BTSelector"]
 script = ExtResource( 4 )
-reverse = true
+check_engaged = false
 
-[node name="BTRepeat" type="Node" parent="BTSelector/Peace/Is_Engaged2"]
-script = ExtResource( 12 )
-times_to_repeat = 2
-frequency = 1.0
-
-[node name="Do_Peace" type="Node2D" parent="BTSelector/Peace/Is_Engaged2/BTRepeat"]
-script = ExtResource( 5 )
-
-[node name="Engaged" type="Node" parent="BTSelector"]
+[node name="Engaged" type="Node" parent="BTSelector/Is_Engaged"]
 script = ExtResource( 3 )
 
-[node name="Is_Multi_target" type="Node2D" parent="BTSelector/Engaged"]
+[node name="Is_Multi_target" type="Node2D" parent="BTSelector/Is_Engaged/Engaged"]
 script = ExtResource( 7 )
 
-[node name="LockTarget" type="Node2D" parent="BTSelector/Engaged/Is_Multi_target"]
+[node name="LockTarget" type="Node2D" parent="BTSelector/Is_Engaged/Engaged/Is_Multi_target"]
 script = ExtResource( 6 )
 
-[node name="Face_Target" type="Node2D" parent="BTSelector/Engaged"]
+[node name="Face_Target" type="Node2D" parent="BTSelector/Is_Engaged/Engaged"]
 script = ExtResource( 8 )
 
-[node name="Decision" type="Node2D" parent="BTSelector/Engaged"]
+[node name="Decision" type="Node2D" parent="BTSelector/Is_Engaged/Engaged"]
 script = ExtResource( 9 )
 
-[node name="Engaged" type="Node" parent="BTSelector/Engaged"]
+[node name="Engaged" type="Node" parent="BTSelector/Is_Engaged/Engaged"]
 script = ExtResource( 2 )
 
-[node name="Is_Move_Danger" type="Node2D" parent="BTSelector/Engaged/Engaged"]
+[node name="Is_Move_Danger" type="Node2D" parent="BTSelector/Is_Engaged/Engaged/Engaged"]
 script = ExtResource( 14 )
 
-[node name="BTRepeatUntil" type="Node" parent="BTSelector/Engaged/Engaged/Is_Move_Danger"]
+[node name="BTRepeatUntil" type="Node" parent="BTSelector/Is_Engaged/Engaged/Engaged/Is_Move_Danger"]
 script = ExtResource( 13 )
-until_what = 1
 frequency = 0.2
 
-[node name="BTSequence" type="Node" parent="BTSelector/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil"]
+[node name="BTSequence" type="Node" parent="BTSelector/Is_Engaged/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil"]
 script = ExtResource( 3 )
 
-[node name="Do_Move_Danger" type="Node2D" parent="BTSelector/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil/BTSequence"]
+[node name="BTRepeatUntil" type="Node" parent="BTSelector/Is_Engaged/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil/BTSequence"]
+script = ExtResource( 13 )
+until_what = 1
+frequency = 0.1
+
+[node name="Do_Move_Danger" type="Node2D" parent="BTSelector/Is_Engaged/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil/BTSequence/BTRepeatUntil"]
 script = ExtResource( 11 )
 
-[node name="Do_Attack" type="Node2D" parent="BTSelector/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil/BTSequence"]
+[node name="Do_Attack" type="Node2D" parent="BTSelector/Is_Engaged/Engaged/Engaged/Is_Move_Danger/BTRepeatUntil/BTSequence"]
 script = ExtResource( 16 )
 
-[node name="Is_Move_safe" type="Node2D" parent="BTSelector/Engaged/Engaged"]
+[node name="Is_Move_safe" type="Node2D" parent="BTSelector/Is_Engaged/Engaged/Engaged"]
 script = ExtResource( 15 )
 
-[node name="BTRepeatUntil" type="Node" parent="BTSelector/Engaged/Engaged/Is_Move_safe"]
+[node name="BTRepeatUntil" type="Node" parent="BTSelector/Is_Engaged/Engaged/Engaged/Is_Move_safe"]
 script = ExtResource( 13 )
 until_what = 1
 frequency = 0.2
 
-[node name="Do_Move_Safe" type="Node2D" parent="BTSelector/Engaged/Engaged/Is_Move_safe/BTRepeatUntil"]
+[node name="Do_Move_Safe" type="Node2D" parent="BTSelector/Is_Engaged/Engaged/Engaged/Is_Move_safe/BTRepeatUntil"]
 script = ExtResource( 10 )
+
+[node name="Is_Wiggle" type="Node2D" parent="BTSelector/Is_Engaged/Engaged/Engaged"]
+script = ExtResource( 18 )
+
+[node name="BTRepeat" type="Node" parent="BTSelector/Is_Engaged/Engaged/Engaged/Is_Wiggle"]
+script = ExtResource( 12 )
+times_to_repeat = 10
+frequency = 0.3
+
+[node name="Do_Wiggle" type="Node" parent="BTSelector/Is_Engaged/Engaged/Engaged/Is_Wiggle/BTRepeat"]
+script = ExtResource( 19 )

@@ -25,6 +25,5 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	
 	print("checking safe"+distance as String)
 	if distance> 60:
-		blackboard.set_data("state",1)
 		return succeed()
 	return fail()

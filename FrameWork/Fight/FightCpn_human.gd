@@ -1,31 +1,8 @@
 extends BasePlatformerRole
 
 class_name FightComponent_human
-
-var stamina_value
-var block_value=5
-var health_point=1
-
-onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicMovableObj
-#接口
-#需要传入controlableMovingObj的速度参数
-func getSpeed():
-	return $ActionHandler.getSpeed()
-
-onready var sprite_animation = $SpriteAnimation
-onready var actionMng:FightActionMng = $FightActionMng
-onready var wu = $Wu
-onready var corner_detector = $CornerDetect
-onready var attribute_mng = $AttributeMng
-
-#动作控制器。是玩家输入或者是 AI 控制器
-var fight_controller :BaseFightActionController
 #是否是玩家操作的角色
 export (bool) var is_player =false;
-#控制器的预加载
-var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
-var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
-
 #已经学会的 wuxue
 export (Array,Glob.WuxueEnum) var _learned_wuxue:Array=[]
 
@@ -34,12 +11,42 @@ export (Glob.CharactorEnum) var chosed_characor = Glob.CharactorEnum.Daoshi
 
 #初始的装备
 export (Array,Glob.GearEnum) var initial_gears =[]
+#计算prepared状态的timer
+onready var _unpreparing_timer = $Timer
+onready var sprite_animation = $SpriteAnimation
+onready var actionMng:FightActionMng = $FightActionMng
+onready var wu = $Wu
+onready var corner_detector = $CornerDetect
+onready var attribute_mng = $AttributeMng
+onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicMovableObj
+
+#动作控制器。是玩家输入或者是 AI 控制器
+var fight_controller :BaseFightActionController
+
+#控制器的预加载
+var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
+var ai_controller_scene=preload("res://FrameWork/Fight/Controller/AiFightGestureController.gd")
+#是否处于准备状态
+var is_prepared = false setget _set_prepared
+
+#是否进战斗了
+var is_engaged=false
+
+var stamina_value
+var block_value=5
+var health_point=1
+
 
 #已装备的 道具
 # slot->[ baseGear ]
 var _equiped_gears_dict = {}
 #使用中的weapon
 var weapon_in_use:Weapon
+
+#接口
+#需要传入controlableMovingObj的速度参数
+func getSpeed():
+	return $ActionHandler.getSpeed()
 
 #是否处于可攀爬位置
 func is_at_hanging_corner()->bool:
@@ -86,6 +93,7 @@ func _ready():
 		var camera = Camera2D.new()
 		camera.zoom=Vector2(0.5,0.5)
 		add_child(camera)
+		camera.position = Vector2(0,-75)
 		camera.current = true
 		
 	else:
@@ -236,8 +244,6 @@ func _remove_from_gear_dict(_gear:Gear):
 func get_velocity():
 	return fightKinematicMovableObj.velocity
 
-#是否进战斗了
-var is_engaged=false
 
 func set_engaged(e):
 	is_engaged = e
@@ -265,8 +271,6 @@ func switch_weapon(index,wuxue):
 #	wu.switch_wu(wuxue)
 #	sprite_animation.choose_wuxue_animation_and_gear(wu.wuxue)
 
-#是否处于准备状态
-var is_prepared = false setget _set_prepared
 
 func _set_prepared(p):
 	is_prepared = p 
@@ -277,8 +281,7 @@ func _set_prepared(p):
 	
 	if p:
 		_update_prepared_timer()
-#计算prepared状态的timer
-onready var _unpreparing_timer = $Timer
+
 #更新 PREPARED状态 计时器
 func _update_prepared_timer():
 	refresh_unpreparing_timer()
