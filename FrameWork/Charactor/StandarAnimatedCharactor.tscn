@@ -12257,7 +12257,7 @@ tracks/29/keys = {
 "times": PoolRealArray( 0, 0.3, 0.4, 0.5, 0.7, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 85.5981, 180.0, 270.0, 360.0, 360.0, 360.0 ]
+"values": [ 0.0, 85.5981, 180.0, 270.0, 360.0, 360.0, 0.0 ]
 }
 tracks/30/type = "value"
 tracks/30/path = NodePath("body/left_upper_arm/left_fore_arm/left_hand:position")
@@ -12687,7 +12687,7 @@ tracks/65/imported = false
 tracks/65/enabled = true
 tracks/65/keys = {
 "times": PoolRealArray( 0, 0.3, 0.4, 0.5, 0.7, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1e+06 ),
 "update": 0,
 "values": [ 0.0, 85.5981, 180.0, 270.0, 360.0, 360.0, 360.0 ]
 }
@@ -24949,7 +24949,7 @@ skelekal_type = 1
 [node name="standar_charactor" parent="." instance=ExtResource( 1 )]
 
 [node name="CollisionShape2D" parent="standar_charactor/hurt_box" index="0"]
-position = Vector2( 2.00003, 12 )
+position = Vector2( 2, 0.999995 )
 
 [node name="left_weapon" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand" index="0"]
 rotation = -2.0944
@@ -24957,7 +24957,7 @@ rotation = -2.0944
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand/left_weapon" index="0"]
 
 [node name="right_weapon" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand" index="0"]
-rotation = 2.0944
+rotation = 2.26893
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand/right_weapon" index="0"]
 

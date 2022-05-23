@@ -282,7 +282,6 @@ func _process_action(action:ActionInfo):
 	
 	if action.param!=null && action.param.size()>0 && action.param[0] is Vector2:
 		input_vector = action.param[0]
-	print("in movable obj",input_vector)
 	
 #	if state == ActionState.Hanging:
 		#攀援的状态	
@@ -302,8 +301,8 @@ func _process_action(action:ActionInfo):
 #		pass
 #	else:
 		
-		#在空中的状态在 接收到 IDLE,WALK,RUN移动指令的时候需要特殊处理
-		#会接收到IDLE是应为输入控制器 在最后一个按键抬起的时候会发送一个IDLE事件
+	#在空中的状态在 接收到 IDLE,WALK,RUN移动指令的时候需要特殊处理
+	#会接收到IDLE是应为输入控制器 在最后一个按键抬起的时候会发送一个IDLE事件
 	if ( state ==ActionState.JumpUp) and (action.base_action==Glob.FightMotion.Idle or action.base_action==Glob.FightMotion.Walk or action.base_action==Glob.FightMotion.Run):
 		change_movable_state(Vector2(input_vector.x,-1) , state)
 		return
@@ -339,14 +338,5 @@ func _process_action(action:ActionInfo):
 			change_movable_state(input_vector,ActionState.HangingClimb)		
 		Glob.FightMotion.Attack_Ci:
 			change_movable_state(Vector2(faceDirection.x,0),ActionState.Attack)
-		_:
-			var baseObj = FightBaseActionDataSource.get_by_id(action.base_action) as BaseAction
-			# 是攻击类型的type
-			#TODO 建立一个枚举 表示 action_type 方便理解
-			if baseObj and 2 in baseObj.type:
-				var name =baseObj.animation_name as String
-				if "_pre" in name: 
-					change_movable_state(input_vector,ActionState.Attack)
-					print("attack action start..stop moving")
-						
+								
 	pass

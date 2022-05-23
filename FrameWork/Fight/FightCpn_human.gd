@@ -22,6 +22,8 @@ onready var fightKinematicMovableObj:FightKinematicMovableObj = $FightKinematicM
 
 #动作控制器。是玩家输入或者是 AI 控制器
 var fight_controller :BaseFightActionController
+#背包
+var inventory :Inventory
 
 #控制器的预加载
 var player_controller_scene =preload("res://FrameWork/Fight/Controller/PlatformGestureController.tscn")
@@ -42,6 +44,35 @@ var health_point=1
 var _equiped_gears_dict = {}
 #使用中的weapon
 var weapon_in_use:Weapon
+
+#  可交互的东西
+var _current_interacts=[]
+
+func add_interactable(interactbal):
+	
+	if not _current_interacts.has(interactbal):
+		_current_interacts.append(interactbal)
+		sort_interactable()
+
+func remove_interactable(interacbal):
+	_current_interacts.erase(interacbal)
+
+func sort_interactable():
+	_current_interacts.sort_custom(self,"_interacble_sort")
+#sorting method
+func _interacble_sort(a,b):
+	var to_a =abs(a.global_position.x - self.global_position.x)
+	var to_b = abs(b.global_position.x - self.global_position.x)
+	
+	if to_a <= to_b:
+		return true
+	return false
+
+func _input(event):
+	if event.is_action_pressed("interact"):
+		if _current_interacts.size()>0:
+			var interact = _current_interacts[0]
+			interact.pick(self)
 
 #接口
 #需要传入controlableMovingObj的速度参数
@@ -114,7 +145,9 @@ func _ready():
 	init_weapon()
 	#用特定武学 选择一件武器
 	choose_weapon_using_wuxue(0,Glob.WuxueEnum.Sanjiaomao)
-
+	#初始化仓库
+	if inventory ==null:
+		inventory = Inventory.new()
 	
 	#初始状态检测
 	#TODO 可以指定初始状态

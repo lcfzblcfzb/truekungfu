@@ -116,7 +116,7 @@ static func normal_on_action_event(wu_motion,is_heavy ,fight_cpn):
 			
 			var current_action = fight_cpn.actionMng.get_current_action(base.handle_type) as ActionInfo
 			
-			if current_action.base_action == Glob.FightMotion.Rolling:
+			if current_action !=null and current_action.base_action == Glob.FightMotion.Rolling:
 				return
 			
 			if not fight_cpn.cost_stamina(fight_cpn.attribute_mng.get_value(Glob.CharactorAttribute.RollStamina)):
@@ -167,7 +167,7 @@ static func normal_on_action_event(wu_motion,is_heavy ,fight_cpn):
 				
 				return
 			var base = FightBaseActionDataSource.get_by_id(_a) as BaseAction
-			fight_cpn.actionMng.regist_action(_a , _duration,ActionInfo.EXEMOD_INTERUPT)
+			fight_cpn.actionMng.regist_action(_a , _duration,ActionInfo.EXEMOD_NEWEST)
 		
 		
 		Glob.WuMotion.Holding:

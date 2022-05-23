@@ -132,8 +132,24 @@ enum GearSlot{
 
 #道具的类型
 enum OutfitUseType{
+	#不可使用
+	NoUse=0
 	#可装备物品
 	Gear =1
+	# 可使用的道具
+	Outfit = 2
+}
+
+#base outfit
+enum BaseOutfitType{
+	
+	Money = 1
+	
+	Duandao =1000
+	Duanjian=1001
+	
+	Healing = 2000
+	
 }
 
 
@@ -194,6 +210,18 @@ enum CharactorAttribute{
 	BlockReduceDamage= 503
 	
 }
+
+#outfitmng
+var outfitMng:OutfitMng
+
+var global_unique_id :int= 0
+
+func get_next_gid():
+	global_unique_id+=1
+	return global_unique_id
+
+func _ready():
+	outfitMng = OutfitMng.new()
 
 func test():
 	print("print test global")
