@@ -179,7 +179,7 @@ static func normal_on_action_event(wu_motion,is_heavy ,fight_cpn):
 		
 		Glob.WuMotion.Switch:
 			
-			fight_cpn.switch_weapon(0,Glob.WuxueEnum.Sanjiaomao)
+			fight_cpn.switch_weapon(1,Glob.WuxueEnum.Taijijian)
 			pass
 
 

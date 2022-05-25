@@ -92,44 +92,6 @@ func is_on_left()->bool:
 	return jisu.is_face_left()
 
 
-#
-func _create_attack_action(action_list):
-		
-	var param_dict ={}
-	
-	for i in range(action_list.size()):
-		var k = action_list[i]
-		var base = FightBaseActionDataSource.get_by_id(k) as BaseAction
-		if i <2:
-			
-			param_dict[k]={create_time=OS.get_ticks_msec(),
-								duration=base.duration*1000,
-								exemod =ActionInfo.EXEMOD_SEQ}
-		else:
-			param_dict[k]={create_time=OS.get_ticks_msec(),
-								duration=base.duration*1000,
-								exemod =ActionInfo.EXEMOD_GENEROUS}
-	
-	return _create_group_actions(param_dict)
-
-func _create_group_actions(action_dict:Dictionary):
-	
-	if action_dict==null||action_dict.size()<3:
-		return
-	
-	var pool = Glob.PoolDict.get(ActionInfo) as ObjPool
-	
-	var result = []
-	
-	for k in action_dict:
-		var item  = action_dict.get(k)
-		if item:
-			var act = pool.instance([k,item.get('create_time') if item.get('create_time') !=null else OS.get_ticks_msec() ,item.get('param'),item.get('duration'),item.get('exemod')])
-			result.append(act)
-		pass	
-	return result
-
-
 var _prv_input =null
 func _physics_process(_delta):
 	
@@ -292,13 +254,6 @@ func _input(event):
 		
 func get_moving_vector()->Vector2:
 	return _gen_input_vector_by_bincode()
-
-func _on_Timer_timeout():
-#	show_heavy_attack_indicator()
-	var motionEvent =Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Holding,OS.get_ticks_msec(),OS.get_ticks_msec()])
-	emit_signal("NewFightMotion",motionEvent)
-#	regist_action(Glob.FightMotion.Holding,-1,ActionInfo.EXEMOD_NEWEST)
-#	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)
 
 #位置命名
 enum PositionName{

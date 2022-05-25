@@ -17,7 +17,7 @@
 			"AttackCiDuration":0.3,
 			"AttackPiDuration":0.5,
 			"AttackSaoDuration":0.5,
-			"PreBlockDuration":0.25,
+			"PreBlockDuration":0.1,
 			"PostBlockDuration":0.4,
 			"CancelDuration":1.0,
 			"RollingDuration":0.5,

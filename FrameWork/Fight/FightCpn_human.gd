@@ -360,15 +360,11 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	if base == null:
 		return
 	
-	#动画播放时长
-	var time = action.action_duration_ms / 1000
-	if time<=0 || time ==null:
-		time=1
 	
 	print("action start time",OS.get_ticks_msec())
 #	print("action frame:",$SpriteAnimation/Sprite.frame)
 #	$FightAnimationTree.act(action,time)	
-	get_animation_tree().act(action,time)
+	get_animation_tree().act(action)
 	
 	if action.base_action ==Glob.FightMotion.Blocking:
 		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.Block

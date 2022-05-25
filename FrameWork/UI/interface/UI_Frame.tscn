@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://FrameWork/UI/interface/UI_Items.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resource/ui/items/Items_BG.tres" type="Texture" id=2]
+[ext_resource path="res://FrameWork/UI/interface/UI_Frame.gd" type="Script" id=3]
+
+[sub_resource type="Theme" id=1]
+
+[node name="UI_Frame" type="Control"]
+margin_left = 16.0
+margin_top = 525.0
+margin_right = 16.0
+margin_bottom = 525.0
+script = ExtResource( 3 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_right = 202.0
+margin_bottom = 52.0
+texture = ExtResource( 2 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 102.0
+margin_bottom = 42.0
+theme = SubResource( 1 )
+custom_constants/separation = 50
+
+[node name="UI_Item" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_right = 0.0
+margin_bottom = 40.0
+
+[node name="UI_Item2" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 50.0
+margin_right = 50.0
+margin_bottom = 40.0
+
+[node name="UI_Item3" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 100.0
+margin_right = 100.0
+margin_bottom = 40.0
+
+[node name="UI_Item4" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 150.0
+margin_right = 150.0
+margin_bottom = 40.0

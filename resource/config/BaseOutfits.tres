@@ -3,28 +3,42 @@
     "id": 1,
     "name": "KEY_OUTFIT_MONEY_NAME",
     "desc": "KEY_OUTFIT_MONEY_DESC",
-    "icon": "ICON_OUTFIT_MONEY",
+    "icon": "money",
     "useType": 0
+  },
+  {
+    "id": 2,
+    "name": "KEY_OUTFIT_BOOK_BLUE_NAME",
+    "desc": "KEY_OUTFIT_BOOK_BLUE_DESC",
+    "icon": "book_blue",
+    "useType": 2
+  },
+  {
+    "id": 3,
+    "name": "kEY_OUTFIT_APPLE_NAME",
+    "desc": "KEY_OUTFIT_APPLE_DESC",
+    "icon": "apple",
+    "useType": 2
   },
   {
     "id": 1000,
     "name": "KEY_OUTFIT_DUANDAO_NAME",
     "desc": "KEY_OUTFIT_DUANDAO_DESC",
-    "icon": "ICON_OUTFIT_DUANDAO",
+    "icon": "duandao",
     "useType": 1
   },
   {
     "id": 1001,
     "name": "KEY_OUTFIT_DUANJIAN_NAME",
     "desc": "KEY_OUTFIT_DUANJIAN_DESC",
-    "icon": "ICON_OUTFIT_DUANJIAN",
+    "icon": "duanjian",
     "useType": 1
   },
   {
     "id": 2000,
-    "name": "KEY_OUTFIT_HEALING_NAME",
-    "desc": "KEY_OUTFIT_HEALING_DESC",
-    "icon": "ICON_OUTFIT_HEALING",
+    "name": "KEY_OUTFIT_BANDAGE_NAME",
+    "desc": "KEY_OUTFIT_BANDAGE_DESC",
+    "icon": "bandage",
     "useType": 2
   }
 ]

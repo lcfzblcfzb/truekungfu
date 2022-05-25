@@ -144,6 +144,8 @@ enum OutfitUseType{
 enum BaseOutfitType{
 	
 	Money = 1
+	BookBlue =2
+	Apple = 3
 	
 	Duandao =1000
 	Duanjian=1001

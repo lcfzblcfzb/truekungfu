@@ -40,15 +40,25 @@ func set_time_scale(time_scale = 1):
 	set_deferred("parameters/TimeScale/scale",time_scale)
 		
 #动作动作
-func act(action:ActionInfo,timescale):
-	var animation = action.get_base_action().get("animation_name")
+func act(action:ActionInfo):
+	var base_action = action.get_base_action()
+	var animation = base_action.get("animation_name")
 	print("【action】: ",animation)
 	if animation!=null:
 		
 		travelTo(action)
+		
+		#动画播放时长
+		var time = action.action_duration_ms / 1000
+		if time<=0 || time ==null:
+			time=1
 		#set_deferred("parameters/TimeScale/scale",5)
-		var time = 1/timescale
-		set_deferred("parameters/TimeScale/scale",time)
+		time = 1/time
+		
+		if base_action.handle_type == Glob.ActionHandlingType.Action:
+			set_deferred("parameters/action_tree/action_scale/scale",time)
+		elif base_action.handle_type ==Glob.ActionHandlingType.Movement:
+			set_deferred("parameters/TimeScale/scale",time)
 		
 #封装的travel 方法;
 func travelTo(action:ActionInfo):
@@ -116,7 +126,7 @@ func travelTo(action:ActionInfo):
 			
 			set("parameters/action_shot/active",true)
 			
-			set("parameters/action_tree/holding_tran/current",0)
+			set("parameters/action_tree/holding_sm/current",0)
 			
 			set("parameters/action_tree/action_tran/current",3)
 			
@@ -153,8 +163,7 @@ func travelTo(action:ActionInfo):
 #			set("parameters/block_bs/blend_position",Vector2(0,0))
 #			set("parameters/move_action_blend/blend_amount",1)
 		Glob.FightMotion.Rolling:
-			set(TRANSITION_PREPARED,ROLLING)
-			set(TRANSITION_UNPREPARED,ROLLING)
+			set("parameters/rolling_shot/active",true)
 		
 		Glob.FightMotion.Prepared:
 			set("parameters/prepared_shot/active",true)

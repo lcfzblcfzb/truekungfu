@@ -715,7 +715,7 @@
 	"name": "Rolling",
 	"animation_name": "rolling",
 	"duration": 1,
-	"handle_type":1,
+	"handle_type":2,
 	"type": [
 	  1
 	]
