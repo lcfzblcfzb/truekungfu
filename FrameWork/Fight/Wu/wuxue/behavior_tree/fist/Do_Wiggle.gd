@@ -18,7 +18,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	else:
 		wiggle_direction = wiggle_direction.reflect(Vector2.UP)
 	
-	fight_componnent.fight_controller.emit_new_fight_motion_event(Glob.getPollObject(MoveEvent,[wiggle_direction,false,false]))
+	fight_componnent.fight_controller.emit_new_fight_motion_event(GlobVar.getPollObject(MoveEvent,[wiggle_direction,false,false]))
 	
 #	if distance> 60:
 #		return succeed()

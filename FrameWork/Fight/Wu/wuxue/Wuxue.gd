@@ -93,7 +93,7 @@ func _create_group_actions(action_dict:Dictionary):
 	for k in action_dict:
 		var item  = action_dict.get(k)
 		if item:
-			var act = Glob.getPollObject(ActionInfo,[k,item.get('create_time') if item.get('create_time') !=null else OS.get_ticks_msec() ,item.get('param'),item.get('duration'),item.get('exemod')])
+			var act = GlobVar.getPollObject(ActionInfo,[k,item.get('create_time') if item.get('create_time') !=null else OS.get_ticks_msec() ,item.get('param'),item.get('duration'),item.get('exemod')])
 			result.append(act)
 		pass	
 	return result

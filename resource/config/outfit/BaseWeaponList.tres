@@ -1,0 +1,32 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://resource/config/outfit/BaseWeaponList.gd" type="Script" id=1]
+[ext_resource path="res://resource/config/outfit/BaseWeapon.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+id = 0
+weapon_type = 0
+baseGearId = 600
+base_damage = 10
+base_block = 5
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+id = 20
+weapon_type = 1
+baseGearId = 601
+base_damage = 20
+base_block = 10
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 2 )
+id = 30
+weapon_type = 2
+baseGearId = 602
+base_damage = 20
+base_block = 10
+
+[resource]
+script = ExtResource( 1 )
+list = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ]

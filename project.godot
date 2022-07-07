@@ -149,15 +149,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/event/BaseFightEvent.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "BaseGear",
 "language": "GDScript",
-"path": "res://FrameWork/Gear/base/BaseGear.gd"
+"path": "res://resource/config/outfit/BaseGear.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "BaseOutfit",
 "language": "GDScript",
-"path": "res://FrameWork/Outfit/BaseOutfit.gd"
+"path": "res://resource/config/outfit/BaseOutfit.gd"
 }, {
 "base": "BaseRole",
 "class": "BasePlatformerRole",
@@ -169,10 +169,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Role/BaseRole.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "BaseWeapon",
 "language": "GDScript",
-"path": "res://FrameWork/Gear/Weapon/base/BaseWeapon.gd"
+"path": "res://resource/config/outfit/BaseWeapon.gd"
 }, {
 "base": "Node2D",
 "class": "BaseWu",
@@ -299,6 +299,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Gear/Gear.gd"
 }, {
+"base": "Node",
+"class": "Glob",
+"language": "GDScript",
+"path": "res://Glob.gd"
+}, {
 "base": "Area2D",
 "class": "HurtBox",
 "language": "GDScript",
@@ -314,7 +319,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/DataLoader/Data/Entity/IntEntity.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "Interactable",
 "language": "GDScript",
 "path": "res://FrameWork/Interactable/Interactable.gd"
@@ -503,6 +508,7 @@ _global_script_class_icons={
 "Fight_State_Controller": "",
 "Fist": "",
 "Gear": "",
+"Glob": "",
 "HurtBox": "",
 "Identified": "",
 "IntEntity": "",
@@ -541,7 +547,6 @@ run/main_scene="res://resource/scene/fight_demo.tscn"
 
 [autoload]
 
-Glob="*res://Glob.gd"
 RoleMng="*res://FrameWork/Scene/RoleMng.gd"
 FightBaseActionDataSource="*res://FrameWork/Fight/Action/FightBaseActionDataSource.gd"
 WuxueMng="*res://FrameWork/Fight/Wu/wuxue/WuxueMng.gd"
@@ -549,9 +554,7 @@ O="*res://FrameWork/_.gd"
 BaseStandarCharactorsDMG="*res://Game/Charactor/StandarCharactorsDMG.gd"
 UiManager="*res://FrameWork/UI/UI_Manager.gd"
 BaseWuxueDmg="*res://FrameWork/Fight/Wu/wuxue/BaseWuxueDMG.gd"
-BaseGearDmg="*res://FrameWork/Gear/base/BaseGearDMG.gd"
-BaseWeaponDmg="*res://FrameWork/Gear/Weapon/base/BaseWeaponDMG.gd"
-BaseOutfitDmg="*res://FrameWork/Outfit/BaseOutfitDMG.gd"
+GlobVar="*res://GlobVar.gd"
 
 [display]
 

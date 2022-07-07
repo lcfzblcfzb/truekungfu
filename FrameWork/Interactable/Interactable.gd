@@ -7,8 +7,8 @@ export(int) var num = 1
 var added_bodys =[]
 
 func pick(fight_cpt):
-	var outfit = Glob.outfitMng.new_outfit(base_outfit_id,num)
-	fight_cpt.inventory.add(outfit)
+	var outfit = GlobVar.outfitMng.new_outfit(base_outfit_id,num)
+	fight_cpt.inventory.add_outfit(outfit)
 	
 	for body in added_bodys:
 		body.remove_interactable(self)

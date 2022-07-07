@@ -105,7 +105,7 @@ func _physics_process(_delta):
 	if _prv_input!=null and _prv_input ==Vector2.ZERO and _prv_input== input_vector:
 		pass
 	else:
-		var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	
+		var newActionEvent = GlobVar.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	
 		emit_signal("NewFightMotion",newActionEvent)	
 		_prv_input = input_vector
 
@@ -133,43 +133,43 @@ func _gen_input_vector_by_bincode():
 	
 
 
-func _input(event):
+func _unhandled_input(event):
 	
 	if event.is_action_pressed("attack_ci"):
 		attack_pressed = true
 		attack_begin_time = OS.get_ticks_msec()
-		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Holding,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = GlobVar.getPollObject(NewActionEvent,[Glob.WuMotion.Holding,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)	
 		
 	if event.is_action_released("attack_ci"):
 		attack_pressed = false
-		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Attack,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = GlobVar.getPollObject(NewActionEvent,[Glob.WuMotion.Attack,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)	
 	
 	if event.is_action_pressed("attack_pi"):
-		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Attack_Pi,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = GlobVar.getPollObject(NewActionEvent,[Glob.WuMotion.Attack_Pi,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	
 	if event.is_action_pressed("block"):
-		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Block,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = GlobVar.getPollObject(NewActionEvent,[Glob.WuMotion.Block,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)	
 		
 	if event.is_action_released("block"):
-		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.PostBlock,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = GlobVar.getPollObject(NewActionEvent,[Glob.WuMotion.PostBlock,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 		pass
 		
 	if event.is_action_pressed("roll"):
-		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Rolling,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = GlobVar.getPollObject(NewActionEvent,[Glob.WuMotion.Rolling,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)	
 		
 	if event.is_action_pressed("prepared"):
-		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Prepared,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = GlobVar.getPollObject(NewActionEvent,[Glob.WuMotion.Prepared,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	
 	if event.is_action_pressed("switch"):
 		
-		var newActionEvent = Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Switch,attack_begin_time,OS.get_ticks_msec()])
+		var newActionEvent = GlobVar.getPollObject(NewActionEvent,[Glob.WuMotion.Switch,attack_begin_time,OS.get_ticks_msec()])
 		emit_signal("NewFightMotion",newActionEvent)
 	
 	#以上下左右的顺序 ，垂直方向上下对应用 10 和01  ；水平上左右对应用 10和01 表示
@@ -212,7 +212,7 @@ func _input(event):
 #
 #			input_vector =  input_vector.normalized()
 #			print(event.is_echo())
-#			var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,event.is_echo()])
+#			var newActionEvent = GlobVar.getPollObject(MoveEvent,[input_vector,event.is_echo()])
 #			emit_signal("NewFightMotion",newActionEvent)	
 #
 #			if event.is_action_pressed("cancel"):

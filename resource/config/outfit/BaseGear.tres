@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resource/config/outfit/BaseGear.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+id = 0
+name = ""
+desc = ""
+slot = 0
+baseOutfitId = 0
+resource_paths = [  ]

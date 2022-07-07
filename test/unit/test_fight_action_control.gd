@@ -55,7 +55,7 @@ func test_action_generous():
 	id=id+1
 	
 	var input_array = [Glob.FightMotion.Idle ,OS.get_ticks_msec(),["test"+id as String ,1],0*1000,ActionInfo.EXEMOD_GENEROUS,-1]
-	var action =Glob.getPollObject(ActionInfo,input_array)
+	var action =GlobVar.getPollObject(ActionInfo,input_array)
 #	action.not_generous_type.append(Glob.FightMotion.Idle)
 	action_control.regist_actioninfo(action)
 	
@@ -88,7 +88,7 @@ func test_action_generous():
 	id=id+1
 	
 	var input_array2 = [Glob.FightMotion.Idle ,OS.get_ticks_msec(),["test"+id as String ,1],0*1000,ActionInfo.EXEMOD_GENEROUS,-1]
-	var action2 =Glob.getPollObject(ActionInfo,input_array2)
+	var action2 =GlobVar.getPollObject(ActionInfo,input_array2)
 	action2.not_generous_type.append(Glob.FightMotion.Idle)
 	action_control.regist_actioninfo(action2)
 	
@@ -101,11 +101,11 @@ func test_action_generous():
 	assert_true(action_control.get_current_index(Glob.ActionHandlingType.Movement) ==4, "current index "+action_control.get_current_index(Glob.ActionHandlingType.Movement) as String)
 	assert_true(action_control.get_action_array(Glob.ActionHandlingType.Movement).size() ==4, "size"+action_control.get_action_array(Glob.ActionHandlingType.Movement).size() as String)
 	
-	var action4 =Glob.getPollObject(ActionInfo,[Glob.FightMotion.Idle ,OS.get_ticks_msec(),["test"+id as String ,1],0*1000,ActionInfo.EXEMOD_NEWEST,-1])
+	var action4 =GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle ,OS.get_ticks_msec(),["test"+id as String ,1],0*1000,ActionInfo.EXEMOD_NEWEST,-1])
 	action4.not_generous_type.append(Glob.FightMotion.Idle)
 	
 	var input_array3 = [Glob.FightMotion.Idle ,OS.get_ticks_msec(),["test"+id as String ,1],0*1000,ActionInfo.EXEMOD_GENEROUS,-1]
-	var action3 =Glob.getPollObject(ActionInfo,input_array3)
+	var action3 =GlobVar.getPollObject(ActionInfo,input_array3)
 	action3.not_generous_type.append(Glob.FightMotion.Idle)
 	
 	var action_array =[action3 , action4]

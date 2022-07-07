@@ -10,13 +10,13 @@ func on_active(a):
 		var base_dmg = get_base_weapon().base_damage
 		var attr_mng =  get_fight_cpn().attribute_mng as AttribugeMng
 		
-		attr_mng.get_attribute(Glob.CharactorAttribute.AttackCiDamage).add_factor(Glob.getPollObject(AttributeFactor,[AttributeFactor.Type.Base,base_dmg,self]))
+		attr_mng.get_attribute(Glob.CharactorAttribute.AttackCiDamage).add_factor(GlobVar.getPollObject(AttributeFactor,[AttributeFactor.Type.Base,base_dmg,self]))
 		
-		attr_mng.get_attribute(Glob.CharactorAttribute.AttackSaoDamage).add_factor(Glob.getPollObject(AttributeFactor,[AttributeFactor.Type.Base,base_dmg,self]))
+		attr_mng.get_attribute(Glob.CharactorAttribute.AttackSaoDamage).add_factor(GlobVar.getPollObject(AttributeFactor,[AttributeFactor.Type.Base,base_dmg,self]))
 		
-		attr_mng.get_attribute(Glob.CharactorAttribute.AttackPiDamage).add_factor(Glob.getPollObject(AttributeFactor,[AttributeFactor.Type.Base,base_dmg,self]))
+		attr_mng.get_attribute(Glob.CharactorAttribute.AttackPiDamage).add_factor(GlobVar.getPollObject(AttributeFactor,[AttributeFactor.Type.Base,base_dmg,self]))
 		
-		attr_mng.get_attribute(Glob.CharactorAttribute.BlockReduceDamage).add_factor(Glob.getPollObject(AttributeFactor,[AttributeFactor.Type.Base,get_base_weapon().base_block,self]))
+		attr_mng.get_attribute(Glob.CharactorAttribute.BlockReduceDamage).add_factor(GlobVar.getPollObject(AttributeFactor,[AttributeFactor.Type.Base,get_base_weapon().base_block,self]))
 		
 	else:
 		var base_dmg = get_base_weapon().base_damage

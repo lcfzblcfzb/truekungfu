@@ -18,11 +18,11 @@ func _init():
 
 func init(base_gear:BaseGear,fcpn:FightComponent_human):
 	.init(base_gear,fcpn)
-	var size = base_gear.resourcePaths.size()
+	var size = base_gear.resources.size()
 	
 	if size>=2:
-		sword_right_hand.texture = load(base_gear.resourcePaths[0])
-		sword_sheath.texture = load(base_gear.resourcePaths[1])
+		sword_right_hand.texture = base_gear.resources[0]
+		sword_sheath.texture = base_gear.resources[1]
 
 func on_active(a):
 	

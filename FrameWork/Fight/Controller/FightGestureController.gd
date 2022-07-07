@@ -159,7 +159,7 @@ func _physics_process(delta):
 			
 		pass
 	else:
-		var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	
+		var newActionEvent = GlobVar.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	
 		emit_signal("NewFightMotion",newActionEvent)	
 		_prv_input = input_vector
 
@@ -357,7 +357,7 @@ func _input(event):
 					wu_motion = Glob.WuMotion.Idle
 					pass
 
-			var newActionEvent = Glob.getPollObject(NewActionEvent,[wu_motion,attack_begin_time,OS.get_ticks_msec()])
+			var newActionEvent = GlobVar.getPollObject(NewActionEvent,[wu_motion,attack_begin_time,OS.get_ticks_msec()])
 			emit_signal("NewFightMotion",newActionEvent)
 	
 	#以上下左右的顺序 ，垂直方向上下对应用 10 和01  ；水平上左右对应用 10和01 表示
@@ -386,7 +386,7 @@ func _input(event):
 	
 	if event.is_action_pressed("jump") :
 		var input_vector = _gen_input_vector_by_bincode()
-		var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,false,true])	
+		var newActionEvent = GlobVar.getPollObject(MoveEvent,[input_vector,false,true])	
 		emit_signal("NewFightMotion",newActionEvent)	
 		
 	
@@ -406,7 +406,7 @@ func _input(event):
 #
 #			input_vector =  input_vector.normalized()
 #			print(event.is_echo())
-#			var newActionEvent = Glob.getPollObject(MoveEvent,[input_vector,event.is_echo()])
+#			var newActionEvent = GlobVar.getPollObject(MoveEvent,[input_vector,event.is_echo()])
 #			emit_signal("NewFightMotion",newActionEvent)	
 #
 #			if event.is_action_pressed("cancel"):
@@ -451,7 +451,7 @@ func _input(event):
 
 func _on_Timer_timeout():
 	show_heavy_attack_indicator()
-	var motionEvent =Glob.getPollObject(NewActionEvent,[Glob.WuMotion.Holding,OS.get_ticks_msec(),OS.get_ticks_msec()])
+	var motionEvent =GlobVar.getPollObject(NewActionEvent,[Glob.WuMotion.Holding,OS.get_ticks_msec(),OS.get_ticks_msec()])
 	emit_signal("NewFightMotion",motionEvent)
 #	regist_action(Glob.FightMotion.Holding,-1,ActionInfo.EXEMOD_NEWEST)
 #	jisu.change_movable_state(Vector2.ZERO,FightKinematicMovableObj.ActionState.Idle)

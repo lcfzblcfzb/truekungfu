@@ -1,21 +1,10 @@
+class_name Glob
 extends Node
 
-
-var dPi = 2*PI
-var hPi = PI/2
-
-var PoolDict ={}
-
-#从对象池中返回 指定类型的对象
-func getPollObject(type:GDScript,param=null):
-	
-	if PoolDict.has(type):
-		var pool = PoolDict.get(type) as ObjPool
-		return pool.instance(param)
-	else:
-		var newPool =ObjPool.new(type)
-		PoolDict[type] = newPool
-		return newPool.instance(param)
+const dPi = 2*PI
+const hPi = PI/2
+#玩家初始背包上限
+const Player_Item_Slot_Number = 12
 
 #ActionHandler 的处理类型。用来区分不同的action handler
 enum ActionHandlingType{
@@ -142,7 +131,7 @@ enum OutfitUseType{
 
 #base outfit
 enum BaseOutfitType{
-	
+	Null=-1
 	Money = 1
 	BookBlue =2
 	Apple = 3
@@ -213,37 +202,22 @@ enum CharactorAttribute{
 	
 }
 
-#outfitmng
-var outfitMng:OutfitMng
-
-var global_unique_id :int= 0
-
-func get_next_gid():
-	global_unique_id+=1
-	return global_unique_id
-
-func _ready():
-	outfitMng = OutfitMng.new()
-
-func test():
-	print("print test global")
-
 #返回一个介于0-》2PI 之间的角度
-func normalizeAngle(angle:float):
+static func normalizeAngle(angle:float):
 	var absAngle =abs(angle)
 	if(absAngle>dPi||angle<0):
 		angle = fposmod(angle,dPi)
 	
 	return angle
 #详情见godot文档。节点在屏幕上的坐标章节 
-func getCameraPosition(node:Node2D)->Vector2:
+static func getCameraPosition(node:Node2D)->Vector2:
 	
 #	print(node.get_viewport_transform(),node.get_global_transform(),node.position)
 	
 	return node.get_viewport_transform() * (node.get_global_transform() * node.position)
 
 #从text文件中读取json 并保存为json对象
-func load_json_file(path):
+static func load_json_file(path):
 	"""Loads a JSON file from the given res path and return the loaded JSON object."""
 	var file = File.new()
 	file.open(path, file.READ)
@@ -418,158 +392,6 @@ enum FightMotion{
 #	HeavyDef_B2U_In=100,
 #	HeavyDef_B2U_After=100
 }
-
-#将fihgt motion 和动画名称11 队应
-func _map_action2animation(action)->String:
-	
-	match action:
-		
-		FightMotion.Idle:
-			return "idle"
-		FightMotion.Walk:
-			return "walk"
-		FightMotion.Run:
-			return "run"
-		FightMotion.Holding:
-			return "holding"
-			
-		FightMotion.Attack_Up_Pre:
-			return "a_u_pre"
-			
-		FightMotion.Attack_Up_In:
-			return "a_u_in"
-			
-		FightMotion.Attack_Up_After:
-			return "a_u_after"
-			pass
-		FightMotion.Attack_Bot_Pre:
-			return "a_b_prer"
-		
-		FightMotion.Attack_Bot_In:
-			return "a_b_in"
-		
-		FightMotion.Attack_Bot_After:
-			return "a_b_after"
-			pass
-		FightMotion.Attack_Mid_Pre:
-			return "a_m_pre"
-			pass	
-			
-		FightMotion.Attack_Mid_In:
-			return "a_m_in"
-			pass	
-			
-		FightMotion.Attack_Mid_After:
-			return "a_m_after"
-			pass	
-		
-		FightMotion.HeavyAttack_B_Pre:
-			return "ha_b_pre"
-			pass
-			
-		FightMotion.HeavyAttack_B_In:
-			return "ha_b_in"
-			pass
-			
-		FightMotion.HeavyAttack_B_After:
-			return "ha_b_after"
-			pass
-			
-		FightMotion.HeavyAttack_B2M_Pre:
-			return "ha_b2m_pre"
-			pass
-			
-		FightMotion.HeavyAttack_B2M_In:
-			return "ha_b2m_in"
-			pass
-			
-		FightMotion.HeavyAttack_B2M_After:
-			return "ha_b2m_after"
-			pass
-			
-		FightMotion.HeavyAttack_B2U_Pre:
-			return "ha_b2u_pre"	
-			pass
-			
-		FightMotion.HeavyAttack_B2U_In:
-			return "ha_b2u_in"	
-			pass
-			
-		FightMotion.HeavyAttack_B2U_After:
-			return "ha_b2u_after"	
-			pass
-			
-		FightMotion.HeavyAttack_M_Pre:
-			return "ha_m_pre"
-			pass
-			
-		FightMotion.HeavyAttack_M_In:
-			return "ha_m_in"
-			pass
-		FightMotion.HeavyAttack_M_After:
-			return "ha_m_after"
-			pass
-			
-		FightMotion.HeavyAttack_M2B_Pre:
-			return "ha_m2b_pre"
-			pass
-		FightMotion.HeavyAttack_M2B_In:
-			return "ha_m2b_in"
-			pass
-		FightMotion.HeavyAttack_M2B_After:
-			return "ha_m2b_after"
-			pass
-			
-		FightMotion.HeavyAttack_M2U_Pre:
-			return "ha_m2u_pre"
-			pass
-		FightMotion.HeavyAttack_M2U_In:
-			return "ha_m2u_after"
-			pass
-		FightMotion.HeavyAttack_M2U:
-			return "ha_m2u_after"
-			pass
-			
-		FightMotion.HeavyAttack_U:
-			return "ha_u_after"
-			pass
-			
-		FightMotion.HeavyAttack_U2B:
-			return "ha_u2b_after"
-			pass
-			
-		FightMotion.HeavyAttack_U2M:
-			return "ha_u2m_after"
-			pass
-		FightMotion.Def_Bot_Pre:
-			return "d_b_pre"
-		FightMotion.Def_Bot_In:
-			return "d_b_in"
-		FightMotion.Def_Bot_After:
-			return "d_b_after"
-		
-		FightMotion.Def_Mid_Pre:
-			return "d_m_pre"
-			
-		FightMotion.Def_Mid_In:
-			return "d_m_in"
-			
-		FightMotion.Def_Mid_After:
-			return "d_m_after"	
-			
-		FightMotion.Def_Up_Pre:
-			return "d_u_pre"
-			
-		FightMotion.Def_Up_In:
-			return "d_u_in"
-			
-		FightMotion.Def_Up_After:
-			return "d_u_after"
-			
-		
-	return ''
-	pass
-
 
 class RandomTool:
 	

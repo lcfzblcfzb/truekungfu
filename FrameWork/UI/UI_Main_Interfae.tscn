@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://FrameWork/UI/UI_Main_Interfae.gd" type="Script" id=1]
+[ext_resource path="res://FrameWork/UI/interface/UI_Frame.tscn" type="PackedScene" id=2]
+[ext_resource path="res://FrameWork/UI/interface/UI_Inventory.tscn" type="PackedScene" id=3]
+
+[node name="UserInterface" type="Control"]
+script = ExtResource( 1 )
+
+[node name="UI_Frame" parent="." instance=ExtResource( 2 )]
+
+[node name="InventoryPopup" type="WindowDialog" parent="."]
+margin_right = 200.0
+margin_bottom = 150.0
+
+[node name="UI_Inventory" parent="InventoryPopup" instance=ExtResource( 3 )]
+margin_right = 152.0
+margin_bottom = 110.0

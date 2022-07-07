@@ -1,0 +1,62 @@
+[gd_resource type="Resource" load_steps=15 format=2]
+
+[ext_resource path="res://resource/config/outfit/BaseOutfitList.gd" type="Script" id=1]
+[ext_resource path="res://resource/config/outfit/BaseOutfit.gd" type="Script" id=2]
+[ext_resource path="res://resource/icons/money.tres" type="Texture" id=3]
+[ext_resource path="res://resource/icons/apple.tres" type="Texture" id=4]
+[ext_resource path="res://resource/icons/duanjian.tres" type="Texture" id=5]
+[ext_resource path="res://resource/icons/duandao.tres" type="Texture" id=6]
+[ext_resource path="res://resource/icons/book_blue.tres" type="Texture" id=7]
+[ext_resource path="res://resource/icons/bandage.tres" type="Texture" id=8]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+id = 1
+name = "money"
+desc = "moneyDesc"
+icon = ExtResource( 3 )
+use_type = 0
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+id = 2
+name = "book blue"
+desc = "book blue desc"
+icon = ExtResource( 7 )
+use_type = 2
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 2 )
+id = 3
+name = "Apple"
+desc = "Apple Desc"
+icon = ExtResource( 4 )
+use_type = 2
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 2 )
+id = 1000
+name = "duandao"
+desc = "duandao Desc"
+icon = ExtResource( 6 )
+use_type = 1
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 2 )
+id = 1001
+name = "duanjian"
+desc = "duanjian deesc"
+icon = ExtResource( 5 )
+use_type = 1
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 2 )
+id = 2000
+name = "bandage"
+desc = "bandage desc"
+icon = ExtResource( 8 )
+use_type = 2
+
+[resource]
+script = ExtResource( 1 )
+list = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ]

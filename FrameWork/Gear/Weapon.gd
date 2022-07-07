@@ -13,8 +13,8 @@ var active = false setget set_active,get_active
 
 func init(base_gear:BaseGear,fcpn):
 	.init(base_gear,fcpn)
-	
-	_base_weapon_obj = BaseWeaponDmg.get_by_base_gear_id(base_gear.id)
+#	_base_weapon_obj = BaseWeaponDmg.get_by_base_gear_id(base_gear.id)
+	_base_weapon_obj = GlobVar.BaseWeaponConfig.get_by_base_gear_id(base_gear.id)
 	base_weapon_id = _base_weapon_obj.id
 	
 	getWeaponBox().fight_cpn = get_fight_cpn()
@@ -38,7 +38,8 @@ func get_active():
 
 func get_base_weapon()->BaseWeapon:
 	if not _base_weapon_obj:
-		_base_weapon_obj = BaseWeaponDmg.get_by_id(base_weapon_id)
+		
+		_base_weapon_obj = GlobVar.BaseWeaponConfig.get_by_id(base_weapon_id)
 	return _base_weapon_obj
 
 #虚拟方法 需要继承类自己实现获取weapon_box的方法

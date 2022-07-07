@@ -38,7 +38,6 @@ var stamina_value
 var block_value=5
 var health_point=1
 
-
 #已装备的 道具
 # slot->[ baseGear ]
 var _equiped_gears_dict = {}
@@ -73,7 +72,13 @@ func _input(event):
 		if _current_interacts.size()>0:
 			var interact = _current_interacts[0]
 			interact.pick(self)
-
+	
+	if event.is_action_pressed("inventory"):
+		
+		if is_player:
+			GlobVar.user_interface.bind_inventory(inventory)
+			GlobVar.user_interface.open_inventory()
+		
 #接口
 #需要传入controlableMovingObj的速度参数
 func getSpeed():
@@ -148,7 +153,8 @@ func _ready():
 	#初始化仓库
 	if inventory ==null:
 		inventory = Inventory.new()
-	
+		inventory.init(self,Glob.Player_Item_Slot_Number)
+		
 	#初始状态检测
 	#TODO 可以指定初始状态
 	if not is_on_floor():
@@ -202,7 +208,7 @@ func choose_weapon_using_wuxue(id,wuxue):
 	#武器 的 外形 在此初始化
 	var weapon = _equiped_gears_dict.get(Glob.GearSlot.Weapon)[id] as Weapon
 	
-	var weapon_type = weapon.get_base_weapon().weaponType
+	var weapon_type = weapon.get_base_weapon().weapon_type
 	
 	if not _learned_wuxue.has(wuxue):
 		push_error("dont have leanrned wuxue to use")
@@ -225,12 +231,13 @@ func _set_weapon_active(weapon):
 	
 #装备道具
 func equip_gear(base_gear_id):
-	var base_gear = BaseGearDmg.get_by_id(base_gear_id) as BaseGear
-	var _gear = load(base_gear.scene_path).instance() as Gear
+#	var base_gear = BaseGearDmg.get_by_id(base_gear_id) as BaseGear
 	
-	if base_gear.script_path:
-		var script =load(base_gear.script_path)
-		print(script)
+	var base_gear = GlobVar.BaseGearConfig.get_by_id(base_gear_id) as BaseGear
+	var _gear = base_gear.scene.instance() as Gear
+	#TODO 忘记是做啥用的了
+	if base_gear.get("script_path")!=null:
+		var script =load(base_gear.get("script_path"))
 		_gear.set_script(script)
 	_add_to_gear_dict(_gear,base_gear)
 	
@@ -326,7 +333,7 @@ func _update_prepared_timer():
 		else:
 			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Unprepared) as BaseAction
 			if base != null :
-				var action = Glob.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+				var action = GlobVar.getPollObject(ActionInfo,[base.id, OS.get_ticks_msec(), [Vector2.ZERO], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 				actionMng.regist_actioninfo(action)
 			break
 
@@ -479,16 +486,16 @@ func _on_FightKinematicMovableObj_Active_State_Changed(base_action):
 	var base = FightBaseActionDataSource.get_by_id(base_action) as BaseAction
 	if base != null :
 		if base_action == Glob.FightMotion.JumpUp: 
-			var action = Glob.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+			var action = GlobVar.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
 			actionMng.regist_actioninfo(action)
 		
 		elif  base_action == Glob.FightMotion.JumpDown:
 			
-			var action = Glob.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			var action = GlobVar.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 			actionMng.regist_actioninfo(action)
 			
 		else:
-			var action = Glob.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+			var action = GlobVar.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 			actionMng.regist_actioninfo(action)
 
 

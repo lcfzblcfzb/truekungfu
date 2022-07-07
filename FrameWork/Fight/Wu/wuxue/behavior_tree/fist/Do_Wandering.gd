@@ -11,4 +11,4 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 		return 
 	var moving_direction = Vector2.ZERO
 
-	fight_componnent.fight_controller.emit_new_fight_motion_event(Glob.getPollObject(MoveEvent,[moving_direction,false,false]))
+	fight_componnent.fight_controller.emit_new_fight_motion_event(GlobVar.getPollObject(MoveEvent,[moving_direction,false,false]))

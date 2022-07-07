@@ -19,7 +19,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	
 	if fight_componnent.fightKinematicMovableObj.faceDirection.x != moving_direction.x:
 	
-		fight_componnent.fight_controller.emit_new_fight_motion_event(Glob.getPollObject(MoveEvent,[moving_direction,false,false]))
+		fight_componnent.fight_controller.emit_new_fight_motion_event(GlobVar.getPollObject(MoveEvent,[moving_direction,false,false]))
 	
 	var distance = abs(fight_componnent.global_position.x - target.global_position.x)
 	

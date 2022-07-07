@@ -23,7 +23,7 @@ func get_handler_by_handling_type(type)->ActionHandler:
 func regist_action(a, duration=1, exemod=ActionInfo.EXEMOD_NEWEST,groupId =-1,param:Array=[] ):
 	#var action =ActionInfo.new(a,OS.get_ticks_msec(),param)
 	var input_array = [a ,OS.get_ticks_msec(),param,duration,exemod,groupId]
-	var action =Glob.getPollObject(ActionInfo,input_array)
+	var action =GlobVar.getPollObject(ActionInfo,input_array)
 	regist_actioninfo (action)
 
 #注册整个action

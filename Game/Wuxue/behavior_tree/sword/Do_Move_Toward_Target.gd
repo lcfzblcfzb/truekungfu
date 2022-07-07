@@ -24,7 +24,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	if _command_frame_id == get_tree().get_frame():	
 		return succeed()
 	
-	fight_componnent.fight_controller.emit_new_fight_motion_event(Glob.getPollObject(MoveEvent,[moving_direction,false,false]))
+	fight_componnent.fight_controller.emit_new_fight_motion_event(GlobVar.getPollObject(MoveEvent,[moving_direction,false,false]))
 	_command_frame_id = get_tree().get_frame()
 	
 	return succeed()

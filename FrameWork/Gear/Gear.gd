@@ -35,7 +35,7 @@ func get_animation_player():
 
 func get_base_gear()->BaseGear:
 	if !_base_gear:
-		_base_gear = BaseGearDmg.get_by_id(base_gear_id)
+		_base_gear = GlobVar.BaseGearConfig.get_by_id(base_gear_id)
 	return _base_gear
 
 func get_state():
