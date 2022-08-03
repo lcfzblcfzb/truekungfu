@@ -26238,55 +26238,13 @@ skelekal_type = 1
 [node name="CollisionShape2D" parent="standar_charactor/hurt_box" index="0"]
 position = Vector2( 2.00003, 12 )
 
-[node name="hip" parent="standar_charactor" index="1"]
-position = Vector2( -5, 0 )
-
-[node name="left_thigh" parent="standar_charactor/hip" index="0"]
-rotation = -0.466113
-
-[node name="left_shank" parent="standar_charactor/hip/left_thigh" index="0"]
-rotation = 0.183518
-
-[node name="left_foot" parent="standar_charactor/hip/left_thigh/left_shank" index="0"]
-rotation = -0.0188508
-
-[node name="right_thigh" parent="standar_charactor/hip" index="1"]
-rotation = -0.60793
-
-[node name="right_shank" parent="standar_charactor/hip/right_thigh" index="0"]
-rotation = 0.978881
-
-[node name="right_foot" parent="standar_charactor/hip/right_thigh/right_shank" index="0"]
-rotation = -0.358133
-
-[node name="body" parent="standar_charactor/hip" index="2"]
-rotation = -0.138411
-
-[node name="left_upper_arm" parent="standar_charactor/hip/body" index="0"]
-rotation = 0.720545
-
-[node name="left_fore_arm" parent="standar_charactor/hip/body/left_upper_arm" index="0"]
-rotation = -1.57451
-
-[node name="left_hand" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm" index="0"]
-rotation = 0.866292
-
 [node name="left_weapon" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand" index="0"]
 rotation = -2.0944
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/left_upper_arm/left_fore_arm/left_hand/left_weapon" index="0"]
 
-[node name="right_upper_arm" parent="standar_charactor/hip/body" index="1"]
-rotation = 0.665227
-
-[node name="right_fore_arm" parent="standar_charactor/hip/body/right_upper_arm" index="0"]
-rotation = -2.33786
-
-[node name="right_hand" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm" index="0"]
-rotation = 1.61038
-
 [node name="right_weapon" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand" index="0"]
-rotation = 1.69445
+rotation = 2.26893
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="standar_charactor/hip/body/right_upper_arm/right_fore_arm/right_hand/right_weapon" index="0"]
 

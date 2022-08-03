@@ -1,13 +1,9 @@
-[gd_resource type="Resource" load_steps=12 format=2]
+[gd_resource type="Resource" load_steps=8 format=2]
 
 [ext_resource path="res://resource/config/outfit/BaseGearList.gd" type="Script" id=1]
 [ext_resource path="res://resource/config/outfit/BaseGear.gd" type="Script" id=2]
 [ext_resource path="res://FrameWork/Gear/Weapon/Weapon_Fist.tscn" type="PackedScene" id=3]
 [ext_resource path="res://FrameWork/Gear/Weapon/Weapon_Jian.tscn" type="PackedScene" id=4]
-[ext_resource path="res://resource/weapon/sword.tres" type="Texture" id=5]
-[ext_resource path="res://resource/weapon/jian_qiao.tres" type="Texture" id=6]
-[ext_resource path="res://resource/weapon/dao_qiao.tres" type="Texture" id=7]
-[ext_resource path="res://resource/weapon/dao.tres" type="Texture" id=8]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
@@ -16,7 +12,7 @@ name = "fist"
 desc = "fist desc"
 slot = 6
 baseOutfitId = -1
-resource_paths = [  ]
+resources = [  ]
 scene = ExtResource( 3 )
 
 [sub_resource type="Resource" id=2]
@@ -24,9 +20,9 @@ script = ExtResource( 2 )
 id = 601
 name = "duandao"
 desc = "duandao desc"
-slot = 0
+slot = 6
 baseOutfitId = 1001
-resource_paths = [ ExtResource( 8 ), ExtResource( 7 ) ]
+resources = [  ]
 scene = ExtResource( 4 )
 
 [sub_resource type="Resource" id=3]
@@ -34,9 +30,9 @@ script = ExtResource( 2 )
 id = 602
 name = "duanjian "
 desc = "duanjian desc"
-slot = 0
+slot = 6
 baseOutfitId = 1001
-resource_paths = [ ExtResource( 5 ), ExtResource( 6 ) ]
+resources = [  ]
 scene = ExtResource( 4 )
 
 [resource]
