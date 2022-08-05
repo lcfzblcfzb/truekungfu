@@ -93,7 +93,7 @@ func changeState(s):
 				isMoving = true
 				_snap_vector=NO_SNAP
 				use_snap =false
-				v_acceleration = gravity
+				v_acceleration = JUMP_ACC
 				v_velocityToward = 0
 				h_acceleration = WALK_ACC
 				h_velocityToward = WALK_VELOCITY

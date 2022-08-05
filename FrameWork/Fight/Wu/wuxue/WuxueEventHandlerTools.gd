@@ -230,7 +230,7 @@ static func normal_on_moveevent(event,fight_cpn):
 					if is_run :
 						
 						var motion = Glob.FightMotion.Run
-						
+						#这里让处于跳跃的时候可以移动
 						if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
 							motion = Glob.FightMotion.JumpUp
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
