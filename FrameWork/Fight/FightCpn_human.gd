@@ -367,10 +367,9 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	if base == null:
 		return
 	
-	
 	print("action start time",OS.get_ticks_msec())
 #	print("action frame:",$SpriteAnimation/Sprite.frame)
-#	$FightAnimationTree.act(action,time)	
+#	$FightAnimationTree.act(action,time)
 	get_animation_tree().act(action)
 	
 	if action.base_action ==Glob.FightMotion.Blocking:
@@ -386,10 +385,8 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 			
 			_gear.on_actioninfo_start(action)
 
-
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	
-		
 	if action.base_action == Glob.FightMotion.HangingClimb:
 		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
 		corner_detector.set_deferred("enabled", true)
@@ -405,12 +402,18 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 		if self.is_prepared:
 			self.is_prepared = false
 	
+	if action.base_action == Glob.FightMotion.JumpDown:
+		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
+		var idle_action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+		actionMng.regist_actioninfo(idle_action)
+	
 	if action.base_action ==Glob.FightMotion.Blocking:
 		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.AutoBlock
 	elif  action.base_action ==Glob.FightMotion.Dodge:
 		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.AutoBlock
 	elif  action.base_action ==Glob.FightMotion.Rolling:
 		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.AutoBlock
+	
 	
 	for _list in _equiped_gears_dict.values():
 		
@@ -485,18 +488,18 @@ func _on_FightKinematicMovableObj_FaceDirectionChanged(v:Vector2):
 func _on_FightKinematicMovableObj_Active_State_Changed(base_action):
 	var base = FightBaseActionDataSource.get_by_id(base_action) as BaseAction
 	if base != null :
-		if base_action == Glob.FightMotion.JumpUp: 
-			var action = GlobVar.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
-			actionMng.regist_actioninfo(action)
-		
-		elif  base_action == Glob.FightMotion.JumpDown:
-			
-			var action = GlobVar.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
-			actionMng.regist_actioninfo(action)
-			
-		else:
-			var action = GlobVar.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
-			actionMng.regist_actioninfo(action)
+#		if base_action == Glob.FightMotion.JumpUp: 
+#			var action = GlobVar.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+#			actionMng.regist_actioninfo(action)
+#
+#		elif  base_action == Glob.FightMotion.JumpDown:
+#
+#			var action = GlobVar.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+#			actionMng.regist_actioninfo(action)
+#
+#		else:
+		var action = GlobVar.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+		actionMng.regist_actioninfo(action)
 
 
 func _on_SpriteAnimation_Hit(areas):

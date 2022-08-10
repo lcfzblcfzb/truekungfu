@@ -99,7 +99,7 @@ func changeState(s):
 				h_velocityToward = WALK_VELOCITY
 				velocity.y = -_get_attribute_mng().get_value(Glob.CharactorAttribute.JumpSpeed)
 				self.faceDirection.y = -1
-				
+			
 			ActionState.JumpDown:
 				isMoving = true
 				
@@ -157,21 +157,21 @@ func _physics_process(delta):
 			#所以会出现停住的现象
 #			self.state = ActionState.Walk
 #		else:
-		emit_signal("Active_State_Changed",Glob.FightMotion.Idle)
+		emit_signal("Active_State_Changed",Glob.FightMotion.JumpDown)
 	
 	#若在空中的情况	
 	if not body.is_on_genelized_floor() :
 		if self.state==ActionState.JumpUp :
 			if velocity.y ==0:
 				#升至跳跃max,设置faceDirection 向下
-				emit_signal("Active_State_Changed",Glob.FightMotion.JumpDown)
+				emit_signal("Active_State_Changed",Glob.FightMotion.JumpFalling)
 #				self.state = ActionState.JumpDown
 #			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
 #				change_movable_state(Vector2.ZERO , ActionState.Hanging)
 				
-		elif self.state!=ActionState.JumpDown and self.state!=ActionState.Climb and self.state !=ActionState.Hanging and self.state != ActionState.HangingClimb:
+		elif self.state!=ActionState.Climb and self.state !=ActionState.Hanging and self.state != ActionState.HangingClimb:
 			#最基础的判定下落的地方
-			emit_signal("Active_State_Changed",Glob.FightMotion.JumpDown)
+			emit_signal("Active_State_Changed",Glob.FightMotion.JumpFalling)
 #			self.state = ActionState.JumpDown
 			
 #		elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
@@ -324,9 +324,15 @@ func _process_action(action:ActionInfo):
 			change_movable_state(input_vector,ActionState.Run2Idle)
 		Glob.FightMotion.Idle2Run:
 			change_movable_state(input_vector,ActionState.Idle2Run)
+		Glob.FightMotion.JumpRising:
+			input_vector.y = O.UP.y
+			change_movable_state(input_vector,ActionState.JumpUp)
 		Glob.FightMotion.JumpUp:
 			input_vector.y = O.UP.y
-			change_movable_state(input_vector,ActionState.JumpUp)	
+			change_movable_state(input_vector,ActionState.JumpUp)
+		Glob.FightMotion.JumpFalling:
+			input_vector.y = O.DOWN.y
+			change_movable_state(input_vector,ActionState.JumpDown)	
 		Glob.FightMotion.JumpDown:
 			input_vector.y = O.DOWN.y
 			change_movable_state(input_vector,ActionState.JumpDown)	

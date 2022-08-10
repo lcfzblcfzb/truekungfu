@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeBlendTree" load_steps=74 format=2]
+[gd_resource type="AnimationNodeBlendTree" load_steps=83 format=2]
 
 [sub_resource type="AnimationNodeAnimation" id=97]
 animation = "roll"
@@ -165,7 +165,7 @@ nodes/dodge_tran/position = Vector2( -320, 200 )
 nodes/holding_sm/node = SubResource( 103 )
 nodes/holding_sm/position = Vector2( -160, 300 )
 nodes/output/position = Vector2( 500, 160 )
-node_connections = [ "output", 0, "action_scale", "attack_tran", 0, "Animation", "attack_tran", 1, "Animation 2", "attack_tran", 2, "Animation 3", "attack_tran", 3, "Animation 5", "attack_tran", 4, "Animation 4", "attack_tran", 5, "Animation 6", "block_tran", 0, "Animation 7", "block_tran", 1, "Animation 8", "block_tran", 2, "Animation 12", "dodge_tran", 0, "Animation 9", "dodge_tran", 1, "Animation 10", "action_scale", 0, "action_tran", "action_tran", 0, "attack_tran", "action_tran", 1, "block_tran", "action_tran", 2, "dodge_tran", "action_tran", 3, "holding_sm", "action_tran", 4, "Animation 11" ]
+node_connections = [ "output", 0, "action_scale", "dodge_tran", 0, "Animation 9", "dodge_tran", 1, "Animation 10", "action_tran", 0, "attack_tran", "action_tran", 1, "block_tran", "action_tran", 2, "dodge_tran", "action_tran", 3, "holding_sm", "action_tran", 4, "Animation 11", "block_tran", 0, "Animation 7", "block_tran", 1, "Animation 8", "block_tran", 2, "Animation 12", "attack_tran", 0, "Animation", "attack_tran", 1, "Animation 2", "attack_tran", 2, "Animation 3", "attack_tran", 3, "Animation 5", "attack_tran", 4, "Animation 4", "attack_tran", 5, "Animation 6", "action_scale", 0, "action_tran" ]
 
 [sub_resource type="AnimationNodeAnimation" id=57]
 animation = "attack_pi"
@@ -247,22 +247,6 @@ animation = "hangingclimb"
 
 [sub_resource type="AnimationNodeOneShot" id=40]
 
-[sub_resource type="AnimationNodeBlend2" id=11]
-
-[sub_resource type="AnimationNodeBlend2" id=41]
-
-[sub_resource type="AnimationNodeAnimation" id=17]
-animation = "jumpdown"
-
-[sub_resource type="AnimationNodeAnimation" id=42]
-animation = "jumpdown"
-
-[sub_resource type="AnimationNodeAnimation" id=18]
-animation = "jumpup"
-
-[sub_resource type="AnimationNodeAnimation" id=43]
-animation = "jumpup"
-
 [sub_resource type="AnimationNodeAnimation" id=28]
 animation = "walk"
 
@@ -315,6 +299,75 @@ animation = "prepared"
 blend_point_0/node = SubResource( 52 )
 blend_point_0/pos = 0.0
 
+[sub_resource type="AnimationNodeAnimation" id=119]
+animation = "jump_rising"
+
+[sub_resource type="AnimationNodeAnimation" id=120]
+animation = "jump_falling"
+
+[sub_resource type="AnimationNodeAnimation" id=121]
+animation = "jumpdown"
+
+[sub_resource type="AnimationNodeAnimation" id=122]
+animation = "jumpup"
+
+[sub_resource type="AnimationNodeTransition" id=123]
+input_count = 4
+input_0/name = "state 0"
+input_0/auto_advance = false
+input_1/name = "state 1"
+input_1/auto_advance = false
+input_2/name = "state 2"
+input_2/auto_advance = false
+input_3/name = "state 3"
+input_3/auto_advance = false
+
+[sub_resource type="AnimationNodeBlendTree" id=124]
+graph_offset = Vector2( -260.986, -46.6667 )
+nodes/Animation/node = SubResource( 122 )
+nodes/Animation/position = Vector2( -200, 66.6667 )
+"nodes/Animation 2/node" = SubResource( 119 )
+"nodes/Animation 2/position" = Vector2( -213.333, 186.667 )
+"nodes/Animation 3/node" = SubResource( 120 )
+"nodes/Animation 3/position" = Vector2( -213.333, 293.333 )
+"nodes/Animation 4/node" = SubResource( 121 )
+"nodes/Animation 4/position" = Vector2( -212.653, 435.667 )
+nodes/Transition/node = SubResource( 123 )
+nodes/Transition/position = Vector2( 40, 106.667 )
+node_connections = [ "output", 0, "Transition", "Transition", 0, "Animation", "Transition", 1, "Animation 2", "Transition", 2, "Animation 3", "Transition", 3, "Animation 4" ]
+
+[sub_resource type="AnimationNodeAnimation" id=110]
+animation = "jump_falling"
+
+[sub_resource type="AnimationNodeAnimation" id=112]
+animation = "jump_rising"
+
+[sub_resource type="AnimationNodeAnimation" id=111]
+animation = "jumpdown"
+
+[sub_resource type="AnimationNodeAnimation" id=113]
+animation = "jumpup"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=114]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=115]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=116]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=117]
+
+[sub_resource type="AnimationNodeStateMachine" id=118]
+states/jump_falling/node = SubResource( 110 )
+states/jump_falling/position = Vector2( 588.284, 344.556 )
+states/jump_rising/node = SubResource( 112 )
+states/jump_rising/position = Vector2( 589.593, 237.889 )
+states/jumpdown/node = SubResource( 111 )
+states/jumpdown/position = Vector2( 592.482, 453.37 )
+states/jumpup/node = SubResource( 113 )
+states/jumpup/position = Vector2( 588.351, 135.666 )
+transitions = [ "jumpup", "jump_rising", SubResource( 114 ), "jump_rising", "jump_falling", SubResource( 115 ), "jump_falling", "jumpdown", SubResource( 116 ), "jump_falling", "jump_rising", SubResource( 117 ) ]
+graph_offset = Vector2( 0, 51.9403 )
+
 [sub_resource type="AnimationNodeOneShot" id=35]
 filter_enabled = true
 filters = [ "body/left_upper_arm/left_fore_arm/left_hand/sword_left_hand:position", "body/left_upper_arm/left_fore_arm/left_hand/sword_left_hand:rotation_degrees", "body/left_upper_arm/left_fore_arm/left_hand:position", "body/left_upper_arm/left_fore_arm/left_hand:rotation_degrees", "body/left_upper_arm/left_fore_arm:position", "body/left_upper_arm/left_fore_arm:rotation_degrees", "body/left_upper_arm:position", "body/left_upper_arm:rotation_degrees", "body/right_upper_arm/right_fore_arm/right_hand:position", "body/right_upper_arm/right_fore_arm/right_hand:rotation_degrees", "body/right_upper_arm/right_fore_arm:position", "body/right_upper_arm/right_fore_arm:rotation_degrees", "body/right_upper_arm:position", "body/right_upper_arm:rotation_degrees" ]
@@ -366,7 +419,7 @@ input_3/auto_advance = false
 
 [resource]
 resource_name = "通用的tree root"
-graph_offset = Vector2( -506.821, -635.431 )
+graph_offset = Vector2( -938.259, -1255.67 )
 nodes/Animation/node = SubResource( 69 )
 nodes/Animation/position = Vector2( -480, -1040 )
 "nodes/Animation 3/node" = SubResource( 97 )
@@ -401,18 +454,6 @@ nodes/hangingclimbshot/node = SubResource( 16 )
 nodes/hangingclimbshot/position = Vector2( -600, -700 )
 nodes/hangingclimbshot_prepared/node = SubResource( 40 )
 nodes/hangingclimbshot_prepared/position = Vector2( -760, -1440 )
-nodes/jump_blend/node = SubResource( 11 )
-nodes/jump_blend/position = Vector2( -600, -340 )
-nodes/jump_blend_prepraed/node = SubResource( 41 )
-nodes/jump_blend_prepraed/position = Vector2( -720, -1120 )
-nodes/jumpdown/node = SubResource( 17 )
-nodes/jumpdown/position = Vector2( -780, -220 )
-nodes/jumpdown_prepared/node = SubResource( 42 )
-nodes/jumpdown_prepared/position = Vector2( -1040, -980 )
-nodes/jumpup/node = SubResource( 18 )
-nodes/jumpup/position = Vector2( -780, -340 )
-nodes/jumpup_prepared/node = SubResource( 43 )
-nodes/jumpup_prepared/position = Vector2( -1040, -1120 )
 nodes/move/node = SubResource( 19 )
 nodes/move/position = Vector2( -580, -900 )
 nodes/move_prepared/node = SubResource( 48 )
@@ -420,6 +461,10 @@ nodes/move_prepared/position = Vector2( -700, -1620 )
 nodes/output/position = Vector2( 1300, -840 )
 nodes/prepared/node = SubResource( 53 )
 nodes/prepared/position = Vector2( 280, -620 )
+nodes/prepared_jump_bt/node = SubResource( 124 )
+nodes/prepared_jump_bt/position = Vector2( -673.925, -1112.67 )
+nodes/prepared_jump_sm/node = SubResource( 118 )
+nodes/prepared_jump_sm/position = Vector2( -946.667, -1106.67 )
 nodes/prepared_shot/node = SubResource( 35 )
 nodes/prepared_shot/position = Vector2( 480, -840 )
 nodes/prepared_tran/node = SubResource( 49 )
@@ -428,10 +473,14 @@ nodes/rolling_shot/node = SubResource( 98 )
 nodes/rolling_shot/position = Vector2( 960, -840 )
 nodes/state_tran/node = SubResource( 36 )
 nodes/state_tran/position = Vector2( -120, -880 )
+nodes/unpreapred_jump_bt/node = SubResource( 124 )
+nodes/unpreapred_jump_bt/position = Vector2( -613.333, -320 )
 nodes/unprepared/node = SubResource( 50 )
 nodes/unprepared/position = Vector2( 520, -640 )
+nodes/unprepared_jump_sm/node = SubResource( 118 )
+nodes/unprepared_jump_sm/position = Vector2( -866.667, -373.333 )
 nodes/unprepared_shot/node = SubResource( 51 )
 nodes/unprepared_shot/position = Vector2( 740, -840 )
 nodes/unprepared_tran/node = SubResource( 13 )
 nodes/unprepared_tran/position = Vector2( -300, -580 )
-node_connections = [ "output", 0, "TimeScale", "action_tran", 0, "attack_bs", "action_tran", 1, "block_bs", "action_tran", 2, "dodge_bs", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "TimeScale", 0, "rolling_shot", "hangingclimbshot_prepared", 0, "hanging_prepared", "hangingclimbshot_prepared", 1, "hangingclimb_prepared", "jump_blend", 0, "jumpup", "jump_blend", 1, "jumpdown", "jump_blend_prepraed", 0, "jumpup_prepared", "jump_blend_prepraed", 1, "jumpdown_prepared", "action_shot", 0, "state_tran", "action_shot", 1, "action_tree", "prepared_tran", 0, "move_prepared", "prepared_tran", 1, "hangingclimbshot_prepared", "prepared_tran", 2, "climb_prepared", "prepared_tran", 3, "jump_blend_prepraed", "prepared_tran", 4, "Animation", "unprepared_shot", 0, "prepared_shot", "unprepared_shot", 1, "unprepared", "rolling_shot", 0, "unprepared_shot", "rolling_shot", 1, "Animation 3", "state_tran", 0, "prepared_tran", "state_tran", 1, "unprepared_tran", "prepared_shot", 0, "action_shot", "prepared_shot", 1, "prepared", "unprepared_tran", 0, "move", "unprepared_tran", 1, "hangingclimbshot", "unprepared_tran", 2, "climb", "unprepared_tran", 3, "jump_blend" ]
+node_connections = [ "output", 0, "TimeScale", "action_tran", 0, "attack_bs", "action_tran", 1, "block_bs", "action_tran", 2, "dodge_bs", "unprepared_tran", 0, "move", "unprepared_tran", 1, "hangingclimbshot", "unprepared_tran", 2, "climb", "unprepared_tran", 3, "unpreapred_jump_bt", "TimeScale", 0, "rolling_shot", "prepared_tran", 0, "move_prepared", "prepared_tran", 1, "hangingclimbshot_prepared", "prepared_tran", 2, "climb_prepared", "prepared_tran", 3, "prepared_jump_bt", "prepared_tran", 4, "Animation", "unprepared_shot", 0, "prepared_shot", "unprepared_shot", 1, "unprepared", "state_tran", 0, "prepared_tran", "state_tran", 1, "unprepared_tran", "hangingclimbshot_prepared", 0, "hanging_prepared", "hangingclimbshot_prepared", 1, "hangingclimb_prepared", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "action_shot", 0, "state_tran", "action_shot", 1, "action_tree", "prepared_shot", 0, "action_shot", "prepared_shot", 1, "prepared", "rolling_shot", 0, "unprepared_shot", "rolling_shot", 1, "Animation 3" ]

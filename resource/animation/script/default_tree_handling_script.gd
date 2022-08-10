@@ -18,6 +18,9 @@ var TRANSITION_PREPARED = "parameters/prepared_tran/current"
 var MOVE_BP ="parameters/move/blend_position"
 var MOVE_PREPARED_BP ="parameters/move_prepared/blend_position"
 
+var prepared_jump_bt_tran ="parameters/prepared_jump_bt/Transition/current"
+var unprepared_jump_bt_tran ="parameters/unpreapred_jump_bt/Transition/current"
+
 var current_state = MOVE
 	
 var fight_action_control;
@@ -173,6 +176,45 @@ func travelTo(action:ActionInfo):
 			set("parameters/unprepared_shot/active",true)
 			set("parameters/state_tran/current",STATE_UNPREPARED)
 		
+		Glob.FightMotion.JumpUp:
+			
+			set(TRANSITION_PREPARED,JUMP)
+			set(TRANSITION_UNPREPARED,JUMP)
+			
+			set(prepared_jump_bt_tran,0)
+			set(unprepared_jump_bt_tran,0)
+#			get(prepared_jump_playback).start("jumpup")
+#			get(unprepared_jump_playback).start("jumpup")
+		Glob.FightMotion.JumpRising:
+			
+			set(TRANSITION_PREPARED,JUMP)
+			set(TRANSITION_UNPREPARED,JUMP)
+			
+			set(prepared_jump_bt_tran,1)
+			set(unprepared_jump_bt_tran,1)
+#			get(prepared_jump_playback).start("jump_rising")
+#			get(unprepared_jump_playback).start("jump_rising")
+			pass
+		Glob.FightMotion.JumpFalling:
+			
+			set(TRANSITION_PREPARED,JUMP)
+			set(TRANSITION_UNPREPARED,JUMP)
+			
+			set(prepared_jump_bt_tran,2)
+			set(unprepared_jump_bt_tran,2)
+#			get(prepared_jump_playback).start("jump_falling")
+#			get(unprepared_jump_playback).start("jump_falling")
+			pass
+		Glob.FightMotion.JumpDown:
+			
+			set(TRANSITION_PREPARED,JUMP)
+			set(TRANSITION_UNPREPARED,JUMP)
+				
+			set(prepared_jump_bt_tran,3)
+			set(unprepared_jump_bt_tran,3)
+#			get(prepared_jump_playback).start("jumpdown")
+#			get(unprepared_jump_playback).start("jumpdown")
+			pass
 		_:
 			set(TRANSITION_PREPARED,MOVE)
 			set(TRANSITION_UNPREPARED,MOVE)

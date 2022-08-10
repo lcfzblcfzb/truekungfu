@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://resource/scene/Platformer_demo.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/Fight/FightCpn_human.tscn" type="PackedScene" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://FrameWork/Scene/Platform.tscn" type="PackedScene" id=19]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=5]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18, 26 )
@@ -66,9 +70,8 @@ position = Vector2( 370, 556 )
 
 [node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
 parameters/action_tree/holding_sm/playback = SubResource( 1 )
-
-[node name="body" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor/standar_charactor/hip" index="2"]
-position = Vector2( -2, -2 )
+parameters/prepared_jump_sm/playback = SubResource( 5 )
+parameters/unprepared_jump_sm/playback = SubResource( 6 )
 
 [node name="hurtbox" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1404, 501 )

@@ -8,6 +8,7 @@ var handle_type=Glob.ActionHandlingType.Action;
 
 var name;
 var animation_name;
+# Glob.FightMotionType
 var type:Array;
 var duration #单位：s
 

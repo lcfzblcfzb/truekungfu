@@ -310,6 +310,9 @@ enum FightMotion{
 	Pre_Block = 177,
 	Post_Block= 178,
 	
+	JumpRising = 179,
+	JumpFalling = 180,
+	
 	Attack_Up_Pre=100,
 	Attack_Up_In=101,
 	Attack_Up_After=102,

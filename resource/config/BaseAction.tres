@@ -789,5 +789,25 @@
 	"type": [
 	  1
 	]
+  },
+  {
+	"id": 179,
+	"name": "Jump_Rising",
+	"animation_name": "jump_rising",
+	"duration": -1,
+	"handle_type":1,
+	"type": [
+	  1
+	]
+  },
+  {
+	"id": 180,
+	"name": "Jump_Falling",
+	"animation_name": "jump_falling",
+	"duration": -1,
+	"handle_type":1,
+	"type": [
+	  1
+	]
   }
 ]
