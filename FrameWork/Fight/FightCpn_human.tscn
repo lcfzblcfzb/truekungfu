@@ -480,9 +480,7 @@ fight_component_path = NodePath("..")
 process_mode = 0
 parameters/action_tree/action_tran/current = 0
 parameters/action_tree/holding_sm/playback = SubResource( 72 )
-parameters/prepared_jump_bt/Transition/current = 0
 parameters/prepared_jump_sm/playback = SubResource( 73 )
-parameters/unpreapred_jump_bt/Transition/current = 0
 parameters/unprepared_jump_sm/playback = SubResource( 74 )
 
 [node name="AnimationPlayer_Taijijian_Normal" parent="SpriteAnimation/StandarAnimatedCharactor/CharactorAnimationPlayers" index="2"]

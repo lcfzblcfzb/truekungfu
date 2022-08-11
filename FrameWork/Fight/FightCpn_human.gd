@@ -414,7 +414,6 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	elif  action.base_action ==Glob.FightMotion.Rolling:
 		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.AutoBlock
 	
-	
 	for _list in _equiped_gears_dict.values():
 		
 		for _gear  in _list:

@@ -74,9 +74,7 @@ is_player = false
 
 [node name="AnimationTree" parent="enermy/SpriteAnimation/StandarAnimatedCharactor" index="0"]
 parameters/action_tree/holding_sm/playback = SubResource( 1 )
-parameters/prepared_jump_bt/Transition/current = 0
 parameters/prepared_jump_sm/playback = SubResource( 6 )
-parameters/unpreapred_jump_bt/Transition/current = 0
 parameters/unprepared_jump_sm/playback = SubResource( 7 )
 
 [node name="FIghtComponnet_Human" parent="." instance=ExtResource( 2 )]
@@ -84,9 +82,7 @@ position = Vector2( 88, 559 )
 
 [node name="AnimationTree" parent="FIghtComponnet_Human/SpriteAnimation/StandarAnimatedCharactor" index="0"]
 parameters/action_tree/holding_sm/playback = SubResource( 2 )
-parameters/prepared_jump_bt/Transition/current = 0
 parameters/prepared_jump_sm/playback = SubResource( 8 )
-parameters/unpreapred_jump_bt/Transition/current = 0
 parameters/unprepared_jump_sm/playback = SubResource( 9 )
 
 [node name="Label" type="Label" parent="."]

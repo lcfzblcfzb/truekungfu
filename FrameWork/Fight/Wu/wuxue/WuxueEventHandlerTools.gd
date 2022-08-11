@@ -98,7 +98,7 @@ static func normal_on_action_event(wu_motion,is_heavy ,fight_cpn):
 			actoin_mng.regist_group_actions([dodge,block],actoin_mng.next_group_id(dodge_base.handle_type),ActionInfo.EXEMOD_GENEROUS)
 		Glob.WuMotion.PostBlock:
 			var post_block_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Post_Block)
-			var pose_block_action =  ActionInfo.create_by_base(post_block_base,attribute_mng.get_value(Glob.CharactorAttribute.PostBlockDuration),ActionInfo.EXEMOD_GENEROUS,false,true)
+			var pose_block_action =  ActionInfo.create_by_base(post_block_base,attribute_mng.get_value(Glob.CharactorAttribute.PostBlockDuration),ActionInfo.EXEMOD_INTERUPT,false,true)
 			actoin_mng.regist_actioninfo(pose_block_action)
 		
 		Glob.WuMotion.Attack_Pi:
@@ -211,8 +211,10 @@ static func normal_on_moveevent(event,fight_cpn):
 				#如果只是平地起跳 input_vector=Vector2.ZERO的时候，也要保证 y=1；否则会被移动控制器忽略，使用上一个动作保存的方向
 				var vec = Vector2(input_vector.x,-1)
 				#do jump up
-				var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_SEQ,false,true])
-				action_mng.regist_actioninfo(action)
+				var action_jump = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpUp).duration,ActionInfo.EXEMOD_SEQ,false,true])
+				var action_rising = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpRising,OS.get_ticks_msec(),[vec],FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpRising).duration,ActionInfo.EXEMOD_SEQ,false,true])
+#				action_mng.regist_actioninfo(action)
+				action_mng.regist_group_actions([action_jump,action_rising],ActionInfo.EXEMOD_SEQ)
 
 			
 		else:
@@ -236,7 +238,7 @@ static func normal_on_moveevent(event,fight_cpn):
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
 							motion = Glob.FightMotion.JumpDown
 						
-						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,false])
 						action_mng.regist_actioninfo(action)
 						
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
@@ -247,7 +249,7 @@ static func normal_on_moveevent(event,fight_cpn):
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
 							motion = Glob.FightMotion.JumpDown
 						
-						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,false])
 						action_mng.regist_actioninfo(action)
 						
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
@@ -269,7 +271,7 @@ static func normal_on_moveevent(event,fight_cpn):
 		var lastMotion =action_mng.last_action(Glob.ActionHandlingType.Movement)
 		#这里是 攻击结束后，已经按下移动中的情况
 		#climb 是因为如果之前是climb ，而这里没有包括，则climb的动作会被walk替换
-		if lastMotion and (lastMotion.base_action != Glob.FightMotion.Run && lastMotion.base_action != Glob.FightMotion.Climb):
+		if lastMotion and (lastMotion.base_action != Glob.FightMotion.Run && lastMotion.base_action != Glob.FightMotion.Climb && lastMotion.base_action != Glob.FightMotion.JumpFalling && lastMotion.base_action != Glob.FightMotion.JumpRising):
 			var motion = Glob.FightMotion.Walk
 			if movable.state == FightKinematicMovableObj.ActionState.JumpUp or movable.state == FightKinematicMovableObj.ActionState.JumpDown or movable.state == FightKinematicMovableObj.ActionState.Attack:
 				return

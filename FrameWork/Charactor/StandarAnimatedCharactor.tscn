@@ -11704,7 +11704,7 @@ tracks/33/keys = {
 "values": [ 0.0, 0.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=340]
 resource_name = "jumpup"
 tracks/0/type = "value"
 tracks/0/path = NodePath("left_thigh:position")
@@ -11761,10 +11761,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -2, -3 ), Vector2( -2, -3 ), Vector2( -2, -3 ) ]
+"values": [ Vector2( -2, -3 ), Vector2( -2, -3 ), Vector2( -2, -3 ), Vector2( -2, -3 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("body:rotation_degrees")
@@ -11773,10 +11773,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 30.4769, 5.30982 ]
+"values": [ 0.0, 12.1908, 30.4769, 5.30982 ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("body/right_upper_arm/right_fore_arm:position")
@@ -12049,10 +12049,10 @@ tracks/28/loop_wrap = true
 tracks/28/imported = false
 tracks/28/enabled = true
 tracks/28/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -15 ), Vector2( 0, -15 ), Vector2( 0, -15 ) ]
+"values": [ Vector2( 0, -15 ), Vector2( 0, -15 ), Vector2( 0, -15 ), Vector2( 0, -15 ) ]
 }
 tracks/29/type = "value"
 tracks/29/path = NodePath("body/head:rotation_degrees")
@@ -12061,10 +12061,10 @@ tracks/29/loop_wrap = true
 tracks/29/imported = false
 tracks/29/enabled = true
 tracks/29/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 20.1482, -19.2837 ]
+"values": [ 0.0, -0.715584, -41.3007, -19.2837 ]
 }
 tracks/30/type = "value"
 tracks/30/path = NodePath("body/left_upper_arm/left_fore_arm/left_hand/left_weapon:position")
@@ -28143,7 +28143,6 @@ __meta__ = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 2 )
 anim_player = NodePath("../CharactorAnimationPlayers/AnimationPlayer_Sanjiaomao_Normal")
-active = true
 parameters/TimeScale/scale = 1.0
 parameters/action_shot/active = false
 parameters/action_tran/current = 0
@@ -28226,7 +28225,7 @@ anims/idle = SubResource( 21 )
 anims/jump_falling = SubResource( 338 )
 anims/jump_rising = SubResource( 339 )
 anims/jumpdown = SubResource( 22 )
-anims/jumpup = SubResource( 23 )
+anims/jumpup = SubResource( 340 )
 anims/post_block = SubResource( 326 )
 anims/preAttack = SubResource( 296 )
 anims/pre_block = SubResource( 325 )

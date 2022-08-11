@@ -614,7 +614,7 @@
 	"id": 161,
 	"name": "jump_up",
 	"animation_name": "jump_up",
-	"duration": -1,
+	"duration": 0.4,
 	"handle_type":1,
 	"type": [
 	  1
@@ -624,7 +624,7 @@
 	"id": 162,
 	"name": "jump_down",
 	"animation_name": "jump_down",
-	"duration": -1,
+	"duration": 0.2,
 	"handle_type":1,
 	"type": [
 	  1

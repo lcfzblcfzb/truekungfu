@@ -33,7 +33,12 @@ func regist_actioninfo(action:ActionInfo):
 	return handler.regist_actioninfo(action)
 
 #添加一个组的动作
-func regist_group_actions(actions:Array,groupId,group_exe_mod=ActionInfo.EXEMOD_NEWEST):
+#!默认 同一组的action 的 handle_type 是相同的
+func regist_group_actions(actions:Array,group_exe_mod=ActionInfo.EXEMOD_NEWEST,groupId=-1):
+
+	if groupId<0:
+		groupId = next_group_id(actions.back().get_base_action().handle_type)
+	
 	for act in actions:
 		var action = act as ActionInfo
 		action.group_id = groupId

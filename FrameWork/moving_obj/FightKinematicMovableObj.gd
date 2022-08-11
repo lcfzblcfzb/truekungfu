@@ -9,7 +9,7 @@ signal Active_State_Changed
 
 enum ActionState{
 	
-	Idle,
+	Idle,#0
 	Walk,
 	Run,
 	Run2Idle,
@@ -18,7 +18,9 @@ enum ActionState{
 	Stop,
 	JumpUp,
 	JumpDown,#8
-	Climb,#9
+	JumpRising#9
+	JumpFalling#10
+	Climb,#11
 	Hanging,
 	HangingClimb#11 从hang攀爬到站起的过程          
 }
@@ -89,6 +91,29 @@ func changeState(s):
 			ActionState.Stop:
 				isMoving = false
 				
+			ActionState.JumpRising:
+				
+				isMoving = true
+				_snap_vector=NO_SNAP
+				use_snap =false
+				v_acceleration = JUMP_ACC
+				v_velocityToward = 0
+				h_acceleration = WALK_ACC
+				h_velocityToward = WALK_VELOCITY
+				velocity.y = -_get_attribute_mng().get_value(Glob.CharactorAttribute.JumpSpeed)
+				self.faceDirection.y = -1
+			
+			ActionState.JumpFalling:
+				isMoving = true
+				
+#				_snap_vector=NO_SNAP
+#				use_snap =false
+				v_acceleration = gravity
+				v_velocityToward = FREE_FALL_SPEED
+				h_acceleration = WALK_ACC
+				h_velocityToward = WALK_VELOCITY
+				self.faceDirection.y = 1
+			
 			ActionState.JumpUp:
 				isMoving = true
 				_snap_vector=NO_SNAP
@@ -157,21 +182,38 @@ func _physics_process(delta):
 			#所以会出现停住的现象
 #			self.state = ActionState.Walk
 #		else:
-		emit_signal("Active_State_Changed",Glob.FightMotion.JumpDown)
-	
+		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
+		var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+		body.actionMng.regist_actioninfo(action)
+#		emit_signal("Active_State_Changed",Glob.FightMotion.Idle)
+	elif self.state==ActionState.JumpFalling and body.is_on_genelized_floor():
+		
+		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpDown)
+		var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpDown, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+		body.actionMng.regist_actioninfo(action)
+#		emit_signal("Active_State_Changed",Glob.FightMotion.JumpDown)
+		
 	#若在空中的情况	
 	if not body.is_on_genelized_floor() :
 		if self.state==ActionState.JumpUp :
 			if velocity.y ==0:
 				#升至跳跃max,设置faceDirection 向下
-				emit_signal("Active_State_Changed",Glob.FightMotion.JumpFalling)
+				
+				var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpFalling)
+				var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpFalling, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+				body.actionMng.regist_actioninfo(action)
+#				emit_signal("Active_State_Changed",Glob.FightMotion.JumpFalling)
 #				self.state = ActionState.JumpDown
 #			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
 #				change_movable_state(Vector2.ZERO , ActionState.Hanging)
-				
+			
 		elif self.state!=ActionState.Climb and self.state !=ActionState.Hanging and self.state != ActionState.HangingClimb:
 			#最基础的判定下落的地方
-			emit_signal("Active_State_Changed",Glob.FightMotion.JumpFalling)
+			
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpFalling)
+			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpFalling, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+			body.actionMng.regist_actioninfo(action)
+#			emit_signal("Active_State_Changed",Glob.FightMotion.JumpFalling)
 #			self.state = ActionState.JumpDown
 			
 #		elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
@@ -326,13 +368,13 @@ func _process_action(action:ActionInfo):
 			change_movable_state(input_vector,ActionState.Idle2Run)
 		Glob.FightMotion.JumpRising:
 			input_vector.y = O.UP.y
-			change_movable_state(input_vector,ActionState.JumpUp)
+			change_movable_state(input_vector,ActionState.JumpRising)
 		Glob.FightMotion.JumpUp:
 			input_vector.y = O.UP.y
 			change_movable_state(input_vector,ActionState.JumpUp)
 		Glob.FightMotion.JumpFalling:
 			input_vector.y = O.DOWN.y
-			change_movable_state(input_vector,ActionState.JumpDown)	
+			change_movable_state(input_vector,ActionState.JumpFalling)	
 		Glob.FightMotion.JumpDown:
 			input_vector.y = O.DOWN.y
 			change_movable_state(input_vector,ActionState.JumpDown)	
