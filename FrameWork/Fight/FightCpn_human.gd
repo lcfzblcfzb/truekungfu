@@ -499,7 +499,7 @@ func _on_FightKinematicMovableObj_Active_State_Changed(base_action):
 #		else:
 		var action = GlobVar.getPollObject(ActionInfo,[base_action, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
 		actionMng.regist_actioninfo(action)
-
+		print("on movableobj state change"+base_action as String)
 
 func _on_SpriteAnimation_Hit(areas):
 	pass # Replace with function body.

@@ -115,19 +115,28 @@ func changeState(s):
 				self.faceDirection.y = 1
 			
 			ActionState.JumpUp:
+#				isMoving = true
+#				_snap_vector=NO_SNAP
+#				use_snap =false
+#				v_acceleration = JUMP_ACC
+#				v_velocityToward = 0
+#				h_acceleration = WALK_ACC
+#				h_velocityToward = WALK_VELOCITY
+#				velocity.y = -_get_attribute_mng().get_value(Glob.CharactorAttribute.JumpSpeed)
+#				self.faceDirection.y = -1
 				isMoving = true
 				_snap_vector=NO_SNAP
 				use_snap =false
-				v_acceleration = JUMP_ACC
+				v_acceleration = gravity
 				v_velocityToward = 0
 				h_acceleration = WALK_ACC
-				h_velocityToward = WALK_VELOCITY
-				velocity.y = -_get_attribute_mng().get_value(Glob.CharactorAttribute.JumpSpeed)
-				self.faceDirection.y = -1
+				h_velocityToward = _get_attribute_mng().get_value(Glob.CharactorAttribute.WalkSpeed)
+				self.faceDirection.y = 0
 			
 			ActionState.JumpDown:
 				isMoving = true
-				
+				_snap_vector=NO_SNAP
+				use_snap =false
 #				_snap_vector=NO_SNAP
 #				use_snap =false
 				v_acceleration = gravity
@@ -174,28 +183,20 @@ func _get_attribute_mng()->AttribugeMng:
 
 func _physics_process(delta):
 	#检测跳跃状态
-	if state==ActionState.JumpDown and body.is_on_genelized_floor():
-		
-#		if faceDirection != Vector2.ZERO:
-			#这里加IF 的情况分析： 跳跃降落到地面，原先直接设置state=idle，在 避免重复添加action 改了FightActionMng之后
-			#假设降落到地面的过程中玩家一直按下左或者右方向不变，则在落地后的walk 会被FightActionMng 认为重复而丢弃
-			#所以会出现停住的现象
-#			self.state = ActionState.Walk
-#		else:
-		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
-		var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
-		body.actionMng.regist_actioninfo(action)
-#		emit_signal("Active_State_Changed",Glob.FightMotion.Idle)
-	elif self.state==ActionState.JumpFalling and body.is_on_genelized_floor():
+	if self.state==ActionState.JumpFalling and body.is_on_genelized_floor():
 		
 		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpDown)
 		var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpDown, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
-		body.actionMng.regist_actioninfo(action)
+		
+		var idle_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
+		var idle_action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, false])
+		
+		body.actionMng.regist_group_actions([action,idle_action],ActionInfo.EXEMOD_GENEROUS)
 #		emit_signal("Active_State_Changed",Glob.FightMotion.JumpDown)
 		
 	#若在空中的情况	
 	if not body.is_on_genelized_floor() :
-		if self.state==ActionState.JumpUp :
+		if self.state==ActionState.JumpRising :
 			if velocity.y ==0:
 				#升至跳跃max,设置faceDirection 向下
 				
@@ -207,7 +208,7 @@ func _physics_process(delta):
 #			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
 #				change_movable_state(Vector2.ZERO , ActionState.Hanging)
 			
-		elif self.state!=ActionState.Climb and self.state !=ActionState.Hanging and self.state != ActionState.HangingClimb:
+		elif self.state!=ActionState.Climb and self.state !=ActionState.Hanging and self.state != ActionState.HangingClimb and self.state != ActionState.JumpUp and self.state != ActionState.JumpRising:
 			#最基础的判定下落的地方
 			
 			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpFalling)
@@ -345,12 +346,12 @@ func _process_action(action:ActionInfo):
 		
 	#在空中的状态在 接收到 IDLE,WALK,RUN移动指令的时候需要特殊处理
 	#会接收到IDLE是应为输入控制器 在最后一个按键抬起的时候会发送一个IDLE事件
-	if ( state ==ActionState.JumpUp) and (action.base_action==Glob.FightMotion.Idle or action.base_action==Glob.FightMotion.Walk or action.base_action==Glob.FightMotion.Run):
-		change_movable_state(Vector2(input_vector.x,-1) , state)
-		return
-	elif (state ==ActionState.JumpDown ) and (action.base_action==Glob.FightMotion.Walk or action.base_action==Glob.FightMotion.Run):
-		change_movable_state(Vector2(input_vector.x,1) , state)
-		return
+#	if ( state ==ActionState.JumpUp) and (action.base_action==Glob.FightMotion.Idle or action.base_action==Glob.FightMotion.Walk or action.base_action==Glob.FightMotion.Run):
+#		change_movable_state(Vector2(input_vector.x,-1) , state)
+#		return
+#	elif (state ==ActionState.JumpDown ) and (action.base_action==Glob.FightMotion.Walk or action.base_action==Glob.FightMotion.Run):
+#		change_movable_state(Vector2(input_vector.x,1) , state)
+#		return
 	if state ==ActionState.Climb and (action.base_action==Glob.FightMotion.Idle or action.base_action==Glob.FightMotion.Walk or action.base_action==Glob.FightMotion.Run):
 		change_movable_state(input_vector,ActionState.Climb)
 		return

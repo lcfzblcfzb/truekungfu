@@ -118,11 +118,11 @@ func _create_attack_action(action_list):
 		if i <2:
 			
 			param_dict[k]={create_time=OS.get_ticks_msec(),
-								duration=base.duration*1000,
+								duration=base.get_duration(),
 								exemod =ActionInfo.EXEMOD_SEQ}
 		else:
 			param_dict[k]={create_time=OS.get_ticks_msec(),
-								duration=base.duration*1000,
+								duration=base.get_duration(),
 								exemod =ActionInfo.EXEMOD_GENEROUS}
 	
 	return _create_group_actions(param_dict)

@@ -207,14 +207,18 @@ static func normal_on_moveevent(event,fight_cpn):
 				pass
 			
 			else:
-				#确保跳跃的时候可以控制方向
-				#如果只是平地起跳 input_vector=Vector2.ZERO的时候，也要保证 y=1；否则会被移动控制器忽略，使用上一个动作保存的方向
-				var vec = Vector2(input_vector.x,-1)
-				#do jump up
-				var action_jump = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpUp).duration,ActionInfo.EXEMOD_SEQ,false,true])
-				var action_rising = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpRising,OS.get_ticks_msec(),[vec],FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpRising).duration,ActionInfo.EXEMOD_SEQ,false,true])
-#				action_mng.regist_actioninfo(action)
-				action_mng.regist_group_actions([action_jump,action_rising],ActionInfo.EXEMOD_SEQ)
+				
+				#只有一个进行总的跳跃初始操作
+				var lastMotion =action_mng.last_action(Glob.ActionHandlingType.Movement)
+				if lastMotion and lastMotion.base_action != Glob.FightMotion.JumpRising and lastMotion.base_action != Glob.FightMotion.JumpFalling and lastMotion.base_action != Glob.FightMotion.JumpUp and lastMotion.base_action != Glob.FightMotion.JumpDown: 
+					#确保跳跃的时候可以控制方向
+					#如果只是平地起跳 input_vector=Vector2.ZERO的时候，也要保证 y=1；否则会被移动控制器忽略，使用上一个动作保存的方向
+					var vec = Vector2(input_vector.x,-1)
+					#do jump up
+					var action_jump = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpUp).get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+					var action_rising = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpRising,OS.get_ticks_msec(),[vec],FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpRising).get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+	#				action_mng.regist_actioninfo(action)
+					action_mng.regist_group_actions([action_jump,action_rising],ActionInfo.EXEMOD_NEWEST)
 
 			
 		else:
@@ -233,36 +237,54 @@ static func normal_on_moveevent(event,fight_cpn):
 						
 						var motion = Glob.FightMotion.Run
 						#这里让处于跳跃的时候可以移动
-						if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
-							motion = Glob.FightMotion.JumpUp
+						if movable.state == FightKinematicMovableObj.ActionState.JumpRising:
+							motion = Glob.FightMotion.JumpRising
+						elif movable.state == FightKinematicMovableObj.ActionState.JumpFalling:
+							motion = Glob.FightMotion.JumpFalling
+						elif movable.state == FightKinematicMovableObj.ActionState.JumpUp:
+							return
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
-							motion = Glob.FightMotion.JumpDown
-						
+							return
 						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,false])
 						action_mng.regist_actioninfo(action)
 						
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
 					else:
 						var motion = Glob.FightMotion.Walk
-						if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
-							motion = Glob.FightMotion.JumpUp
+						if movable.state == FightKinematicMovableObj.ActionState.JumpRising:
+							motion = Glob.FightMotion.JumpRising
+						elif movable.state == FightKinematicMovableObj.ActionState.JumpFalling:
+							motion = Glob.FightMotion.JumpFalling
+						elif movable.state == FightKinematicMovableObj.ActionState.JumpUp:
+							return
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
-							motion = Glob.FightMotion.JumpDown
-						
+							return
+							
 						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,false])
 						action_mng.regist_actioninfo(action)
 						
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 			else:
+				#not jump and input_vector is Zero
 				var lastMotion =action_mng.last_action(Glob.ActionHandlingType.Movement)
 				if lastMotion:
 					var motion = Glob.FightMotion.Idle
-					if movable.state == FightKinematicMovableObj.ActionState.JumpUp:
-						motion = Glob.FightMotion.JumpUp
+					if movable.state == FightKinematicMovableObj.ActionState.JumpRising:
+						push_warning("A")
+						motion = Glob.FightMotion.JumpRising
+					elif movable.state == FightKinematicMovableObj.ActionState.JumpFalling:
+						push_warning("B")
+						motion = Glob.FightMotion.JumpFalling
+					elif movable.state == FightKinematicMovableObj.ActionState.JumpUp:
+						push_warning("C")
+						return
 					elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
-						motion = Glob.FightMotion.JumpDown
+						push_warning("D")
+						return
 					var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
 					action_mng.regist_actioninfo(action)
+					if motion == Glob.FightMotion.Idle:
+						push_warning("regist idle")
 				else:
 					var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
 					action_mng.regist_actioninfo(action)

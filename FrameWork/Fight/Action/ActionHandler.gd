@@ -7,7 +7,7 @@ var action_mng
 
 var global_group_id = 100
 
-export var MAX_ACTION_ARRAY_SIZE =101
+export var MAX_ACTION_ARRAY_SIZE =20
 #动作历史记录
 var action_array = []
 
@@ -94,11 +94,10 @@ func debug_print():
 			else:
 				s = s+"["+a.state as String +baseAction.animation_name+"]"
 		pass
-	print(s)
+#	print(s)
 	
 #注册整个action
 func regist_actioninfo(action:ActionInfo):
-
 	#检查是否是重复的持久型action
 	if action_array.size()>0:
 		var nearest_action = action_array.back()
@@ -442,7 +441,7 @@ func on_tick(delta):
 				_current_action.state = ActionInfo.STATE_ING
 				_current_action.action_begin_time = OS.get_ticks_msec()
 				_current_action.action_pass_time =0
-				push_warning("action start.... %d" % _current_action.base_action)
+				push_warning("action start.... %s" % CommonTools.get_enum_key_name(Glob.FightMotion,_current_action.base_action))
 	#			debug_print()
 				action_mng.action_start(_current_action)
 			
