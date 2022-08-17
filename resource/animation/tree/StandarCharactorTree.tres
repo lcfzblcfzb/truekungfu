@@ -165,7 +165,7 @@ nodes/dodge_tran/position = Vector2( -320, 200 )
 nodes/holding_sm/node = SubResource( 103 )
 nodes/holding_sm/position = Vector2( -160, 300 )
 nodes/output/position = Vector2( 500, 160 )
-node_connections = [ "output", 0, "action_scale", "attack_tran", 0, "Animation", "attack_tran", 1, "Animation 2", "attack_tran", 2, "Animation 3", "attack_tran", 3, "Animation 5", "attack_tran", 4, "Animation 4", "attack_tran", 5, "Animation 6", "dodge_tran", 0, "Animation 9", "dodge_tran", 1, "Animation 10", "action_scale", 0, "action_tran", "block_tran", 0, "Animation 7", "block_tran", 1, "Animation 8", "block_tran", 2, "Animation 12", "action_tran", 0, "attack_tran", "action_tran", 1, "block_tran", "action_tran", 2, "dodge_tran", "action_tran", 3, "holding_sm", "action_tran", 4, "Animation 11" ]
+node_connections = [ "output", 0, "action_scale", "attack_tran", 0, "Animation", "attack_tran", 1, "Animation 2", "attack_tran", 2, "Animation 3", "attack_tran", 3, "Animation 5", "attack_tran", 4, "Animation 4", "attack_tran", 5, "Animation 6", "action_tran", 0, "attack_tran", "action_tran", 1, "block_tran", "action_tran", 2, "dodge_tran", "action_tran", 3, "holding_sm", "action_tran", 4, "Animation 11", "dodge_tran", 0, "Animation 9", "dodge_tran", 1, "Animation 10", "action_scale", 0, "action_tran", "block_tran", 0, "Animation 7", "block_tran", 1, "Animation 8", "block_tran", 2, "Animation 12" ]
 
 [sub_resource type="AnimationNodeAnimation" id=57]
 animation = "attack_pi"
@@ -420,11 +420,11 @@ input_3/auto_advance = false
 
 [resource]
 resource_name = "通用的tree root"
-graph_offset = Vector2( 0, -60 )
+graph_offset = Vector2( -674.322, -1257.07 )
 nodes/Animation/node = SubResource( 69 )
 nodes/Animation/position = Vector2( -480, -1040 )
 "nodes/Animation 3/node" = SubResource( 97 )
-"nodes/Animation 3/position" = Vector2( 900, -480 )
+"nodes/Animation 3/position" = Vector2( 840, -640 )
 nodes/TimeScale/node = SubResource( 12 )
 nodes/TimeScale/position = Vector2( 1140, -840 )
 nodes/action_shot/node = SubResource( 87 )
@@ -484,4 +484,4 @@ nodes/unprepared_shot/node = SubResource( 51 )
 nodes/unprepared_shot/position = Vector2( 740, -840 )
 nodes/unprepared_tran/node = SubResource( 13 )
 nodes/unprepared_tran/position = Vector2( -300, -580 )
-node_connections = [ "output", 0, "TimeScale", "action_tran", 0, "attack_bs", "action_tran", 1, "block_bs", "action_tran", 2, "dodge_bs", "TimeScale", 0, "rolling_shot", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "action_shot", 0, "state_tran", "action_shot", 1, "action_tree", "rolling_shot", 0, "unprepared_shot", "rolling_shot", 1, "Animation 3", "prepared_shot", 0, "action_shot", "prepared_shot", 1, "prepared", "unprepared_shot", 0, "prepared_shot", "unprepared_shot", 1, "unprepared", "unprepared_tran", 0, "move", "unprepared_tran", 1, "hangingclimbshot", "unprepared_tran", 2, "climb", "unprepared_tran", 3, "unpreapred_jump_bt", "state_tran", 0, "prepared_tran", "state_tran", 1, "unprepared_tran", "hangingclimbshot_prepared", 0, "hanging_prepared", "hangingclimbshot_prepared", 1, "hangingclimb_prepared", "prepared_tran", 0, "move_prepared", "prepared_tran", 1, "hangingclimbshot_prepared", "prepared_tran", 2, "climb_prepared", "prepared_tran", 3, "prepared_jump_bt", "prepared_tran", 4, "Animation" ]
+node_connections = [ "output", 0, "TimeScale", "action_tran", 0, "attack_bs", "action_tran", 1, "block_bs", "action_tran", 2, "dodge_bs", "TimeScale", 0, "rolling_shot", "prepared_shot", 0, "action_shot", "prepared_shot", 1, "prepared", "hangingclimbshot_prepared", 0, "hanging_prepared", "hangingclimbshot_prepared", 1, "hangingclimb_prepared", "prepared_tran", 0, "move_prepared", "prepared_tran", 1, "hangingclimbshot_prepared", "prepared_tran", 2, "climb_prepared", "prepared_tran", 3, "prepared_jump_bt", "prepared_tran", 4, "Animation", "rolling_shot", 0, "unprepared_shot", "rolling_shot", 1, "Animation 3", "hangingclimbshot", 0, "hanging", "hangingclimbshot", 1, "hangingclimb", "action_shot", 0, "state_tran", "action_shot", 1, "action_tree", "state_tran", 0, "prepared_tran", "state_tran", 1, "unprepared_tran", "unprepared_shot", 0, "prepared_shot", "unprepared_shot", 1, "unprepared", "unprepared_tran", 0, "move", "unprepared_tran", 1, "hangingclimbshot", "unprepared_tran", 2, "climb", "unprepared_tran", 3, "unpreapred_jump_bt" ]

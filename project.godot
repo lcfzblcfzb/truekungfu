@@ -294,10 +294,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Fight/StateController.gd"
 }, {
-"base": "WuXue",
+"base": "Reference",
 "class": "Fist",
 "language": "GDScript",
-"path": "res://FrameWork/Fight/Wu/wuxue/Fist.gd"
+"path": "res://FrameWork/Fight/Wu/wuxue/Fist/Fist.gd"
 }, {
 "base": "Node2D",
 "class": "Gear",
@@ -561,7 +561,7 @@ _global_script_class_icons={
 [application]
 
 config/name="锦衣卫"
-run/main_scene="res://resource/scene/fight_demo.tscn"
+run/main_scene="res://resource/scene/Platformer_demo.tscn"
 
 [autoload]
 

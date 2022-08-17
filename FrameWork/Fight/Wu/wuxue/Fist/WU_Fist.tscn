@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=1]
+[ext_resource path="res://FrameWork/Fight/Wu/wuxue/Fist/Fist.gd" type="Script" id=2]
+
+[node name="WU_Fist" type="Node2D"]
+position = Vector2( 6, 0 )
+script = ExtResource( 2 )
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource( 1 )

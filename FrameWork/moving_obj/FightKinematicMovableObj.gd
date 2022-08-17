@@ -130,7 +130,7 @@ func changeState(s):
 				v_acceleration = gravity
 				v_velocityToward = 0
 				h_acceleration = WALK_ACC
-				h_velocityToward = _get_attribute_mng().get_value(Glob.CharactorAttribute.WalkSpeed)
+				h_velocityToward = _get_attribute_mng().get_value(Glob.CharactorAttribute.AttackMoveSpeed)
 				self.faceDirection.y = 0
 			
 			ActionState.JumpDown:

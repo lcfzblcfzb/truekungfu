@@ -6,6 +6,8 @@ var fight_cpn setget set_fight_cpn
 var behaviourTree:BehaviorTree
 var blackboard:Blackboard
 
+var wuxue_state_machine:StateMachine
+
 #重攻击时间阈值.ms
 var heavyAttackThreshold = 300.0
 
