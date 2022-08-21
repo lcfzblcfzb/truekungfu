@@ -66,6 +66,24 @@ func on_move_event(event:MoveEvent):
 func on_ai_event(event:AIEvent):
 	wuxue_state_machine.normal_on_action_event(event.action_id)
 
+func _on_FightActionMng_ActionStart(action:ActionInfo):
+	match action.base_action:
+		Glob.FightMotion.JumpRising:
+			wuxue_state_machine.change_state(Glob.WuMotion.JumpRising)
+		Glob.FightMotion.JumpFalling:
+			wuxue_state_machine.change_state(Glob.WuMotion.JumpFalling)
+		Glob.FightMotion.JumpDown:
+			wuxue_state_machine.change_state(Glob.WuMotion.JumpDown)
+			
+func _on_FightActionMng_ActionFinish(action:ActionInfo):
+	
+	match action.base_action:
+		Glob.FightMotion.JumpDown:
+			wuxue_state_machine.change_state(Glob.WuMotion.Idle)
+		Glob.FightMotion.HangingClimb:
+			wuxue_state_machine.change_state(Glob.WuMotion.Idle)
+#			fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
+#			corner_detector.set_deferred("enabled", true)
 #
 func _create_attack_action(action_list):
 		

@@ -29,9 +29,15 @@ func _check_and_do_hangingclimb(event)->bool:
 			
 			if change_state(Glob.WuMotion.HangingClimb):
 				var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.HangingClimb) as BaseAction
-				var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
-				action_mng.regist_actioninfo(action)
+				var action_hanging_climb = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+				
+				var action_idle = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle,OS.get_ticks_msec(),[input_vector],FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle).get_duration(),ActionInfo.EXEMOD_GENEROUS,false,true])
+				action_mng.regist_group_actions([action_hanging_climb,action_idle],ActionInfo.EXEMOD_NEWEST)
+			
+#				action_mng.regist_actioninfo(action)
 				return true
+				
+
 	
 	elif current_state.state ==Glob.WuMotion.HangingClimb and not event.is_echo:
 		
@@ -47,9 +53,14 @@ func _check_and_do_hangingclimb(event)->bool:
 	elif current_state.state ==Glob.WuMotion.Walk and fight_cpn.is_at_hanging_corner() and event.is_jump:
 		
 		if change_state(Glob.FightMotion.HangingClimb):
+#			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.HangingClimb) as BaseAction
+#			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+#			action_mng.regist_actioninfo(action)
 			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.HangingClimb) as BaseAction
-			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
-			action_mng.regist_actioninfo(action)
+			var action_hanging_climb = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.HangingClimb,OS.get_ticks_msec(),[input_vector],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+			var action_idle = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle,OS.get_ticks_msec(),[input_vector],FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle).get_duration(),ActionInfo.EXEMOD_GENEROUS,false,true])
+			action_mng.regist_group_actions([action_hanging_climb,action_idle],ActionInfo.EXEMOD_NEWEST)
+			
 			return true
 		
 	return false
@@ -211,6 +222,13 @@ func normal_on_move_event(event):
 		
 		if event.is_jump:
 			
+			if fight_cpn.get("is_climbing") == true:
+				if change_state(Glob.WuMotion.Climb):
+					#do climb
+					var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Climb,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS])
+					action_mng.regist_actioninfo(action)
+					return
+			
 			if fight_cpn.get("is_on_platform") ==true and input_vector.y>0:
 				
 				#jump down platform
@@ -272,7 +290,7 @@ func normal_on_move_event(event):
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
 							return
 							
-						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,false])
+						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
 						action_mng.regist_actioninfo(action)
 						
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
@@ -293,12 +311,13 @@ func normal_on_move_event(event):
 					elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
 						push_warning("D")
 						return
-					
-					#HERO should do nothing
-#					var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
-#					action_mng.regist_actioninfo(action)
-					if motion == Glob.FightMotion.Idle:
-						push_warning("regist idle")
+					#这里是玩家松开移动时候，自动停下的操作
+					if change_state(Glob.WuMotion.Idle):
+						#HERO should do nothing
+						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+						action_mng.regist_actioninfo(action)
+						if motion == Glob.FightMotion.Idle:
+							push_warning("regist idle")
 				else:
 					if change_state(Glob.WuMotion.Idle):
 						var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])

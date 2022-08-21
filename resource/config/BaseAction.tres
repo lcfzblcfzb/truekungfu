@@ -654,7 +654,7 @@
 	"id": 165,
 	"name": "HangingClimb",
 	"animation_name": "hangingclimb",
-	"duration": -1,
+	"duration": 0.5,
 	"handle_type":1,
 	"type": [
 	  1

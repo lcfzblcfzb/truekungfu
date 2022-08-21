@@ -140,19 +140,30 @@ func _on_FightController_NewFightMotion(new_motion:BaseFightEvent):
 
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
+	if wuxue:
+		wuxue._on_FightActionMng_ActionStart(action)
 	
-	if action.base_action ==Glob.FightMotion.Attack_Ci:
-		pass
-	
-
 
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
-	
-	if action.base_action ==Glob.FightMotion.Attack_Ci:
-		pass
+	if wuxue:
+		wuxue._on_FightActionMng_ActionFinish(action)
 	
 
 #animation_player组件的回掉
 func _on_SpriteAnimation_AnimationCallMethod(param):
 	wuxue.animation_call_method(param)
 	pass # Replace with function body.
+
+
+func _on_FightKinematicMovableObj_State_Changed(state):
+	
+	match state:
+		FightKinematicMovableObj.ActionState.JumpDown:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpDown)
+			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpDown, OS.get_ticks_msec(), [fight_component.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+
+			var idle_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
+			var idle_action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [fight_component.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, false])
+
+			fight_component.actionMng.regist_group_actions([action,idle_action],ActionInfo.EXEMOD_GENEROUS)
+		

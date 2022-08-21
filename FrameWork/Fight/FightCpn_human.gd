@@ -388,7 +388,7 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 func _on_FightActionMng_ActionFinish(action:ActionInfo):
 	
 	if action.base_action == Glob.FightMotion.HangingClimb:
-		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
+#		fightKinematicMovableObj.hanging_climb_over(corner_detector._last_hang_climb_end)
 		corner_detector.set_deferred("enabled", true)
 	
 	if action.base_action ==Glob.FightMotion.Prepared:
@@ -402,10 +402,10 @@ func _on_FightActionMng_ActionFinish(action:ActionInfo):
 		if self.is_prepared:
 			self.is_prepared = false
 	
-	if action.base_action == Glob.FightMotion.JumpDown:
-		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
-		var idle_action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
-		actionMng.regist_actioninfo(idle_action)
+#	if action.base_action == Glob.FightMotion.JumpDown:
+#		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
+#		var idle_action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, true])
+#		actionMng.regist_actioninfo(idle_action)
 	
 	if action.base_action ==Glob.FightMotion.Blocking:
 		sprite_animation.get_standar_charactor().get_hurt_box().counter_attack_type = Glob.CounterDamageType.AutoBlock

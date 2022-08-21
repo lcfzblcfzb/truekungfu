@@ -23,8 +23,8 @@ func _ready():
 	for child in get_children():
 		if child is State:
 			child.state_machine = self
-			if child["state"]:
-				states_map[child["state"]] = child
+			if child.get("state")!=null:
+				states_map[child.get("state")] = child
 
 func check_state_can_go(state_to,data=null)->bool:
 	return current_state.check_can_go(state_to,data)

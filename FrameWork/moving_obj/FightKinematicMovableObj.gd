@@ -3,7 +3,7 @@ class_name FightKinematicMovableObj
 extends KinematicPlatformMovableObj
 
 
-signal State_Changed
+signal State_Changed(state)
 signal Charactor_Face_Direction_Changed
 signal Active_State_Changed
 
@@ -25,7 +25,7 @@ enum ActionState{
 	HangingClimb#11 从hang攀爬到站起的过程          
 }
 
-var state = ActionState.Idle setget changeState
+export(ActionState) var state = ActionState.Idle setget changeState
 
 export(int, 0, 1000) var IDLE_ACC = 1900
 export(int, 0, 1000) var WALK_ACC = 900
@@ -173,7 +173,7 @@ func changeState(s):
 				h_acceleration =9999
 				h_velocityToward=0
 								
-		print("  state change",s)
+		LogTool.warn("movable state change %s"% CommonTools.get_enum_key_name(ActionState,s) )
 		state =s	
 		emit_signal("State_Changed",s)
 	pass
@@ -185,13 +185,14 @@ func _physics_process(delta):
 	#检测跳跃状态
 	if self.state==ActionState.JumpFalling and body.is_on_genelized_floor():
 		
-		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpDown)
-		var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpDown, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
-		
-		var idle_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
-		var idle_action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, false])
-		
-		body.actionMng.regist_group_actions([action,idle_action],ActionInfo.EXEMOD_GENEROUS)
+		self.state = ActionState.JumpDown
+#		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpDown)
+#		var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpDown, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+#
+#		var idle_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
+#		var idle_action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, false])
+#
+#		body.actionMng.regist_group_actions([action,idle_action],ActionInfo.EXEMOD_GENEROUS)
 #		emit_signal("Active_State_Changed",Glob.FightMotion.JumpDown)
 		
 	#若在空中的情况	
@@ -297,9 +298,6 @@ func _on_FightActionMng_ActionProcess(action:ActionInfo):
 		self.faceDirection = global_position.direction_to(end_position)
 		v_velocityToward = speed  
 		h_velocityToward = speed  
-		
-		pass
-	pass
 
 var _current_action:ActionInfo
 
@@ -317,9 +315,9 @@ func _process_action(action:ActionInfo):
 #	if (state ==ActionState.JumpDown or state ==ActionState.JumpUp) and action.base_action==Glob.FightMotion.Idle:
 #		return
 	
-	if state == ActionState.HangingClimb:
-		#hangingclimb 状态下不接收输入
-		return
+#	if state == ActionState.HangingClimb:
+#		#hangingclimb 状态下不接收输入
+#		return
 	
 	var input_vector = Vector2.ZERO
 	
