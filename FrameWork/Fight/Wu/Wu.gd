@@ -24,18 +24,10 @@ func get_current_animation_name():
 	return current_node.get_current_node()
 
 #通过type在 wuxue_cache_dict 中查找队应的wuxue
-func get_or_create_wuxue(type):
+func get_wuxue(type):
 	
 	if wuxue_cache_dict.has(type):
 		return wuxue_cache_dict.get(type)
-	else:
-		var newWuxue = WuxueMng.get_by_type(type);
-		if wuxue !=null && !newWuxue.resource_path.empty() && newWuxue.resource_path == wuxue.filename:
-			return null;
-		
-		var instance = newWuxue.instance()
-		wuxue_cache_dict[type]=instance
-		return instance
 
 func _ready():
 	debug_wuxue = get_node_or_null("debug_wuxue")
@@ -78,15 +70,13 @@ func _init_wu(type= Glob.WuxueEnum.Sanjiaomao):
 		debug_wuxue.fight_cpn =fight_component
 		pass
 	else :
-	
-		var newwuxue = get_or_create_wuxue(type) as Node2D
-		if newwuxue:
-			newwuxue.fight_cpn = fight_component
-			if newwuxue.get_parent() == null:
-				add_child(newwuxue)
+		
+		var newwuxue = get_wuxue(type) as Node2D
+		if newwuxue ==null:
+			
+			newwuxue = learn_wuxue(type)
 			wuxue = newwuxue
-			newwuxue.on_learned()
-
+			wuxue.on_switch_on()
 #切换武学
 #1清理上一个wuxue 的装备等等
 #2添加入
@@ -99,7 +89,7 @@ func switch_wu(type= Glob.WuxueEnum.Sanjiaomao):
 		pass
 	else :
 		#创建wuxue 
-		var newwuxue = get_or_create_wuxue(type) 
+		var newwuxue = get_wuxue(type) 
 		if newwuxue:
 			newwuxue.fight_cpn = fight_component
 			if newwuxue.get_parent() == null:
@@ -107,6 +97,26 @@ func switch_wu(type= Glob.WuxueEnum.Sanjiaomao):
 			wuxue.on_switch_off()
 			wuxue = newwuxue
 			wuxue.on_switch_on()
+
+#学习武学
+func learn_wuxue(type):
+	
+	if wuxue_cache_dict.has(type):
+		return null
+	
+	var newWuxue = WuxueMng.get_by_type(type);
+	if wuxue !=null && !newWuxue.resource_path.empty() && newWuxue.resource_path == wuxue.filename:
+		return null;
+	
+	var instance = newWuxue.instance()
+	wuxue_cache_dict[type]=instance
+	
+	instance.fight_cpn = fight_component
+	if instance.get_parent() == null:
+		add_child(instance)
+	instance.on_learned()
+	return instance
+
 		
 func on_player_event(new_motion:NewActionEvent):
 	wuxue.on_action_event(new_motion)

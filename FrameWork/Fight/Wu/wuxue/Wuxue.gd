@@ -1,6 +1,8 @@
 class_name WuXue
 extends Node2D
 
+const WuxueStateMachineScene = preload("res://FrameWork/Fight/Wu/wuxue/StateMachine/WuxueStateMachine.tscn")
+
 var fight_cpn setget set_fight_cpn
 
 var behaviourTree:BehaviorTree
@@ -27,11 +29,13 @@ func set_fight_cpn(cpn):
 	
 #在学会时候的回调
 func on_learned():
-	pass
+	add_child( wuxue_state_machine)
+	wuxue_state_machine.initialize(fight_cpn)
 	
 #在使用的时候的回调
 func on_switch_on():
-	pass
+	wuxue_state_machine.state_start()
+	
 #在忘记时候的回调
 func on_forget():
 	pass
@@ -48,20 +52,19 @@ static func get_wuxue_type()->int:
 
 #virtual 
 func on_action_event(event:NewActionEvent):
-	push_warning("on_action_event is virtual .need to be implemented")
-	pass
+	
+	#是否是重攻击；若不是 ，则以最后的位置作为轻攻击的方向(攻击);
+	var is_heavy = false if event.action_end_time-event.action_begin_time< heavyAttackThreshold else true
+	wuxue_state_machine.normal_on_action_event(event.wu_motion,is_heavy)
 	
 #virtual 	
 func on_move_event(event:MoveEvent):
-	push_warning("on_move_event is virtual .need to be implemented")
+	wuxue_state_machine.normal_on_move_event(event)
 	pass
 	
 #virtual 	
 func on_ai_event(event:AIEvent):
-	push_warning("on_ai_event is virtual .need to be implemented")
-	pass
-
-
+	wuxue_state_machine.normal_on_action_event(event.action_id)
 
 #
 func _create_attack_action(action_list):

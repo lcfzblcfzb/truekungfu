@@ -242,6 +242,8 @@ enum WuMotion{
 	Stunned,
 	JumpUp,
 	JumpDown,
+	JumpFalling,
+	JumpRising,
 	Hanging,
 	HangingClimb,
 	Attack,
@@ -254,6 +256,7 @@ enum WuMotion{
 	Rolling,
 	Cancel,
 	PostBlock,
+	Climb,
 	
 	Attack_Up,
 	Attack_Mid,
