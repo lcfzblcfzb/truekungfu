@@ -72,19 +72,20 @@ func _check_and_do_hangingclimb(event)->bool:
 	return false
 		
 #检测是否进入hanging状态
-func _check_and_do_hanging(event)->bool:
-	var fight_cpn = host
-	var action_mng = fight_cpn.actionMng
-	var input_vector = event.move_direction
-	
-	if fight_cpn.is_at_hanging_corner() and not fight_cpn.is_on_genelized_floor():
-		
-		if change_state(Glob.WuMotion.Hanging):
-			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Hanging,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_SEQ,false,true])
-			action_mng.regist_actioninfo(action)
-			return true
-		
-	return false
+#func _check_and_do_hanging(event)->bool:
+#	var fight_cpn = host
+#	var action_mng = fight_cpn.actionMng
+#	var input_vector = event.move_direction
+#
+#	LogTool.info("corner %s;floor %s;platform %s"%[fight_cpn.is_at_hanging_corner(),fight_cpn.on_floor ,fight_cpn.is_on_platform])
+#	if fight_cpn.is_at_hanging_corner() and not fight_cpn.is_on_genelized_floor():
+#
+#		if change_state(Glob.WuMotion.Hanging):
+#			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Hanging,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_SEQ,false,true])
+#			action_mng.regist_actioninfo(action)
+#			return true
+#
+#	return false
 
 
 #普通的 action 事件
@@ -125,6 +126,7 @@ func normal_on_action_event(wu_motion,is_heavy):
 			
 			actoin_mng.regist_group_actions([dodge,block],actoin_mng.next_group_id(dodge_base.handle_type),ActionInfo.EXEMOD_GENEROUS)
 		Glob.WuMotion.PostBlock:
+			
 			var post_block_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Post_Block)
 			var pose_block_action =  ActionInfo.create_by_base(post_block_base,attribute_mng.get_value(Glob.CharactorAttribute.PostBlockDuration),ActionInfo.EXEMOD_INTERUPT,false,true)
 			actoin_mng.regist_actioninfo(pose_block_action)
@@ -220,9 +222,9 @@ func normal_on_move_event(event):
 	
 	if _check_and_do_hangingclimb(event):
 		return
-		
-	if _check_and_do_hanging(event):
-		return	
+#
+#	if _check_and_do_hanging(event):
+#		return	
 	
 	if  !event.is_echo:
 		
@@ -284,6 +286,18 @@ func normal_on_move_event(event):
 							return
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
 							return
+						elif get_current_status()==Glob.WuMotion.Block:
+							motion =Glob.FightMotion.Run
+							wu_motion = Glob.WuMotion.Block
+						elif get_current_status()==Glob.WuMotion.Attack:
+							motion =Glob.FightMotion.Run
+							wu_motion = Glob.WuMotion.Attack
+						elif get_current_status()==Glob.WuMotion.Attack_Pi:
+							motion =Glob.FightMotion.Run
+							wu_motion = Glob.WuMotion.Attack_Pi
+						elif get_current_status()==Glob.WuMotion.Holding:
+							motion =Glob.FightMotion.Run
+							wu_motion = Glob.WuMotion.Holding
 							
 						if change_state(wu_motion):
 							var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,false])
@@ -303,7 +317,19 @@ func normal_on_move_event(event):
 							return
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
 							return
-						
+						elif get_current_status()==Glob.WuMotion.Block:
+							motion =Glob.FightMotion.Walk
+							wu_motion = Glob.WuMotion.Block
+						elif get_current_status()==Glob.WuMotion.Attack:
+							motion =Glob.FightMotion.Walk
+							wu_motion = Glob.WuMotion.Attack
+						elif get_current_status()==Glob.WuMotion.Attack_Pi:
+							motion =Glob.FightMotion.Walk
+							wu_motion = Glob.WuMotion.Attack_Pi
+						elif get_current_status()==Glob.WuMotion.Holding:
+							motion =Glob.FightMotion.Walk
+							wu_motion = Glob.WuMotion.Holding
+								
 						if change_state(wu_motion):
 							var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
 							action_mng.regist_actioninfo(action)
@@ -314,6 +340,22 @@ func normal_on_move_event(event):
 				var lastMotion =action_mng.last_action(Glob.ActionHandlingType.Movement)
 				if lastMotion:
 					var motion = Glob.FightMotion.Idle
+					wu_motion = Glob.WuMotion.Idle
+					
+					#Block 状态下移动的 停下操作
+					if get_current_status()==Glob.WuMotion.Block:
+						motion =Glob.FightMotion.Idle
+						wu_motion = Glob.WuMotion.Block
+					elif get_current_status()==Glob.WuMotion.Attack:
+						motion =Glob.FightMotion.Idle
+						wu_motion = Glob.WuMotion.Attack
+					elif get_current_status()==Glob.WuMotion.Attack_Pi:
+						motion =Glob.FightMotion.Idle
+						wu_motion = Glob.WuMotion.Attack_Pi
+					elif get_current_status()==Glob.WuMotion.Holding:
+						motion =Glob.FightMotion.Idle
+						wu_motion = Glob.WuMotion.Holding
+						
 #					if movable.state == FightKinematicMovableObj.ActionState.JumpRising:
 #						push_warning("A")
 #						motion = Glob.FightMotion.JumpRising
@@ -327,7 +369,7 @@ func normal_on_move_event(event):
 #						push_warning("D")
 #						return
 					#这里是玩家松开移动时候，自动停下的操作
-					if change_state(Glob.WuMotion.Idle):
+					if change_state(wu_motion):
 						#HERO should do nothing
 						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
 						action_mng.regist_actioninfo(action)

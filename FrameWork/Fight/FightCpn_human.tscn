@@ -525,6 +525,7 @@ margin_bottom = -50.0
 [connection signal="Active_State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_Active_State_Changed"]
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="SpriteAnimation" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="CornerDetect" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
+[connection signal="CollisionObjChanged" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_CollisionObjChanged"]
 [connection signal="FaceDirectionChanged" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_FaceDirectionChanged"]
 [connection signal="State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_State_Changed"]
 [connection signal="State_Changed" from="FightKinematicMovableObj" to="Wu" method="_on_FightKinematicMovableObj_State_Changed"]

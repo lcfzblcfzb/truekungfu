@@ -9699,6 +9699,7 @@ tracks/27/keys = {
 
 [sub_resource type="Animation" id=20]
 resource_name = "holding"
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("left_thigh:position")
 tracks/0/interp = 1
@@ -25230,6 +25231,7 @@ resource_name = "hanging"
 resource_name = "hangingclimb"
 
 [sub_resource type="Animation" id=305]
+loop = true
 
 [sub_resource type="Animation" id=306]
 loop = true
@@ -28144,10 +28146,10 @@ __meta__ = {
 tree_root = ExtResource( 2 )
 anim_player = NodePath("../CharactorAnimationPlayers/AnimationPlayer_Sanjiaomao_Normal")
 parameters/TimeScale/scale = 1.0
-parameters/action_shot/active = false
+parameters/action_shot/active = true
 parameters/action_tran/current = 0
 parameters/action_tree/action_scale/scale = 1.0
-parameters/action_tree/action_tran/current = 1
+parameters/action_tree/action_tran/current = 3
 parameters/action_tree/attack_tran/current = 0
 parameters/action_tree/block_tran/current = 1
 parameters/action_tree/dodge_tran/current = 0

@@ -236,17 +236,17 @@ static func load_json_file(path):
 # 本质上是状态机的状态枚举
 enum WuMotion{
 	
-	Idle,
+	Idle,#0
 	Walk,
 	Run,
 	Holding,
 	Stunned,
-	JumpUp,
+	JumpUp,#5
 	JumpDown,
 	JumpFalling,
 	JumpRising,
 	Hanging,
-	HangingClimb,
+	HangingClimb,#10
 	Attack,
 	Attack_Pi,
 	Block,

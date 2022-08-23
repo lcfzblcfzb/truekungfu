@@ -158,7 +158,7 @@ func _ready():
 	#初始状态检测
 	#TODO 可以指定初始状态
 	if not is_on_floor():
-		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.JumpDown
+		fightKinematicMovableObj.state = FightKinematicMovableObj.ActionState.Idle
 	
 	block_value = attribute_mng.get_value(Glob.CharactorAttribute.Block)
 	stamina_value = attribute_mng.get_value(Glob.CharactorAttribute.Stamina)
@@ -459,7 +459,6 @@ func _on_FightKinematicMovableObj_CollisionObjChanged(collision:KinematicCollisi
 		var collider = collision.collider
 		if collider is Platform: 
 			is_on_platform = true
-			print("is platform")
 		else:
 			is_on_platform = false 
 		

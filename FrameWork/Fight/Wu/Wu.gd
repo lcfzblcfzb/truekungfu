@@ -137,8 +137,6 @@ func _on_FightController_NewFightMotion(new_motion:BaseFightEvent):
 		on_ai_event(new_motion)
 	pass
 
-
-
 func _on_FightActionMng_ActionStart(action:ActionInfo):
 	if wuxue:
 		wuxue._on_FightActionMng_ActionStart(action)

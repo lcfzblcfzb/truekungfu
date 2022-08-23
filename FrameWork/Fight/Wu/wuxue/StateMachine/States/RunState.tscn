@@ -2,5 +2,5 @@
 
 [ext_resource path="res://FrameWork/Fight/Wu/wuxue/StateMachine/States/RunState.gd" type="Script" id=1]
 
-[node name="Walk" type="Node2D"]
+[node name="Run" type="Node2D"]
 script = ExtResource( 1 )

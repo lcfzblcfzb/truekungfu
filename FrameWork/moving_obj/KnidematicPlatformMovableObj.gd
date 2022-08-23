@@ -181,6 +181,8 @@ func _movePlayer(delta):
 #		velocity = body.move_and_slide_with_snap(velocity, _snap_vector, Vector2.UP, true,4,0.9)
 	#is_on_floor 只能在move_and_slide之后调用
 	var _curr_on_floor = body.is_on_floor()
+	if not _curr_on_floor:
+		pass
 	body.set("on_floor",_curr_on_floor)
 	
 #	push_warning("globalpos x: %f,y: %f ;v_velocity:%f; h_velocity:%f" %[global_position.x,global_position.y,v_velocityToward *get_physics_process_delta_time(),h_velocityToward * get_physics_process_delta_time()])
@@ -191,8 +193,8 @@ func _movePlayer(delta):
 		#这是之前不在地面，现在在地面的信号变化
 		var _collision = body.get_last_slide_collision()
 		if _collision!=null:
-				_last_collision_id = _collision.collider_id
-				emit_signal("CollisionObjChanged",_collision)
+			_last_collision_id = _collision.collider_id
+			emit_signal("CollisionObjChanged",_collision)
 	elif _on_floor and not _curr_on_floor:
 		#之前在地面 现在跳跃起来的情况
 		_last_collision_id =null
