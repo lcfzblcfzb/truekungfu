@@ -233,6 +233,7 @@ static func load_json_file(path):
 	return obj
 
 # 武 动作枚举（抽象动作，每个特定的武术会有自己的实现)
+# 本质上是状态机的状态枚举
 enum WuMotion{
 	
 	Idle,
@@ -282,7 +283,6 @@ enum FightMotionType{
 	AttackAction=3,
 	DefendAction=4,
 }
-
 
 #动画ID名称
 enum FightMotion{

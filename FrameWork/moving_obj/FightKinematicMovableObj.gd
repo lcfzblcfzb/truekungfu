@@ -1,7 +1,5 @@
 class_name FightKinematicMovableObj
-
 extends KinematicPlatformMovableObj
-
 
 signal State_Changed(state)
 signal Charactor_Face_Direction_Changed
@@ -64,6 +62,8 @@ func changeState(s):
 				pass
 			ActionState.Walk:
 				isMoving = true
+				_snap_vector=NO_SNAP
+				use_snap =false
 				h_acceleration = WALK_ACC
 				h_velocityToward = _get_attribute_mng().get_value(Glob.CharactorAttribute.WalkSpeed)
 				self.faceDirection.y = 1
@@ -105,9 +105,8 @@ func changeState(s):
 			
 			ActionState.JumpFalling:
 				isMoving = true
-				
-#				_snap_vector=NO_SNAP
-#				use_snap =false
+				_snap_vector=NO_SNAP
+				use_snap =false
 				v_acceleration = gravity
 				v_velocityToward = FREE_FALL_SPEED
 				h_acceleration = WALK_ACC
@@ -200,10 +199,10 @@ func _physics_process(delta):
 		if self.state==ActionState.JumpRising :
 			if velocity.y ==0:
 				#升至跳跃max,设置faceDirection 向下
-				
-				var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpFalling)
-				var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpFalling, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
-				body.actionMng.regist_actioninfo(action)
+				self.state = ActionState.JumpFalling
+#				var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpFalling)
+#				var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpFalling, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+#				body.actionMng.regist_actioninfo(action)
 #				emit_signal("Active_State_Changed",Glob.FightMotion.JumpFalling)
 #				self.state = ActionState.JumpDown
 #			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
@@ -211,10 +210,10 @@ func _physics_process(delta):
 			
 		elif self.state!=ActionState.Climb and self.state !=ActionState.Hanging and self.state != ActionState.HangingClimb and self.state != ActionState.JumpUp and self.state != ActionState.JumpRising:
 			#最基础的判定下落的地方
-			
-			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpFalling)
-			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpFalling, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
-			body.actionMng.regist_actioninfo(action)
+			self.state = ActionState.JumpFalling
+#			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpFalling)
+#			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpFalling, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+#			body.actionMng.regist_actioninfo(action)
 #			emit_signal("Active_State_Changed",Glob.FightMotion.JumpFalling)
 #			self.state = ActionState.JumpDown
 			

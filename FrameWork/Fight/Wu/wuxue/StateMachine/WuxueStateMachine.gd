@@ -20,9 +20,12 @@ func _check_and_do_hangingclimb(event)->bool:
 			
 			if change_state(Glob.WuMotion.JumpUp):
 				var vec = Vector2(input_vector.x,-1)
-					#do jump up
-				var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_INTERUPT])
-				action_mng.regist_actioninfo(action)
+				#do jump up
+				var action_jump = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpUp).get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+				var action_rising = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpRising,OS.get_ticks_msec(),[vec],FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpRising).get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+#				action_mng.regist_actioninfo(action)
+				action_mng.regist_group_actions([action_jump,action_rising],ActionInfo.EXEMOD_NEWEST)
+
 				return true
 		
 		if (input_vector.x<0 and fight_cpn.is_face_left() or input_vector.x>0 and not fight_cpn.is_face_left() )and !event.is_echo:
@@ -45,9 +48,12 @@ func _check_and_do_hangingclimb(event)->bool:
 			
 			if change_state(Glob.WuMotion.JumpUp):
 				var vec = Vector2(input_vector.x,-1)
-					#do jump up
-				var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],-1,ActionInfo.EXEMOD_INTERUPT])
-				action_mng.regist_actioninfo(action)
+				#do jump up
+				var action_jump = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpUp,OS.get_ticks_msec(),[vec],FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpUp).get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+				var action_rising = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpRising,OS.get_ticks_msec(),[vec],FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpRising).get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+#				action_mng.regist_actioninfo(action)
+				action_mng.regist_group_actions([action_jump,action_rising],ActionInfo.EXEMOD_NEWEST)
+
 				return true
 	
 	elif current_state.state ==Glob.WuMotion.Walk and fight_cpn.is_at_hanging_corner() and event.is_jump:
@@ -232,7 +238,7 @@ func normal_on_move_event(event):
 			if fight_cpn.get("is_on_platform") ==true and input_vector.y>0:
 				
 				#jump down platform
-				fight_cpn.set("is_on_platform",false)
+#				fight_cpn.set("is_on_platform",false)
 				pass
 			
 			else:
@@ -266,32 +272,41 @@ func normal_on_move_event(event):
 					if is_run :
 						
 						var motion = Glob.FightMotion.Run
+						wu_motion = Glob.WuMotion.Run
 						#这里让处于跳跃的时候可以移动
 						if movable.state == FightKinematicMovableObj.ActionState.JumpRising:
 							motion = Glob.FightMotion.JumpRising
+							wu_motion = Glob.WuMotion.JumpRising
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpFalling:
 							motion = Glob.FightMotion.JumpFalling
-						elif movable.state == FightKinematicMovableObj.ActionState.JumpUp:
-							return
-						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
-							return
-						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,false])
-						action_mng.regist_actioninfo(action)
-						
-		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
-					else:
-						var motion = Glob.FightMotion.Walk
-						if movable.state == FightKinematicMovableObj.ActionState.JumpRising:
-							motion = Glob.FightMotion.JumpRising
-						elif movable.state == FightKinematicMovableObj.ActionState.JumpFalling:
-							motion = Glob.FightMotion.JumpFalling
+							wu_motion = Glob.FightMotion.JumpFalling
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpUp:
 							return
 						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
 							return
 							
-						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
-						action_mng.regist_actioninfo(action)
+						if change_state(wu_motion):
+							var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,false])
+							action_mng.regist_actioninfo(action)
+						
+		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Run)
+					else:
+						var motion = Glob.FightMotion.Walk
+						wu_motion = Glob.WuMotion.Walk
+						if movable.state == FightKinematicMovableObj.ActionState.JumpRising:
+							motion = Glob.FightMotion.JumpRising
+							wu_motion = Glob.WuMotion.JumpRising
+						elif movable.state == FightKinematicMovableObj.ActionState.JumpFalling:
+							motion = Glob.FightMotion.JumpFalling
+							wu_motion = Glob.WuMotion.JumpFalling
+						elif movable.state == FightKinematicMovableObj.ActionState.JumpUp:
+							return
+						elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
+							return
+						
+						if change_state(wu_motion):
+							var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+							action_mng.regist_actioninfo(action)
 						
 		#				jisu.change_movable_state(input_vector,FightKinematicMovableObj.ActionState.Walk)
 			else:
@@ -299,18 +314,18 @@ func normal_on_move_event(event):
 				var lastMotion =action_mng.last_action(Glob.ActionHandlingType.Movement)
 				if lastMotion:
 					var motion = Glob.FightMotion.Idle
-					if movable.state == FightKinematicMovableObj.ActionState.JumpRising:
-						push_warning("A")
-						motion = Glob.FightMotion.JumpRising
-					elif movable.state == FightKinematicMovableObj.ActionState.JumpFalling:
-						push_warning("B")
-						motion = Glob.FightMotion.JumpFalling
-					elif movable.state == FightKinematicMovableObj.ActionState.JumpUp:
-						push_warning("C")
-						return
-					elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
-						push_warning("D")
-						return
+#					if movable.state == FightKinematicMovableObj.ActionState.JumpRising:
+#						push_warning("A")
+#						motion = Glob.FightMotion.JumpRising
+#					elif movable.state == FightKinematicMovableObj.ActionState.JumpFalling:
+#						push_warning("B")
+#						motion = Glob.FightMotion.JumpFalling
+#					elif movable.state == FightKinematicMovableObj.ActionState.JumpUp:
+#						push_warning("C")
+#						return
+#					elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
+#						push_warning("D")
+#						return
 					#这里是玩家松开移动时候，自动停下的操作
 					if change_state(Glob.WuMotion.Idle):
 						#HERO should do nothing

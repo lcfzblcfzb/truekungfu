@@ -103,7 +103,7 @@ func regist_actioninfo(action:ActionInfo):
 		var nearest_action = action_array.back()
 		if nearest_action and (not action.repeatation_allowed) and action.is_bussiness_equal(nearest_action):
 			return
-	
+	LogTool.info("[ActionHandler] action added success. action:[%s]" % CommonTools.get_enum_key_name(Glob.FightMotion,action.base_action))
 	_resize_action_array()
 	
 	_check_execution_prority_and_add(action)

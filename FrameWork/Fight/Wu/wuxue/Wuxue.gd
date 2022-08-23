@@ -104,6 +104,25 @@ func _create_attack_action(action_list):
 	
 	return _create_group_actions(param_dict)
 
+#由MovableObje 主动触发的action
+func _on_FightKinematicMovableObj_State_Changed(state):
+	
+	match state:
+		FightKinematicMovableObj.ActionState.JumpDown:
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpDown)
+			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpDown, OS.get_ticks_msec(), [fight_cpn.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
+
+			var idle_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
+			var idle_action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [fight_cpn.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, false])
+
+			fight_cpn.actionMng.regist_group_actions([action,idle_action],ActionInfo.EXEMOD_GENEROUS)
+		
+		FightKinematicMovableObj.ActionState.JumpFalling:
+			
+			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpFalling)
+			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpFalling, OS.get_ticks_msec(), [fight_cpn.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_NEWEST, false, true])
+			fight_cpn.actionMng.regist_actioninfo(action)
+
 func _create_group_actions(action_dict:Dictionary):
 	
 	if action_dict==null||action_dict.size()<3:

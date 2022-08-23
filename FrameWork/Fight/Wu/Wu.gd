@@ -156,14 +156,5 @@ func _on_SpriteAnimation_AnimationCallMethod(param):
 
 
 func _on_FightKinematicMovableObj_State_Changed(state):
-	
-	match state:
-		FightKinematicMovableObj.ActionState.JumpDown:
-			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpDown)
-			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpDown, OS.get_ticks_msec(), [fight_component.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
-
-			var idle_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
-			var idle_action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [fight_component.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, false])
-
-			fight_component.actionMng.regist_group_actions([action,idle_action],ActionInfo.EXEMOD_GENEROUS)
-		
+	if wuxue:
+		wuxue._on_FightKinematicMovableObj_State_Changed(state)

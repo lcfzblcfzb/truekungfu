@@ -11,7 +11,7 @@
 
 			"WalkSpeed":110,
 			"RunSpeed":200,
-			"JumpSpeed":250,
+			"JumpSpeed":350,
 			"RollSpeed":200,
 
 			"AttackCiDuration":0.3,
