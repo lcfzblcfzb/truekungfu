@@ -105,6 +105,7 @@ func _physics_process(_delta):
 	if _prv_input!=null and _prv_input ==Vector2.ZERO and _prv_input== input_vector:
 		pass
 	else:
+		
 		var newActionEvent = GlobVar.getPollObject(MoveEvent,[input_vector,is_echo,Input.is_action_just_pressed("jump")])	
 		emit_signal("NewFightMotion",newActionEvent)	
 		_prv_input = input_vector

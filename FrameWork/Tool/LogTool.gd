@@ -26,7 +26,8 @@ func info(msg):
 	write_log(Level.Info,msg)
 
 func debug(msg):
-	write_log(Level.Debug,msg)
+	if OS.is_debug_build():
+		write_log(Level.Debug,msg)
 
 func write_log(level,msg:String):
 	

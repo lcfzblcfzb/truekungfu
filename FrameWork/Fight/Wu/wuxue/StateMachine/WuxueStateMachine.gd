@@ -139,6 +139,7 @@ func normal_on_action_event(wu_motion,is_heavy):
 			fight_cpn.is_prepared = true			
 			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Attack_Pi) as BaseAction
 			fight_cpn.actionMng.regist_action(Glob.FightMotion.Attack_Pi,attribute_mng.get_value(Glob.CharactorAttribute.AttackPiDuration),ActionInfo.EXEMOD_GENEROUS)
+			
 			pass
 		
 		Glob.WuMotion.Rolling:
@@ -196,16 +197,21 @@ func normal_on_action_event(wu_motion,is_heavy):
 				fight_cpn.actionMng.regist_actioninfo(action)
 				
 				return
+#			var base = FightBaseActionDataSource.get_by_id(_a) as BaseAction
+#			fight_cpn.actionMng.regist_action(_a , _duration,ActionInfo.EXEMOD_NEWEST)
+			
 			var base = FightBaseActionDataSource.get_by_id(_a) as BaseAction
-			fight_cpn.actionMng.regist_action(_a , _duration,ActionInfo.EXEMOD_NEWEST)
-		
-		
+			var action_attack = GlobVar.getPollObject(ActionInfo,[_a,OS.get_ticks_msec(),[],base.get_duration(),ActionInfo.EXEMOD_SEQ,false,true])
+			
+			var action_idle = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle,OS.get_ticks_msec(),[],FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle).get_duration(),ActionInfo.EXEMOD_GENEROUS,false,true])
+			fight_cpn.actionMng.regist_group_actions([action_attack,action_idle],ActionInfo.EXEMOD_NEWEST)
+				
 		Glob.WuMotion.Holding:
 			
 			fight_cpn.is_prepared = true
 			fight_cpn.set_paused_unpreparing_timer()
 			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Holding) as BaseAction
-			fight_cpn.actionMng.regist_action(base.id,attribute_mng.get_value(Glob.CharactorAttribute.HoldingDuration),ActionInfo.EXEMOD_GENEROUS)
+			fight_cpn.actionMng.regist_action(base.id,attribute_mng.get_value(Glob.CharactorAttribute.HoldingDuration),ActionInfo.EXEMOD_NEWEST)
 		
 		Glob.WuMotion.Switch:
 			
@@ -355,19 +361,7 @@ func normal_on_move_event(event):
 					elif get_current_status()==Glob.WuMotion.Holding:
 						motion =Glob.FightMotion.Idle
 						wu_motion = Glob.WuMotion.Holding
-						
-#					if movable.state == FightKinematicMovableObj.ActionState.JumpRising:
-#						push_warning("A")
-#						motion = Glob.FightMotion.JumpRising
-#					elif movable.state == FightKinematicMovableObj.ActionState.JumpFalling:
-#						push_warning("B")
-#						motion = Glob.FightMotion.JumpFalling
-#					elif movable.state == FightKinematicMovableObj.ActionState.JumpUp:
-#						push_warning("C")
-#						return
-#					elif movable.state == FightKinematicMovableObj.ActionState.JumpDown:
-#						push_warning("D")
-#						return
+				
 					#这里是玩家松开移动时候，自动停下的操作
 					if change_state(wu_motion):
 						#HERO should do nothing
@@ -384,21 +378,31 @@ func normal_on_move_event(event):
 		var lastMotion =action_mng.last_action(Glob.ActionHandlingType.Movement)
 		#这里是 攻击结束后，已经按下移动中的情况
 		#climb 是因为如果之前是climb ，而这里没有包括，则climb的动作会被walk替换
-		if lastMotion and (lastMotion.base_action != Glob.FightMotion.Run && lastMotion.base_action != Glob.FightMotion.Climb && lastMotion.base_action != Glob.FightMotion.JumpFalling && lastMotion.base_action != Glob.FightMotion.JumpRising):
+		if lastMotion and (lastMotion.base_action != Glob.FightMotion.Run && lastMotion.base_action != Glob.FightMotion.Climb ):
 			
 #			if movable.state == FightKinematicMovableObj.ActionState.JumpUp or movable.state == FightKinematicMovableObj.ActionState.JumpDown or movable.state == FightKinematicMovableObj.ActionState.Attack:
 #				return
+			var motion = Glob.FightMotion.Walk
+			wu_motion = Glob.WuMotion.Walk
 			
-			if change_state(Glob.WuMotion.Walk):	
-				var motion = Glob.FightMotion.Walk
-				var action = GlobVar.getPollObject(ActionInfo,[motion, OS.get_ticks_msec(), [input_vector], -1, ActionInfo.EXEMOD_GENEROUS, false, false])
+			if get_current_status()==Glob.WuMotion.JumpRising:
+				motion =Glob.FightMotion.JumpRising
+				wu_motion = Glob.WuMotion.JumpRising
+				
+			elif get_current_status()==Glob.WuMotion.JumpFalling:
+				motion =Glob.FightMotion.JumpFalling
+				wu_motion = Glob.WuMotion.JumpFalling
+				
+			if change_state(wu_motion):	
+				
+				var action = GlobVar.getPollObject(ActionInfo,[motion, OS.get_ticks_msec(), [input_vector], -1, ActionInfo.EXEMOD_NEWEST, false, true])
 				action_mng.regist_actioninfo(action)
 
 #判定是否是run
 #进行一个run 判定
 #两个间隔时间在 run_action_min_interval  的walk 指令触发成run
 func is_trigger_run(input_vector,fight_cpn)->bool:
-	 
+	
 	var action_mng = fight_cpn.actionMng
 	var action_array =action_mng.get_action_array(Glob.ActionHandlingType.Movement)
 	var index =action_array.size()
@@ -412,6 +416,8 @@ func is_trigger_run(input_vector,fight_cpn)->bool:
 		if  tmp.action_create_time+run_action_min_interval_ms >= OS.get_ticks_msec():
 			if (tmp.base_action ==Glob.FightMotion.Walk ||tmp.base_action ==Glob.FightMotion.Run) && tmp.param[0] == input_vector:
 				return true
+			else:
+				return false
 		else:
 			return false;
 		pass

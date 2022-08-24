@@ -61,6 +61,9 @@ func change_state(state_to,data=null)->bool:
 	if not check_state_can_go(state_to,data):
 		return false
 	
+	if current_state.state == state_to:
+		return true
+	
 	current_state.exit(state_to,data)
 	var prv_state = current_state
 	current_state = states_map[state_to]

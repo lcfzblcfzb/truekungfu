@@ -103,7 +103,7 @@ func regist_actioninfo(action:ActionInfo):
 		var nearest_action = action_array.back()
 		if nearest_action and (not action.repeatation_allowed) and action.is_bussiness_equal(nearest_action):
 			return
-	LogTool.info("[ActionHandler] action added success. action:[%s]" % CommonTools.get_enum_key_name(Glob.FightMotion,action.base_action))
+	LogTool.debug("[ActionHandler] action added success. action:[%s]" % CommonTools.get_enum_key_name(Glob.FightMotion,action.base_action))
 	_resize_action_array()
 	
 	_check_execution_prority_and_add(action)
@@ -219,7 +219,8 @@ func _blind_replace_newest(action,prv_group_id):
 	action_array.append(action)
 	
 	#从后往前 遍历 找到最后一个 该group_id的action 并且设置状态 passed
-	var i = self.current_index-1
+#	var i = self.current_index-1
+	var i = action_array.size()-2
 	while true:
 		var prv_action = action_array[i] as ActionInfo
 		if prv_action ==null:
