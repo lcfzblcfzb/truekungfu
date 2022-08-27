@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/whooshe_1_n.wav-f19605d0c5009eafbe9a29f765d9a593.sample"
+
+[deps]
+
+source_file="res://resource/sound/whooshe_1_n.wav"
+dest_files=[ "res://.import/whooshe_1_n.wav-f19605d0c5009eafbe9a29f765d9a593.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

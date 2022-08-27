@@ -3,7 +3,7 @@ extends Node
 const BaseOutfitConfig = preload("res://resource/config/outfit/BaseOutfitList.tres")
 const BaseGearConfig = preload("res://resource/config/outfit/BaseGearList.tres")
 const BaseWeaponConfig = preload("res://resource/config/outfit/BaseWeaponList.tres")
-
+const SoundResrouceConfigs = preload("res://resource/config/Sound/SoundConfigList.tres")
 #对象池
 var PoolDict ={}
 

@@ -1,5 +1,4 @@
 class_name Glob
-extends Node
 
 const dPi = 2*PI
 const hPi = PI/2
@@ -14,6 +13,7 @@ enum ActionHandlingType{
 	#关于角色 各种动作的分类（除了移动）
 	Action=2,
 }	
+#动作类型
 
 #TODO 动态创建 ObjPool发
 #通过get 方法 检测一遍 如果没找到就NEW 一个
@@ -258,6 +258,7 @@ enum WuMotion{
 	Cancel,
 	PostBlock,
 	Climb,
+	Dodge,
 	
 	Attack_Up,
 	Attack_Mid,
@@ -287,116 +288,55 @@ enum FightMotionType{
 #动画ID名称
 enum FightMotion{
 	
-	Idle =154,
-	Walk=155,
-	Run=156,
-	Holding=157,
-	Idle2Run=158,
-	Run2Idle=159,
-	Stunned =160,
-	JumpUp =161,
-	JumpDown =162,
-	Climb = 163,
-	Hanging = 164,
-	HangingClimb = 165,
-	Attack_Ci = 166,
-	Defend = 167,
-	Prepared = 168,
-	Unprepared = 169,
-	PreAttack = 170,
-	Rolling = 171,
-	Blocking = 172,
-	Attack_Pi = 173,
-	Dodge = 174,
-	Attack_Sao=175,
-	Canceled  = 176,
-	Pre_Block = 177,
-	Post_Block= 178,
+	Idle =100,#0
+	Walk=101,
+	Run=102,
+	Idle2Run=103,
+	Run2Idle=104,#4
 	
-	JumpRising = 179,
-	JumpFalling = 180,
+	JumpUp =110,#5
+	JumpRising = 111,
+	JumpFalling = 112,
+	JumpDown =113,#8
 	
-	Attack_Up_Pre=100,
-	Attack_Up_In=101,
-	Attack_Up_After=102,
-	Attack_Mid_Pre=103,
-	Attack_Mid_In=104,
-	Attack_Mid_After=105,
-	Attack_Bot_Pre=106,
-	Attack_Bot_In=107,
-	Attack_Bot_After=108,
+	Climb = 120,#9
 	
-	HeavyAttack_U_Pre=109,
-	HeavyAttack_U_In=110,
-	HeavyAttack_U_After=111,
-	HeavyAttack_M_Pre=112,
-	HeavyAttack_M_In=113,
-	HeavyAttack_M_After=114,
-	HeavyAttack_B_Pre=115,
-	HeavyAttack_B_In=116,
-	HeavyAttack_B_After=117,
+	Hanging = 130,#10
+	HangingClimb = 131,#11
 	
-	HeavyAttack_U2M_Pre=118,
-	HeavyAttack_U2M_In=119,
-	HeavyAttack_U2M_After=120,
-	HeavyAttack_U2B_Pre=121,
-	HeavyAttack_U2B_In=122,
-	HeavyAttack_U2B_After=123,
+	Canceled  = 200,#12
+	Attack_Ci = 210,
+	Attack_Sao=211,
+	Attack_Pi = 212,
+	Holding=213,
+	Stunned =214,#17
+		
+	Pre_Block = 220,#18
+	Blocking = 221,
+	Post_Block= 222,
+	Dodge = 223,#21
 	
-	HeavyAttack_M2B_Pre=124,
-	HeavyAttack_M2B_In=125,
-	HeavyAttack_M2B_After=126,
-	HeavyAttack_M2U_Pre=127,
-	HeavyAttack_M2U_In=128,
-	HeavyAttack_M2U_After=129,
+	Rolling = 230,#22
+		
+	Prepared = 240,#23
+	Unprepared = 241,#24
+}
+
+#音效的id
+enum SoundEffectEnums{
+	No_Sound =0
+	Attack_Ci_00 = 100
+	Attack_Ci_01 = 101
+	Attack_Ci_02 = 102
 	
-	HeavyAttack_B2M_Pre=130,
-	HeavyAttack_B2M_In=131,
-	HeavyAttack_B2M_After=132,
-	HeavyAttack_B2U_Pre=133,
-	HeavyAttack_B2U_In=134,
-	HeavyAttack_B2U_After=135,
+	Walk_00 = 200
+	Walk_01 = 201
+	Walk_02 = 202
 	
-	Def_Up_Pre=136,
-	Def_Up_In=137,
-	Def_Up_After=138,
-	Def_Mid_Pre=139,
-	Def_Mid_In=140,
-	Def_Mid_After=141,
-	Def_Bot_Pre=142,
-	Def_Bot_In=143,
-	Def_Bot_After=144,
-	
-	HeavyDef_U_Pre=145,
-	HeavyDef_U_In=146,
-	HeavyDef_U_After=147,
-	
-#	HeavyDef_U2M_Pre=148,
-#	HeavyDef_U2M_In=149,
-#	HeavyDef_U2M_After=150,
-#	HeavyDef_U2B_Pre=151,
-#	HeavyDef_U2B_In=152,
-#	HeavyDef_U2B_After=153,
-	
-	HeavyDef_M_Pre=148,
-	HeavyDef_M_In=149,
-	HeavyDef_M_After=150,
-#	HeavyDef_M2U_Pre=157,
-#	HeavyDef_M2U_In=158,
-#	HeavyDef_M2U_After=159,
-#	HeavyDef_M2B_Pre=160,
-#	HeavyDef_M2B_In=100,
-#	HeavyDef_M2B_After=100,
-	
-	HeavyDef_B_Pre=151,
-	HeavyDef_B_In=152,
-	HeavyDef_B_After=153,
-#	HeavyDef_B2M_Pre=100,
-#	HeavyDef_B2M_In=100,
-#	HeavyDef_B2M_After=100,
-#	HeavyDef_B2U_Pre=100,
-#	HeavyDef_B2U_In=100,
-#	HeavyDef_B2U_After=100
+	Jump_Up_00 = 300
+	Jump_Up_01 = 301
+	Jump_Up_02 = 302
+	Jump_Down = 303
 }
 
 class RandomTool:

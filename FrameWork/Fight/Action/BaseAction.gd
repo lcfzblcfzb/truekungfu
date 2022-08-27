@@ -1,5 +1,3 @@
-class_name BaseAction
-
 extends IntEntity
 
 #用以区分处理时候的分类-》同一类型的action 按顺序执行，不同类型的action 是同步执行

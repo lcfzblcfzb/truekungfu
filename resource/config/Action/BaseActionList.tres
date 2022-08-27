@@ -1,0 +1,283 @@
+[gd_resource type="Resource" load_steps=28 format=2]
+
+[ext_resource path="res://resource/config/Action/BaseAction.gd" type="Script" id=1]
+[ext_resource path="res://resource/config/Action/BaseActionList.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 1 )
+id = 100
+name = "Idle"
+duration = -1.0
+handle_type = 1
+type = [ 0 ]
+wu_motion = 0
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 1 )
+id = 101
+name = "Walk"
+duration = -1.0
+handle_type = 1
+type = [ 0 ]
+wu_motion = 1
+sound_effect_key = 0.0
+sound_effects = [ 200, 201, 202 ]
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 1 )
+id = 102
+name = "Run"
+duration = -1.0
+handle_type = 1
+type = [ 0 ]
+wu_motion = 2
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 1 )
+id = 103
+name = "Idle2Run"
+duration = 0.1
+handle_type = 1
+type = [ 0 ]
+wu_motion = 2
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 1 )
+id = 104
+name = "Run2Idle"
+duration = 0.1
+handle_type = 1
+type = [ 0 ]
+wu_motion = 2
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 1 )
+id = 110
+name = "JumpUp"
+duration = 0.1
+handle_type = 1
+type = [ 0 ]
+wu_motion = 5
+sound_effect_key = 0.0
+sound_effects = [ 300, 301, 302 ]
+
+[sub_resource type="Resource" id=7]
+script = ExtResource( 1 )
+id = 111
+name = "JumpRising"
+duration = -1.0
+handle_type = 1
+type = [ 0 ]
+wu_motion = 8
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=8]
+script = ExtResource( 1 )
+id = 112
+name = "JumpFalling"
+duration = -1.0
+handle_type = 1
+type = [ 0 ]
+wu_motion = 7
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=9]
+script = ExtResource( 1 )
+id = 113
+name = "JumpDown"
+duration = 0.2
+handle_type = 1
+type = [ 0 ]
+wu_motion = 6
+sound_effect_key = 0.0
+sound_effects = [ 303 ]
+
+[sub_resource type="Resource" id=10]
+script = ExtResource( 1 )
+id = 120
+name = "Climb"
+duration = 0.0
+handle_type = 1
+type = [ 0 ]
+wu_motion = 21
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=11]
+script = ExtResource( 1 )
+id = 130
+name = "Hanging"
+duration = -1.0
+handle_type = 1
+type = [ 0 ]
+wu_motion = 9
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=12]
+script = ExtResource( 1 )
+id = 131
+name = "HangingClimb"
+duration = 0.5
+handle_type = 1
+type = [ 0 ]
+wu_motion = 10
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=13]
+script = ExtResource( 1 )
+id = 200
+name = "Canceled"
+duration = -1.0
+handle_type = 2
+type = [ 2 ]
+wu_motion = 19
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=14]
+script = ExtResource( 1 )
+id = 210
+name = "Attack_Ci"
+duration = 0.3
+handle_type = 2
+type = [ 2, 3 ]
+wu_motion = 11
+sound_effect_key = 0.5
+sound_effects = [ 100, 101, 102 ]
+
+[sub_resource type="Resource" id=15]
+script = ExtResource( 1 )
+id = 211
+name = "Attack_Sao"
+duration = 0.6
+handle_type = 2
+type = [ 2, 3 ]
+wu_motion = 11
+sound_effect_key = 0.5
+sound_effects = [ 100 ]
+
+[sub_resource type="Resource" id=16]
+script = ExtResource( 1 )
+id = 212
+name = "Attack_Pi"
+duration = 0.8
+handle_type = 2
+type = [ 2, 3 ]
+wu_motion = 12
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=17]
+script = ExtResource( 1 )
+id = 213
+name = "Holding"
+duration = -1.0
+handle_type = 2
+type = [ 2 ]
+wu_motion = 3
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=18]
+script = ExtResource( 1 )
+id = 214
+name = "Stunned"
+duration = 1.0
+handle_type = 2
+type = [ 2 ]
+wu_motion = 4
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=19]
+script = ExtResource( 1 )
+id = 220
+name = "Pre_Block"
+duration = 1.0
+handle_type = 2
+type = [ 2, 4 ]
+wu_motion = 13
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=20]
+script = ExtResource( 1 )
+id = 221
+name = "Blocking"
+duration = -1.0
+handle_type = 2
+type = [ 2, 4 ]
+wu_motion = 13
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=21]
+script = ExtResource( 1 )
+id = 222
+name = "Post_Block"
+duration = 1.0
+handle_type = 2
+type = [ 2, 4 ]
+wu_motion = 20
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=22]
+script = ExtResource( 1 )
+id = 223
+name = "Dodge"
+duration = 1.0
+handle_type = 2
+type = [ 2, 4 ]
+wu_motion = 14
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 1 )
+id = 230
+name = "Rolling"
+duration = 1.0
+handle_type = 2
+type = [ 2 ]
+wu_motion = 18
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 1 )
+id = 240
+name = "Prepared"
+duration = 1.0
+handle_type = 2
+type = [ 2 ]
+wu_motion = 15
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 1 )
+id = 241
+name = "Unprepared"
+duration = 1.0
+handle_type = 2
+type = [ 2 ]
+wu_motion = 16
+sound_effect_key = 0.0
+sound_effects = [  ]
+
+[resource]
+script = ExtResource( 2 )
+data_list = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ]

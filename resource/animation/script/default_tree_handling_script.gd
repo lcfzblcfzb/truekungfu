@@ -45,9 +45,7 @@ func set_time_scale(time_scale = 1):
 #动作动作
 func act(action:ActionInfo):
 	var base_action = action.get_base_action()
-	var animation = base_action.get("animation_name")
-	print("【action】: ",animation)
-	if animation!=null:
+	if base_action!=null:
 		
 		travelTo(action)
 		
@@ -77,6 +75,8 @@ func travelTo(action:ActionInfo):
 			set("parameters/action_tree/action_tran/current",2)
 		
 		Glob.FightMotion.Idle:
+			
+			set("parameters/action_shot/active",false)
 			set(TRANSITION_PREPARED,MOVE)
 			set(TRANSITION_UNPREPARED,MOVE)
 			set(MOVE_BP,Vector2.ZERO)
@@ -159,7 +159,7 @@ func travelTo(action:ActionInfo):
 			set("parameters/action_tree/action_tran/current",1)	
 		Glob.FightMotion.Canceled:
 			
-			set("parameters/action_shot/active",true)
+			set("parameters/action_shot/active",false)
 			
 			set("parameters/action_tree/action_tran/current",4)
 #			set("parameters/action_tran/current",1)

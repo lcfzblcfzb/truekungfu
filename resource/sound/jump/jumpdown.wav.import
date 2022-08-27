@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/jumpdown.wav-155b77a60b5249e226a591bc8053800d.sample"
+
+[deps]
+
+source_file="res://resource/sound/jump/jumpdown.wav"
+dest_files=[ "res://.import/jumpdown.wav-155b77a60b5249e226a591bc8053800d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

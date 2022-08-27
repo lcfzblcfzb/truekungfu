@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/BodyHitsImpacts-Punches-C_4.wav-c955b0e6d16edd758f5c55dff1654b12.sample"
+
+[deps]
+
+source_file="res://resource/sound/BodyHitsImpacts-Punches-C_4.wav"
+dest_files=[ "res://.import/BodyHitsImpacts-Punches-C_4.wav-c955b0e6d16edd758f5c55dff1654b12.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

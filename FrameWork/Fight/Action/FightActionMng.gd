@@ -2,9 +2,9 @@ class_name FightActionMng
 
 extends Node
 
-signal ActionStart
-signal ActionProcess
-signal ActionFinish
+signal ActionStart(action)
+signal ActionProcess(action)
+signal ActionFinish(action)
 
 var _action_handler_dict ={}
 

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resource/config/Action/BaseAction.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+id = 0
+name = ""
+duration = 0.0
+handle_type = 0
+type = [  ]
+wu_motion = 0
+sound_effect_key = 0.0
+sound_effects = [  ]

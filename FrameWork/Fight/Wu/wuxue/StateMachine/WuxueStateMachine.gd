@@ -192,9 +192,11 @@ func normal_on_action_event(wu_motion,is_heavy):
 				_cost_stamina =fight_cpn.attribute_mng.get_value(Glob.CharactorAttribute.AttackCiStamina)
 			
 			if not fight_cpn.cost_stamina(_cost_stamina):
-				#耐力不足的时候 返回IDLE
-				var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Canceled,OS.get_ticks_msec(),[],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
-				fight_cpn.actionMng.regist_actioninfo(action)
+				
+				if change_state(Glob.WuMotion.Cancel):
+					#耐力不足的时候 返回IDLE
+					var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Canceled,OS.get_ticks_msec(),[],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+					fight_cpn.actionMng.regist_actioninfo(action)
 				
 				return
 #			var base = FightBaseActionDataSource.get_by_id(_a) as BaseAction

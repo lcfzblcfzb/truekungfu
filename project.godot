@@ -129,10 +129,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/behavior_tree/src/btnodes/leaves/bt_wait.gd"
 }, {
-"base": "IntEntity",
+"base": "Resource",
 "class": "BaseAction",
 "language": "GDScript",
-"path": "res://FrameWork/Fight/Action/BaseAction.gd"
+"path": "res://resource/config/Action/BaseAction.gd"
 }, {
 "base": "Reference",
 "class": "BaseCharactor",
@@ -304,7 +304,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://FrameWork/Gear/Gear.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "Glob",
 "language": "GDScript",
 "path": "res://Glob.gd"
@@ -577,7 +577,9 @@ LogTool="*res://FrameWork/Tool/LogTool.gd"
 
 [display]
 
-window/stretch/mode="2d"
+window/size/width=512
+window/size/height=300
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [editor_plugins]

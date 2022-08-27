@@ -1,0 +1,76 @@
+[gd_resource type="Resource" load_steps=22 format=2]
+
+[ext_resource path="res://resource/config/Sound/SoundConfigList.gd" type="Script" id=1]
+[ext_resource path="res://resource/sound/whooshe_1.wav" type="AudioStream" id=2]
+[ext_resource path="res://resource/config/Sound/SoundConfig.gd" type="Script" id=3]
+[ext_resource path="res://resource/sound/whooshe_2.wav" type="AudioStream" id=4]
+[ext_resource path="res://resource/sound/whooshe_3.wav" type="AudioStream" id=5]
+[ext_resource path="res://resource/sound/footstep/footstep_01.wav" type="AudioStream" id=6]
+[ext_resource path="res://resource/sound/footstep/footstep_02.wav" type="AudioStream" id=7]
+[ext_resource path="res://resource/sound/footstep/footstep_03.wav" type="AudioStream" id=8]
+[ext_resource path="res://resource/sound/jump/jumpdown.wav" type="AudioStream" id=9]
+[ext_resource path="res://resource/sound/jump/jumpup_01.wav" type="AudioStream" id=10]
+[ext_resource path="res://resource/sound/jump/jumpup_02.wav" type="AudioStream" id=11]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 3 )
+id = 100
+sound_res = ExtResource( 2 )
+key_frame_time = 0.22
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 3 )
+id = 101
+sound_res = ExtResource( 4 )
+key_frame_time = 0.22
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 3 )
+id = 102
+sound_res = ExtResource( 5 )
+key_frame_time = 0.28
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 3 )
+id = 200
+sound_res = ExtResource( 6 )
+key_frame_time = 0.0
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 3 )
+id = 201
+sound_res = ExtResource( 7 )
+key_frame_time = 0.0
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 3 )
+id = 202
+sound_res = ExtResource( 8 )
+key_frame_time = 0.0
+
+[sub_resource type="Resource" id=7]
+script = ExtResource( 3 )
+id = 300
+sound_res = ExtResource( 10 )
+key_frame_time = 0.0
+
+[sub_resource type="Resource" id=8]
+script = ExtResource( 3 )
+id = 301
+sound_res = ExtResource( 11 )
+key_frame_time = 0.0
+
+[sub_resource type="Resource" id=9]
+script = ExtResource( 3 )
+id = 302
+key_frame_time = 0.0
+
+[sub_resource type="Resource" id=10]
+script = ExtResource( 3 )
+id = 303
+sound_res = ExtResource( 9 )
+key_frame_time = 0.0
+
+[resource]
+script = ExtResource( 1 )
+data_list = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ]

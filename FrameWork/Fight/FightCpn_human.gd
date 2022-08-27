@@ -127,7 +127,7 @@ func _ready():
 		fight_controller.connect("NewFightMotion",$Wu,"_on_FightController_NewFightMotion")
 		
 		var camera = Camera2D.new()
-		camera.zoom=Vector2(0.5,0.5)
+#		camera.zoom=Vector2(0.5,0.5)
 		add_child(camera)
 		camera.position = Vector2(0,-75)
 		camera.current = true
