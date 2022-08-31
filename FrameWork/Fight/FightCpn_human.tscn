@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://FrameWork/Fight/CornerDetect.gd" type="Script" id=1]
 [ext_resource path="res://FrameWork/UI/Energy.tscn" type="PackedScene" id=2]
@@ -8,8 +8,7 @@
 [ext_resource path="res://FrameWork/UI/fight/FightActionDisplay.tscn" type="PackedScene" id=6]
 [ext_resource path="res://FrameWork/moving_obj/FightKinematicMovableObj.tscn" type="PackedScene" id=7]
 [ext_resource path="res://FrameWork/Fight/SwordDemoAnimation.tscn" type="PackedScene" id=8]
-[ext_resource path="res://resource/sound/footstep/footstep_01.wav" type="AudioStream" id=9]
-[ext_resource path="res://FrameWork/Fight/AudioStreamPlayer2D.gd" type="Script" id=10]
+[ext_resource path="res://FrameWork/Fight/SoundMng.gd" type="Script" id=11]
 [ext_resource path="res://FrameWork/Fight/Wu/Wu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://FrameWork/Verlex/scarf.tscn" type="PackedScene" id=15]
 
@@ -524,11 +523,8 @@ position = Vector2( -15, -70 )
 margin_top = -60.0
 margin_bottom = -50.0
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 9 )
-pitch_scale = 1.12
-bus = "Effect"
-script = ExtResource( 10 )
+[node name="SoundMng" type="Node2D" parent="."]
+script = ExtResource( 11 )
 
 [connection signal="Active_State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_Active_State_Changed"]
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="SpriteAnimation" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
@@ -547,8 +543,7 @@ script = ExtResource( 10 )
 [connection signal="ActionStart" from="FightActionMng" to="FightKinematicMovableObj" method="_on_FightActionMng_ActionStart"]
 [connection signal="ActionStart" from="FightActionMng" to="Wu" method="_on_FightActionMng_ActionStart"]
 [connection signal="ActionStart" from="FightActionMng" to="UI_ActionInfoDisplay" method="_on_FightActionMng_ActionStart"]
-[connection signal="ActionStart" from="FightActionMng" to="AudioStreamPlayer2D" method="_on_FightActionMng_ActionStart"]
-[connection signal="finished" from="AudioStreamPlayer2D" to="AudioStreamPlayer2D" method="_on_AudioStreamPlayer2D_finished"]
+[connection signal="ActionStart" from="FightActionMng" to="SoundMng" method="_on_FightActionMng_ActionStart"]
 
 [editable path="SpriteAnimation"]
 [editable path="SpriteAnimation/StandarAnimatedCharactor"]

@@ -13,6 +13,7 @@ type = [ 0 ]
 wu_motion = 0
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=2]
 script = ExtResource( 1 )
@@ -24,6 +25,7 @@ type = [ 0 ]
 wu_motion = 1
 sound_effect_key = 0.0
 sound_effects = [ 200, 201, 202 ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 1 )
@@ -35,6 +37,7 @@ type = [ 0 ]
 wu_motion = 2
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=4]
 script = ExtResource( 1 )
@@ -46,6 +49,7 @@ type = [ 0 ]
 wu_motion = 2
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=5]
 script = ExtResource( 1 )
@@ -57,6 +61,7 @@ type = [ 0 ]
 wu_motion = 2
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=6]
 script = ExtResource( 1 )
@@ -68,6 +73,7 @@ type = [ 0 ]
 wu_motion = 5
 sound_effect_key = 0.0
 sound_effects = [ 300, 301, 302 ]
+sound_channel = 20
 
 [sub_resource type="Resource" id=7]
 script = ExtResource( 1 )
@@ -79,6 +85,7 @@ type = [ 0 ]
 wu_motion = 8
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=8]
 script = ExtResource( 1 )
@@ -90,6 +97,7 @@ type = [ 0 ]
 wu_motion = 7
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=9]
 script = ExtResource( 1 )
@@ -101,6 +109,7 @@ type = [ 0 ]
 wu_motion = 6
 sound_effect_key = 0.0
 sound_effects = [ 303 ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=10]
 script = ExtResource( 1 )
@@ -112,6 +121,7 @@ type = [ 0 ]
 wu_motion = 21
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=11]
 script = ExtResource( 1 )
@@ -123,6 +133,7 @@ type = [ 0 ]
 wu_motion = 9
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=12]
 script = ExtResource( 1 )
@@ -134,6 +145,7 @@ type = [ 0 ]
 wu_motion = 10
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=13]
 script = ExtResource( 1 )
@@ -145,6 +157,7 @@ type = [ 2 ]
 wu_motion = 19
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=14]
 script = ExtResource( 1 )
@@ -156,6 +169,7 @@ type = [ 2, 3 ]
 wu_motion = 11
 sound_effect_key = 0.5
 sound_effects = [ 100, 101, 102 ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=15]
 script = ExtResource( 1 )
@@ -167,6 +181,7 @@ type = [ 2, 3 ]
 wu_motion = 11
 sound_effect_key = 0.5
 sound_effects = [ 100 ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=16]
 script = ExtResource( 1 )
@@ -178,6 +193,7 @@ type = [ 2, 3 ]
 wu_motion = 12
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=17]
 script = ExtResource( 1 )
@@ -189,6 +205,7 @@ type = [ 2 ]
 wu_motion = 3
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=18]
 script = ExtResource( 1 )
@@ -200,6 +217,7 @@ type = [ 2 ]
 wu_motion = 4
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=19]
 script = ExtResource( 1 )
@@ -211,6 +229,7 @@ type = [ 2, 4 ]
 wu_motion = 13
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=20]
 script = ExtResource( 1 )
@@ -222,6 +241,7 @@ type = [ 2, 4 ]
 wu_motion = 13
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=21]
 script = ExtResource( 1 )
@@ -233,6 +253,7 @@ type = [ 2, 4 ]
 wu_motion = 20
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=22]
 script = ExtResource( 1 )
@@ -244,6 +265,7 @@ type = [ 2, 4 ]
 wu_motion = 14
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=24]
 script = ExtResource( 1 )
@@ -255,6 +277,7 @@ type = [ 2 ]
 wu_motion = 18
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=25]
 script = ExtResource( 1 )
@@ -266,6 +289,7 @@ type = [ 2 ]
 wu_motion = 15
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [sub_resource type="Resource" id=26]
 script = ExtResource( 1 )
@@ -277,6 +301,7 @@ type = [ 2 ]
 wu_motion = 16
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10
 
 [resource]
 script = ExtResource( 2 )

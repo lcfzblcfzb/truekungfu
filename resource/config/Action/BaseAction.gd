@@ -15,6 +15,8 @@ export(Glob.WuMotion) var wu_motion
 export(float) var sound_effect_key =0.0
 #动作音效列表
 export(Array,Glob.SoundEffectEnums) var sound_effects 
+#频道
+export(Glob.SoundEffectChannel) var sound_channel = Glob.SoundEffectChannel.Action
 
 func get_duration(unit=O.TimeUnit.MS):
 	#若小于0  不需要计算单位
@@ -27,5 +29,3 @@ func get_duration(unit=O.TimeUnit.MS):
 		#TODO 有新单位需求添加其他单位
 	#默认处理
 	return duration
-	
-	pass

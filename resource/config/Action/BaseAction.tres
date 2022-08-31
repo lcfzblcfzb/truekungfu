@@ -12,3 +12,4 @@ type = [  ]
 wu_motion = 0
 sound_effect_key = 0.0
 sound_effects = [  ]
+sound_channel = 10

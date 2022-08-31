@@ -339,6 +339,14 @@ enum SoundEffectEnums{
 	Jump_Down = 303
 }
 
+#音效的频道（同一频道的音效一个SoundMng只会同时播放一个）
+enum SoundEffectChannel{
+	
+	Action=10,
+	JumpUp=20,
+	JumpDown=21,
+}
+
 class RandomTool:
 	
 	static func get_random(list:Array):
