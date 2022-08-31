@@ -4,6 +4,8 @@ const BaseOutfitConfig = preload("res://resource/config/outfit/BaseOutfitList.tr
 const BaseGearConfig = preload("res://resource/config/outfit/BaseGearList.tres")
 const BaseWeaponConfig = preload("res://resource/config/outfit/BaseWeaponList.tres")
 const SoundResrouceConfigs = preload("res://resource/config/Sound/SoundConfigList.tres")
+const BaseWuxueConfig = preload("res://resource/config/Wuxue/BaseWuxueConfigs.tres")
+
 #对象池
 var PoolDict ={}
 

@@ -188,7 +188,7 @@ func learn_wuxue(_wuxue_list:Array):
 func get_learned_wuxue_by_weapon_type(type):
 	var result =[]
 	for _wuxue in _learned_wuxue:
-		var _base_wuxue = BaseWuxueDmg.get_by_id(_wuxue) as BaseWuxue
+		var _base_wuxue = GlobVar.BaseWuxueConfig.get_by_id(_wuxue) 
 		if _base_wuxue and _base_wuxue.weapon_type.has(type):
 			result.append(_base_wuxue)
 	
@@ -479,9 +479,6 @@ func _on_FightKinematicMovableObj_FaceDirectionChanged(v:Vector2):
 			if collision_mask != 0b0000_0000_0000_0000_0000_0000_1111_0000 :
 	#			set_deferred("collisaion_mask", 0b0000_0000_0000_0000_0000_0000_1001_0000)
 				collision_mask = 0b0000_0000_0000_0000_0000_0000_1111_0000
-		pass
-		
-
 
 func _on_FightKinematicMovableObj_Active_State_Changed(base_action):
 	var base = FightBaseActionDataSource.get_by_id(base_action) as BaseAction

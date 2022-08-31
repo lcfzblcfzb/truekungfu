@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://resource/config/Wuxue/BaseWuxueConfigs.gd" type="Script" id=1]
+[ext_resource path="res://resource/config/Wuxue/BaseWuxue.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+id = 0
+name = "sanjiaomao"
+weapon_type = [ 0 ]
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+id = 0
+name = "taijijian"
+weapon_type = [ 2 ]
+
+[resource]
+script = ExtResource( 1 )
+datas = [ SubResource( 1 ), SubResource( 2 ) ]

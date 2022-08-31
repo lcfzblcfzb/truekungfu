@@ -1,6 +1,8 @@
 class_name BasePlatformerRole
 extends BaseRole
 
+signal ClimbStateChanged(s)
+
 #是否处于可攀爬场景楼梯的范围内。是改变运动状态为攀爬的必要条件
 var is_climbing =false setget set_climbing;
 #是否处于平台之上
@@ -9,7 +11,13 @@ var is_on_platform = false setget set_on_platform
 var on_floor = false setget set_on_floor
 
 func set_climbing(b):
+	
+	var prv=is_climbing
+	
 	is_climbing = b
+	
+	if prv!=b:
+		emit_signal("ClimbStateChanged",b)
 
 func set_on_platform(b):
 	is_on_platform = b

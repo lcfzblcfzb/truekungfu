@@ -526,7 +526,7 @@ margin_bottom = -50.0
 [node name="SoundMng" type="Node2D" parent="."]
 script = ExtResource( 11 )
 
-[connection signal="Active_State_Changed" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_Active_State_Changed"]
+[connection signal="ClimbStateChanged" from="." to="Wu" method="_on_FIghtComponnet_Human_ClimbStateChanged"]
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="SpriteAnimation" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
 [connection signal="Charactor_Face_Direction_Changed" from="FightKinematicMovableObj" to="CornerDetect" method="_on_FightKinematicMovableObj_Charactor_Face_Direction_Changed"]
 [connection signal="CollisionObjChanged" from="FightKinematicMovableObj" to="." method="_on_FightKinematicMovableObj_CollisionObjChanged"]

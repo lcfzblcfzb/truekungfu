@@ -363,14 +363,16 @@ func normal_on_move_event(event):
 					elif get_current_status()==Glob.WuMotion.Holding:
 						motion =Glob.FightMotion.Idle
 						wu_motion = Glob.WuMotion.Holding
+					elif get_current_status()==Glob.WuMotion.Climb:
+						motion =Glob.FightMotion.Climb
+						wu_motion = Glob.WuMotion.Climb
 				
 					#这里是玩家松开移动时候，自动停下的操作
 					if change_state(wu_motion):
 						#HERO should do nothing
 						var action = GlobVar.getPollObject(ActionInfo,[motion,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
 						action_mng.regist_actioninfo(action)
-						if motion == Glob.FightMotion.Idle:
-							push_warning("regist idle")
+
 				else:
 					if change_state(Glob.WuMotion.Idle):
 						var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle,OS.get_ticks_msec(),[input_vector],-1,ActionInfo.EXEMOD_GENEROUS,true,true])

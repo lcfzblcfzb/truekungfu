@@ -156,3 +156,8 @@ func _on_SpriteAnimation_AnimationCallMethod(param):
 func _on_FightKinematicMovableObj_State_Changed(state):
 	if wuxue:
 		wuxue._on_FightKinematicMovableObj_State_Changed(state)
+
+
+func _on_FIghtComponnet_Human_ClimbStateChanged(s):
+	if wuxue:
+		wuxue._on_Climb_State_Changed(s)

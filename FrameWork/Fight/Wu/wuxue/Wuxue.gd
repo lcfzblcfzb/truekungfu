@@ -111,7 +111,7 @@ func _physics_process(delta):
 	#			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
 	#				change_movable_state(Vector2.ZERO , ActionState.Hanging)
 				
-			elif not wuxue_state_machine.get_current_status() in [Glob.WuMotion.Hanging,Glob.WuMotion.HangingClimb] :
+			elif not wuxue_state_machine.get_current_status() in [Glob.WuMotion.Hanging,Glob.WuMotion.HangingClimb,Glob.WuMotion.Hanging,Glob.WuMotion.Climb] :
 				
 				if wuxue_state_machine.change_state(Glob.WuMotion.JumpFalling):
 					#最基础的判定下落的地方
@@ -159,6 +159,16 @@ func _create_attack_action(action_list):
 	
 	return _create_group_actions(param_dict)
 
+func _on_Climb_State_Changed(s):
+	
+	if not s and wuxue_state_machine.get_current_status()==Glob.WuMotion.Climb:
+		
+		if wuxue_state_machine.change_state(Glob.WuMotion.Idle):
+			#HERO should do nothing
+			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle,OS.get_ticks_msec(),[],-1,ActionInfo.EXEMOD_GENEROUS,true,true])
+			fight_cpn.actionMng.regist_actioninfo(action)
+	
+	
 #由MovableObje 主动触发的action
 func _on_FightKinematicMovableObj_State_Changed(state):
 	pass

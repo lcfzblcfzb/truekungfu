@@ -3,7 +3,6 @@ extends KinematicPlatformMovableObj
 
 signal State_Changed(state)
 signal Charactor_Face_Direction_Changed
-signal Active_State_Changed
 
 enum ActionState{
 	
@@ -180,46 +179,6 @@ func changeState(s):
 func _get_attribute_mng()->AttribugeMng:
 	return body.attribute_mng
 
-#func _physics_process(delta):
-	#检测跳跃状态
-#	if self.state==ActionState.JumpFalling and body.is_on_genelized_floor():
-#
-#		self.state = ActionState.JumpDown
-##		var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpDown)
-##		var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpDown, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
-##
-##		var idle_base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.Idle)
-##		var idle_action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.Idle, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_GENEROUS, false, false])
-##
-##		body.actionMng.regist_group_actions([action,idle_action],ActionInfo.EXEMOD_GENEROUS)
-##		emit_signal("Active_State_Changed",Glob.FightMotion.JumpDown)
-#
-#	#若在空中的情况	
-#	if not body.is_on_genelized_floor() :
-#		if self.state==ActionState.JumpRising :
-#			if velocity.y ==0:
-#				#升至跳跃max,设置faceDirection 向下
-#				self.state = ActionState.JumpFalling
-##				var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpFalling)
-##				var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpFalling, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
-##				body.actionMng.regist_actioninfo(action)
-##				emit_signal("Active_State_Changed",Glob.FightMotion.JumpFalling)
-##				self.state = ActionState.JumpDown
-##			elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
-##				change_movable_state(Vector2.ZERO , ActionState.Hanging)
-#
-#		elif self.state!=ActionState.Climb and self.state !=ActionState.Hanging and self.state != ActionState.HangingClimb and self.state != ActionState.JumpUp and self.state != ActionState.JumpRising:
-#			#最基础的判定下落的地方
-#			self.state = ActionState.JumpFalling
-##			var base = FightBaseActionDataSource.get_by_id(Glob.FightMotion.JumpFalling)
-##			var action = GlobVar.getPollObject(ActionInfo,[Glob.FightMotion.JumpFalling, OS.get_ticks_msec(), [body.fight_controller.get_moving_vector()], base.get_duration(), ActionInfo.EXEMOD_SEQ, false, true])
-##			body.actionMng.regist_actioninfo(action)
-##			emit_signal("Active_State_Changed",Glob.FightMotion.JumpFalling)
-##			self.state = ActionState.JumpDown
-#
-##		elif (state != ActionState.HangingClimb and state != ActionState.Hanging )and body.is_at_hanging_corner() : #优先设置成hanging
-##			change_movable_state(Vector2.ZERO , ActionState.Hanging)
-		
 #改变 movableobjstate
 func change_movable_state(input_vector,s):
 	self.charactor_face_direction = input_vector
@@ -319,7 +278,6 @@ func _process_action(action:ActionInfo):
 #		return
 	
 	var input_vector = Vector2.ZERO
-	
 	if action.param!=null && action.param.size()>0 && action.param[0] is Vector2:
 		input_vector = action.param[0]
 	
@@ -349,9 +307,9 @@ func _process_action(action:ActionInfo):
 #	elif (state ==ActionState.JumpDown ) and (action.base_action==Glob.FightMotion.Walk or action.base_action==Glob.FightMotion.Run):
 #		change_movable_state(Vector2(input_vector.x,1) , state)
 #		return
-	if state ==ActionState.Climb and (action.base_action==Glob.FightMotion.Idle or action.base_action==Glob.FightMotion.Walk or action.base_action==Glob.FightMotion.Run):
-		change_movable_state(input_vector,ActionState.Climb)
-		return
+#	if state ==ActionState.Climb and (action.base_action==Glob.FightMotion.Idle or action.base_action==Glob.FightMotion.Walk or action.base_action==Glob.FightMotion.Run):
+#		change_movable_state(input_vector,ActionState.Climb)
+#		return
 
 	match(action.base_action): 
 		Glob.FightMotion.Idle:

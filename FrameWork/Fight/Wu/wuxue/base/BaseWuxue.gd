@@ -1,4 +1,3 @@
-class_name BaseWuxue
 
 var id:int
 var name:String
