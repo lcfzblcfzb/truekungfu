@@ -1,0 +1,144 @@
+{ "frames": {
+   "left_hand": {
+    "frame": { "x": 25, "y": 36, "w": 4, "h": 4 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 37, "y": 34, "w": 2, "h": 2 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "left_fore_arm": {
+    "frame": { "x": 18, "y": 23, "w": 5, "h": 12 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 36, "y": 24, "w": 3, "h": 10 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "left_upper_arm": {
+    "frame": { "x": 1, "y": 21, "w": 7, "h": 9 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 34, "y": 18, "w": 5, "h": 7 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "hip": {
+    "frame": { "x": 1, "y": 31, "w": 10, "h": 6 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 28, "y": 33, "w": 8, "h": 4 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "right_foot": {
+    "frame": { "x": 1, "y": 38, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 26, "y": 53, "w": 3, "h": 1 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "right_shank": {
+    "frame": { "x": 24, "y": 23, "w": 5, "h": 12 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 26, "y": 43, "w": 3, "h": 10 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "right_thigh": {
+    "frame": { "x": 12, "y": 28, "w": 6, "h": 10 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 27, "y": 35, "w": 4, "h": 8 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "left_foot": {
+    "frame": { "x": 1, "y": 38, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 34, "y": 51, "w": 3, "h": 1 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "left_shank": {
+    "frame": { "x": 19, "y": 36, "w": 5, "h": 11 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 34, "y": 42, "w": 3, "h": 9 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "left_thigh": {
+    "frame": { "x": 21, "y": 11, "w": 6, "h": 11 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 34, "y": 34, "w": 4, "h": 9 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "body": {
+    "frame": { "x": 1, "y": 1, "w": 10, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 28, "y": 17, "w": 8, "h": 17 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "right_hand": {
+    "frame": { "x": 25, "y": 36, "w": 4, "h": 4 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 24, "y": 36, "w": 2, "h": 2 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "right_fore_arm": {
+    "frame": { "x": 12, "y": 14, "w": 5, "h": 13 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 24, "y": 25, "w": 3, "h": 11 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "right_upper_arm": {
+    "frame": { "x": 21, "y": 1, "w": 8, "h": 9 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 24, "y": 19, "w": 6, "h": 7 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "head": {
+    "frame": { "x": 12, "y": 1, "w": 8, "h": 12 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 29, "y": 8, "w": 6, "h": 10 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.21-dev",
+  "image": "daoshi_side.png",
+  "format": "RGBA8888",
+  "size": { "w": 29, "h": 47 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "daoshi" },
+   { "name": "hip", "group": "daoshi", "opacity": 255, "blendMode": "normal" },
+   { "name": "body", "group": "daoshi", "opacity": 255, "blendMode": "normal" },
+   { "name": "right_arm", "group": "daoshi" },
+   { "name": "right_hand", "group": "right_arm", "opacity": 255, "blendMode": "normal" },
+   { "name": "right_fore_arm", "group": "right_arm", "opacity": 255, "blendMode": "normal" },
+   { "name": "right_upper_arm", "group": "right_arm", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

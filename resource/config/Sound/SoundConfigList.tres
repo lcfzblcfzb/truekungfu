@@ -63,6 +63,7 @@ key_frame_time = 0.0
 [sub_resource type="Resource" id=9]
 script = ExtResource( 3 )
 id = 302
+sound_res = ExtResource( 11 )
 key_frame_time = 0.0
 
 [sub_resource type="Resource" id=10]

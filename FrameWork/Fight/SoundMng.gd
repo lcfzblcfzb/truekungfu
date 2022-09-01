@@ -18,7 +18,8 @@ func _on_FightActionMng_ActionStart(action:ActionInfo):
 	if sound_cfg:
 		var sound_key = sound_cfg.key_frame_time
 		var sound_res = sound_cfg.sound_res
-		
+		if sound_res==null:
+			print(base_action)
 		var audio_player = new_sound(sound_res,base_action.sound_channel)
 		
 		if action.action_duration_ms<0:

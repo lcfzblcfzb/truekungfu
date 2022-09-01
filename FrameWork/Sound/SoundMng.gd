@@ -5,7 +5,6 @@ const EnhancedAudioStreamPlayer2D =preload("res://FrameWork/Sound/EnhancedAudioS
 var channel_dict={}
 
 func new_sound(audio,channel,bus="Effect"):
-	
 	if channel_dict.has(channel):
 		
 		var audio_player =get_channel(channel) as EnhancedAudioStreamPlayer2D

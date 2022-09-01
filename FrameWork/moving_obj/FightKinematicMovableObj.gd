@@ -317,6 +317,8 @@ func _process_action(action:ActionInfo):
 		Glob.FightMotion.Run:
 			change_movable_state(input_vector,ActionState.Run)
 		Glob.FightMotion.Walk:
+			#防止跳到地上 按住上，会反复上下
+			input_vector.y = 0
 			change_movable_state(input_vector,ActionState.Walk)
 		Glob.FightMotion.Run2Idle:
 			change_movable_state(input_vector,ActionState.Run2Idle)
