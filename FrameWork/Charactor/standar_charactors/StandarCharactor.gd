@@ -113,8 +113,6 @@ func remove_gear(gear):
 	if idx>=0:
 		_gears_array.remove(idx)
 		remove_child(gear)
-		
-
 
 #加一个部位
 func add_to_body(slot_id:int, part , front = true):
