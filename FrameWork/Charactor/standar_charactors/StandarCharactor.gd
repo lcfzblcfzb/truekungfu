@@ -4,10 +4,20 @@ extends Node2D
 
 # Glob.CharactorEnum
 export (Glob.CharactorEnum) var charactor_type 
+
+#可以理解为关键帧
+export(int) var state setget set_state;
+
 #就是 SpriteAnimation 节点
 var animation_node
 # 数组
 var _gears_array:Array
+
+#用来设定一个固定状态，使所有部件保持某个位置
+enum CharactorState{
+	Peace=1,
+	Engaged=2
+}
 
 #身体部位的枚举
 enum CharactorBodySlotEnum{
@@ -83,8 +93,6 @@ func _get_active_weapon()->Weapon:
 	
 	return null
 
-#可以理解为关键帧
-export(int) var state setget set_state;
 
 func set_state(s):
 	state = s
@@ -93,27 +101,24 @@ func set_state(s):
 		part.to_state(s)
 	pass
 
-#用来设定一个固定状态，使所有部件保持某个位置
-enum CharactorState{
-	Peace=1,
-	Engaged=2
-	
-}
 
 #添加一个装备
-func add_gear(gear):
+func add_gear(gear:Gear):
 	if _gears_array.has(gear):
 		return
 	_gears_array.append(gear)
 	add_child(gear)
 	
+	gear.add_to_charactor()
 	
-func remove_gear(gear):
+func remove_gear(gear:Gear):
 	var idx =_gears_array.find(gear)   
 	if idx>=0:
 		_gears_array.remove(idx)
 		remove_child(gear)
-
+	
+	gear.remove_from_charactor()
+	
 #加一个部位
 func add_to_body(slot_id:int, part , front = true):
 	
@@ -122,6 +127,12 @@ func add_to_body(slot_id:int, part , front = true):
 		to_part.add_child(part)
 		if !front:
 			part.show_behind_parent = true
+#移除一个部位			
+func remove_from_body(slot_id,part):
+	
+	var to_part = get_body_part_by_id(slot_id)
+	if to_part:
+		to_part.remove_child(part)
 
 func get_hurt_box()->HurtBox:
 	return $hurt_box as HurtBox

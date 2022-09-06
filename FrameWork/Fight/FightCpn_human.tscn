@@ -464,6 +464,7 @@ collision_mask = 720
 script = ExtResource( 4 )
 is_player = true
 _learned_wuxue = [ 1, 2 ]
+chosed_characor = 300
 initial_gears = [ 602 ]
 
 [node name="FightKinematicMovableObj" parent="." instance=ExtResource( 7 )]

@@ -1,9 +1,22 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=22 format=2]
 
 [ext_resource path="res://resource/config/outfit/BaseGearList.gd" type="Script" id=1]
 [ext_resource path="res://resource/config/outfit/BaseGear.gd" type="Script" id=2]
 [ext_resource path="res://FrameWork/Gear/Weapon/Weapon_Fist.tscn" type="PackedScene" id=3]
 [ext_resource path="res://FrameWork/Gear/Weapon/Weapon_Jian.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiHead.tres" type="Resource" id=5]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiHip.tres" type="Resource" id=6]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiLeftForeArm.tres" type="Resource" id=7]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiBody.tres" type="Resource" id=8]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiRightThigh.tres" type="Resource" id=9]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiRightForeArm.tres" type="Resource" id=10]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiLeftUpperArm.tres" type="Resource" id=11]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiLeftThigh.tres" type="Resource" id=12]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiLeftShoe.tres" type="Resource" id=13]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiRightUpperArm.tres" type="Resource" id=14]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiLeftShank.tres" type="Resource" id=15]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiRightShank.tres" type="Resource" id=16]
+[ext_resource path="res://resource/config/outfit/GearParts/DaoshiRightShoe.tres" type="Resource" id=17]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
@@ -12,8 +25,8 @@ name = "fist"
 desc = "fist desc"
 slot = 6
 baseOutfitId = -1
-resources = [  ]
 scene = ExtResource( 3 )
+gear_parts = [  ]
 
 [sub_resource type="Resource" id=2]
 script = ExtResource( 2 )
@@ -22,8 +35,8 @@ name = "duandao"
 desc = "duandao desc"
 slot = 6
 baseOutfitId = 1001
-resources = [  ]
 scene = ExtResource( 4 )
+gear_parts = [  ]
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 2 )
@@ -32,9 +45,18 @@ name = "duanjian "
 desc = "duanjian desc"
 slot = 6
 baseOutfitId = 1001
-resources = [  ]
 scene = ExtResource( 4 )
+gear_parts = [  ]
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 2 )
+id = 100
+name = "daoshi cloth"
+desc = "daoshi cloth"
+slot = 2
+baseOutfitId = 3000
+gear_parts = [ ExtResource( 8 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 9 ), ExtResource( 14 ) ]
 
 [resource]
 script = ExtResource( 1 )
-list = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ]
+list = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ]

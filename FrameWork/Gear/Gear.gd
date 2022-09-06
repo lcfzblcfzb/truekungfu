@@ -9,6 +9,9 @@ var base_gear_id
 var _base_gear:BaseGear setget ,get_base_gear
 var fight_cpn setget set_fight_cpn ,get_fight_cpn
 
+#装备的所有部件:[Sprite]
+var _gear_parts =[]
+
 export(int) var state setget  to_state,get_state
 
 #init after ready func
@@ -17,8 +20,7 @@ func init(base_gear:BaseGear,fcpn):
 	self.fight_cpn = fcpn
 	self._base_gear = base_gear
 	self.base_gear_id = base_gear.id
-
-
+		
 func set_fight_cpn(f):
 	
 	fight_cpn = f
@@ -47,6 +49,37 @@ func to_state(s):
 
 func _on_to_state(_s):
 	pass
+
+#在此处，将装备的所有部件 装配成sprite 并添加到对应的 standar_charactor 槽位上
+func add_to_charactor():
+	
+	for gear_part in get_base_gear().gear_parts:
+		
+		#构建sprite对象，并设置图像资源
+		var sprite =  Sprite.new()
+		sprite.texture = gear_part.texture
+		
+		#设置z_index相关参数
+		sprite.z_as_relative =true
+		sprite.z_index = gear_part.z_index_default
+		sprite.offset = gear_part.offset
+		sprite.centered = false
+		#添加sprite到 charactor上
+		fight_cpn.get_standar_charactor().add_to_body(gear_part.part , sprite)
+		_gear_parts.append(sprite)
+		
+	on_add_to_charactor()
+
+#移除装备
+func remove_from_charactor():
+	#移除装备对应的组件
+	for sprite in _gear_parts:
+		fight_cpn.get_standar_charactor().remove_from_body(get_base_gear().slot , sprite)
+		sprite.queue_free()
+	_gear_parts.clear()
+	
+	on_remove_from_charactor()
+	
 #装备的回调方法
 func on_add_to_charactor():
 	pass

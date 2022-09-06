@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resource/config/outfit/BaseGearPart.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+part = 0
+z_index_default = 0
+offset = Vector2( 0, 0 )

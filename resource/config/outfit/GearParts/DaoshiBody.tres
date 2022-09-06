@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://resource/config/outfit/BaseGearPart.gd" type="Script" id=1]
+[ext_resource path="res://resource/Outfits/Gear/DaoshiBasic/cloth_body.tres" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+part = 40
+z_index_default = 0
+texture = ExtResource( 2 )
+offset = Vector2( -7, -18 )

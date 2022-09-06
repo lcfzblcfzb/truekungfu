@@ -3,6 +3,7 @@
 		"id":100,
 		"name":"Daoshi",
 		"skeletal_type":0,
+		"default_gear":100,
 		"attribute":{
 			"Block":100,
 			"BlockRegen":10,
@@ -48,6 +49,42 @@
 		"skeletal_type":1,
 		"attribute":{
 
+		}
+	},
+	{
+		"id":300,
+		"name":"NormalStandar",
+		"skeletal_type":1,
+		"default_gear":100,
+		"attribute":{
+			"Block":100,
+			"BlockRegen":10,
+			"Stamina":100,
+			"StaminaRegen":30,
+
+			"WalkSpeed":110,
+			"RunSpeed":200,
+			"JumpSpeed":350,
+			"RollSpeed":200,
+
+			"AttackCiDuration":0.3,
+			"AttackPiDuration":0.5,
+			"AttackSaoDuration":0.5,
+			"PreBlockDuration":0.1,
+			"PostBlockDuration":0.4,
+			"CancelDuration":1.0,
+			"RollingDuration":0.5,
+			"PrepareDuration":0.7,
+			"UnPrepareDuration":0.8,
+			"HoldingDuration":-1,
+
+			"BlockStamina" : 20,
+			"RollStamina" :40,
+			"RunStamina ":15,
+			"JumpStamina" :20,
+			"AttackCiStamina" :20,
+			"AttackPiStamina" :30,
+			"AttackSaoStamina" :40,
 		}
 	}
 ]

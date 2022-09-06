@@ -143,6 +143,8 @@ func _ready():
 	sprite_animation.choose_charactor(chosed_characor)	
 	#初始化属性
 	var baseCharactor = BaseStandarCharactorsDMG.get_by_id(chosed_characor)
+	#穿默认装备
+	equip_gear(baseCharactor.default_gear)
 	attribute_mng.init(baseCharactor)
 	#默认学会一个武学
 	init_wuxue([Glob.WuxueEnum.Sanjiaomao])
@@ -234,11 +236,14 @@ func equip_gear(base_gear_id):
 #	var base_gear = BaseGearDmg.get_by_id(base_gear_id) as BaseGear
 	
 	var base_gear = GlobVar.BaseGearConfig.get_by_id(base_gear_id) as BaseGear
-	var _gear = base_gear.scene.instance() as Gear
-	#TODO 忘记是做啥用的了
-	if base_gear.get("script_path")!=null:
-		var script =load(base_gear.get("script_path"))
-		_gear.set_script(script)
+	var _gear
+	
+	if base_gear.scene!=null:
+		_gear = base_gear.scene.instance() as Gear
+	else:
+		_gear = Gear.new()
+		
+	_gear.init(base_gear,self)
 	_add_to_gear_dict(_gear,base_gear)
 	
 #向gear dict 添加装备的工具方法
@@ -253,8 +258,6 @@ func _add_to_gear_dict(_gear:Gear,base_gear:BaseGear):
 	
 	sprite_animation.get_standar_charactor().add_gear(_gear)
 	
-	_gear.init(base_gear,self)
-	_gear.on_add_to_charactor()
 
 func _remove_from_gear_dict(_gear:Gear):
 	
@@ -265,7 +268,6 @@ func _remove_from_gear_dict(_gear:Gear):
 		
 	sprite_animation.get_standar_charactor().remove_gear(_gear)
 	
-	_gear.on_remove_from_charactor()
 	
 #func test_switch():
 #
@@ -351,10 +353,12 @@ func refresh_unpreparing_timer(sec=50):
 #当前角色朝向
 func is_face_left():
 	return fightKinematicMovableObj.charactor_face_direction.x<0
-
+#
 func get_animation_tree():
 	return $SpriteAnimation.get_coresponding_animation_tree()
-	pass
+#
+func get_standar_charactor():
+	return sprite_animation.get_standar_charactor()
 
 func _on_FightActionMng_ActionStart(action:ActionInfo):
 	

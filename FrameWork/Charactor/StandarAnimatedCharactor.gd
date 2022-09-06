@@ -4,6 +4,7 @@ extends Node2D
 var daoshi_scn = preload("res://FrameWork/Charactor/standar_charactors/DaoshiStandar.tscn")
 var rusheng_scn = preload("res://FrameWork/Charactor/standar_charactors/RushengStandar.tscn")
 var fatguy_scn = preload("res://FrameWork/Charactor/standar_charactors/FatGuy.tscn")
+var normal_standar = preload("res://FrameWork/Charactor/standar_charactors/NormalStandar.tscn")
 
 onready var charactor_scene:StandarCharactor = $standar_charactor
 
@@ -86,6 +87,12 @@ func choose_charactor(c,animation_node):
 			
 		Glob.CharactorEnum.Fatguy:
 			charactor_scene = fatguy_scn.instance()
+			charactor_scene.set("animation_node",animation_node)
+			charactor_scene.charactor_type = c
+			add_child(charactor_scene)
+			
+		Glob.CharactorEnum.NormalStandar:
+			charactor_scene = normal_standar.instance()
 			charactor_scene.set("animation_node",animation_node)
 			charactor_scene.charactor_type = c
 			add_child(charactor_scene)

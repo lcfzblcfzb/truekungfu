@@ -80,9 +80,12 @@ enum CharactorEnum{
 	Daoshi=100,
 	Rusheng=101,
 	Fatguy=200,
+	NormalStandar = 300
 }
 #装备枚举（base_id)
 enum GearEnum{
+	
+	DaoshiCloth = 100
 	
 	Fist = 600,
 	DuanDao=601,
@@ -141,6 +144,7 @@ enum BaseOutfitType{
 	
 	Healing = 2000
 	
+	DaoshiCloth = 3000
 }
 
 

@@ -18,7 +18,7 @@ func _init():
 
 func init(base_gear:BaseGear,fcpn:FightComponent_human):
 	.init(base_gear,fcpn)
-	var size = base_gear.resources.size()
+	var size = base_gear.gear_parts.size()
 	
 	if size>=2:
 		sword_right_hand.texture = base_gear.resources[0]
